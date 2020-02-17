@@ -1,32 +1,3 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-//
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-//
-// export default App;
-//
-//
-//
 /* New cleaned up version of App.js */
 import React from 'react';
 
@@ -44,7 +15,8 @@ class App extends React.Component {
     // a 'global' state that you can pass through to any child componenets of App.
     //   In the Routes below they are passed to both the Home and Queue states.
     state = {
-        abc: "123"
+        community: "community",
+        profile: "profile"
     }
 
     render() {
