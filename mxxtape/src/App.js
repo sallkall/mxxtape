@@ -1,4 +1,3 @@
-/* New cleaned up version of App.js */
 import React from 'react';
 
 // Importing react-router-dom to use the React Router
