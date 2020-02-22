@@ -1,8 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Importing react-router-dom to use the React Router
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
+import 'antd/dist/antd.css';
+
 
 // Importing the Queue and our simple Home Page
 import Community from './react-components/Community/Admin';
