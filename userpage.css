@@ -1,0 +1,103 @@
+/* Style the header */
+.header {
+  /*padding: 10px 16px;*/
+  background: #FF0000;
+  position: fixed;
+  top: 0;
+  width: 99%;
+  height: 40px;
+  border-radius: 0px 0px 10px 10px;
+}
+
+#searchBar {
+	width: 40%;
+	height: 20px;
+	margin-left: 20%;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+#userDropdownIcon {
+	width: 20px;
+	cursor: pointer;
+	float: right;
+	margin-right: 50px;
+	border-radius: 50%;
+	margin-top: 5px;
+}
+#userMenu {
+	float: right;
+	margin-right: 1%;
+	margin-top: 25px;
+	background: #0000FF;
+	display: none;
+}
+
+#userSidebar {
+	float: left;
+	margin-left: 0px;
+	margin-top: 30px;
+	height: 500px;
+	width: 200px;
+	background: #00FF00;
+	border-radius: 10px;
+}
+#userSidebarGreeting {
+	margin-left: 10px;
+}
+#userSidebarIcon {
+	width: 180px;
+	margin-left: 10px;
+}
+
+#featuredDiv {
+	float: left;
+	margin-left: 50px;
+	margin-top: 30px;
+	width: 250px;
+	height: 400px;
+	background: #DDDDDD;
+	border-radius: 10px;
+}
+#featuredLabel {
+	margin-left: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+#featuredImage {
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 230px;
+	height: 230px;
+	object-fit: cover;
+	border-radius: 10px;
+}
+#featuredAudio {
+	width: 230px;
+	margin-left: 10px;
+}
+
+#historyDiv {
+	float: left;
+	margin-left: 50px;
+	margin-top: 30px;
+	width: 250px;
+	height: 400px;
+	background: #DDDDDD;
+	border-radius: 10px;
+}
+#historyLabel {
+	margin-left: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+.historyAudio {
+	width: 230px;
+	margin-left: 10px;
+	height: 20px;
+}
+.historySongName {
+	margin-left: 10px;
+	font-size: 15px;
+	height: 10px;
+}
