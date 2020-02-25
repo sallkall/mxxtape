@@ -18,7 +18,8 @@ class App extends React.Component {
     //   In the Routes below they are passed to both the Home and Queue states.
     state = {
         community: "community",
-        profile: "profile"
+        profile: "profile",
+        dashboard: "dashboard"
     }
 
     render() {
