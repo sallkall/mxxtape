@@ -1,0 +1,65 @@
+.content {
+    padding: 0 50px;
+}
+
+.header {
+    background: AliceBlue;
+    height: 200px;
+    position: relative;
+}
+
+#header_container {
+    margin-bottom: 30px;
+}
+
+.header_avatar {
+    color: white;
+    background-color: #90c9e8;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 30px;
+    margin-left: 80px;
+}
+
+#header_h1 {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 30px;
+    margin-left: 200px;
+    width: 200px;
+}
+
+.header_join_button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 30px;
+    margin-right: 30px;
+}
+
+.breadcrumb {
+    margin: 16px 0;
+}
+
+.feed_container {
+    padding: 24px 0;
+    background-color: white;
+}
+.feed_content {
+    padding: 0 24px;
+    position: relative;
+    min-height: 280px;
+}
+
+#new_post_button {
+    position: absolute;
+    right: 0;
+    margin-right: 100px;
+}
+
+.posts {
+    position: absolute;
+    margin-top: 30px;
+    margin-right: 100px;
+}
+

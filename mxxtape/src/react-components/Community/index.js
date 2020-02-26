@@ -33,75 +33,41 @@ class Community extends React.Component {
         return (
             <Layout>
                 <Nav/>
-                <Content style={{padding: '0 50px'}}>
-                    <div className="header"
-                         style={{
-                             background: 'AliceBlue',
-                             height: '200px',
-                             position: 'relative',
-                         }}>
-                        <div style={{
-                            // marginBottom: '30px',
-                        }}><Avatar
-                            icon="book"
-                            size={100}
-                            style={{
-                                color: '#fff',
-                                backgroundColor: '#90c9e8',
-                                position: 'absolute',
-                                bottom: '0',
-                                marginBottom: '30px',
-                                marginLeft: '80px',
-                            }}>
-                        </Avatar>
-                            <h1 style={{
-                                position: 'absolute',
-                                bottom: '0',
-                                marginBottom: '30px',
-                                marginLeft: '200px',
-                                width: '10px'
-                            }}
-                            >Study Music</h1>
+                <Content className="content">
+                    <div className="header">
+                        <div id="header_container">
+                            <Avatar
+                                className="header_avatar"
+                                icon="book"
+                                size={80}
+                                >
+                            </Avatar>
+                            <h1 id="header_h1">Study Music</h1>
                         </div>
                         <Button
+                            className="header_join_button"
                             onClick={() => this.joinCommunity()}
                             size='large'
-                            style={{
-                                position: 'absolute',
-                                bottom: '0',
-                                right: '0',
-                                marginBottom: '30px',
-                                marginRight: '30px',
-                            }}
-                        > Join Community<Icon type={join_button} theme="twoTone" />
+                        > Join Community<Icon type={join_button} theme="twoTone"/>
                         </Button>
                     </div>
                 </Content>
-                <Content style={{padding: '0 50px'}}>
-                    <Breadcrumb style={{margin: '16px 0'}}>
+                <Content className="content">
+                    <Breadcrumb className="breadcrumb">
                         <Breadcrumb.Item>Community</Breadcrumb.Item>
                         <Breadcrumb.Item>Study Music</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Layout style={{padding: '24px 0', background: '#fff'}}>
-                        <Content style={{padding: '0 24px', minHeight: 280, position: 'relative',
-                        }}>
+                    <Layout className="feed_container">
+                        <Content className="feed_content">
                             Feed
-                            <div style={{
-                                position: 'absolute',
-                                right: '0px',
-                                marginRight: '100px',}}
-                            >
+                            <div id="new_post_button">
                                 <NewPost/>
                             </div>
-                            <div style={{
-                                position: 'absolute',
-                                marginTop: '30px',
-                                marginRight: '100px',}}
-                            >
+                            <div className="posts">
                                 <TextPost/>
                             </div>
                         </Content>
-                        <Sider width={200} style={{background: '#fff'}}>
+                        <Sider width={200} >
                             <Menu
                                 mode="inline"
                                 defaultSelectedKeys={['1']}
