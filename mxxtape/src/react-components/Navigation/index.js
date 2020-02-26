@@ -10,11 +10,8 @@ const {SubMenu} = Menu;
 const {Search} = Input;
 
 class Nav extends React.Component {
-    constuctor() {
-        this.routeChange = this.routeChange.bind(this);
-    }
     state = {
-        current: 'mail',
+        current: 'menu_dashboard',
     };
 
     handleSearch(inputValue) {
@@ -26,7 +23,11 @@ class Nav extends React.Component {
     render() {
         return (
             <Router>
-                <Menu selectedKeys={[this.state.current]} mode="horizontal">
+                <Menu
+                    selectedKeys={[this.state.current]}
+                    mode="horizontal"
+                    style={{ lineHeight: '50px' }}
+                >
                     {/*<Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">*/}
                     <Menu.Item className='menu_search' key="search">
                         <Search
