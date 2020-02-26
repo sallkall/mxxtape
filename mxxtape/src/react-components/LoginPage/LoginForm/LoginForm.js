@@ -3,17 +3,39 @@ import './LoginForm.css'
 
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import ReactDOM from 'react-dom';
+import {BrowserRouter, Link} from "react-router-dom";
 
 class LoginForm extends React.Component {
+
+    state = {
+        validated: false
+    };
+
+    // handleClick = e =>{
+    //     this.props.form.validateFields((err, values) => {
+    //         if (!err) {
+    //             console.log("Received values of form: ", values);
+    //             if (values.username === 'user' && values.password ==='user'){
+    //                 this.state.validated = true
+    //                 console.log("user validated", this.state.validated)
+    //             } else {
+    //                 console.log("incorrect username and password", this.state.validated)
+    //             }
+    //         }
+    //     });
+    //     // setTimeout(window.location.reload(), 1000)
+    // }
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
                 if (values.username === 'user' && values.password ==='user'){
-                    console.log("user validated")
+                    this.state.validated = true
+                    console.log("user validated", this.state.validated)
                 } else {
-                    console.log("incorrect username and password")
+                    console.log("incorrect username and password", this.state.validated)
                 }
             }
         });
@@ -57,8 +79,10 @@ class LoginForm extends React.Component {
                             type="primary"
                             htmlType="submit"
                             className="login-form-button"
+                            onClick={this.handleClick}
                         >
-                            Log in
+                            <BrowserRouter><Link to={this.state.validated?"/":"/login"} >Log in</Link></BrowserRouter>
+                            {/*Login*/}
                         </Button>
                         Or <a href="">Register now!</a>
                     </Form.Item>

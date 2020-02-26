@@ -15,7 +15,7 @@ class Nav extends React.Component {
     };
 
     handleSearch(inputValue) {
-        console.log('searching: ', inputValue)
+        console.log('searching: ', inputValue);
         const community_name = "/community/" + inputValue;
         this.props.history.push(community_name);
     };
@@ -26,7 +26,7 @@ class Nav extends React.Component {
                 <Menu
                     selectedKeys={[this.state.current]}
                     mode="horizontal"
-                    style={{ lineHeight: '50px' }}
+                    style={{lineHeight: '50px'}}
                 >
                     {/*<Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">*/}
                     <Menu.Item className='menu_search' key="search">
@@ -37,19 +37,19 @@ class Nav extends React.Component {
                         />
                     </Menu.Item>
                     <Menu.Item className='menu_dashboard' key="menu_dashboard">
-                        <Link to="/"><Icon type="compass" theme="twoTone" /> Dashboard </Link>
+                        <Link to="/"><Icon type="compass" theme="twoTone"/> Dashboard </Link>
                     </Menu.Item>
                     <Menu.Item className='menu_community' key="menu_community">
-                        <Link to="/community"><Icon type="bank" theme="twoTone" /> Community </Link>
+                        <Link to="/community"><Icon type="bank" theme="twoTone"/> Community </Link>
                     </Menu.Item>
 
                     <SubMenu
                         className='menu_sub'
                         title={
                             <span className="dropdown_menu">
-             <Icon type="meh" theme="twoTone" />
-              Profile
-            </span>
+                                <Icon type="meh" theme="twoTone"/>
+                                Profile
+                            </span>
                         }
                     >
                         <Menu.ItemGroup title="User">
@@ -58,7 +58,7 @@ class Nav extends React.Component {
                         </Menu.ItemGroup>
                         <Menu.ItemGroup title="Settings">
                             <Menu.Item key="setting:3">Account Settings</Menu.Item>
-                            <Menu.Item key="setting:4"><b>Logout</b></Menu.Item>
+                            <Menu.Item key="setting:4"><Link to="/login">Logout</Link></Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
                 </Menu>

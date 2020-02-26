@@ -22,7 +22,7 @@ class App extends React.Component {
         profile: "profile",
         dashboard: "dashboard",
         loggedIn: false
-    }
+    };
 
     render() {
         return (
@@ -36,8 +36,9 @@ class App extends React.Component {
                     (<Community state={this.state}/>)}/>
                 <Route exact path='/profile' render={() =>
                     (<Profile state={this.state}/>)}/>
-                <Route exact path='/login' render={()=>
-                    (<LoginPage state={this.state}/>)}/>
+                {/*<Route exact path='/login' render={()=>*/}
+                {/*    (<LoginPage state={this.state}/>)}/>*/}
+                <Route exact path='/login' ><LoginPage state={this.state}/></Route>
             </Switch>
             </BrowserRouter>
             </div>
