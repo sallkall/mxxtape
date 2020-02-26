@@ -1,0 +1,20 @@
+.ratings {
+    color: lightskyblue;
+}
+
+.music_display {
+    /*width: 30px;*/
+    /*height: 100px;*/
+}
+
+.form_layout {
+    background: none;
+}
+
+.post_sider {
+    background: none;
+    padding: 42px 24px;
+}
+.music_display {
+    padding: 0 24px;
+}
