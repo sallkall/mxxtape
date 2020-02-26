@@ -4,7 +4,7 @@ import {Link, BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./styles.css";
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import {Menu, Icon, Input, Layout} from 'antd';
+import {Menu, Icon, Input} from 'antd';
 
 const {SubMenu} = Menu;
 const {Search} = Input;
@@ -18,6 +18,11 @@ class Nav extends React.Component {
         console.log('searching: ', inputValue);
         const community_name = "/community/" + inputValue;
         this.props.history.push(community_name);
+    };
+
+    redirect(addr) {
+        console.log(addr);
+        this.props.history.push(addr);
     };
 
     render() {
@@ -36,11 +41,15 @@ class Nav extends React.Component {
                             onSearch={value => this.handleSearch(value)}
                         />
                     </Menu.Item>
-                    <Menu.Item className='menu_dashboard' key="menu_dashboard">
-                        <Link to="/"><Icon type="compass" theme="twoTone"/> Dashboard </Link>
+                    <Menu.Item className='menu_dashboard'
+                               key="menu_dashboard"
+                               onClick={() => this.redirect('/')}>
+                        <Link to="/"><Icon type="compass" theme="twoTone" /> Dashboard </Link>
                     </Menu.Item>
-                    <Menu.Item className='menu_community' key="menu_community">
-                        <Link to="/community"><Icon type="bank" theme="twoTone"/> Community </Link>
+                    <Menu.Item className='menu_community'
+                               key="menu_community"
+                               onClick={() => this.redirect('/community')}>
+                        <Link to="/community"><Icon type="bank" theme="twoTone" /> Community </Link>
                     </Menu.Item>
 
                     <SubMenu
