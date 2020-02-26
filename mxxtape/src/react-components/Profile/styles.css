@@ -1,0 +1,112 @@
+
+
+p {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+p.bigText {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#userSidebar {
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    height: 650px;
+    width: 250px;
+    background: #DDDDDD;
+    border-radius: 10px;
+}
+#userSidebarIcon {
+    width: 230px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+#userSidebarDiv {
+    margin: 10px;
+    width: 230px;
+    height: 340px;
+    background: #CCCCCC;
+    border-radius: 10px;
+}
+#userSidebarSongImage {
+    margin-left: 10px;
+    width: 210px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+#userSidebarAudio {
+    margin-left: 10px;
+    width: 210px;
+    height: 30px;
+}
+
+
+
+#featuredDiv {
+    float: left;
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 400px;
+    height: 550px;
+    background: #DDDDDD;
+    border-radius: 10px;
+}
+#featuredImage {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 380px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+#featuredAudio {
+    width: 380px;
+    margin-left: 10px;
+}
+
+
+
+#historyDiv {
+    float: left;
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 600px;
+    height: 550px;
+    background: #DDDDDD;
+    border-radius: 10px;
+}
+.historyDiv {
+    float: left;
+    width: 580px;
+    height: 70px;
+    margin: 10px;
+    background: #CCCCCC;
+    border-radius: 10px;
+}
+.historyImage {
+    float: left;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.historyAudio {
+    width: 490px;
+    margin-left: 10px;
+    height: 20px;
+}
+.historySongName {
+    margin-left: 80px;
+    font-size: 15px;
+    height: 10px;
+}
+.historyButton {
+    display: table;
+    margin: 0 auto;
+}
