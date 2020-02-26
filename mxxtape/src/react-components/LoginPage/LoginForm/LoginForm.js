@@ -11,21 +11,6 @@ class LoginForm extends React.Component {
         validated: false
     };
 
-    // handleClick = e =>{
-    //     this.props.form.validateFields((err, values) => {
-    //         if (!err) {
-    //             console.log("Received values of form: ", values);
-    //             if (values.username === 'user' && values.password ==='user'){
-    //                 this.state.validated = true
-    //                 console.log("user validated", this.state.validated)
-    //             } else {
-    //                 console.log("incorrect username and password", this.state.validated)
-    //             }
-    //         }
-    //     });
-    //     // setTimeout(window.location.reload(), 1000)
-    // }
-
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
