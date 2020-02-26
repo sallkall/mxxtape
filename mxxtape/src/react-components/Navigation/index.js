@@ -67,7 +67,7 @@ class Nav extends React.Component {
                         </Menu.ItemGroup>
                         <Menu.ItemGroup title="Settings">
                             <Menu.Item key="setting:3">Account Settings</Menu.Item>
-                            <Menu.Item key="setting:4"><Link to="/login">Logout</Link></Menu.Item>
+                            <Menu.Item key="setting:4" onClick={() => this.redirect('/login')}>Logout</Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
                 </Menu>
