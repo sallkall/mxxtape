@@ -26,11 +26,6 @@ class LoginForm extends React.Component {
         });
     };
 
-    // redirect(addr) {
-    //     console.log(addr);
-    //     this.props.history.push(addr);
-    // };
-
     render() {
         const {getFieldDecorator} = this.props.form;
 
