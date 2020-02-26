@@ -11,6 +11,7 @@ import 'antd/dist/antd.css';
 import Community from './react-components/Community/Admin';
 import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile'
+import LoginPage from './react-components/LoginPage'
 
 class App extends React.Component {
 
@@ -19,7 +20,8 @@ class App extends React.Component {
     state = {
         community: "community",
         profile: "profile",
-        dashboard: "dashboard"
+        dashboard: "dashboard",
+        loggedIn: false
     }
 
     render() {
@@ -34,6 +36,8 @@ class App extends React.Component {
                     (<Community state={this.state}/>)}/>
                 <Route exact path='/profile' render={() =>
                     (<Profile state={this.state}/>)}/>
+                <Route exact path='/login' render={()=>
+                    (<LoginPage state={this.state}/>)}/>
             </Switch>
             </BrowserRouter>
             </div>
