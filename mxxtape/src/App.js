@@ -8,7 +8,7 @@ import 'antd/dist/antd.css';
 
 
 // Importing the Queue and our simple Home Page
-import Community from './react-components/Community/Admin';
+import Community from './react-components/Community';
 import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile'
 

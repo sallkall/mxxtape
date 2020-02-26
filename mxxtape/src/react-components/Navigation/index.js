@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, BrowserRouter as Router} from "react-router-dom";
+import {Link, BrowserRouter as Router, withRouter} from "react-router-dom";
 
 import "./styles.css";
 import ReactDOM from 'react-dom';
@@ -10,27 +10,17 @@ const {SubMenu} = Menu;
 const {Search} = Input;
 
 class Nav extends React.Component {
-
-
+    constuctor() {
+        this.routeChange = this.routeChange.bind(this);
+    }
     state = {
         current: 'mail',
     };
 
-    // handleClick = e => {
-    //     console.log('click ', e);
-    //     this.setState({
-    //         current: e.key,
-    //     });
-    // };
-
     handleSearch(inputValue) {
         console.log('searching: ', inputValue)
         const community_name = "/community/" + inputValue;
-        return (
-            <Router>
-                <Link to={community_name}> Dashboard </Link>
-            </Router>
-        )
+        this.props.history.push(community_name);
     };
 
     render() {
@@ -40,6 +30,7 @@ class Nav extends React.Component {
                     {/*<Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">*/}
                     <Menu.Item className='menu_search' key="search">
                         <Search
+                            defaultValue="Search for a Community"
                             placeholder="input search text"
                             onSearch={value => this.handleSearch(value)}
                         />
@@ -77,4 +68,4 @@ class Nav extends React.Component {
 
 ReactDOM.render(<Nav/>, document.getElementById('root'));
 
-export default Nav;
+export default withRouter(Nav);
