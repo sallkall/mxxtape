@@ -3,6 +3,9 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 import Nav from "../Navigation";
+import NewPost from "./NewPost"
+import TextPost from "./TextPost"
+
 
 import {Layout, Menu, Breadcrumb, Icon, Avatar, Button} from 'antd';
 
@@ -16,7 +19,17 @@ class Community extends React.Component {
     //     console.log(props);
     // }
 
+    state = {
+        isMember: false,
+    }
+
+    joinCommunity() {
+        this.setState({isMember: !this.state.isMember})
+    }
+
     render() {
+        let join_button = this.state.isMember ? "minus-square" : "plus-square";
+
         return (
             <Layout>
                 <Nav/>
@@ -28,7 +41,7 @@ class Community extends React.Component {
                              position: 'relative',
                          }}>
                         <div style={{
-                            marginBottom: '30px',
+                            // marginBottom: '30px',
                         }}><Avatar
                             icon="book"
                             size={100}
@@ -51,7 +64,7 @@ class Community extends React.Component {
                             >Study Music</h1>
                         </div>
                         <Button
-                            // type="primary"
+                            onClick={() => this.joinCommunity()}
                             size='large'
                             style={{
                                 position: 'absolute',
@@ -60,17 +73,34 @@ class Community extends React.Component {
                                 marginBottom: '30px',
                                 marginRight: '30px',
                             }}
-                        > Join Community<Icon type="plus-square" theme="twoTone" />
+                        > Join Community<Icon type={join_button} theme="twoTone" />
                         </Button>
                     </div>
                 </Content>
                 <Content style={{padding: '0 50px'}}>
                     <Breadcrumb style={{margin: '16px 0'}}>
                         <Breadcrumb.Item>Community</Breadcrumb.Item>
-                        <Breadcrumb.Item>Chopin</Breadcrumb.Item>
+                        <Breadcrumb.Item>Study Music</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{padding: '24px 0', background: '#fff'}}>
-                        <Content style={{padding: '0 24px', minHeight: 280}}>Content</Content>
+                        <Content style={{padding: '0 24px', minHeight: 280, position: 'relative',
+                        }}>
+                            Feed
+                            <div style={{
+                                position: 'absolute',
+                                right: '0px',
+                                marginRight: '100px',}}
+                            >
+                                <NewPost/>
+                            </div>
+                            <div style={{
+                                position: 'absolute',
+                                marginTop: '30px',
+                                marginRight: '100px',}}
+                            >
+                                <TextPost/>
+                            </div>
+                        </Content>
                         <Sider width={200} style={{background: '#fff'}}>
                             <Menu
                                 mode="inline"
