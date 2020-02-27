@@ -15,7 +15,7 @@ import LoginPage from './react-components/LoginPage'
 
 class App extends React.Component {
 
-    // a 'global' state that you can pass through to any child componenets of App.
+    // a 'global' state that you can pass through to any child components of App.
     //   In the Routes below they are passed to both the Home and Queue states.
     state = {
         community: "community",
@@ -36,9 +36,9 @@ class App extends React.Component {
                     (<Community state={this.state}/>)}/>
                 <Route exact path='/profile' render={() =>
                     (<Profile state={this.state}/>)}/>
-                {/*<Route exact path='/login' render={()=>*/}
-                {/*    (<LoginPage state={this.state}/>)}/>*/}
-                <Route exact path='/login' ><LoginPage state={this.state}/></Route>
+                <Route exact path='/login' render={()=>
+                    (<LoginPage state={this.state}/>)}/>
+                {/*<Route exact path='/login' ><LoginPage state={this.state}/></Route>*/}
             </Switch>
             </BrowserRouter>
             </div>

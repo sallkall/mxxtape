@@ -28,7 +28,7 @@ class Nav extends React.Component {
     render() {
         return (
             <Router>
-                <Menu
+                <Menu 
                     selectedKeys={[this.state.current]}
                     mode="horizontal"
                     style={{lineHeight: '50px'}}
