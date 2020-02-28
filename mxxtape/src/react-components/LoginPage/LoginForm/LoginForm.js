@@ -45,8 +45,9 @@ class LoginForm extends React.Component {
         });
     };
 
-    handleRegister = () => {
-        this.props.history.push("/register");
+    handleRedirect = (addr) => {
+        console.log("/" + addr);
+        this.props.history.push("/" + addr);
     };
 
     render() {
@@ -77,13 +78,6 @@ class LoginForm extends React.Component {
                         )}
                     </Form.Item>
                     <Form.Item>
-                        {/*{getFieldDecorator("remember", {*/}
-                        {/*    valuePropName: "checked",*/}
-                        {/*    initialValue: true*/}
-                        {/*})(<Checkbox>Remember me</Checkbox>)}*/}
-                        {/*<a className="login-form-forgot">*/}
-                        {/*    Forgot password*/}
-                        {/*</a>*/}
                         <Button
                             type="primary"
                             htmlType="submit"
@@ -96,14 +90,19 @@ class LoginForm extends React.Component {
                         <Button
                             className="login-form-register"
                             type = "link"
-                            onClick={() => {console.log("/register"); this.props.history.push("/register");} }
+                            onClick={() => {
+                                this.handleRedirect("register");
+                                }
+                            }
                         >
                             Register now!
                         </Button>
                         <Button
                             className="login-form-forgot"
                             type="link"
-                            onClick={() => {console.log("/forgot"); this.props.history.push("/forgot");} }
+                            onClick={() => {
+                                this.handleRedirect("password")}
+                            }
                         >
                             Forgot password
                         </Button>
