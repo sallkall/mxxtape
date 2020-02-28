@@ -1,7 +1,7 @@
 import React from "react";
 import './LoginForm.css'
 
-import {Form, Icon, Input, Button, Checkbox} from "antd";
+import {Form, Icon, Input, Button, Checkbox, message} from "antd";
 import ReactDOM from 'react-dom';
 import Redirect from "react-router-dom/es/Redirect";
 
@@ -17,10 +17,12 @@ class LoginForm extends React.Component {
             if (!err) {
                 console.log("Received values of form: ", values);
                 if (values.username === 'user' && values.password === 'user') {
-                    this.state.validated = true
-                    console.log("user validated", this.state.validated)
+                    this.state.validated = true;
+                    console.log("user validated", this.state.validated);
+                    message.success('Login Successful! Welcome ' + values.username);
                 } else {
-                    console.log("incorrect username and password", this.state.validated)
+                    console.log("incorrect username and password", this.state.validated);
+                    message.error('Incorrect username or password');
                 }
             }
         });
