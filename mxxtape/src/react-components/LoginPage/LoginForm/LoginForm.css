@@ -8,3 +8,6 @@
 .login-form-button {
     width: 100%;
 }
+.login-form-register {
+    float: left;
+}

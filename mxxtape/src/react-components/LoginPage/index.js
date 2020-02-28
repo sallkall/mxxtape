@@ -21,9 +21,9 @@ class LoginPage extends React.Component {
                 <div className="Login">
                     <div className="login-form">
                         <br/><br/><br/><br/><br/>
-                        <h3>
+                        <h2>
                             Login
-                        </h3>
+                        </h2>
                         <NormalLoginForm
                             handleLoggedIn={state.handleLoggedIn}
                             loggedIn={state.loggedIn}

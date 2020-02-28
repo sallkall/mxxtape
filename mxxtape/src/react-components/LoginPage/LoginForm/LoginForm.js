@@ -1,7 +1,8 @@
 import React from "react";
 import './LoginForm.css'
 
-import {Form, Icon, Input, Button, Checkbox, message} from "antd";
+// import {Form, Icon, Input, Button, Checkbox, message} from "antd";
+import {Form, Icon, Input, Button, message} from "antd";
 
 class LoginForm extends React.Component {
 
@@ -73,13 +74,13 @@ class LoginForm extends React.Component {
                         )}
                     </Form.Item>
                     <Form.Item>
-                        {getFieldDecorator("remember", {
-                            valuePropName: "checked",
-                            initialValue: true
-                        })(<Checkbox>Remember me</Checkbox>)}
-                        <a className="login-form-forgot">
-                            Forgot password
-                        </a>
+                        {/*{getFieldDecorator("remember", {*/}
+                        {/*    valuePropName: "checked",*/}
+                        {/*    initialValue: true*/}
+                        {/*})(<Checkbox>Remember me</Checkbox>)}*/}
+                        {/*<a className="login-form-forgot">*/}
+                        {/*    Forgot password*/}
+                        {/*</a>*/}
                         <Button
                             type="primary"
                             htmlType="submit"
@@ -89,7 +90,20 @@ class LoginForm extends React.Component {
                         >
                             Log In
                         </Button>
-                        Or <a>Register now!</a>
+                        <Button
+                            className="login-form-register"
+                            type = "link"
+                            onclick={() => {} }
+                        >
+                            Register now!
+                        </Button>
+                        <Button
+                            className="login-form-forgot"
+                            type="link"
+                            onclick={() => {} }
+                        >
+                            Forgot password
+                        </Button>
                     </Form.Item>
                 </Form>
             </div>
