@@ -26,12 +26,8 @@ class Nav extends React.Component {
         this.props.history.push(addr);
     };
 
-    handleLogout() {
-        // ReactDOM.render(<App loggedIn={-1}/>, document.getElementById('root'));
-        this.redirect('/login')
-    }
-
     render() {
+        const {state} = this.props;
         return (
             <Router>
                 <Menu 
@@ -76,7 +72,7 @@ class Nav extends React.Component {
                             <Menu.Item
                                 key="setting:4"
                                 onClick={ () => {
-                                    this.handleLogout();
+                                    state.handleLogOut();
                                 }}
                             >
                                 Logout

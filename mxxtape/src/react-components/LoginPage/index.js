@@ -7,11 +7,8 @@ import { Redirect } from "react-router-dom";
 
 class LoginPage extends React.Component {
 
-    renderLogin = () => {
-    }
-
     render() {
-        const {state, handleLoggedIn} = this.props;
+        const {state} = this.props;
 
         const NormalLoginForm = Form.create({ name: "normal_login"})(
             LoginForm
@@ -28,17 +25,13 @@ class LoginPage extends React.Component {
                             Login
                         </h3>
                         <NormalLoginForm
-                            handleLoggedIn={handleLoggedIn}
+                            handleLoggedIn={state.handleLoggedIn}
                             loggedIn={state.loggedIn}
                         />
                     </div>
                 </div>
             )
         }
-
-        // return (
-        //     setTimeout(this.renderLogin(), 1000)
-        // );
     }
 }
 export default LoginPage;
