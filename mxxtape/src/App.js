@@ -21,6 +21,8 @@ class App extends React.Component {
         community: "community",
         profile: "profile",
         dashboard: "dashboard",
+        //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
+        //will eventually be replaced with a user's information in login
         loggedIn: -1,
         handleLoggedIn: (val) => {
             console.log("handleLogin", val);

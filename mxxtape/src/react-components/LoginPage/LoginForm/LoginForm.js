@@ -21,8 +21,11 @@ class LoginForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                //Code below requires server calls to check if values.username is a valid username
+                //and if values.password is a valid password for this user
                 if (values.username === 'user' && values.password === 'user') {
                     this.setState(
+                        //Server call needed: loggedIn will eventually require user's information instead of 1 or 2
                         {loggedIn: 1},
                         () => {
                             console.log("user loggedIn", this.state.loggedIn);
