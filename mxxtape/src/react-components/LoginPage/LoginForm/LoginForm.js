@@ -82,8 +82,7 @@ class LoginForm extends React.Component {
                             type="primary"
                             htmlType="submit"
                             className="login-form-button"
-                            onClick={ () => setTimeout(handleLoggedIn(this.state.loggedIn), 100)
-                                }
+                            onSubmit={ setTimeout(handleLoggedIn(this.state.loggedIn), 2000) }
                         >
                             Log In
                         </Button>
