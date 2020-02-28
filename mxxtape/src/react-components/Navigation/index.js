@@ -5,7 +5,6 @@ import "./styles.css";
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Menu, Icon, Input} from 'antd';
-import App from "../../App";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
