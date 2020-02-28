@@ -5,6 +5,7 @@ import "./styles.css";
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Menu, Icon, Input} from 'antd';
+import App from "../../App";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
@@ -24,6 +25,11 @@ class Nav extends React.Component {
         console.log(addr);
         this.props.history.push(addr);
     };
+
+    handleLogout() {
+        // ReactDOM.render(<App loggedIn={-1}/>, document.getElementById('root'));
+        this.redirect('/login')
+    }
 
     render() {
         return (
@@ -67,7 +73,14 @@ class Nav extends React.Component {
                         </Menu.ItemGroup>
                         <Menu.ItemGroup title="Settings">
                             <Menu.Item key="setting:3">Account Settings</Menu.Item>
-                            <Menu.Item key="setting:4" onClick={() => this.redirect('/login')}>Logout</Menu.Item>
+                            <Menu.Item
+                                key="setting:4"
+                                onClick={ () => {
+                                    this.handleLogout();
+                                }}
+                            >
+                                Logout
+                            </Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
                 </Menu>
