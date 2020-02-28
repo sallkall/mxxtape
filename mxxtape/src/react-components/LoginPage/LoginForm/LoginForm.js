@@ -3,13 +3,19 @@ import './LoginForm.css'
 
 import {Form, Icon, Input, Button, Checkbox, message} from "antd";
 import ReactDOM from 'react-dom';
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 class LoginForm extends React.Component {
 
-    state = {
-        validated: false
-    };
+    constructor(props) {
+        super(props);
+        console.log("Construct Login Form", props);
+        this.state = {
+            loggedIn: -1
+        };
+
+    }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -17,11 +23,13 @@ class LoginForm extends React.Component {
             if (!err) {
                 console.log("Received values of form: ", values);
                 if (values.username === 'user' && values.password === 'user') {
-                    this.state.validated = true;
-                    console.log("user validated", this.state.validated);
+                    this.setState({loggedIn: 1}, () => console.log("user loggedIn", this.state.loggedIn) );
                     message.success('Login Successful! Welcome ' + values.username);
-                } else {
-                    console.log("incorrect username and password", this.state.validated);
+                } else if (values.username === 'admin' && values.password === 'admin') {
+                    this.setState({loggedIn: 2}, () => console.log("admin loggedIn", this.state.loggedIn) );
+                    message.success('Login Successful! Welcome ' + values.username);
+                }else {
+                    console.log("incorrect username and password", this.state.loggedIn);
                     message.error('Incorrect username or password');
                 }
             }
@@ -29,9 +37,13 @@ class LoginForm extends React.Component {
     };
 
     render() {
+        //TODO: Remove after this
+        // console.log("LoginForm", this.props.state);
+        //TODO: Remove before this
+
         const {getFieldDecorator} = this.props.form;
 
-        if (this.state.validated) {
+        if (this.state.loggedIn !== -1) {
             return (<Redirect to='/'/>)
         } else {
             return (
