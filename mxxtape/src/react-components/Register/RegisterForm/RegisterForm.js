@@ -15,6 +15,7 @@ class RegisterForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                message.success('Login Successful! Welcome ' + values.username);
                 this.props.history.push("login");
             }
         });
@@ -26,7 +27,7 @@ class RegisterForm extends React.Component {
             <div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <Form.Item>
-                        {getFieldDecorator("Email", {
+                        {getFieldDecorator("email", {
                             rules: [{required: true, message: "Please input your email!"}]
                         })(
                             <Input
