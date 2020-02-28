@@ -46,7 +46,7 @@ class App extends React.Component {
                         <Route exact path='/profile' render={() =>
                             (<Profile state={this.state}/>)}/>
                         <Route exact path='/login' render={()=>
-                            (<LoginPage state={this.state} handleLoggedIn={this.handleLoggedIn} />)}/>
+                            (<LoginPage state={this.state}/>)}/>
                         {/*<Route exact path='/login' ><LoginPage state={this.state}/></Route>*/}
                     </Switch>
                 </BrowserRouter>
