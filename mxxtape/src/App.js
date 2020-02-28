@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 // Importing react-router-dom to use the React Router
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
