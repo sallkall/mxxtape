@@ -25,7 +25,10 @@ class App extends React.Component {
         handleLoggedIn: (val) => {
             console.log("handleLogin", val);
             if (val === 1 || val === 2 || val === 3){
-                this.setState({loggedIn: val}, () => {console.log(this.state)});
+                this.setState(
+                    {loggedIn: val},
+                    () => {console.log(this.state)}
+                );
             }
         },
         handleLogOut: () => {
