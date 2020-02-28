@@ -15,7 +15,7 @@ class RegisterForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
-                message.success('Login Successful! Welcome ' + values.username);
+                message.success('Registration Successful! Please login to continue');
                 this.props.history.push("login");
             }
         });
