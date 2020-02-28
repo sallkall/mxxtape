@@ -33,7 +33,10 @@ class App extends React.Component {
         },
         handleLogOut: () => {
             console.log("Logout", -1);
-            this.setState({loggedIn: -1}, () => {console.log(this.state)});
+            this.setState(
+                {loggedIn: -1},
+                () => {console.log(this.state)}
+                );
         }
     };
 
