@@ -25,13 +25,13 @@ class RegisterForm extends React.Component {
         const {getFieldDecorator} = this.props.form;
         return (
             <div>
-                <Form onSubmit={this.handleSubmit} className="login-form">
+                <Form onSubmit={this.handleSubmit} className="register-form">
                     <Form.Item>
                         {getFieldDecorator("email", {
                             rules: [{required: true, message: "Please input your email!"}]
                         })(
                             <Input
-                                prefix={<Icon type="mail" style={{color: "rgba(0,0,0,.25)"}}/>}
+                                prefix={<Icon type="mail" className="input-icon"/>}
                                 placeholder="Email"
                             />
                         )}
@@ -41,7 +41,7 @@ class RegisterForm extends React.Component {
                             rules: [{required: true, message: "Please input your username!"}]
                         })(
                             <Input
-                                prefix={<Icon type="user" style={{color: "rgba(0,0,0,.25)"}}/>}
+                                prefix={<Icon type="user"  className="input-icon"/>}
                                 placeholder="Username"
                             />
                         )}
@@ -51,7 +51,7 @@ class RegisterForm extends React.Component {
                             rules: [{required: true, message: "Please input your password!"}]
                         })(
                             <Input
-                                prefix={<Icon type="lock" style={{color: "rgba(0,0,0,.25)"}}/>}
+                                prefix={<Icon type="lock"  className="input-icon"/>}
                                 type="password"
                                 placeholder="Password"
                             />
@@ -63,7 +63,7 @@ class RegisterForm extends React.Component {
                             htmlType="submit"
                             className="login-form-button"
                         >
-                            Register Now
+                            Register Now!
                         </Button>
                     </Form.Item>
                 </Form>
