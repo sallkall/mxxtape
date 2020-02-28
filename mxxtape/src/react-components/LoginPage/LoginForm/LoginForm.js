@@ -3,6 +3,7 @@ import './LoginForm.css'
 
 // import {Form, Icon, Input, Button, Checkbox, message} from "antd";
 import {Form, Icon, Input, Button, message} from "antd";
+import {withRouter} from "react-router-dom";
 
 class LoginForm extends React.Component {
 
@@ -31,7 +32,9 @@ class LoginForm extends React.Component {
                 } else if (values.username === 'admin' && values.password === 'admin') {
                     this.setState(
                         {loggedIn: 2},
-                        () => console.log("admin loggedIn", this.state.loggedIn)
+                        () => {
+                            console.log("admin loggedIn", this.state.loggedIn);
+                        }
                     );
                     message.success('Login Successful! Welcome ' + values.username);
                 }else {
@@ -93,14 +96,14 @@ class LoginForm extends React.Component {
                         <Button
                             className="login-form-register"
                             type = "link"
-                            onclick={() => {} }
+                            onClick={() => {console.log("/register"); this.props.history.push("/register");} }
                         >
                             Register now!
                         </Button>
                         <Button
                             className="login-form-forgot"
                             type="link"
-                            onclick={() => {} }
+                            onClick={() => {console.log("/forgot"); this.props.history.push("/forgot");} }
                         >
                             Forgot password
                         </Button>
@@ -111,4 +114,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

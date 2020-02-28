@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import LoginForm from "./LoginForm/LoginForm.js";
-import { Form } from "antd";
+import { Form} from "antd";
 import { Redirect } from "react-router-dom";
 
 

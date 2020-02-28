@@ -9,8 +9,9 @@ import 'antd/dist/antd.css';
 // Importing the Queue and our simple Home Page
 import Community from './react-components/Community';
 import Dashboard from './react-components/Dashboard';
-import Profile from './react-components/Profile'
-import LoginPage from './react-components/LoginPage'
+import Profile from './react-components/Profile';
+import LoginPage from './react-components/LoginPage';
+import Register from './react-components/Register';
 
 class App extends React.Component {
 
@@ -47,7 +48,8 @@ class App extends React.Component {
                             (<Profile state={this.state}/>)}/>
                         <Route exact path='/login' render={()=>
                             (<LoginPage state={this.state}/>)}/>
-                        {/*<Route exact path='/login' ><LoginPage state={this.state}/></Route>*/}
+                        <Route exact path='/register' render={()=>
+                            (<Register state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
