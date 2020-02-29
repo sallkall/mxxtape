@@ -60,13 +60,13 @@ class TextPost extends React.Component {
         const data = [
             {
                 actions: all_actions,
-                author: 'Han Solo',
-                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                author: 'Sally kang',
+                avatar: 'https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/83337570_3515329088508799_4523582417981669376_n.jpg?_nc_cat=104&_nc_sid=85a577&_nc_ohc=6unpVlo76lgAX_kJl9K&_nc_ht=scontent.fyto1-1.fna&oh=b515f36742c04f5c702bf2426e9f0739&oe=5EF63A44',
                 content: (
                     <p>
-                        We supply a series of design principles, practical patterns and high quality design
-                        resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                        efficiently.
+                        Hey guys! Welcome to the 'Jazz it Up' community. We are a group of jazz enthusiast here to talk
+                        , share, and spread love for jazz music! Feel free to share your favorite tunes and
+                        thoughts on music. Can't wait to get to know you through music :)
                     </p>
                 ),
                 datetime: (
@@ -85,8 +85,8 @@ class TextPost extends React.Component {
             },
             {
                 actions: all_actions,
-                author: 'Han Solo',
-                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                author: 'Janet wang',
+                avatar: 'https://scontent.fyto1-2.fna.fbcdn.net/v/t1.0-9/15871890_1178229362264200_2730942226162743028_n.jpg?_nc_cat=108&_nc_sid=85a577&_nc_ohc=GhhoJ0IXttIAX_Xql-z&_nc_ht=scontent.fyto1-2.fna&oh=65c60f89ab0c02ffb8961f4f69acf7ab&oe=5EFD122F',
                 content: (
                     <p>
                         We supply a series of design principles, practical patterns and high quality design
@@ -108,16 +108,43 @@ class TextPost extends React.Component {
                     </Tooltip>
                 ),
             },
+            {
+                actions: all_actions,
+                author: 'Connor Ferwerda',
+                avatar: 'https://scontent-yyz1-1.xx.fbcdn.net/v/t1.0-9/17796794_111333216080695_8382139360744649163_n.jpg?_nc_cat=111&_nc_sid=85a577&_nc_ohc=Gf4HcH4bUcQAX_g6YG3&_nc_ht=scontent-yyz1-1.xx&oh=f5c0629f62f78998651c403538c80b3e&oe=5EEE926E',
+                content: (
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dui dui, elementum non risus
+                        volutpat, varius lacinia lectus. Vivamus ac mi pharetra, tincidunt nibh nec, posuere nisi.
+                        Aliquam mollis accumsan pharetra. Vestibulum pretium ut nisl eu tincidunt. Nunc hendrerit
+                        augue nec efficitur ultricies. Integer non vehicula lacus. Donec et dolor non purus fringilla
+                        tristique eget quis justo. Vivamus ullamcorper congue justo a aliquam.
+                    </p>
+                ),
+                datetime: (
+                    <Tooltip
+                        title={moment()
+                            .subtract(1, 'days')
+                            .format('YYYY-MM-DD HH:mm:ss')}
+                    >
+        <span>
+          {moment()
+              .subtract(1, 'days')
+              .fromNow()}
+        </span>
+                    </Tooltip>
+                ),
+            },
         ];
 
         return (
             <List
                 className="comment-list"
-                header={`${data.length} replies`}
-                itemLayout="horizontal"
+                header={`${data.length} posts`}
+                itemLayout="vertical"
                 dataSource={data}
                 renderItem={item => (
-                    <li>
+                    <li className="single_post">
                         <Comment
                             actions={item.actions}
                             author={item.author}
