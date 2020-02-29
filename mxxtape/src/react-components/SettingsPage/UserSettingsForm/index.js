@@ -7,7 +7,7 @@ class UserSettingsForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props,
+            username: this.props.username ? this.props.username : "whoareyou?",
             changingSetting: false,
             changeEmail: false,
             changePassword: false,
@@ -130,6 +130,11 @@ class UserSettingsForm extends React.Component{
             this.setState({
                 changeSpotifyAccount: !this.state.changeSpotifyAccount
             })
+        } else if (s === this.displayNameSetting) {
+            console.log("change display name", !this.state.changeDisplayName);
+            this.setState({
+                changeDisplayName: !this.state.changeDisplayName
+            })
         }
     };
 
@@ -146,6 +151,12 @@ class UserSettingsForm extends React.Component{
                 <header className="settings-subheader">ACCOUNT PREFERENCES</header>
                 <hr/>
                 <List>
+                    <List.Item>
+                        <List.Item.Meta
+                            title={"Username"}
+                            description={this.state.username}
+                        />
+                    </List.Item>
                     <List.Item>
                         <List.Item.Meta
                             title={"Email Address"}
@@ -257,13 +268,35 @@ class UserSettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"Display Name"}
-                            description={this.state.displayName}
+                            // description={this.state.displayName}
+                            description={this.state.changeDisplayName ?
+                                <Form.Item>
+                                    <Form.Item>
+                                        {getFieldDecorator("displayName", {
+                                            initialValue: this.state.displayName,
+                                        })(
+                                            <Input className="settings-field" />
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </Form.Item>
+                                </Form.Item>
+                                : this.state.displayName
+                            }
                         />
                         <Button
-                            htmlType={!this.state.changeDisplayName ? "submit" : "button"}
-                            disabled={this.state.changingSetting === !this.state.changeDisplayName}
+                            onClick={() => {
+                                this.changingSettingSToggle(this.displayNameSetting)
+                            }}
+                            disabled={this.state.changingSetting}
                         >
-                            Change display name
+                            {this.state.changeDisplayName ? "Save New": "Change" } display name
                         </Button>
                     </List.Item>
                     <List.Item>
