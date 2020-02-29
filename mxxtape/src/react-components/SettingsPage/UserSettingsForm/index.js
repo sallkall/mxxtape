@@ -45,13 +45,13 @@ class UserSettingsForm extends React.Component{
 
     componentDidMount() {
         //make server call with state.username
-        //populate email. displayName, about, spotifyConnected, links to avatar
+        //populate email. displayName, about, spotifyAccount, links to avatar
         const user = {
             email: "user@user.com",
             password: "user",
             displayName: "user-display-name",
             about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give context around the programming that we do in the course. By the end of the course, you should be able to explain the architecture behind a web application, and understand which technologies you can use to create web applications yourself.",
-            spotifyConnected: "user-spotify-account",
+            spotifyAccount: "user-spotify-account",
             avatar: "https://yt3.ggpht.com/a/AGF-l7-11--_67EpTJhLCO6c4xBXPLHhC0C4GXaoQg=s900-c-k-c0xffffffff-no-rj-mo"
         };
         //callback
@@ -67,7 +67,7 @@ class UserSettingsForm extends React.Component{
                 password: user.password ? user.password : errorInput,
                 displayName: user.displayName ? user.displayName : errorInput,
                 about: user.about ? user.about : errorInput,
-                spotifyConnected: user.spotifyConnected ? user.spotifyConnected : errorInput,
+                spotifyAccount: user.spotifyAccount ? user.spotifyAccount : errorInput,
                 avatar: user.avatar ? user.avatar : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
             },
             () => {
@@ -87,7 +87,7 @@ class UserSettingsForm extends React.Component{
                     password: values.password ? values.password: this.state.password,
                     displayName: values.displayName ? values.displayName : this.state.displayName,
                     about: values.about ? values.about : this.state.about,
-                    spotifyConnected: values.spotifyConnected ? values.spotifyConnected: this.state.spotifyConnected,
+                    spotifyAccount: values.spotifyAccount ? values.spotifyAccount: this.state.spotifyAccount,
                     avatar: values.avatar ? values.avatar : this.state.avatar,
                 };
                 this.updateServerInfo(values);
@@ -118,6 +118,11 @@ class UserSettingsForm extends React.Component{
             console.log("change Password", !this.state.changePassword);
             this.setState({
                 changePassword: !this.state.changePassword
+            })
+        } else if (d === this.spotifyAccount) {
+            console.log("change spotify account", !this.state.changeSpotifyAccount);
+            this.setState({
+                changeSpotifyAccount: !this.state.changeSpotifyAccount
             })
         } else if (d === this.deactivateAccount) {
             console.log("deactivate Account", !this.state.deactivateAccount);
@@ -210,11 +215,32 @@ class UserSettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"Spotify Account"}
-                            description={ this.state.spotifyConnected ? this.state.spotifyConnected : "Not Connected :("}
+                            description={ this.state.changeSpotifyAccount ?
+                                <Form.Item>
+                                    <Form.Item>
+                                        {getFieldDecorator("spotifyAccount", {
+                                            initialValue: this.state.spotifyAccount
+                                        })(
+                                            <Input className="settings-field"/>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </Form.Item>
+                                </Form.Item>
+                                : this.state.spotifyAccount
+                            }
                         />
                         <Button
-                            disabled={this.state.changingSetting === !this.state.changeSpotifyAccount}
-                            htmlType={!this.state.changeSpotifyAccount ? "submit" : "button"}
+                            onClick={() => {
+                                this.switchDescToInput(this.spotifyAccount)
+                            }}
+                            disabled={this.state.changingSetting}
                         >
                             Change Spotify account
                         </Button>
@@ -227,7 +253,7 @@ class UserSettingsForm extends React.Component{
                             className="red"
                             onclick={()=>{this.switchDescToInput(this.deactivateAccount)}}
                             htmlType={!this.state.deactivateAccount ? "submit" : "button"}
-                            disabled={this.state.changingSetting === !this.state.deactivateAccount}
+                            disabled={this.state.changingSetting}
                         >
                             <Icon type="delete"/>Deactivate Account
                         </Button>
