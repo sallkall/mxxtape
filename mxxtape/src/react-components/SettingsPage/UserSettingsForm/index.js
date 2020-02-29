@@ -1,6 +1,6 @@
 import React from "react";
 import './index.css'
-import {Icon, List, Button, Form, Input} from 'antd'
+import {Icon, List, Button, Form, Input, message} from 'antd'
 
 class UserSettingsForm extends React.Component{
     constructor(props) {
@@ -27,6 +27,22 @@ class UserSettingsForm extends React.Component{
         this.avatar = "avatar";
     }
 
+    resetDesc = () => {
+        console.log("resetting fields");
+        this.setState(
+            {
+                changingSetting: false,
+                changeEmail: false,
+                changePassword: false,
+                changeSpotifyAccount: false,
+                deactivateAccount: false,
+                changeDisplayName: false,
+                changeAbout: false,
+                changeAvatar: false
+            }
+        )
+    };
+
     componentDidMount() {
         //make server call with state.username
         //populate email. displayName, about, spotifyConnected, links to avatar
@@ -34,7 +50,7 @@ class UserSettingsForm extends React.Component{
             email: "user@user.com",
             password: "user",
             displayName: "user-display-name",
-            about: "Lorem Ipsum...?",
+            about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give context around the programming that we do in the course. By the end of the course, you should be able to explain the architecture behind a web application, and understand which technologies you can use to create web applications yourself.",
             spotifyConnected: "user-spotify-account",
             avatar: "https://yt3.ggpht.com/a/AGF-l7-11--_67EpTJhLCO6c4xBXPLHhC0C4GXaoQg=s900-c-k-c0xffffffff-no-rj-mo"
         };
@@ -42,16 +58,20 @@ class UserSettingsForm extends React.Component{
         this.updateStateFromServer(user)
     }
 
-    updateStateFromServer = (user) => {
-        console.log("Getting user info from server");
+    updateStateFromServer = user => {
+        console.log("updating user state");
+        const errorInput = "something went wrong";
         this.setState(
             {
-                email: user.email,
-                password: user.password,
-                displayName: user.displayName,
-                about: user.about,
-                spotifyConnected: user.spotifyConnected,
-                avatar: user.avatar
+                email: user.email ? user.email : errorInput,
+                password: user.password ? user.password : errorInput,
+                displayName: user.displayName ? user.displayName : errorInput,
+                about: user.about ? user.about : errorInput,
+                spotifyConnected: user.spotifyConnected ? user.spotifyConnected : errorInput,
+                avatar: user.avatar ? user.avatar : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+            },
+            () => {
+                console.log(this.state);
             }
         );
     };
@@ -62,6 +82,19 @@ class UserSettingsForm extends React.Component{
             if(!err) {
                 console.log("Received values of form: ", values);
                 this.updateServerInfo(values);
+                //get new user info from server
+                let user = {
+                    email: values.email ? values.email : this.state.email,
+                    password: this.state.password,
+                    displayName: this.state.displayName,
+                    about: this.state.about,
+                    spotifyConnected: this.state.spotifyConnected,
+                    avatar: this.state.avatar
+                };
+                //need to update user info from server
+                this.updateStateFromServer(user);
+                //reset the form with new values from server
+                this.resetDesc();
             }
         })
     };
@@ -69,17 +102,7 @@ class UserSettingsForm extends React.Component{
     updateServerInfo = (values) => {
         //make call to server to update user info from values
         console.log("Updated Server Info");
-        //get user info again
-        let user = {
-            email: values.email ? values.email : this.state.email,
-            password: this.state.password,
-            displayName: this.state.displayName,
-            about: this.state.about,
-            spotifyConnected: this.state.spotifyConnected,
-            avatar: this.state.avatar
-        };
-        //need to update user info from server
-        this.updateStateFromServer(user);
+        message.success("Updated Info!")
     };
 
     switchDescToInput = (d) => {
@@ -120,12 +143,22 @@ class UserSettingsForm extends React.Component{
                             title={"Email Address"}
                             description={this.state.changeEmail ?
                                 <Form.Item>
-                                    {getFieldDecorator("email", {
-                                        initialValue: this.state.email,
-                                        rules: [{required: true, message: "Please input your email!"}]
-                                    })(
-                                        <Input className="settings-field" />
-                                    )}
+                                    <Form.Item>
+                                        {getFieldDecorator("email", {
+                                            initialValue: this.state.email,
+                                            rules: [{required: true, message: "Please input your email!"}]
+                                        })(
+                                            <Input className="settings-field" />
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </Form.Item>
                                 </Form.Item>
                                 : this.state.email
                             }
@@ -134,8 +167,7 @@ class UserSettingsForm extends React.Component{
                             onClick={() => {
                                 this.switchDescToInput(this.email)
                             }}
-                            htmlType={!this.state.changeEmail ? "submit" : "button"}
-                            disabled={this.state.changingSetting === !this.state.changeEmail}
+                            disabled={this.state.changingSetting}
                         >
                             {this.state.changeEmail ? "Save New": "Change" } Email
                         </Button>
