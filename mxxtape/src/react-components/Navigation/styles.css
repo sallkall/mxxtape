@@ -1,10 +1,9 @@
-/*.menu {*/
-/*    flex-grow: 1;*/
-/*    text-align: center*/
-/*}*/
+.menu {
+    text-align: center
+}
 
 .menu_search{
-    margin-left: 30%;
+    /*margin-left: 30%;*/
     width: 500px;
 }
 

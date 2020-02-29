@@ -33,6 +33,7 @@ class Nav extends React.Component {
                     selectedKeys={[this.state.current]}
                     mode="horizontal"
                     style={{lineHeight: '50px'}}
+                    className="menu"
                 >
                     {/*<Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">*/}
                     <Menu.Item className='menu_search' key="search">
