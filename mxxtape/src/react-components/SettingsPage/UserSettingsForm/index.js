@@ -18,13 +18,13 @@ class UserSettingsForm extends React.Component{
         };
         //don't change these variables,
         // needed to maintain changingSettingSToggle
-        this.email = "email";
-        this.password = "password";
-        this.spotifyAccount = "spotifyAccount";
-        this.deactivateAccount = "deactivateAccount";
-        this.displayName = "displayName";
-        this.about = "about";
-        this.avatar = "avatar";
+        this.emailSetting = "email";
+        this.passwordSetting = "password";
+        this.spotifyAccountSetting = "spotifyAccount";
+        this.deactivateAccountSetting = "deactivateAccount";
+        this.displayNameSetting = "displayName";
+        this.aboutSetting = "about";
+        this.avatarSetting = "avatar";
     }
 
     resetDesc = () => {
@@ -109,22 +109,22 @@ class UserSettingsForm extends React.Component{
     changingSettingSToggle = (s) => {
         this.setState({changingSetting: !this.state.changingSetting});
 
-        if (s === this.email) {
-            console.log("change email", !this.state.changeEmail);
+        if (s === this.emailSetting) {
+            console.log("change emailSetting", !this.state.changeEmail);
             this.setState({
                 changeEmail: !this.state.changeEmail
             });
-        } else if (s === this.password) {
+        } else if (s === this.passwordSetting) {
             console.log("change Password", !this.state.changePassword);
             this.setState({
                 changePassword: !this.state.changePassword
             })
-        } else if (s === this.spotifyAccount) {
+        } else if (s === this.spotifyAccountSetting) {
             console.log("change spotify account", !this.state.changeSpotifyAccount);
             this.setState({
                 changeSpotifyAccount: !this.state.changeSpotifyAccount
             })
-        } else if (s === this.deactivateAccount) {
+        } else if (s === this.deactivateAccountSetting) {
             console.log("deactivate Account", !this.state.deactivateAccount);
             this.setState({
                 deactivateAccount: !this.state.deactivateAccount
@@ -152,7 +152,7 @@ class UserSettingsForm extends React.Component{
                                     <Form.Item>
                                         {getFieldDecorator("email", {
                                             initialValue: this.state.email,
-                                            rules: [{required: true, message: "Please input your email!"}]
+                                            rules: [{required: true, message: "Please input your emailSetting!"}]
                                         })(
                                             <Input className="settings-field" />
                                         )}
@@ -171,7 +171,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             onClick={() => {
-                                this.changingSettingSToggle(this.email)
+                                this.changingSettingSToggle(this.emailSetting)
                             }}
                             disabled={this.state.changingSetting}
                         >
@@ -205,7 +205,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             onClick={() => {
-                                this.changingSettingSToggle(this.password)
+                                this.changingSettingSToggle(this.passwordSetting)
                             }}
                             disabled={this.state.changingSetting}
                         >
@@ -238,7 +238,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             onClick={() => {
-                                this.changingSettingSToggle(this.spotifyAccount)
+                                this.changingSettingSToggle(this.spotifyAccountSetting)
                             }}
                             disabled={this.state.changingSetting}
                         >
@@ -251,7 +251,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             className="red"
-                            onclick={()=>{this.changingSettingSToggle(this.deactivateAccount)}}
+                            onclick={()=>{this.changingSettingSToggle(this.deactivateAccountSetting)}}
                             htmlType={!this.state.deactivateAccount ? "submit" : "button"}
                             disabled={this.state.changingSetting}
                         >
