@@ -67,7 +67,14 @@ class Nav extends React.Component {
                             <Menu.Item key="setting:2">Communities</Menu.Item>
                         </Menu.ItemGroup>
                         <Menu.ItemGroup title="Settings">
-                            <Menu.Item key="setting:3">Account Settings</Menu.Item>
+                            <Menu.Item
+                                key="settings"
+                                onClick={ () => {
+                                    this.redirect('/settings')
+                                }}
+                            >
+                                Account Settings
+                            </Menu.Item>
                             <Menu.Item
                                 key="setting:4"
                                 onClick={ () => {
