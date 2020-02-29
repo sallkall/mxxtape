@@ -2,12 +2,13 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 
-import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions} from 'antd';
+import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Tooltip} from 'antd';
+import {posts} from "../TextPost";
+import moment from "moment";
 
 const {Option} = Mentions;
 const {Sider, Content} = Layout;
 
-// const {TextArea} = Input;
 
 const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
     class extends React.Component {
@@ -21,6 +22,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
 
         render() {
             const {visible, onCancel, onCreate, form} = this.props;
+            console.log("my props:", this.props);
             const {getFieldDecorator} = form;
             return (
                 <Modal
@@ -37,7 +39,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                             <Content className="music_display">
                                 <div><h1>Track: Untitled</h1></div>
                                 <Form.Item label="Music Upload:">
-                                    {getFieldDecorator('dragger', {
+                                    {getFieldDecorator('music', {
                                         valuePropName: 'fileList',
                                         getValueFromEvent: this.normFile,
                                     })(
@@ -53,11 +55,8 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                             </Content>
                             <Sider className="post_sider" width={400}>
                                 <div id='right_side'>
-                                <Form.Item
-                                    help="Character remaining: 140"
-                                    name="textbox"
-                                >
-                                        {getFieldDecorator('new_message', {})(
+                                    <Form.Item name="content">
+                                        {getFieldDecorator('content', {})(
                                             <Mentions rows="5"
                                                       placeholder="What's on your mind? Use @ to ref user here.">
                                                 <Option value="sallyk">sallyk</Option>
@@ -65,21 +64,22 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                                 <Option value="connorf">connorf</Option>
                                             </Mentions>
                                         )}
-                                </Form.Item>
-                                <Form.Item>
-                                    {getFieldDecorator('rating', {})(
-                                        <Rate className="ratings" character={<Icon type="thunderbolt" theme="filled"/>}
-                                              allowHalf/>
-                                    )}
-                                </Form.Item>
-                            </div>
+                                    </Form.Item>
+                                    <Form.Item>
+                                        {getFieldDecorator('rating', {})(
+                                            <Rate className="ratings"
+                                                  character={<Icon type="thunderbolt" theme="filled"/>}
+                                                  allowHalf/>
+                                        )}
+                                    </Form.Item>
+                                </div>
 
-                        </Sider>
-                    </Layout>
-                </Form>
-        </Modal>
-        )
-            ;
+                            </Sider>
+                        </Layout>
+                    </Form>
+                </Modal>
+            )
+                ;
         }
     },
 );
@@ -103,8 +103,19 @@ class NewPost extends React.Component {
             if (err) {
                 return;
             }
-
-            console.log('Received values of form: ', values);
+            // Create new post information to push to all feed posts in TextPost
+            const post_information = {
+                actions: null,
+                author: "sally", // FIXME: temporary
+                avatar: "https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/s150x150/83885851_189723372356264_5738621742125501341_n.jpg?_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_ohc=ZPjpLIhE5OsAX8Eb7w9&oh=0b0c2559e5786cad55d35b9cc8003714&oe=5E849C44",
+                content: values.content,
+                datetime:
+                    <Tooltip
+                        title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                        <span>{moment().fromNow()}</span>
+                    </Tooltip>
+            };
+            posts.unshift(post_information);
             form.resetFields();
             this.setState({visible: false});
         });
@@ -115,6 +126,7 @@ class NewPost extends React.Component {
     };
 
     render() {
+        const {state} = this.props;
         return (
             <div>
                 <Button type="primary" onClick={this.showModal}>
@@ -124,7 +136,10 @@ class NewPost extends React.Component {
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
-                    onCreate={this.handleCreate}
+                    onCreate={() => {
+                        this.handleCreate();
+                        state.updateFeed()
+                    }}
                 />
             </div>
         );

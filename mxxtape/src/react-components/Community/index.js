@@ -7,16 +7,20 @@ import NewPost from "./NewPost"
 import TextPost from "./TextPost"
 import FeedFilter from "./FeedFilter"
 
-import {Layout, Menu, Breadcrumb, Icon, Avatar, Button, Typography} from 'antd';
+import {Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
 
 const {SubMenu} = Menu;
-const {Header, Content, Footer, Sider} = Layout;
-const { Text } = Typography;
+const { Content, Footer, Sider} = Layout;
 
 class Community extends React.Component {
     state = {
         isMember: false,
-    }
+        newPost: false,
+        updateFeed: () => {
+            this.setState({newPost: !this.state.newPost});
+        }
+    };
+
     joinCommunity() {
         this.setState({isMember: !this.state.isMember})
     }
@@ -58,7 +62,7 @@ class Community extends React.Component {
                                     <FeedFilter/>
                                 </div>
                                 <div id="newpost_button">
-                                    <NewPost/>
+                                    <NewPost state= {this.state} handleUpdate={this.updateFeed}/>
                                 </div>
                             </div>
                             <div className="posts">
