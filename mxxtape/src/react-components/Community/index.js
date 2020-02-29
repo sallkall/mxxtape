@@ -5,13 +5,13 @@ import 'antd/dist/antd.css';
 import Nav from "../Navigation";
 import NewPost from "./NewPost"
 import TextPost from "./TextPost"
+import FeedFilter from "./FeedFilter"
 
-
-import {Layout, Menu, Breadcrumb, Icon, Avatar, Button} from 'antd';
+import {Layout, Menu, Breadcrumb, Icon, Avatar, Button, Typography} from 'antd';
 
 const {SubMenu} = Menu;
 const {Header, Content, Footer, Sider} = Layout;
-
+const { Text } = Typography;
 
 class Community extends React.Component {
     state = {
@@ -22,6 +22,7 @@ class Community extends React.Component {
     }
 
     render() {
+        // let join_button_text = this.state.isMember ? "" : "warning";
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
         let join_button_color = this.state.isMember ? "" : "#52c41a";
 
@@ -31,33 +32,34 @@ class Community extends React.Component {
                 <Content className="content">
                     <div className="header">
                         <div id="header_container">
-                            <Avatar
-                                className="header_avatar"
-                                icon="book"
-                                size={110}
-                                >
-                            </Avatar>
-                            <h1 id="header_h1">Jazz it Up</h1>
+                            <div id="group_avatar"/>
+                            <h1 className="header_h1"> Jazz it Up </h1>
                         </div>
                         <Button
                             className="header_join_button"
                             onClick={() => this.joinCommunity()}
                             size='large'
-                            shape='round'
-                        > Join Community<Icon type={join_button} theme="twoTone" twoToneColor={join_button_color} />
+                        > Join Community
+                            <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color} />
                         </Button>
                     </div>
                 </Content>
                 <Content className="content">
                     <Breadcrumb className="breadcrumb">
                         <Breadcrumb.Item>Community</Breadcrumb.Item>
-                        <Breadcrumb.Item>Study Music</Breadcrumb.Item>
+                        <Breadcrumb.Item>Jazz</Breadcrumb.Item>
+                        <Breadcrumb.Item>Jazz it Up</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout className="feed_layout">
                         <Content className="feed_container">
                             {/*------ FEED/WALL -----*/}
-                            <div id="new_post_button">
-                                <NewPost/>
+                            <div id="feed_buttons">
+                                <div id="feed_filter">
+                                    <FeedFilter/>
+                                </div>
+                                <div id="newpost_button">
+                                    <NewPost/>
+                                </div>
                             </div>
                             <div className="posts">
                                 <TextPost/>

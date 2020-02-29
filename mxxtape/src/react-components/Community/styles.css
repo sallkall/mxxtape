@@ -3,31 +3,49 @@
 }
 
 .header {
-    background: white;
+    background-image: url("static/jazz_banner.jpg");
     height: 200px;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #header_container {
     margin-bottom: 30px;
 }
 
-.header_avatar {
-    color: cornflowerblue;
-    background-color: aliceblue;
+#group_avatar {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("static/cheers_profile.jpg");
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
     position: absolute;
     bottom: 0;
     margin-bottom: 30px;
     margin-left: 80px;
+    border: 2px solid white;
+    /*box-shadow: 0px 0px 60px  lightslategrey; */
 }
 
-#header_h1 {
+/*.header_avatar {*/
+/*    color: cornflowerblue;*/
+/*    background-color: aliceblue;*/
+/*    */
+/*}*/
+.header_h1 {
     font-size: 30px;
     position: absolute;
     bottom: 0;
-    margin-bottom: 30px;
-    margin-left: 220px;
-    width: 200px;
+    margin-bottom: 40px;
+    margin-left: 210px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+    text-align: center;
+    background-color: rgba(224, 224, 224, .5);
 }
 
 .header_join_button {
@@ -43,17 +61,18 @@
 }
 
 .feed_layout {
+    min-height: 1000px;
     padding: 24px;
     background-color: white;
+    border: 1px solid #f5f5f5;
 }
 .feed_container {
     padding: 24px 24px;
     position: relative;
-    min-height: 500px;
 }
 
-#new_post_button {
-    position: absolute;
+#feed_buttons {
+    position: relative;
     right: 0;
     margin-right: 100px;
 }
@@ -64,4 +83,17 @@
     margin-right: 100px;
 }
 
+#feed_filter{
+    position: absolute;
+    right: 0;
+    margin-right: 140px;
+}
 
+#newpost_button {
+    position: absolute;
+    right: 0;
+}
+
+.header_join_button {
+    /*color: #b7eb8f;*/
+}
