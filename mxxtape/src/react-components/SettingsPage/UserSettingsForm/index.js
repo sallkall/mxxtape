@@ -17,7 +17,7 @@ class UserSettingsForm extends React.Component{
             changeAvatar: false
         };
         //don't change these variables,
-        // needed to maintain switchDescToInput
+        // needed to maintain changingSettingSToggle
         this.email = "email";
         this.password = "password";
         this.spotifyAccount = "spotifyAccount";
@@ -106,25 +106,25 @@ class UserSettingsForm extends React.Component{
         message.success("Updated Info!")
     };
 
-    switchDescToInput = (d) => {
+    changingSettingSToggle = (s) => {
         this.setState({changingSetting: !this.state.changingSetting});
 
-        if (d === this.email) {
+        if (s === this.email) {
             console.log("change email", !this.state.changeEmail);
             this.setState({
                 changeEmail: !this.state.changeEmail
             });
-        } else if (d === this.password) {
+        } else if (s === this.password) {
             console.log("change Password", !this.state.changePassword);
             this.setState({
                 changePassword: !this.state.changePassword
             })
-        } else if (d === this.spotifyAccount) {
+        } else if (s === this.spotifyAccount) {
             console.log("change spotify account", !this.state.changeSpotifyAccount);
             this.setState({
                 changeSpotifyAccount: !this.state.changeSpotifyAccount
             })
-        } else if (d === this.deactivateAccount) {
+        } else if (s === this.deactivateAccount) {
             console.log("deactivate Account", !this.state.deactivateAccount);
             this.setState({
                 deactivateAccount: !this.state.deactivateAccount
@@ -171,7 +171,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             onClick={() => {
-                                this.switchDescToInput(this.email)
+                                this.changingSettingSToggle(this.email)
                             }}
                             disabled={this.state.changingSetting}
                         >
@@ -205,7 +205,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             onClick={() => {
-                                this.switchDescToInput(this.password)
+                                this.changingSettingSToggle(this.password)
                             }}
                             disabled={this.state.changingSetting}
                         >
@@ -238,7 +238,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             onClick={() => {
-                                this.switchDescToInput(this.spotifyAccount)
+                                this.changingSettingSToggle(this.spotifyAccount)
                             }}
                             disabled={this.state.changingSetting}
                         >
@@ -251,7 +251,7 @@ class UserSettingsForm extends React.Component{
                         />
                         <Button
                             className="red"
-                            onclick={()=>{this.switchDescToInput(this.deactivateAccount)}}
+                            onclick={()=>{this.changingSettingSToggle(this.deactivateAccount)}}
                             htmlType={!this.state.deactivateAccount ? "submit" : "button"}
                             disabled={this.state.changingSetting}
                         >
