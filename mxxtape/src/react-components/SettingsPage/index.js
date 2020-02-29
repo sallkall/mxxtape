@@ -21,7 +21,7 @@ class SettingsPage extends React.Component {
                 <div>
                     <Nav state={ state }/>
                     <div className="settingsForm" >
-                        <UserSettings state={state}/>
+                        <UserSettings state={ state }/>
                     </div>
                 </div>
             )

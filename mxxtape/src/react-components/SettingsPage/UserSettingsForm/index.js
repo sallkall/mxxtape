@@ -1,6 +1,7 @@
 import React from "react";
 import './index.css'
 import {Icon, List, Button, Form, Input, message} from 'antd'
+import {withRouter} from 'react-router-dom'
 
 class UserSettingsForm extends React.Component{
     constructor(props) {
@@ -76,6 +77,11 @@ class UserSettingsForm extends React.Component{
         );
     };
 
+    redirect = addr => {
+        console.log(addr);
+        this.props.history.push(addr);
+    }
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -124,16 +130,12 @@ class UserSettingsForm extends React.Component{
             this.setState({
                 changeSpotifyAccount: !this.state.changeSpotifyAccount
             })
-        } else if (s === this.deactivateAccountSetting) {
-            console.log("deactivate Account", !this.state.deactivateAccount);
-            this.setState({
-                deactivateAccount: !this.state.deactivateAccount
-            })
         }
     };
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {state} = this.props;
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -245,19 +247,6 @@ class UserSettingsForm extends React.Component{
                             Change Spotify account
                         </Button>
                     </List.Item>
-                    <List.Item>
-                        <List.Item.Meta
-                            title={"Deactivate Account"}
-                        />
-                        <Button
-                            className="red"
-                            onclick={()=>{this.changingSettingSToggle(this.deactivateAccountSetting)}}
-                            htmlType={!this.state.deactivateAccount ? "submit" : "button"}
-                            disabled={this.state.changingSetting}
-                        >
-                            <Icon type="delete"/>Deactivate Account
-                        </Button>
-                    </List.Item>
                 </List>
                 <header className="settings-header">
                     Customize profile
@@ -318,4 +307,4 @@ class UserSettingsForm extends React.Component{
     }
 }
 
-export default UserSettingsForm;
+export default withRouter(UserSettingsForm);
