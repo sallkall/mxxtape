@@ -14,21 +14,16 @@ const {Header, Content, Footer, Sider} = Layout;
 
 
 class Community extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     console.log(props);
-    // }
-
     state = {
         isMember: false,
     }
-
     joinCommunity() {
         this.setState({isMember: !this.state.isMember})
     }
 
     render() {
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
+        let join_button_color = this.state.isMember ? "" : "#52c41a";
 
         return (
             <Layout>
@@ -39,16 +34,17 @@ class Community extends React.Component {
                             <Avatar
                                 className="header_avatar"
                                 icon="book"
-                                size={80}
+                                size={110}
                                 >
                             </Avatar>
-                            <h1 id="header_h1">Study Music</h1>
+                            <h1 id="header_h1">Jazz it Up</h1>
                         </div>
                         <Button
                             className="header_join_button"
                             onClick={() => this.joinCommunity()}
                             size='large'
-                        > Join Community<Icon type={join_button} theme="twoTone"/>
+                            shape='round'
+                        > Join Community<Icon type={join_button} theme="twoTone" twoToneColor={join_button_color} />
                         </Button>
                     </div>
                 </Content>
@@ -57,9 +53,9 @@ class Community extends React.Component {
                         <Breadcrumb.Item>Community</Breadcrumb.Item>
                         <Breadcrumb.Item>Study Music</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Layout className="feed_container">
-                        <Content className="feed_content">
-                            Feed
+                    <Layout className="feed_layout">
+                        <Content className="feed_container">
+                            {/*------ FEED/WALL -----*/}
                             <div id="new_post_button">
                                 <NewPost/>
                             </div>

@@ -2,8 +2,9 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 
-import { Comment, Icon, Tooltip, Avatar } from 'antd';
-// import moment from 'moment';
+import {Comment, Icon, Tooltip, Avatar, List} from 'antd';
+import moment from 'moment';
+
 
 class TextPost extends React.Component {
     state = {
@@ -29,9 +30,9 @@ class TextPost extends React.Component {
     };
 
     render() {
-        const { likes, dislikes, action } = this.state;
-
-        const actions = [
+        const {likes, dislikes, action} = this.state;
+        // All the actions for a comment (like, dislike, reply)
+        const all_actions = [
             <span key="comment-basic-like">
         <Tooltip title="Like">
           <Icon
@@ -40,7 +41,7 @@ class TextPost extends React.Component {
               onClick={this.like}
           />
         </Tooltip>
-        <span style={{ paddingLeft: 8, cursor: 'auto' }}>{likes}</span>
+        <span style={{paddingLeft: 8, cursor: 'auto'}}>{likes}</span>
       </span>,
             <span key=' key="comment-basic-dislike"'>
         <Tooltip title="Dislike">
@@ -50,36 +51,82 @@ class TextPost extends React.Component {
               onClick={this.dislike}
           />
         </Tooltip>
-        <span style={{ paddingLeft: 8, cursor: 'auto' }}>{dislikes}</span>
+        <span style={{paddingLeft: 8, cursor: 'auto'}}>{dislikes}</span>
       </span>,
             <span key="comment-basic-reply-to">Reply to</span>,
         ];
 
-        return (
-            <Comment
-                style={{
 
-                }}
-                actions={actions}
-                author={<a>Sally Kang</a>}
-                avatar={
-                    <Avatar
-                        icon="smile"
-                        alt="Han Solo"
-                    />
-                }
-                content={
+        const data = [
+            {
+                actions: all_actions,
+                author: 'Han Solo',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                content: (
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus at lorem quis varius.
-                        In at laoreet tellus, sed eleifend magna. Etiam orci odio, ultrices et est in, volutpat
-                        fringilla nisl. In velit justo, sollicitudin ut aliquet et, porta ac mi.
+                        We supply a series of design principles, practical patterns and high quality design
+                        resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                        efficiently.
                     </p>
-                }
-                // datetime={
-                //     <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                //         <span>{moment().fromNow()}</span>
-                //     </Tooltip>
-                // }
+                ),
+                datetime: (
+                    <Tooltip
+                        title={moment()
+                            .subtract(1, 'days')
+                            .format('YYYY-MM-DD HH:mm:ss')}
+                    >
+        <span>
+          {moment()
+              .subtract(1, 'days')
+              .fromNow()}
+        </span>
+                    </Tooltip>
+                ),
+            },
+            {
+                actions: all_actions,
+                author: 'Han Solo',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                content: (
+                    <p>
+                        We supply a series of design principles, practical patterns and high quality design
+                        resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                        efficiently.
+                    </p>
+                ),
+                datetime: (
+                    <Tooltip
+                        title={moment()
+                            .subtract(2, 'days')
+                            .format('YYYY-MM-DD HH:mm:ss')}
+                    >
+        <span>
+          {moment()
+              .subtract(2, 'days')
+              .fromNow()}
+        </span>
+                    </Tooltip>
+                ),
+            },
+        ];
+
+        return (
+            <List
+                className="comment-list"
+                header={`${data.length} replies`}
+                itemLayout="horizontal"
+                dataSource={data}
+                renderItem={item => (
+                    <li>
+                        <Comment
+                            actions={item.actions}
+                            author={item.author}
+                            avatar={item.avatar}
+                            content={item.content}
+                            datetime={item.datetime}
+                        />
+                    </li>
+                )}
             />
         );
     }

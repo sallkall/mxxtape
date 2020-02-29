@@ -3,7 +3,7 @@
 }
 
 .header {
-    background: AliceBlue;
+    background: white;
     height: 200px;
     position: relative;
 }
@@ -13,8 +13,8 @@
 }
 
 .header_avatar {
-    color: white;
-    background-color: #90c9e8;
+    color: cornflowerblue;
+    background-color: aliceblue;
     position: absolute;
     bottom: 0;
     margin-bottom: 30px;
@@ -22,10 +22,11 @@
 }
 
 #header_h1 {
+    font-size: 30px;
     position: absolute;
     bottom: 0;
     margin-bottom: 30px;
-    margin-left: 200px;
+    margin-left: 220px;
     width: 200px;
 }
 
@@ -41,14 +42,14 @@
     margin: 16px 0;
 }
 
-.feed_container {
-    padding: 24px 0;
+.feed_layout {
+    padding: 24px;
     background-color: white;
 }
-.feed_content {
-    padding: 0 24px;
+.feed_container {
+    padding: 24px 24px;
     position: relative;
-    min-height: 280px;
+    min-height: 500px;
 }
 
 #new_post_button {
@@ -62,4 +63,5 @@
     margin-top: 30px;
     margin-right: 100px;
 }
+
 

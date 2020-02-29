@@ -2,14 +2,14 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 
-import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout} from 'antd';
+import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions} from 'antd';
 
+const {Option} = Mentions;
 const {Sider, Content} = Layout;
 
-const {TextArea} = Input;
+// const {TextArea} = Input;
 
 const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
-    // eslint-disable-next-line
     class extends React.Component {
         normFile = e => {
             console.log('Upload event:', e);
@@ -34,9 +34,9 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                 >
                     <Form layout="horizontal">
                         <Layout className="form_layout">
-                            <Content className="music_display" >
+                            <Content className="music_display">
                                 <div><h1>Track: Untitled</h1></div>
-                                <Form.Item label="">
+                                <Form.Item label="Music Upload:">
                                     {getFieldDecorator('dragger', {
                                         valuePropName: 'fileList',
                                         getValueFromEvent: this.normFile,
@@ -52,45 +52,34 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                 </Form.Item>
                             </Content>
                             <Sider className="post_sider" width={400}>
+                                <div id='right_side'>
                                 <Form.Item
-                                    label=""
                                     help="Character remaining: 140"
+                                    name="textbox"
                                 >
-                                    {getFieldDecorator('post_content', {
-                                        // initialValue: 'public',
-                                        // getFieldValue:
-                                    })(
-                                        <TextArea rows={4} placeholder="What's on your mind?"/>
-                                    )}
-                                    {/*{getFieldDecorator('post_content', {*/}
-                                    {/*    // rules: [{ required: false, message: 'Please input the title of your post!' }],*/}
-                                    {/*})(<TextArea rows={4} placeholder="What's on your mind?" />)}*/}
-                                    <div>
+                                        {getFieldDecorator('new_message', {})(
+                                            <Mentions rows="5"
+                                                      placeholder="What's on your mind? Use @ to ref user here.">
+                                                <Option value="sallyk">sallyk</Option>
+                                                <Option value="janetw">janetw</Option>
+                                                <Option value="connorf">connorf</Option>
+                                            </Mentions>
+                                        )}
+                                </Form.Item>
+                                <Form.Item>
+                                    {getFieldDecorator('rating', {})(
                                         <Rate className="ratings" character={<Icon type="thunderbolt" theme="filled"/>}
                                               allowHalf/>
-                                        <br/>
-                                    </div>
+                                    )}
                                 </Form.Item>
-                                {/*<Form.Item label="Description">*/}
-                                {/*    {getFieldDecorator('description', {*/}
-                                {/*        rules: [{ required: true, message: 'Please input the title of your post!' }]*/}
-                                {/*    })(<Input type="textarea" />)}*/}
-                                {/*</Form.Item>*/}
-                                {/*<Form.Item className="collection-create-form_last-form-item">*/}
-                                {/*    {getFieldDecorator('modifier', {*/}
-                                {/*        initialValue: 'public',*/}
-                                {/*    })(*/}
-                                {/*        <Radio.Group>*/}
-                                {/*            <Radio value="public">Public</Radio>*/}
-                                {/*            <Radio value="private">Private</Radio>*/}
-                                {/*        </Radio.Group>,*/}
-                                {/*    )}*/}
-                                {/*</Form.Item>*/}
-                            </Sider>
-                        </Layout>
-                    </Form>
-                </Modal>
-            );
+                            </div>
+
+                        </Sider>
+                    </Layout>
+                </Form>
+        </Modal>
+        )
+            ;
         }
     },
 );
