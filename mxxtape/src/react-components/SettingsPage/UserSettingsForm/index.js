@@ -81,16 +81,17 @@ class UserSettingsForm extends React.Component{
         this.props.form.validateFields((err, values) => {
             if(!err) {
                 console.log("Received values of form: ", values);
-                this.updateServerInfo(values);
-                //get new user info from server
+                //how user information will be updated on the server
                 let user = {
                     email: values.email ? values.email : this.state.email,
-                    password: this.state.password,
-                    displayName: this.state.displayName,
-                    about: this.state.about,
-                    spotifyConnected: this.state.spotifyConnected,
-                    avatar: this.state.avatar
+                    password: values.password ? values.password: this.state.password,
+                    displayName: values.displayName ? values.displayName : this.state.displayName,
+                    about: values.about ? values.about : this.state.about,
+                    spotifyConnected: values.spotifyConnected ? values.spotifyConnected: this.state.spotifyConnected,
+                    avatar: values.avatar ? values.avatar : this.state.avatar,
                 };
+                this.updateServerInfo(values);
+                //get new user info from server
                 //need to update user info from server
                 this.updateStateFromServer(user);
                 //reset the form with new values from server
@@ -101,7 +102,7 @@ class UserSettingsForm extends React.Component{
 
     updateServerInfo = (values) => {
         //make call to server to update user info from values
-        console.log("Updated Server Info");
+        console.log("Updated Server Info", values);
         message.success("Updated Info!")
     };
 
@@ -175,28 +176,35 @@ class UserSettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"Change Password"}
-                            // description={"Password must be at least 6 characters long"}
                             description={this.state.changePassword ?
                                 <Form.Item>
-
-                                    {getFieldDecorator("password", {
-                                        initialValue: this.state.password,
-                                        rules: [{required: true, message: "Please input a password!"}]
-                                    })(
-                                        <Input className="settings-field" type="password"/>
-                                    )}
+                                    <Form.Item>
+                                        {getFieldDecorator("password", {
+                                            initialValue: this.state.password,
+                                            rules: [{required: true, message: "Please input a password!"}]
+                                        })(
+                                            <Input className="settings-field" type="password"/>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </Form.Item>
                                 </Form.Item>
-                                : "Password must be at least 6 characters long"
+                                : "Change your password here"
                             }
                         />
                         <Button
                             onClick={() => {
                                 this.switchDescToInput(this.password)
                             }}
-                            htmlType={!this.state.changePassword ? "submit" : "button"}
-                            disabled={this.state.changingSetting === !this.state.changePassword}
+                            disabled={this.state.changingSetting}
                         >
-                            Change Password
+                            {this.state.changePassword ? "Save New": "Change" } Password
                         </Button>
                     </List.Item>
                     <List.Item>
