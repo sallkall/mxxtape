@@ -6,23 +6,39 @@ class UserSettingsForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props
+            username: this.props,
+            user: null,
         };
     }
 
-    //need server call to get user information
     componentDidMount() {
         //make server call with state.username
-        //populate
+        //populate email. displayName, about, spotifyConnected, links to avatar
+        const user = {
+            email: "user@user.com",
+            displayName: "user-display-name",
+            about: "Lorem Ipsum...?",
+            spotifyConnected: "user-spotify-account",
+            avatar: "https://yt3.ggpht.com/a/AGF-l7-11--_67EpTJhLCO6c4xBXPLHhC0C4GXaoQg=s900-c-k-c0xffffffff-no-rj-mo"
+        };
+        //callback
+        this.updateStateFromServer(user)
+    }
+
+    updateStateFromServer = (user) => {
         this.setState(
             {
-                email: "user@user.com",
-                displayName: "user-display-name",
-                about: "Lorem Ipsum...?",
-                spotifyConnected: "user-spotify-account",
-                avatar: "https://yt3.ggpht.com/a/AGF-l7-11--_67EpTJhLCO6c4xBXPLHhC0C4GXaoQg=s900-c-k-c0xffffffff-no-rj-mo"
+                email: user.email,
+                displayName: user.displayName,
+                about: user.about,
+                spotifyConnected: user.spotifyConnected,
+                avatar: user.avatar
             }
         );
+    };
+
+    changeEmail = () => {
+        this.setState()
     }
 
     render() {
@@ -46,7 +62,7 @@ class UserSettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"Change Password"}
-                            description={this.state.email}
+                            description={"Password must be at least 6 characters long"}
                         />
                         <Button type="button">CHANGE</Button>
                     </List.Item>

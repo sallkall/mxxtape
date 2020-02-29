@@ -19,9 +19,9 @@
 }
 
 .settings-avatar {
-    max-width: 25%;
+    max-width: 200px;
     max-height: 25%;
-    border-radius: 50%;
+    border-radius: 200%;
 }
 
 .red {

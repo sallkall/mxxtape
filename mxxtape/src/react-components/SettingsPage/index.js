@@ -21,7 +21,7 @@ class SettingsPage extends React.Component {
                     </div>
                 </div>
             )
-        } else if (state.loggedIn == 2) {
+        } else if (state.loggedIn === 2) {
             return (
                 <div>
                     <Nav state={ state }/>
