@@ -1,0 +1,29 @@
+.settings-header {
+    height: 70px;
+    align-items: flex-end;
+    display: flex;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.settings-subheader {
+    height: 50px;
+    align-items: flex-end;
+    display: flex;
+    font-size: 16px;
+    color: #777777;
+}
+
+.header-icon {
+    font-size: 24px;
+}
+
+.settings-avatar {
+    max-width: 25%;
+    max-height: 25%;
+    border-radius: 50%;
+}
+
+.red {
+    color: #ed263a;
+}
