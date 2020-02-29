@@ -3,6 +3,7 @@ import Nav from "../Navigation";
 import {Redirect} from "react-router-dom";
 import UserSettingsForm from "./UserSettingsForm";
 import './index.css'
+import {Form} from "antd";
 
 class SettingsPage extends React.Component {
 
@@ -13,21 +14,27 @@ class SettingsPage extends React.Component {
         if (state.loggedIn === -1) {
             return (<Redirect to='/login'/>)
         } else if (state.loggedIn === 1) {
+            const UserSettings = Form.create({name: "userSettings"})(
+                UserSettingsForm
+            );
             return (
                 <div>
                     <Nav state={ state }/>
                     <div className="settingsForm" >
-                        <UserSettingsForm state={state}/>
+                        <UserSettings state={state}/>
                     </div>
                 </div>
             )
         } else if (state.loggedIn === 2) {
+            const AdminSettings = Form.create({name: "adminSettings"})(
+                UserSettingsForm
+            );
             return (
                 <div>
                     <Nav state={ state }/>
                     <div className="settingsForm" >
                         Welcome admin.
-                        <UserSettingsForm state={state}/>
+                        <AdminSettings state={state}/>
                     </div>
                 </div>
             )
