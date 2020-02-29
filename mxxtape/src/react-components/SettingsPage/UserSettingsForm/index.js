@@ -1,6 +1,6 @@
 import React from "react";
 import './index.css'
-import {Icon, List, Button, Form, Input, message} from 'antd'
+import {List, Button, Form, Input, message, Upload} from 'antd'
 import {withRouter} from 'react-router-dom'
 
 class UserSettingsForm extends React.Component{
@@ -146,6 +146,23 @@ class UserSettingsForm extends React.Component{
     render() {
         const {getFieldDecorator} = this.props.form;
         const {state} = this.props;
+        const uploadProps = {
+            name: 'file',
+            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+            headers: {
+                authorization: 'authorization-text',
+            },
+            onChange(info) {
+                if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList);
+                }
+                if (info.file.status === 'done') {
+                    message.success(`${info.file.name} file uploaded successfully`);
+                } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} file upload failed.`);
+                }
+            },
+        };
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -356,12 +373,14 @@ class UserSettingsForm extends React.Component{
                                 />
                             }
                         />
+                    <Upload {...uploadProps}>
                         <Button
-                            htmlType={!this.state.changeAvatar ? "submit" : "button"}
-                            disabled={this.state.changingSetting === !this.state.changeAvatar}
+                            htmlType="button"
+                            disabled={this.state.changingSetting}
                         >
                             Change Avatar
                         </Button>
+                    </Upload>
                     </List.Item>
                 </List>
 
