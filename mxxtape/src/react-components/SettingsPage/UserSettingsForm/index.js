@@ -135,6 +135,11 @@ class UserSettingsForm extends React.Component{
             this.setState({
                 changeDisplayName: !this.state.changeDisplayName
             })
+        } else if (s === this.aboutSetting) {
+            console.log("change about", !this.state.changeAbout);
+            this.setState({
+                changeAbout: !this.state.changeAbout,
+            })
         }
     };
 
@@ -302,11 +307,36 @@ class UserSettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"About"}
-                            description={this.state.about}
+                            description={this.state.changeAbout ?
+                                <Form.Item>
+                                    <Form.Item>
+                                        {getFieldDecorator("about", {
+                                            initialValue: this.state.about,
+                                        })(
+                                            <Input.TextArea
+                                                className="settings-field setting-about"
+                                                autoSize={{ minRows: 2, maxRows: 6 }}
+                                            />
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </Form.Item>
+                                </Form.Item>
+                                : this.state.about
+                            }
                         />
                         <Button
-                            htmlType={!this.state.changeAbout ? "submit" : "button"}
-                            disabled={this.state.changingSetting === !this.state.changeAbout}
+                            className="button"
+                            onClick={() => {
+                                this.changingSettingSToggle(this.aboutSetting)
+                            }}
+                            disabled={this.state.changingSetting}
                         >
                             Change about
                         </Button>
