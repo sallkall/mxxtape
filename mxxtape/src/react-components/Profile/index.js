@@ -7,53 +7,92 @@ import Nav from "../Navigation";
 import profilePic from "./profile.png"
 import albumPic from "./unregisteredhypercam2.jpg"
 import song from "./unregisteredhypercam2.m4a"
+import bannerPic from "./randombanner.jpg"
 
-let genericHistorySong = (
-    <div className="historyDiv">
-        <img className="historyImage" src={albumPic}/>
-        <p className="historySongName">[Song Name]</p>
-        <audio controls className="historyAudio">
-            <source src={song}/>
-        </audio>
-    </div>
-);
+import {Divider, Layout} from 'antd';
+import { Avatar } from 'antd';
+import { Card } from 'antd';
+import { List } from 'antd';
+import { Button } from 'antd';
+
+const { Header, Footer, Sider, Content } = Layout;
 
 class Community extends React.Component {
     render() {
         return (
-            <div>
+            <div id={"Root"}>
                 <Nav/>
-                <div id="userSidebar">
-                    <p className="bigText">Welcome, Username!</p>
-                    <img id="userSidebarIcon" src={profilePic}/>
-                    <div id="userSidebarDiv">
-                        <p className="bigText">Starred Song:</p>
-                        <img id="userSidebarSongImage" src={albumPic}/>
-                        <p>[Song Name]</p>
-                        <audio controls id="userSidebarAudio">
-                            <source src={song}/>
-                        </audio>
-                    </div>
-                </div>
-                <div id="featuredDiv">
-                    <p className="bigText"><b>Featured Song:</b><br/>Unregistered Hypercam 2</p>
-                    <a href="Community"><img id="featuredImage" src={albumPic}/></a>
-                    <audio controls id="featuredAudio">
-                        <source src={song}/>
-                            Your browser does not support audio.
-                    </audio>
-                </div>
-                <div id="historyDiv">
-                    <p className="bigText"><b>Listening History</b></p>
-                    {genericHistorySong}
-                    {genericHistorySong}
-                    {genericHistorySong}
-                    {genericHistorySong}
-                    {genericHistorySong}
-                    <a href="" className="historyButton">[More]</a>
-                </div>
+                <Layout id="Layout">
+                    <Sider id="Sidebar">
+                        <Card id="SidebarCard" title="Username">
+                            <Avatar id="SidebarAvatar" shape="square" src={profilePic}/>
+                            <Divider/>
+                            <img id="SidebarAlbumCover" className="AlbumCover" src={albumPic} alt="Image Load Error"/>
+                            <p id="SidebarSongName">SONG NAME</p>
+                            <audio controls id="SidebarAudio">
+                                <source src={song}/>
+                            </audio>
+                        </Card>
+                    </Sider>
+
+                    <Content>
+                        <Card id="FeaturedCard" className="ContentCard" title="FEATURED SONG">
+                            <img id="FeaturedAlbumCover" className="AlbumCover" src={albumPic} alt="Image Load Error"/>
+                            <p id="FeaturedSongName">SONG NAME</p>
+                            <audio controls id="FeaturedAudio">
+                                <source src={song}/>
+                            </audio>
+                        </Card>
+
+                        <Card id="DiscoverCard" className="ContentCard" title="DISCOVER">
+                            <List
+                                dataSource = {["Song Uno", "Extremely Long Song Name For Testing Purposes", "Song 3", "Song Four", "Song E", "Foxtrot"]}
+                                renderItem = {item => (
+                                    <List.Item className="HistoryItem">
+                                        <img className="HistoryAlbumCover AlbumCover" src={albumPic} alt="Image Load Error"/>
+                                        <p>{item}</p>
+                                        <audio controls>
+                                            <source src={song}/>
+                                        </audio>
+                                    </List.Item>
+                                )}
+                            />
+                        </Card>
+
+                        <Card id="HistoryCard" className="ContentCard" title="HISTORY">
+                            <List
+                                footer = {<Button href="">[MORE]</Button>}
+                                dataSource = {["Song Uno", "Extremely Long Song Name For Testing Purposes", "Song 3", "Song Four", "Song E"]}
+                                renderItem = {item => (
+                                    <List.Item className="HistoryItem">
+                                        <img className="HistoryAlbumCover AlbumCover" src={albumPic} alt="Image Load Error"/>
+                                        <p>{item}</p>
+                                        <audio controls>
+                                            <source src={song}/>
+                                        </audio>
+                                    </List.Item>
+                                )}
+                            />
+                        </Card>
+
+                        <Card id="CommunityCard" className="ContentCard" title="YOUR COMMUNITIES">
+                            <List
+                                footer = {<Button href="">[MORE]</Button>}
+                                dataSource = {["Rock N Roll", "Digital", "AAAAA", "Rickrolls", "8"]}
+                                renderItem = {item => (
+                                    <List.Item className="HistoryItem">
+                                        <div className="CommunityDiv">
+                                            <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
+                                            <a className="CommunityTitle" href="community">{item}</a>
+                                        </div>
+                                    </List.Item>
+                                )}
+                            />
+                        </Card>
+                    </Content>
+                </Layout>
             </div>
-        )
+        );
     }
 }
 

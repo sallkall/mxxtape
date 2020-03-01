@@ -1,112 +1,106 @@
-
-
-p {
-    margin-left: 10px;
-    margin-top: 10px;
+#Root {
+    height: 720px;
 }
-p.bigText {
-    margin-left: 10px;
-    margin-top: 10px;
+
+.AlbumCover {
+    object-fit: cover;
+}
+
+
+#Layout {
+    height: calc(100% - 20px);
+    width: 100%;
+}
+
+#Sidebar {
+    background: #DDDDDD;
+    width: 300px;
+    height: 650px;
+    margin: 10px;
+    border-radius: 10px;
+}
+#SidebarCard {
+    height: 100%;
+    border-radius: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+#SidebarAvatar {
+    width: 150px;
+    height: 150px;
+}
+#SidebarAlbumCover {
+    width: 150px;
+    height: 150px;
+}
+#SidebarAudio {
+    width: 150px;
+    height: 25px;
+}
+
+#FeaturedCard {
+    width: 400px;
+    height: 550px;
+}
+#FeaturedAlbumCover {
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    text-align: center;
+}
+#FeaturedSongName {
     font-size: 20px;
     text-align: center;
 }
-
-#userSidebar {
-    float: left;
-    margin-left: 20px;
-    margin-top: 20px;
-    height: 650px;
-    width: 250px;
-    background: #DDDDDD;
-    border-radius: 10px;
-}
-#userSidebarIcon {
-    width: 230px;
-    margin-left: 10px;
-    border-radius: 10px;
-}
-#userSidebarDiv {
-    margin: 10px;
-    width: 230px;
-    height: 340px;
-    background: #CCCCCC;
-    border-radius: 10px;
-}
-#userSidebarSongImage {
-    margin-left: 10px;
-    width: 210px;
-    height: 210px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-#userSidebarAudio {
-    margin-left: 10px;
-    width: 210px;
-    height: 30px;
+#FeaturedAudio {
+    width: 350px;
 }
 
-
-
-#featuredDiv {
-    float: left;
-    margin-left: 50px;
-    margin-top: 20px;
-    width: 400px;
+#HistoryCard {
+    width: 700px;
     height: 550px;
-    background: #DDDDDD;
-    border-radius: 10px;
 }
-#featuredImage {
-    margin-left: 10px;
-    margin-bottom: 10px;
-    width: 380px;
-    height: 380px;
-    object-fit: cover;
-    border-radius: 10px;
+.HistoryItem {
+    margin: 0;
 }
-#featuredAudio {
-    width: 380px;
-    margin-left: 10px;
-}
-
-
-
-#historyDiv {
-    float: left;
-    margin-left: 50px;
-    margin-top: 20px;
-    width: 600px;
-    height: 550px;
-    background: #DDDDDD;
-    border-radius: 10px;
-}
-.historyDiv {
-    float: left;
-    width: 580px;
-    height: 70px;
-    margin: 10px;
-    background: #CCCCCC;
-    border-radius: 10px;
-}
-.historyImage {
-    float: left;
-    margin: 10px;
+.HistoryAlbumCover {
     width: 50px;
     height: 50px;
-    object-fit: cover;
-    border-radius: 5px;
 }
-.historyAudio {
-    width: 490px;
-    margin-left: 10px;
-    height: 20px;
+.HistoryAudio {
+    width: 300px;
 }
-.historySongName {
-    margin-left: 80px;
+
+#DiscoverCard {
+    width: 700px;
+    height: 550px;
+}
+
+#CommunityCard {
+    width: 400px;
+    height: 550px;
+}
+.CommunityDiv {
+    height: 50px;
+    width: 350px;
+}
+.CommunityBanner {
+    height: 50px;
+    width: 350px;
+}
+.CommunityTitle {
+    display: block;
+    text-align: center;
+    margin-top: -50px;
+    transform: translate(0%, 50%);
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
     font-size: 15px;
-    height: 10px;
 }
-.historyButton {
-    display: table;
-    margin: 0 auto;
+
+.ContentCard {
+    float: left;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
 }
