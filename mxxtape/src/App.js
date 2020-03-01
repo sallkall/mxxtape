@@ -13,6 +13,7 @@ import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
 import SettingsPage from "./react-components/SettingsPage";
+import ForgotPassword from "./react-components/ForgotPasswordPage";
 
 class App extends React.Component {
 
@@ -22,6 +23,8 @@ class App extends React.Component {
         community: "community",
         profile: "profile",
         dashboard: "dashboard",
+        forgot_password: 'forgot_password',
+        register: 'register',
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
         loggedIn: -1,
@@ -58,10 +61,15 @@ class App extends React.Component {
                             (<Community state={this.state}/>)}/>
                         <Route exact path='/profile' render={() =>
                             (<Profile state={this.state}/>)}/>
-                        <Route exact path='/login' render={()=>
-                            (<LoginPage state={this.state}/>)}/>
-                        <Route exact path='/register' render={()=>
+                        <Route exact path='/login'>
+                            {this.state.loggedIn !== -1 ?
+                                <Redirect to="/"/> :
+                                <LoginPage state={this.state}/>}
+                        </Route>
+                        <Route exact path={'/' + this.state.register} render={()=>
                             (<Register state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.forgot_password} render={()=>
+                            (<ForgotPassword state={this.state}/>)}/>
                         <Route exact path='/settings' render={()=>
                             (<SettingsPage state={this.state}/>)}/>
                     </Switch>

@@ -55,7 +55,7 @@ class LoginForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { handleLoggedIn } = this.props;
+        const { handleLoggedIn, state } = this.props;
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
@@ -93,7 +93,7 @@ class LoginForm extends React.Component {
                             className="login-form-register"
                             type = "link"
                             onClick={() => {
-                                this.handleRedirect("register");
+                                this.handleRedirect(state.register);
                             }
                             }
                         >
@@ -103,7 +103,7 @@ class LoginForm extends React.Component {
                             className="login-form-forgot"
                             type="link"
                             onClick={() => {
-                                this.handleRedirect("password")}
+                                this.handleRedirect(state.forgot_password)}
                             }
                         >
                             Forgot password
