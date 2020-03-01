@@ -14,6 +14,7 @@ import { Avatar } from 'antd';
 import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
+import {Row, Col} from 'antd';
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -61,7 +62,7 @@ class Community extends React.Component {
 
                         <Card id="HistoryCard" className="ContentCard" title="HISTORY">
                             <List
-                                footer = {<Button href="">[MORE]</Button>}
+                                footer = {<Button href="../History">[MORE]</Button>}
                                 dataSource = {["Song Uno", "Extremely Long Song Name For Testing Purposes", "Song 3", "Song Four", "Song E"]}
                                 renderItem = {item => (
                                     <List.Item className="HistoryItem">
@@ -77,13 +78,13 @@ class Community extends React.Component {
 
                         <Card id="CommunityCard" className="ContentCard" title="YOUR COMMUNITIES">
                             <List
-                                footer = {<Button href="">[MORE]</Button>}
+                                footer = {<Button href="./Subscriptions">[MORE]</Button>}
                                 dataSource = {["Rock N Roll", "Digital", "AAAAA", "Rickrolls", "8"]}
                                 renderItem = {item => (
                                     <List.Item className="HistoryItem">
                                         <div className="CommunityDiv">
                                             <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                            <a className="CommunityTitle" href="community">{item}</a>
+                                            <a className="CommunityTitle" href="../Community">{item}</a>
                                         </div>
                                     </List.Item>
                                 )}

@@ -12,6 +12,8 @@ import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
+import History from './react-components/History';
+import SubbedCommunities from './react-components/SubbedCommunities';
 
 class App extends React.Component {
 
@@ -61,6 +63,10 @@ class App extends React.Component {
                             (<LoginPage state={this.state}/>)}/>
                         <Route exact path='/register' render={()=>
                             (<Register state={this.state}/>)}/>
+                        <Route exact path='/history' render={()=>
+                            (<History state={this.state}/>)}/>
+                        <Route exact path='/subscriptions' render={()=>
+                            (<SubbedCommunities state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>

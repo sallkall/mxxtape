@@ -1,0 +1,51 @@
+
+#Root {
+    height: 100%;
+    margin: auto;
+}
+#Layout {
+    height: calc(100% - 20px);
+    width: 100%;
+}
+#Sidebar {
+    background: inherit;
+}
+#BackButton {
+    width: 150px;
+    margin-left: 25px;
+}
+
+.ContentCard {
+    float: left;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}
+#Subscriptions {
+    width: 900px;
+    height: auto;
+}
+.CommunityItem {
+    margin: 0;
+}
+.CommunityDiv {
+    height: 100px;
+    width: 700px;
+}
+.CommunityBanner {
+    height: 100px;
+    width: 700px;
+}
+.CommunityTitle {
+    display: block;
+    text-align: center;
+    margin-top: -100px;
+    transform: translate(0%, 50%);
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+    font-size: 30px;
+}
+.UnSubButton {
+    width: 50px;
+    height: 50px;
+}
