@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "../Navigation";
 import {Redirect} from "react-router-dom";
-import UserSettingsForm from "./UserSettingsForm";
+import SettingsForm from "./SettingsForm";
 import './index.css'
 import {Form} from "antd";
 
@@ -15,7 +15,7 @@ class SettingsPage extends React.Component {
             return (<Redirect to='/login'/>)
         } else if (state.loggedIn === 1) {
             const UserSettings = Form.create({name: "userSettings"})(
-                UserSettingsForm
+                SettingsForm
             );
             return (
                 <div>
@@ -27,7 +27,7 @@ class SettingsPage extends React.Component {
             )
         } else if (state.loggedIn === 2) {
             const AdminSettings = Form.create({name: "adminSettings"})(
-                UserSettingsForm
+                SettingsForm
             );
             return (
                 <div>

@@ -24,7 +24,7 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
-class UserSettingsForm extends React.Component{
+class SettingsForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +44,6 @@ class UserSettingsForm extends React.Component{
         this.emailSetting = "email";
         this.passwordSetting = "password";
         this.spotifyAccountSetting = "spotifyAccount";
-        this.deactivateAccountSetting = "deactivateAccount";
         this.displayNameSetting = "displayName";
         this.aboutSetting = "about";
         this.avatarSetting = "avatar";
@@ -75,7 +74,7 @@ class UserSettingsForm extends React.Component{
             displayName: "user-display-name",
             about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give context around the programming that we do in the course. By the end of the course, you should be able to explain the architecture behind a web application, and understand which technologies you can use to create web applications yourself.",
             spotifyAccount: "user-spotify-account",
-            avatar: "https://yt3.ggpht.com/a/AGF-l7-11--_67EpTJhLCO6c4xBXPLHhC0C4GXaoQg=s900-c-k-c0xffffffff-no-rj-mo"
+            avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
         };
         //callback
         this.updateStateFromServer(user)
@@ -91,7 +90,7 @@ class UserSettingsForm extends React.Component{
                 displayName: user.displayName ? user.displayName : errorInput,
                 about: user.about ? user.about : errorInput,
                 spotifyAccount: user.spotifyAccount ? user.spotifyAccount : errorInput,
-                avatar: user.avatar ? user.avatar : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+                avatar: user.avatar ? user.avatar : errorInput
             },
             () => {
                 console.log(this.state);
@@ -427,4 +426,4 @@ class UserSettingsForm extends React.Component{
     }
 }
 
-export default withRouter(UserSettingsForm);
+export default withRouter(SettingsForm);
