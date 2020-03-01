@@ -36,22 +36,15 @@ class RegisterForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const validateMessages = {
-            required: 'This field is required!',
-            types: {
-                email: 'Not a valid email!',
-            },
-        };
         return (
             <div>
                 <Form
                     onSubmit={this.handleSubmit}
                     className="register-form"
-                    validateMessages={validateMessages}
                 >
                     <Form.Item>
                         {getFieldDecorator("email", {
-                            rules: [{type: 'email'}]
+                            rules: [{required: true, message: "Please input a valid email!", type: 'email'}]
                         })(
                             <Input
                                 prefix={<Icon type="mail" className="input-icon"/>}
