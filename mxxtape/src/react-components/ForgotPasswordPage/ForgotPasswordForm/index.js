@@ -7,6 +7,11 @@ import {withRouter} from "react-router-dom";
 
 class ForgotPasswordForm extends React.Component {
 
+    constructor(props) {
+        super(props);
+        console.log("Construct Forgot Password Form", props);
+    }
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -28,6 +33,7 @@ class ForgotPasswordForm extends React.Component {
             <Form
                 onSubmit={this.handleSubmit}
                 className="forgot-password-form"
+                scrollToFirstError
             >
                 <Form.Item>
                     {getFieldDecorator("username", {
@@ -40,45 +46,41 @@ class ForgotPasswordForm extends React.Component {
                         />
                     )}
                 </Form.Item>
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password
-                        className="input"
-                        prefix={<Icon type="lock" className="input-icon"/>}
-                        placeholder="New password"/>
-                </Form.Item>
-
-                <Form.Item
-                    name="confirm"
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please confirm your password!',
-                        },
-                        ({ getFieldValue }) => ({
-                            validator(rule, value) {
-                                if (!value || getFieldValue('password') === value) {
-                                    return Promise.resolve();
-                                }
-                                return Promise.reject('The passwords that you entered do not match!');
+                <Form.Item hasFeedback>
+                    {getFieldDecorator('password', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your password!',
                             },
-                        }),
-                    ]}
-                >
-                    <Input.Password
+                            {
+                                validator: this.validateToNextPassword,
+                            },
+                        ],
+                    })(<Input.Password
                         className="input"
                         prefix={<Icon type="lock" className="input-icon"/>}
-                        placeholder="Confirm password"/>
+                        placeholder="New password"/>)}
+                </Form.Item>
+                <Form.Item hasFeedback>
+                    {getFieldDecorator('confirm', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            {
+                                validator: this.compareToFirstPassword,
+                            },
+                        ],
+                    })(
+                        <Input.Password
+                            className="input"
+                            prefix={<Icon type="lock" className="input-icon"/>}
+                            placeholder="Confirm password"
+                            onBlur={this.handleConfirmBlur}
+                        />
+                    )}
                 </Form.Item>
                 <Form.Item>
                     <Button
