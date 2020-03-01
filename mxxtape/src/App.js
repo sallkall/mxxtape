@@ -12,6 +12,7 @@ import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
+import SettingsPage from "./react-components/SettingsPage";
 
 class App extends React.Component {
 
@@ -61,6 +62,8 @@ class App extends React.Component {
                             (<LoginPage state={this.state}/>)}/>
                         <Route exact path='/register' render={()=>
                             (<Register state={this.state}/>)}/>
+                        <Route exact path='/settings' render={()=>
+                            (<SettingsPage state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
