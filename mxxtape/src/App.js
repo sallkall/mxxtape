@@ -12,6 +12,7 @@ import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
+import ForgotPassword from "./react-components/ForgotPasswordPage";
 
 class App extends React.Component {
 
@@ -21,6 +22,8 @@ class App extends React.Component {
         community: "community",
         profile: "profile",
         dashboard: "dashboard",
+        forgot_password: "forgot_password",
+        register: "register",
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
         loggedIn: -1,
@@ -61,6 +64,8 @@ class App extends React.Component {
                             (<LoginPage state={this.state}/>)}/>
                         <Route exact path='/register' render={()=>
                             (<Register state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.forgot_password} render={()=>
+                            (<ForgotPassword state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
