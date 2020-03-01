@@ -33,6 +33,12 @@ function checkValidEmail(email) {
     return isEmailAddress;
 }
 
+function checkValidSpotify(spotify) {
+    // check if spotify with spotify's API
+    // temporarily validating
+    return true
+}
+
 class SettingsForm extends React.Component{
     constructor(props) {
         super(props);
@@ -120,6 +126,8 @@ class SettingsForm extends React.Component{
                 console.log("Received values of form: ", values);
                 if (values.email) {
                     values.email = checkValidEmail(values.email) ? values.email : this.state.email;
+                } else if (values.spotifyAccount) {
+                    values.spotifyAccount = checkValidSpotify(values.spotifyAccount) ? values.spotifyAccount : this.state.spotifyAccount;
                 }
                 //how user information will be updated on the server
                 let user = {
