@@ -24,11 +24,27 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
-class UserSettingsForm extends React.Component{
+function checkValidEmail(email) {
+    // regex for email taken from https://emailregex.com
+    const isEmailAddress = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    if (!isEmailAddress){
+        message.error('You must enter a valid email address!')
+    }
+    return isEmailAddress;
+}
+
+function checkValidSpotify(spotify) {
+    // check if spotify with spotify's API
+    // temporarily validating
+    return true
+}
+
+class SettingsForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             username: this.props.username ? this.props.username : "whoareyou?",
+            user: null,
             changingSetting: false,
             changeEmail: false,
             changePassword: false,
@@ -44,10 +60,13 @@ class UserSettingsForm extends React.Component{
         this.emailSetting = "email";
         this.passwordSetting = "password";
         this.spotifyAccountSetting = "spotifyAccount";
-        this.deactivateAccountSetting = "deactivateAccount";
         this.displayNameSetting = "displayName";
         this.aboutSetting = "about";
         this.avatarSetting = "avatar";
+
+        // temp variable for current user
+        // only for phase 1, eventually will user information will include whether or not they are an admin
+        this.isAdmin = this.props.isAdmin;
     }
 
     resetDesc = () => {
@@ -67,16 +86,39 @@ class UserSettingsForm extends React.Component{
     };
 
     componentDidMount() {
-        //make server call with state.username
+        //make server call with state.username passed from parent component
+        // let user = getUser(state.username);
         //populate email. displayName, about, spotifyAccount, links to avatar
-        const user = {
-            email: "user@user.com",
-            password: "user",
-            displayName: "user-display-name",
-            about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give context around the programming that we do in the course. By the end of the course, you should be able to explain the architecture behind a web application, and understand which technologies you can use to create web applications yourself.",
-            spotifyAccount: "user-spotify-account",
-            avatar: "https://yt3.ggpht.com/a/AGF-l7-11--_67EpTJhLCO6c4xBXPLHhC0C4GXaoQg=s900-c-k-c0xffffffff-no-rj-mo"
-        };
+        let user = null;
+        if (this.isAdmin) {
+            user = {
+                email: "admin@admin.com",
+                password: "admin",
+                displayName: "admin-display-name",
+                about: "Music has always had a magic in that it is able to unite people in ways that other mediums " +
+                    "can’t. For many people, music defines the cultural identity of the times they grew up in, the " +
+                    "interests they have, and as a way to easily express their personality. And yet, the base " +
+                    "functionality of music streaming sites on the internet like Spotify and Apple Music are very " +
+                    "focused on providing users with a place to listen to music. Beyond allowing users to create " +
+                    "playlists, they provide their users very little opportunity for people to connect with each " +
+                    "other and share their love for music. In this way, the sense of community and unity through music " +
+                    "is lost. For these reasons we came up with our project: Mxxtape.",
+                spotifyAccount: "admin-spotify-account",
+                avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
+            };
+        } else {
+            user = {
+                email: "user@user.com",
+                password: "user",
+                displayName: "user-display-name",
+                about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give " +
+                    "context around the programming that we do in the course. By the end of the course, you should " +
+                    "be able to explain the architecture behind a web application, and understand which technologies " +
+                    "you can use to create web applications yourself.",
+                spotifyAccount: "user-spotify-account",
+                avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
+            };
+        }
         //callback
         this.updateStateFromServer(user)
     }
@@ -91,7 +133,7 @@ class UserSettingsForm extends React.Component{
                 displayName: user.displayName ? user.displayName : errorInput,
                 about: user.about ? user.about : errorInput,
                 spotifyAccount: user.spotifyAccount ? user.spotifyAccount : errorInput,
-                avatar: user.avatar ? user.avatar : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+                avatar: user.avatar ? user.avatar : errorInput
             },
             () => {
                 console.log(this.state);
@@ -102,13 +144,19 @@ class UserSettingsForm extends React.Component{
     redirect = addr => {
         console.log(addr);
         this.props.history.push(addr);
-    }
+    };
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            let invalidSubmission = null;
             if(!err) {
                 console.log("Received values of form: ", values);
+                if (values.email) {
+                    values.email = checkValidEmail(values.email) ? values.email : this.state.email;
+                } else if (values.spotifyAccount) {
+                    values.spotifyAccount = checkValidSpotify(values.spotifyAccount) ? values.spotifyAccount : this.state.spotifyAccount;
+                }
                 //how user information will be updated on the server
                 let user = {
                     email: values.email ? values.email : this.state.email,
@@ -196,7 +244,7 @@ class UserSettingsForm extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { avatar } = this.state;
+        const { avatar, user } = this.state;
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -318,7 +366,7 @@ class UserSettingsForm extends React.Component{
                 <header className="settings-header">
                     Customize profile
                 </header>
-                <header className="settings-subheader">PROFILE INFORMATION</header>
+                <header className="settings-subheader">profile information</header>
                 <hr/>
                 <List>
                     <List.Item>
@@ -427,4 +475,4 @@ class UserSettingsForm extends React.Component{
     }
 }
 
-export default withRouter(UserSettingsForm);
+export default withRouter(SettingsForm);

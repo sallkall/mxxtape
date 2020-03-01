@@ -3,3 +3,15 @@
     margin: 0 auto;
     padding: 0 16px;
 }
+
+.all-small-caps {
+    font-variant: all-small-caps;
+}
+
+#settings-header-admin {
+    height: 70px;
+    align-items: flex-end;
+    display: flex;
+    font-size: 24px;
+    font-variant: all-petite-caps;
+}

@@ -12,6 +12,7 @@
     display: flex;
     font-size: 16px;
     color: #777777;
+    font-variant: all-small-caps;
 }
 
 .header-icon {
