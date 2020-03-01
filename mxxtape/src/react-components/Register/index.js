@@ -16,8 +16,7 @@ class Register extends React.Component {
         return (
             <div className="Register">
                 <div className="register-form">
-                    <br/><br/><br/><br/><br/>
-                    <h2>
+                    <h2 className="register-form-header">
                         Register
                     </h2>
                     <RegisterPageRegisterForm />
