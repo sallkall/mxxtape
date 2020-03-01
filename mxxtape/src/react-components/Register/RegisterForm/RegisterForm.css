@@ -1,11 +1,16 @@
 .register-form {
-    max-width: 300px;
+    max-width: 50vw;
     font-size: 14px;
 }
 .register-form-button {
-    width: 100%;
+    padding-left:5vw;
+    padding-right:5vw;
 }
 
 .input-icon {
     color: rgba(0,0,0,.25)
+}
+
+.input {
+    width: 18vw;
 }

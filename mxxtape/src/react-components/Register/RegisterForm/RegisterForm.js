@@ -47,6 +47,7 @@ class RegisterForm extends React.Component {
                             rules: [{required: true, message: "Please input a valid email!", type: 'email'}]
                         })(
                             <Input
+                                className="input"
                                 prefix={<Icon type="mail" className="input-icon"/>}
                                 placeholder="Email"
                             />
@@ -57,6 +58,7 @@ class RegisterForm extends React.Component {
                             rules: [{required: true, message: "Please input your username!"}]
                         })(
                             <Input
+                                className="input"
                                 prefix={<Icon type="user"  className="input-icon"/>}
                                 placeholder="Username"
                             />
@@ -66,9 +68,9 @@ class RegisterForm extends React.Component {
                         {getFieldDecorator("password", {
                             rules: [{required: true, message: "Please input your password!"}]
                         })(
-                            <Input
+                            <Input.Password
+                                className="input"
                                 prefix={<Icon type="lock"  className="input-icon"/>}
-                                type="password"
                                 placeholder="Password"
                             />
                         )}
@@ -77,7 +79,7 @@ class RegisterForm extends React.Component {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="login-form-button"
+                            className="register-form-button"
                         >
                             Register Now!
                         </Button>
