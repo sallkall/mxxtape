@@ -37,9 +37,9 @@ class SubbedCommunities extends React.Component {
                                 dataSource = {SubList}
                                 renderItem = {item => (
                                     <List.Item className="CommunityItem">
-                                        <div className="CommunityDiv">
-                                            <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                            <a className="CommunityTitle" href="../Community">{item}</a>
+                                        <div className="SubbedCommunityDiv">
+                                            <img className="SubbedCommunityBanner" src={bannerPic} alt="Image Load Error"/>
+                                            <a className="SubbedCommunityTitle" href="../Community">{item}</a>
                                         </div>
                                         <input type="image" className="UnSubButton" src={removePic} alt="Image Load Error" onClick={() => UnSub(item, this)}/>
                                     </List.Item>

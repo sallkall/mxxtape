@@ -28,15 +28,15 @@
 .CommunityItem {
     margin: 0;
 }
-.CommunityDiv {
+.SubbedCommunityDiv {
     height: 100px;
     width: 700px;
 }
-.CommunityBanner {
+.SubbedCommunityBanner {
     height: 100px;
     width: 700px;
 }
-.CommunityTitle {
+.SubbedCommunityTitle {
     display: block;
     text-align: center;
     margin-top: -100px;
