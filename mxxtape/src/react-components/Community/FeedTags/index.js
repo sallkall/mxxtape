@@ -35,7 +35,6 @@ class FeedTags extends React.Component {
     render() {
         return (
             <div>
-                <h3 style={{marginBottom: 16}}>Popular Tags: </h3>
                 <List
                     className="tags_container"
                     itemLayout='vertical'

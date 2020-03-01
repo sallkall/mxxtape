@@ -7,6 +7,7 @@ import reqwest from 'reqwest';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
+// a fake data url giving us some fake members of this community
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,nat&noinfo';
 
 class MembersList extends React.Component {
@@ -73,11 +74,12 @@ class MembersList extends React.Component {
                         renderItem={item => (
                             <List.Item key={item.id}>
                                 <List.Item.Meta
+                                    className='member_item'
                                     avatar={
-                                        <Avatar>{item.name.first[0]}</Avatar>
+                                        <Avatar className="avatar">{item.name.first[0]}</Avatar>
                                     }
-                                    title={<a href="/">{item.name.first + "" + item.name.last}</a>}
-                                    // description={item.email}
+                                    title={<a href="/community/jazzitup">{item.name.first + " " + item.name.last}</a>}
+                                    description="short bio"
                                 />
                             </List.Item>
                         )}

@@ -72,9 +72,11 @@ class Community extends React.Component {
                             </div>
                         </Content>
                         <Sider className="sidebar" width={240}>
+                            <h3>Popular Tags: </h3>
                             <div className="sidebar_item">
                                 <FeedTags/>
                             </div>
+                            <h3>Members: </h3>
                             <div className="sidebar_item">
                                 <MembersList/>
                             </div>
