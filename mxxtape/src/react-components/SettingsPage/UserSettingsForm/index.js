@@ -1,7 +1,28 @@
 import React from "react";
 import './index.css'
-import {List, Button, Form, Input, message, Upload} from 'antd'
+import {List, Button, Form, Input, message, Upload, Avatar} from 'antd'
 import {withRouter} from 'react-router-dom'
+
+function getBase64(img, callback) {
+    // sample code from antd
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+    //sample code from antd
+    // checking that image type is correct
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+        message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+        message.error('Image must smaller than 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+}
 
 class UserSettingsForm extends React.Component{
     constructor(props) {
@@ -15,7 +36,8 @@ class UserSettingsForm extends React.Component{
             deactivateAccount: false,
             changeDisplayName: false,
             changeAbout: false,
-            changeAvatar: false
+            changeAvatar: false,
+            uploadingAvatar: false
         };
         //don't change these variables,
         // needed to maintain changingSettingSToggle
@@ -143,26 +165,26 @@ class UserSettingsForm extends React.Component{
         }
     };
 
+    handleChange = info => {
+        // sample code from antd for uploading images
+        if (info.file.status === 'uploading') {
+            this.setState({ uploadingAvatar: true });
+            return;
+        }
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, imageUrl =>
+                this.setState({
+                    avatar: imageUrl,
+                    uploadingAvatar: false,
+                }),
+            );
+        }
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {state} = this.props;
-        const uploadProps = {
-            name: 'file',
-            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-            headers: {
-                authorization: 'authorization-text',
-            },
-            onChange(info) {
-                if (info.file.status !== 'uploading') {
-                    console.log(info.file, info.fileList);
-                }
-                if (info.file.status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully`);
-                } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
-                }
-            },
-        };
+        const { avatar } = this.state;
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -366,18 +388,24 @@ class UserSettingsForm extends React.Component{
                         <List.Item.Meta
                             title={"Avatar"}
                             description={
-                                <img
+                                <Avatar
                                     className="settings-avatar"
                                     src={this.state.avatar}
-                                    alt="avatar"
+                                    size={200}
+                                    // src = {imageUrl}
+                                    // alt="avatar"
                                 />
                             }
                         />
-                    <Upload {...uploadProps}>
-                        <Button
-                            htmlType="button"
-                            disabled={this.state.changingSetting}
-                        >
+                    <Upload
+                        name="avatar"
+                        className="avatar-uploader"
+                        showUploadList={false}
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        beforeUpload={beforeUpload}
+                        onChange={this.handleChange}
+                    >
+                        <Button disabled={this.state.changingSetting}>
                             Change Avatar
                         </Button>
                     </Upload>
