@@ -1,5 +1,5 @@
 .content {
-    padding: 0 50px;
+    padding: 0 150px;
 }
 
 .header {
@@ -68,6 +68,7 @@
 }
 .feed_container {
     padding: 24px 24px;
+    margin-right: -48px;
     position: relative;
 }
 
@@ -96,4 +97,17 @@
 
 .header_join_button {
     /*color: #b7eb8f;*/
+}
+
+.sidebar{
+    margin-top: 48px;
+    background-color: transparent;
+}
+.sidebar_item{
+    border-radius: 5px;
+    border: 1px solid ghostwhite;
+    padding: 24px;
+    /*padding-top: 24px;*/
+    /*padding-right: 24px;*/
+    /*background-color: ghostwhite;*/
 }
