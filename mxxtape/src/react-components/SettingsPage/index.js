@@ -34,7 +34,7 @@ class SettingsPage extends React.Component {
                     <Nav state={ state }/>
                     <div className="settingsForm" >
                         Welcome admin.
-                        <AdminSettings state={state} username="admin"/>
+                        <AdminSettings state={state} username="admin" isAdmin={true}/>
                     </div>
                 </div>
             )
