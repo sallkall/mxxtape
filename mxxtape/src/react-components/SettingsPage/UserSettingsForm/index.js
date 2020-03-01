@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom'
 function getBase64(img, callback) {
     // sample code from antd
     const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
+    reader.addEventListener('load', () => {callback(reader.result)});
     reader.readAsDataURL(img);
 }
 
@@ -165,20 +165,32 @@ class UserSettingsForm extends React.Component{
         }
     };
 
-    handleChange = info => {
+    handleAvatarChange = info => {
         // sample code from antd for uploading images
         if (info.file.status === 'uploading') {
             this.setState({ uploadingAvatar: true });
             return;
         }
         if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, imageUrl =>
+            // Get this imageUrl from response in real world.
+            getBase64(info.file.originFileObj, imageUrl => {
+                const values = {avatar: imageUrl};
+                // upload image to server
+                this.updateServerInfo(values);
                 this.setState({
-                    avatar: imageUrl,
                     uploadingAvatar: false,
-                }),
-            );
+                });
+                //get this user info from server
+                let user = {
+                    email: this.state.email,
+                    password: this.state.password,
+                    displayName: this.state.displayName,
+                    about: this.state.about,
+                    spotifyAccount: this.state.spotifyAccount,
+                    avatar: values.avatar ? values.avatar : this.state.avatar,
+                };
+                this.updateStateFromServer(user);
+            });
         }
     };
 
@@ -392,8 +404,6 @@ class UserSettingsForm extends React.Component{
                                     className="settings-avatar"
                                     src={this.state.avatar}
                                     size={200}
-                                    // src = {imageUrl}
-                                    // alt="avatar"
                                 />
                             }
                         />
@@ -403,7 +413,7 @@ class UserSettingsForm extends React.Component{
                         showUploadList={false}
                         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         beforeUpload={beforeUpload}
-                        onChange={this.handleChange}
+                        onChange={this.handleAvatarChange}
                     >
                         <Button disabled={this.state.changingSetting}>
                             Change Avatar
