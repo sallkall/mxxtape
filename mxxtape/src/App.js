@@ -13,6 +13,7 @@ import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
 import ForgotPassword from "./react-components/ForgotPasswordPage";
+import SettingsPage from "./react-components/SettingsPage";
 
 class App extends React.Component {
 
@@ -62,10 +63,12 @@ class App extends React.Component {
                             (<Profile state={this.state}/>)}/>
                         <Route exact path='/login' render={()=>
                             (<LoginPage state={this.state}/>)}/>
-                        <Route exact path='/register' render={()=>
+                        <Route exact path={'/' + this.state.register} render={()=>
                             (<Register state={this.state}/>)}/>
                         <Route exact path={'/' + this.state.forgot_password} render={()=>
                             (<ForgotPassword state={this.state}/>)}/>
+                        <Route exact path='/settings' render={()=>
+                            (<SettingsPage state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
