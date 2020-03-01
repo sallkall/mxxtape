@@ -64,6 +64,7 @@ class LoginForm extends React.Component {
                             rules: [{required: true, message: "Please input your username!"}]
                         })(
                             <Input
+                                className="input"
                                 prefix={<Icon type="user" className="input-icon"/>}
                                 placeholder="Username"
                             />
@@ -73,9 +74,9 @@ class LoginForm extends React.Component {
                         {getFieldDecorator("password", {
                             rules: [{required: true, message: "Please input your password!"}]
                         })(
-                            <Input
+                            <Input.Password
+                                className="input"
                                 prefix={<Icon type="lock" className="input-icon"/>}
-                                type="password"
                                 placeholder="Password"
                             />
                         )}
@@ -94,8 +95,7 @@ class LoginForm extends React.Component {
                             type = "link"
                             onClick={() => {
                                 this.handleRedirect(state.register);
-                            }
-                            }
+                            }}
                         >
                             Register now!
                         </Button>

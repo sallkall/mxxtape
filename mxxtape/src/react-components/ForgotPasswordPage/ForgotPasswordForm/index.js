@@ -18,6 +18,7 @@ class ForgotPasswordForm extends React.Component {
                         rules: [{required: true, message: "Please input your username!"}]
                     })(
                         <Input
+                            className="input"
                             prefix={<Icon type="user"  className="input-icon"/>}
                             placeholder="Username"
                         />
@@ -33,7 +34,7 @@ class ForgotPasswordForm extends React.Component {
                     ]}
                     hasFeedback
                 >
-                    <Input.Password placeholder="New password"/>
+                    <Input.Password className="input" placeholder="New password"/>
                 </Form.Item>
 
                 <Form.Item
@@ -55,13 +56,13 @@ class ForgotPasswordForm extends React.Component {
                         }),
                     ]}
                 >
-                    <Input.Password placeholder="Confirm password"/>
+                    <Input.Password className="input" placeholder="Confirm password"/>
                 </Form.Item>
                 <Form.Item>
                     <Button
                         type="primary"
                         htmlType="submit"
-                        className="button"
+                        className="forgot-password-form-button"
                     >
                         Submit
                     </Button>
