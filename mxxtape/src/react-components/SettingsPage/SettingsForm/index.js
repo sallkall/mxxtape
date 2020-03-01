@@ -366,7 +366,7 @@ class SettingsForm extends React.Component{
                 <header className="settings-header">
                     Customize profile
                 </header>
-                <header className="settings-subheader">PROFILE INFORMATION</header>
+                <header className="settings-subheader">profile information</header>
                 <hr/>
                 <List>
                     <List.Item>

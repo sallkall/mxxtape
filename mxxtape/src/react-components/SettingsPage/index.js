@@ -33,10 +33,7 @@ class SettingsPage extends React.Component {
                 <div>
                     <Nav state={ state }/>
                     <div className="settingsForm" >
-                        <br/>
-                        <br/>
-                        <br/>
-                        Welcome, admin user.
+                        <header id="settings-header-admin">Welcome, admin user.</header>
                         <AdminSettings state={state} username="admin" isAdmin={true}/>
                     </div>
                 </div>
