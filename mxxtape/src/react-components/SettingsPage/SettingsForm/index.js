@@ -24,6 +24,15 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
+function checkValidEmail(email) {
+    // regex for email taken from https://emailregex.com
+    const isEmailAddress = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    if (!isEmailAddress){
+        message.error('You must enter a valid email address!')
+    }
+    return isEmailAddress;
+}
+
 class SettingsForm extends React.Component{
     constructor(props) {
         super(props);
@@ -101,13 +110,17 @@ class SettingsForm extends React.Component{
     redirect = addr => {
         console.log(addr);
         this.props.history.push(addr);
-    }
+    };
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            let invalidSubmission = null;
             if(!err) {
                 console.log("Received values of form: ", values);
+                if (values.email) {
+                    values.email = checkValidEmail(values.email) ? values.email : this.state.email;
+                }
                 //how user information will be updated on the server
                 let user = {
                     email: values.email ? values.email : this.state.email,
