@@ -16,9 +16,9 @@ class ForgotPassword extends React.Component {
         return (
             <div className="forgot-password">
                 <div className="forgot-password-form">
-                    <header className="form-header">
+                    <h2 className="form-header">
                         Forgot Password
-                    </header>
+                    </h2>
                     <ForgotPasswordPageForm />
                 </div>
             </div>
