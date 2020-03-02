@@ -2,6 +2,7 @@ import React from "react";
 import './index.css'
 import {List, Button, Form, Input, message, Upload, Avatar} from 'antd'
 import {withRouter} from 'react-router-dom'
+import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -49,7 +50,6 @@ class SettingsForm extends React.Component{
             changeEmail: false,
             changePassword: false,
             changeSpotifyAccount: false,
-            deactivateAccount: false,
             changeDisplayName: false,
             changeAbout: false,
             changeAvatar: false,
@@ -77,7 +77,6 @@ class SettingsForm extends React.Component{
                 changeEmail: false,
                 changePassword: false,
                 changeSpotifyAccount: false,
-                deactivateAccount: false,
                 changeDisplayName: false,
                 changeAbout: false,
                 changeAvatar: false
@@ -149,7 +148,6 @@ class SettingsForm extends React.Component{
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            let invalidSubmission = null;
             if(!err) {
                 console.log("Received values of form: ", values);
                 if (values.email) {
@@ -244,7 +242,9 @@ class SettingsForm extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { avatar, user } = this.state;
+        const SettingsPasswordValidator = Form.create({name:'password validator'})(
+            PasswordValidator
+        );
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -300,14 +300,7 @@ class SettingsForm extends React.Component{
                             title={"Change Password"}
                             description={this.state.changePassword ?
                                 <Form.Item>
-                                    <Form.Item>
-                                        {getFieldDecorator("password", {
-                                            initialValue: this.state.password,
-                                            rules: [{required: true, message: "Please input a password!"}]
-                                        })(
-                                            <Input className="settings-field" type="password"/>
-                                        )}
-                                    </Form.Item>
+                                    <SettingsPasswordValidator handleSubmit={this.handleSubmit}/>
                                     <Form.Item>
                                         <Button
                                             type="primary"
@@ -372,7 +365,6 @@ class SettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"Display Name"}
-                            // description={this.state.displayName}
                             description={this.state.changeDisplayName ?
                                 <Form.Item>
                                     <Form.Item>
@@ -463,6 +455,7 @@ class SettingsForm extends React.Component{
                         beforeUpload={beforeUpload}
                         onChange={this.handleAvatarChange}
                     >
+                        {/*this feature made with help from antd*/}
                         <Button disabled={this.state.changingSetting}>
                             Change Avatar
                         </Button>

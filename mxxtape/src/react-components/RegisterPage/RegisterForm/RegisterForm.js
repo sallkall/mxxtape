@@ -2,6 +2,7 @@ import React from "react";
 import './RegisterForm.css'
 import {Button, Form, Icon, Input, message} from "antd";
 import {withRouter} from "react-router-dom";
+import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
 
 function checkValidEmail(email) {
     // regex for email taken from https://emailregex.com
@@ -16,7 +17,7 @@ class RegisterForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Construct Register Form", props);
+        console.log("Construct RegisterPage Form", props);
     }
 
     state = {
@@ -38,36 +39,11 @@ class RegisterForm extends React.Component {
         });
     };
 
-    handleConfirmBlur = e => {
-        // using sample code from antd
-        // https://3x.ant.design/components/form/
-        const { value } = e.target;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    };
-
-    compareToFirstPassword = (rule, value, callback) => {
-        // using sample code from antd
-        // https://3x.ant.design/components/form/
-        const { form } = this.props;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('The passwords don\'t match!');
-        } else {
-            callback();
-        }
-    };
-
-    validateToNextPassword = (rule, value, callback) => {
-        // using sample code from antd
-        // https://3x.ant.design/components/form/
-        const { form } = this.props;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
-    };
-
     render() {
         const {getFieldDecorator} = this.props.form;
+        const RegisterPasswordValidator = Form.create({name:'password validator'})(
+            PasswordValidator
+        );
         return (
             <div>
                 <Form
@@ -96,42 +72,7 @@ class RegisterForm extends React.Component {
                             />
                         )}
                     </Form.Item>
-                    <Form.Item hasFeedback>
-                        {getFieldDecorator('password', {
-                            rules: [
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                                {
-                                    validator: this.validateToNextPassword,
-                                },
-                            ],
-                        })(<Input.Password
-                            className="input"
-                            prefix={<Icon type="lock" className="input-icon"/>}
-                            placeholder="New password"/>)}
-                    </Form.Item>
-                    <Form.Item hasFeedback>
-                        {getFieldDecorator('confirm', {
-                            rules: [
-                                {
-                                    required: true,
-                                    message: 'Please confirm your password!',
-                                },
-                                {
-                                    validator: this.compareToFirstPassword,
-                                },
-                            ],
-                        })(
-                            <Input.Password
-                                className="input"
-                                prefix={<Icon type="lock" className="input-icon"/>}
-                                placeholder="Confirm password"
-                                onBlur={this.handleConfirmBlur}
-                            />
-                        )}
-                    </Form.Item>
+                    <RegisterPasswordValidator handleSubmit={this.handleSubmit}/>
                     <Form.Item>
                         <Button
                             type="primary"
