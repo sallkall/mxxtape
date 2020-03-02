@@ -55,7 +55,7 @@ class LoginForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { handleLoggedIn } = this.props;
+        const { handleLoggedIn, state } = this.props;
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
@@ -64,6 +64,7 @@ class LoginForm extends React.Component {
                             rules: [{required: true, message: "Please input your username!"}]
                         })(
                             <Input
+                                className="input"
                                 prefix={<Icon type="user" className="input-icon"/>}
                                 placeholder="Username"
                             />
@@ -73,9 +74,9 @@ class LoginForm extends React.Component {
                         {getFieldDecorator("password", {
                             rules: [{required: true, message: "Please input your password!"}]
                         })(
-                            <Input
+                            <Input.Password
+                                className="input"
                                 prefix={<Icon type="lock" className="input-icon"/>}
-                                type="password"
                                 placeholder="Password"
                             />
                         )}
@@ -93,9 +94,8 @@ class LoginForm extends React.Component {
                             className="login-form-register"
                             type = "link"
                             onClick={() => {
-                                this.handleRedirect("register");
-                                }
-                            }
+                                this.handleRedirect(state.register);
+                            }}
                         >
                             Register now!
                         </Button>
@@ -103,7 +103,7 @@ class LoginForm extends React.Component {
                             className="login-form-forgot"
                             type="link"
                             onClick={() => {
-                                this.handleRedirect("password")}
+                                this.handleRedirect(state.forgot_password)}
                             }
                         >
                             Forgot password

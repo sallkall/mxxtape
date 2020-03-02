@@ -14,24 +14,20 @@ class LoginPage extends React.Component {
             LoginForm
         );
 
-        if (state.loggedIn !== -1) {
-            return (<Redirect to='/'/>)
-        } else {
-            return (
-                <div className="Login">
-                    <div className="login-form">
-                        <br/><br/><br/><br/><br/>
-                        <h2>
-                            Login
-                        </h2>
-                        <NormalLoginForm
-                            handleLoggedIn={state.handleLoggedIn}
-                            loggedIn={state.loggedIn}
-                        />
-                    </div>
+        return (
+            <div className="Login">
+                <div className="login-form">
+                    <h2 className="form-header">
+                        Login
+                    </h2>
+                    <NormalLoginForm
+                        handleLoggedIn={state.handleLoggedIn}
+                        loggedIn={state.loggedIn}
+                        state={state}
+                    />
                 </div>
-            )
-        }
+            </div>
+        )
     }
 }
 export default LoginPage;
