@@ -372,7 +372,6 @@ class SettingsForm extends React.Component{
                     <List.Item>
                         <List.Item.Meta
                             title={"Display Name"}
-                            // description={this.state.displayName}
                             description={this.state.changeDisplayName ?
                                 <Form.Item>
                                     <Form.Item>
