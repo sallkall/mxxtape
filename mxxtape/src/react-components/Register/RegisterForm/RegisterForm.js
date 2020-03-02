@@ -96,17 +96,6 @@ class RegisterForm extends React.Component {
                             />
                         )}
                     </Form.Item>
-                    {/*<Form.Item>*/}
-                    {/*    {getFieldDecorator("password", {*/}
-                    {/*        rules: [{required: true, message: "Please input your password!"}]*/}
-                    {/*    })(*/}
-                    {/*        <Input.Password*/}
-                    {/*            className="input"*/}
-                    {/*            prefix={<Icon type="lock"  className="input-icon"/>}*/}
-                    {/*            placeholder="Password"*/}
-                    {/*        />*/}
-                    {/*    )}*/}
-                    {/*</Form.Item>*/}
                     <Form.Item hasFeedback>
                         {getFieldDecorator('password', {
                             rules: [
