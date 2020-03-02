@@ -150,7 +150,6 @@ class SettingsForm extends React.Component{
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            let invalidSubmission = null;
             if(!err) {
                 console.log("Received values of form: ", values);
                 if (values.email) {
