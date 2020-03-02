@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Tooltip} from 'antd';
 import {posts} from "../TextPost";
 import moment from "moment";
+import MusicLinkUpload from "../MusicLinkUpload";
 
 const {Option} = Mentions;
 const {Sider, Content} = Layout;
@@ -20,10 +21,20 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
             return e && e.fileList;
         };
 
+        validateContentInput = (rule, value, callback) => {
+            const { form } = this.props;
+            if (value) {
+                form.validateFields(['confirm'], { force: true });
+            }
+            callback();
+        };
+
         render() {
             const {visible, onCancel, onCreate, form} = this.props;
-            console.log("my props:", this.props);
+            // console.log("my props:", this.props);
             const {getFieldDecorator} = form;
+
+
             return (
                 <Modal
                     visible={visible}
@@ -37,7 +48,6 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                     <Form layout="horizontal">
                         <Layout className="form_layout">
                             <Content className="music_display">
-                                <div><h1>Track: Untitled</h1></div>
                                 <Form.Item label="Music Upload:">
                                     {getFieldDecorator('music', {
                                         valuePropName: 'fileList',
@@ -55,8 +65,23 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                             </Content>
                             <Sider className="post_sider" width={400}>
                                 <div id='right_side'>
+                                    <Form.Item name="musicUrl" >
+                                        {getFieldDecorator('musicUrl', {})(
+                                            <MusicLinkUpload/>
+                                        )}
+                                    </Form.Item>
                                     <Form.Item name="content">
-                                        {getFieldDecorator('content', {})(
+                                        {getFieldDecorator('content', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'content cannot be blank',
+                                                },
+                                                {
+                                                    validator: this.validateContentInput,
+                                                },
+                                            ],
+                                        })(
                                             <Mentions rows="5"
                                                       placeholder="What's on your mind? Use @ to ref user here.">
                                                 <Option value="sallyk">sallyk</Option>
@@ -106,16 +131,18 @@ class NewPost extends React.Component {
             // Create new post information to push to all feed posts in TextPost
             const post_information = {
                 actions: null,
-                author: "jazzy cat", // FIXME: temporary
+                author: "jazzy cat",
                 avatar: "https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/s150x150/83885851_189723372356264_5738621742125501341_n.jpg?_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_ohc=ZPjpLIhE5OsAX8Eb7w9&oh=0b0c2559e5786cad55d35b9cc8003714&oe=5E849C44",
                 content: values.content,
+                rating: values.rating,
                 datetime:
                     <Tooltip
                         title={moment().format('YYYY-MM-DD HH:mm:ss')}>
                         <span>{moment().fromNow()}</span>
                     </Tooltip>,
-                // music: values.music
+                musicUrl: values.musicUrl
             };
+            console.log(values)
             posts.unshift(post_information);
             form.resetFields();
             this.setState({visible: false});
@@ -126,18 +153,6 @@ class NewPost extends React.Component {
         this.formRef = formRef;
     };
 
-    // getCreatePostButton = () => {
-    //     if(state.isMember) {
-    //         return (
-    //         <Button type="primary" onClick={this.showModal}>
-    //             Create Post <Icon type="form"/>
-    //         </Button>);
-    //     }
-    //     return (<Button type="primary" onClick={this.showModal} disabled>
-    //         Create Post <Icon type="form"/>
-    //     </Button>);
-    // };
-
     render() {
         const {state} = this.props;
         return (
@@ -146,7 +161,7 @@ class NewPost extends React.Component {
                     state.isMember ?
                         (<Button type="primary" onClick={this.showModal}>
                             Create Post <Icon type="form"/></Button>)
-                            :
+                        :
                         (<Button type="primary" onClick={this.showModal} disabled>
                             Create Post <Icon type="form"/></Button>)
                 }

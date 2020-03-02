@@ -4,7 +4,7 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 import Nav from "../Navigation";
 import NewPost from "./NewPost"
-import TextPost from "./TextPost"
+import TextPosts from "./TextPost"
 import FeedFilter from "./FeedFilter"
 import FeedTags from "./FeedTags";
 import MembersList from "./MembersList";
@@ -68,7 +68,7 @@ class Community extends React.Component {
                                 </div>
                             </div>
                             <div className="posts">
-                                <TextPost/>
+                                <TextPosts/>
                             </div>
                         </Content>
                         <Sider className="sidebar" width={240}>

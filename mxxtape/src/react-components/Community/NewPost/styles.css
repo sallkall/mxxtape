@@ -13,12 +13,12 @@
 
 .post_sider {
     background: none;
-    padding: 42px 24px;
+    padding: 0 24px 0 0;
 }
 .music_display {
     padding: 0 24px;
 }
 
 #right_side {
-    margin-top: 39px;
+    /*margin-top: 39px;*/
 }
