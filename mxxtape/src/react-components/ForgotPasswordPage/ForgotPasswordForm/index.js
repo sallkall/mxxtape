@@ -40,34 +40,6 @@ class ForgotPasswordForm extends React.Component {
         });
     };
 
-    handleConfirmBlur = e => {
-        // using sample code from antd
-        // https://3x.ant.design/components/form/
-        const { value } = e.target;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    };
-
-    compareToFirstPassword = (rule, value, callback) => {
-        // using sample code from antd
-        // https://3x.ant.design/components/form/
-        const { form } = this.props;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('The passwords don\'t match!');
-        } else {
-            callback();
-        }
-    };
-
-    validateToNextPassword = (rule, value, callback) => {
-        // using sample code from antd
-        // https://3x.ant.design/components/form/
-        const { form } = this.props;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
-    };
-
     render() {
         const { getFieldDecorator } = this.props.form;
         const ForgotPasswordValidator = Form.create({name:'password validator'})(
