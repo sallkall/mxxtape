@@ -2,6 +2,7 @@ import React from "react";
 import './index.css'
 import {List, Button, Form, Input, message, Upload, Avatar} from 'antd'
 import {withRouter} from 'react-router-dom'
+import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -244,6 +245,9 @@ class SettingsForm extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const SettingsPasswordValidator = Form.create({name:'password validator'})(
+            PasswordValidator
+        );
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -299,14 +303,7 @@ class SettingsForm extends React.Component{
                             title={"Change Password"}
                             description={this.state.changePassword ?
                                 <Form.Item>
-                                    <Form.Item>
-                                        {getFieldDecorator("password", {
-                                            initialValue: this.state.password,
-                                            rules: [{required: true, message: "Please input a password!"}]
-                                        })(
-                                            <Input className="settings-field" type="password"/>
-                                        )}
-                                    </Form.Item>
+                                    <SettingsPasswordValidator handleSubmit={this.handleSubmit}/>
                                     <Form.Item>
                                         <Button
                                             type="primary"
@@ -454,7 +451,6 @@ class SettingsForm extends React.Component{
                             }
                         />
                     <Upload
-                        {/*with help from antd*/}
                         name="avatar"
                         className="avatar-uploader"
                         showUploadList={false}
@@ -462,6 +458,7 @@ class SettingsForm extends React.Component{
                         beforeUpload={beforeUpload}
                         onChange={this.handleAvatarChange}
                     >
+                        {/*this feature made with help from antd*/}
                         <Button disabled={this.state.changingSetting}>
                             Change Avatar
                         </Button>
