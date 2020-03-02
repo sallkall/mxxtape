@@ -80,10 +80,10 @@ class NewMusicPost extends React.Component {
             <div>
                 {
                     state.isMember ?
-                        (<Button className="button" type="primary" onClick={this.showModal}>
+                        (<Button className="music_button" type="primary" onClick={this.showModal}>
                             + Music <Icon type="sound" /></Button>)
                         :
-                        (<Button className="button" type="primary" onClick={this.showModal} disabled>
+                        (<Button className="music_button" type="primary" onClick={this.showModal} disabled>
                             + Music <Icon type="sound"/></Button>)
                 }
 
