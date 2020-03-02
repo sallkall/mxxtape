@@ -244,7 +244,6 @@ class SettingsForm extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { avatar, user } = this.state;
 
         return (
             <Form onSubmit={this.handleSubmit}>
