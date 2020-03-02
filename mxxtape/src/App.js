@@ -14,6 +14,7 @@ import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
 import History from './react-components/History';
 import SubbedCommunities from './react-components/SubbedCommunities';
+import AdminProfile from './react-components/AdminProfile';
 
 class App extends React.Component {
 
@@ -67,6 +68,8 @@ class App extends React.Component {
                             (<History state={this.state}/>)}/>
                         <Route exact path='/subscriptions' render={()=>
                             (<SubbedCommunities state={this.state}/>)}/>
+                        <Route exact path='/admin' render={()=>
+                            (<AdminProfile state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
