@@ -50,7 +50,6 @@ class SettingsForm extends React.Component{
             changeEmail: false,
             changePassword: false,
             changeSpotifyAccount: false,
-            deactivateAccount: false,
             changeDisplayName: false,
             changeAbout: false,
             changeAvatar: false,
@@ -78,7 +77,6 @@ class SettingsForm extends React.Component{
                 changeEmail: false,
                 changePassword: false,
                 changeSpotifyAccount: false,
-                deactivateAccount: false,
                 changeDisplayName: false,
                 changeAbout: false,
                 changeAvatar: false
