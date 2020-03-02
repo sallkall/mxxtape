@@ -454,6 +454,7 @@ class SettingsForm extends React.Component{
                             }
                         />
                     <Upload
+                        {/*with help from antd*/}
                         name="avatar"
                         className="avatar-uploader"
                         showUploadList={false}
