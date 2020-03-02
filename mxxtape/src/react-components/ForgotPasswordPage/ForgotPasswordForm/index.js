@@ -83,42 +83,42 @@ class ForgotPasswordForm extends React.Component {
                         />
                     )}
                 </Form.Item>
-                <Form.Item hasFeedback>
-                    {getFieldDecorator('password', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                            {
-                                validator: this.validateToNextPassword,
-                            },
-                        ],
-                    })(<Input.Password
-                        className="input"
-                        prefix={<Icon type="lock" className="input-icon"/>}
-                        placeholder="New password"/>)}
-                </Form.Item>
-                <Form.Item hasFeedback>
-                    {getFieldDecorator('confirm', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please confirm your password!',
-                            },
-                            {
-                                validator: this.compareToFirstPassword,
-                            },
-                        ],
-                    })(
-                        <Input.Password
-                            className="input"
-                            prefix={<Icon type="lock" className="input-icon"/>}
-                            placeholder="Confirm password"
-                            onBlur={this.handleConfirmBlur}
-                        />
-                    )}
-                </Form.Item>
+                {/*<Form.Item hasFeedback>*/}
+                {/*    {getFieldDecorator('password', {*/}
+                {/*        rules: [*/}
+                {/*            {*/}
+                {/*                required: true,*/}
+                {/*                message: 'Please input your password!',*/}
+                {/*            },*/}
+                {/*            {*/}
+                {/*                validator: this.validateToNextPassword,*/}
+                {/*            },*/}
+                {/*        ],*/}
+                {/*    })(<Input.Password*/}
+                {/*        className="input"*/}
+                {/*        prefix={<Icon type="lock" className="input-icon"/>}*/}
+                {/*        placeholder="New password"/>)}*/}
+                {/*</Form.Item>*/}
+                {/*<Form.Item hasFeedback>*/}
+                {/*    {getFieldDecorator('confirm', {*/}
+                {/*        rules: [*/}
+                {/*            {*/}
+                {/*                required: true,*/}
+                {/*                message: 'Please confirm your password!',*/}
+                {/*            },*/}
+                {/*            {*/}
+                {/*                validator: this.compareToFirstPassword,*/}
+                {/*            },*/}
+                {/*        ],*/}
+                {/*    })(*/}
+                {/*        <Input.Password*/}
+                {/*            className="input"*/}
+                {/*            prefix={<Icon type="lock" className="input-icon"/>}*/}
+                {/*            placeholder="Confirm password"*/}
+                {/*            onBlur={this.handleConfirmBlur}*/}
+                {/*        />*/}
+                {/*    )}*/}
+                {/*</Form.Item>*/}
                 <Form.Item>
                     <Button
                         type="primary"
