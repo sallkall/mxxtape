@@ -63,7 +63,15 @@ class Nav extends React.Component {
                     >
                         <Menu.ItemGroup title="User">
                             <Menu.Item key="setting:1">Likes</Menu.Item>
-                            <Menu.Item key="setting:2">Communities</Menu.Item>
+                            <Menu.Item
+                                key="create-community"
+                                onClick = { () => {
+                                    const addr = '/' + state.create_community;
+                                    this.redirect(addr)
+                                }}
+                            >
+                                Create Community
+                            </Menu.Item>
                         </Menu.ItemGroup>
                         <Menu.ItemGroup title="Settings">
                             <Menu.Item
