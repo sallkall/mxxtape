@@ -3,7 +3,7 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 import Nav from "../Navigation";
-import NewPost from "./NewPost"
+import NewTextPost from "./NewPost"
 import NewMusicPost from "./NewMusicPost";
 import TextPosts from "./TextPost"
 import FeedFilter from "./FeedFilter"
@@ -68,7 +68,7 @@ class Community extends React.Component {
                                     <NewMusicPost isMember={this.state.isMember} state={this.state}/>
                                 </div>
                                 <div id="newtextpost_button">
-                                    <NewPost isMember={this.state.isMember} state={this.state} handleUpdate={this.updateFeed}/>
+                                    <NewTextPost isMember={this.state.isMember} state={this.state} handleUpdate={this.updateFeed}/>
                                 </div>
                             </div>
                             <div className="posts">

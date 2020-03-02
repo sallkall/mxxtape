@@ -109,7 +109,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
     },
 );
 
-class NewPost extends React.Component {
+class NewTextPost extends React.Component {
     state = {
         visible: false,
     };
@@ -180,4 +180,4 @@ class NewPost extends React.Component {
     }
 }
 
-export default NewPost;
+export default NewTextPost;
