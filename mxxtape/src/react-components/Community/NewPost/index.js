@@ -106,14 +106,15 @@ class NewPost extends React.Component {
             // Create new post information to push to all feed posts in TextPost
             const post_information = {
                 actions: null,
-                author: "sally", // FIXME: temporary
+                author: "jazzy cat", // FIXME: temporary
                 avatar: "https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/s150x150/83885851_189723372356264_5738621742125501341_n.jpg?_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_ohc=ZPjpLIhE5OsAX8Eb7w9&oh=0b0c2559e5786cad55d35b9cc8003714&oe=5E849C44",
                 content: values.content,
                 datetime:
                     <Tooltip
                         title={moment().format('YYYY-MM-DD HH:mm:ss')}>
                         <span>{moment().fromNow()}</span>
-                    </Tooltip>
+                    </Tooltip>,
+                // music: values.music
             };
             posts.unshift(post_information);
             form.resetFields();
@@ -125,13 +126,31 @@ class NewPost extends React.Component {
         this.formRef = formRef;
     };
 
+    // getCreatePostButton = () => {
+    //     if(state.isMember) {
+    //         return (
+    //         <Button type="primary" onClick={this.showModal}>
+    //             Create Post <Icon type="form"/>
+    //         </Button>);
+    //     }
+    //     return (<Button type="primary" onClick={this.showModal} disabled>
+    //         Create Post <Icon type="form"/>
+    //     </Button>);
+    // };
+
     render() {
         const {state} = this.props;
         return (
             <div>
-                <Button type="primary" onClick={this.showModal}>
-                    Create Post <Icon type="form"/>
-                </Button>
+                {
+                    state.isMember ?
+                        (<Button type="primary" onClick={this.showModal}>
+                            Create Post <Icon type="form"/></Button>)
+                            :
+                        (<Button type="primary" onClick={this.showModal} disabled>
+                            Create Post <Icon type="form"/></Button>)
+                }
+
                 <CollectionCreateForm
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}

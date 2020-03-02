@@ -45,7 +45,7 @@ class Community extends React.Component {
                             className="header_join_button"
                             onClick={() => this.joinCommunity()}
                             size='large'
-                        > Join Community
+                        > {this.state.isMember ? 'Leave Community' :'Join Community'}
                             <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color} />
                         </Button>
                     </div>
@@ -64,7 +64,7 @@ class Community extends React.Component {
                                     <FeedFilter/>
                                 </div>
                                 <div id="newpost_button">
-                                    <NewPost state= {this.state} handleUpdate={this.updateFeed}/>
+                                    <NewPost isMember={this.state.isMember} state={this.state} handleUpdate={this.updateFeed}/>
                                 </div>
                             </div>
                             <div className="posts">
