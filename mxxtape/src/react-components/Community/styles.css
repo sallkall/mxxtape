@@ -87,18 +87,18 @@
 #feed_filter {
     position: absolute;
     right: 0;
-    margin-right: 280px;
 }
 
 #newmusic_button {
     position: absolute;
     right: 0;
-    margin-right: 140px;
+    margin-right: 320px;
 }
 
 #newtextpost_button {
     position: absolute;
     right: 0;
+    margin-right: 220px;
 }
 
 .header_join_button {

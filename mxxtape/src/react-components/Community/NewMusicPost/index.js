@@ -81,10 +81,10 @@ class NewMusicPost extends React.Component {
                 {
                     state.isMember ?
                         (<Button className="button" type="primary" onClick={this.showModal}>
-                            Add Music <Icon type="sound" /></Button>)
+                            + Music <Icon type="sound" /></Button>)
                         :
                         (<Button className="button" type="primary" onClick={this.showModal} disabled>
-                            Add Music <Icon type="sound"/></Button>)
+                            + Music <Icon type="sound"/></Button>)
                 }
 
                 <CollectionCreateForm

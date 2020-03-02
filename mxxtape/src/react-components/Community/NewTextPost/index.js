@@ -159,11 +159,11 @@ class NewTextPost extends React.Component {
             <div>
                 {
                     state.isMember ?
-                        (<Button type="primary" onClick={this.showModal}>
-                            Create Post <Icon type="form"/></Button>)
+                        (<Button className="textbutton" type="primary" onClick={this.showModal}>
+                            + Text <Icon type="form"/></Button>)
                         :
-                        (<Button type="primary" onClick={this.showModal} disabled>
-                            Create Post <Icon type="form"/></Button>)
+                        (<Button className="textbutton" type="primary" onClick={this.showModal} disabled>
+                           + Text <Icon type="form"/></Button>)
                 }
 
                 <CollectionCreateForm
