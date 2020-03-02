@@ -19,6 +19,10 @@ class RegisterForm extends React.Component {
         console.log("Construct Register Form", props);
     }
 
+    state = {
+        confirmDirty: false,
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -32,6 +36,34 @@ class RegisterForm extends React.Component {
                 }
             }
         });
+    };
+
+    handleConfirmBlur = e => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { value } = e.target;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    };
+
+    compareToFirstPassword = (rule, value, callback) => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { form } = this.props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('The passwords don\'t match!');
+        } else {
+            callback();
+        }
+    };
+
+    validateToNextPassword = (rule, value, callback) => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { form } = this.props;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback();
     };
 
     render() {
@@ -64,14 +96,50 @@ class RegisterForm extends React.Component {
                             />
                         )}
                     </Form.Item>
-                    <Form.Item>
-                        {getFieldDecorator("password", {
-                            rules: [{required: true, message: "Please input your password!"}]
+                    {/*<Form.Item>*/}
+                    {/*    {getFieldDecorator("password", {*/}
+                    {/*        rules: [{required: true, message: "Please input your password!"}]*/}
+                    {/*    })(*/}
+                    {/*        <Input.Password*/}
+                    {/*            className="input"*/}
+                    {/*            prefix={<Icon type="lock"  className="input-icon"/>}*/}
+                    {/*            placeholder="Password"*/}
+                    {/*        />*/}
+                    {/*    )}*/}
+                    {/*</Form.Item>*/}
+                    <Form.Item hasFeedback>
+                        {getFieldDecorator('password', {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                                {
+                                    validator: this.validateToNextPassword,
+                                },
+                            ],
+                        })(<Input.Password
+                            className="input"
+                            prefix={<Icon type="lock" className="input-icon"/>}
+                            placeholder="New password"/>)}
+                    </Form.Item>
+                    <Form.Item hasFeedback>
+                        {getFieldDecorator('confirm', {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Please confirm your password!',
+                                },
+                                {
+                                    validator: this.compareToFirstPassword,
+                                },
+                            ],
                         })(
                             <Input.Password
                                 className="input"
-                                prefix={<Icon type="lock"  className="input-icon"/>}
-                                placeholder="Password"
+                                prefix={<Icon type="lock" className="input-icon"/>}
+                                placeholder="Confirm password"
+                                onBlur={this.handleConfirmBlur}
                             />
                         )}
                     </Form.Item>
