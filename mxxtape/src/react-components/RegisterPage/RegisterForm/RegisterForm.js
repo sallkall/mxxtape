@@ -16,7 +16,7 @@ class RegisterForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Construct Register Form", props);
+        console.log("Construct RegisterPage Form", props);
     }
 
     state = {

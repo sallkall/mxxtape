@@ -11,7 +11,7 @@ import Community from './react-components/Community';
 import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
-import Register from './react-components/Register';
+import Register from './react-components/RegisterPage';
 import SettingsPage from "./react-components/SettingsPage";
 import ForgotPassword from "./react-components/ForgotPasswordPage";
 
