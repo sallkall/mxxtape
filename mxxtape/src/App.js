@@ -57,8 +57,6 @@ class App extends React.Component {
                                 <Dashboard state={this.state}/> :
                                 <Redirect to="/login"/>}
                         </Route>
-                        <Route exact path='/community' render={() =>
-                            (<Community state={this.state}/>)}/>
                         <Route exact path='/profile' render={() =>
                             (<Profile state={this.state}/>)}/>
                         <Route exact path='/login'>
@@ -72,6 +70,8 @@ class App extends React.Component {
                             (<ForgotPassword state={this.state}/>)}/>
                         <Route exact path='/settings' render={()=>
                             (<SettingsPage state={this.state}/>)}/>
+                        <Route exact path='/community/jazzitup' render={() =>
+                            (<Community state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
