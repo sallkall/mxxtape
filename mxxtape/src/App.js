@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Importing react-router-dom to use the React Router
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 import './App.css';
 import 'antd/dist/antd.css';
 
@@ -12,6 +12,8 @@ import Dashboard from './react-components/Dashboard';
 import Profile from './react-components/Profile';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
+import SettingsPage from "./react-components/SettingsPage";
+import ForgotPassword from "./react-components/ForgotPasswordPage";
 
 class App extends React.Component {
 
@@ -21,6 +23,8 @@ class App extends React.Component {
         community: "community",
         profile: "profile",
         dashboard: "dashboard",
+        forgot_password: 'forgot_password',
+        register: 'register',
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
         loggedIn: -1,
@@ -38,7 +42,7 @@ class App extends React.Component {
             this.setState(
                 {loggedIn: -1},
                 () => {console.log(this.state)}
-                );
+            );
         }
     };
 
@@ -48,16 +52,26 @@ class App extends React.Component {
                 <BrowserRouter>
                     <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                         { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                        <Route exact path='/' render={() =>
-                            (<Dashboard state={this.state}/>)}/>
+                        <Route exact path='/'>
+                            {this.state.loggedIn !== -1 ?
+                                <Dashboard state={this.state}/> :
+                                <Redirect to="/login"/>}
+                        </Route>
                         <Route exact path='/community' render={() =>
                             (<Community state={this.state}/>)}/>
                         <Route exact path='/profile' render={() =>
                             (<Profile state={this.state}/>)}/>
-                        <Route exact path='/login' render={()=>
-                            (<LoginPage state={this.state}/>)}/>
-                        <Route exact path='/register' render={()=>
+                        <Route exact path='/login'>
+                            {this.state.loggedIn !== -1 ?
+                                <Redirect to="/"/> :
+                                <LoginPage state={this.state}/>}
+                        </Route>
+                        <Route exact path={'/' + this.state.register} render={()=>
                             (<Register state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.forgot_password} render={()=>
+                            (<ForgotPassword state={this.state}/>)}/>
+                        <Route exact path='/settings' render={()=>
+                            (<SettingsPage state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
