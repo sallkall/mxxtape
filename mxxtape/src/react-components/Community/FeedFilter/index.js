@@ -11,11 +11,11 @@ function onChange(value) {
 }
 
 function onBlur() {
-    console.log('blur');
+    console.log('filter status: blur');
 }
 
 function onFocus() {
-    console.log('focus');
+    console.log('filter status: focus');
 }
 
 function onSearch(val) {
