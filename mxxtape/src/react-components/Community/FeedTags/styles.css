@@ -1,0 +1,21 @@
+.tags_container{
+    /*text-align: center;*/
+    padding: 4px;
+}
+
+.list_items {
+
+    /*padding-right: 100px ;*/
+    /*position: ;*/
+    /*left: 0;*/
+}
+
+.tag {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tag p {
+
+}
