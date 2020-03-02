@@ -14,11 +14,10 @@ import { Avatar } from 'antd';
 import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
-import {Row, Col} from 'antd';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
-class Community extends React.Component {
+class Profile extends React.Component {
     render() {
         return (
             <div id={"Root"}>
@@ -36,7 +35,7 @@ class Community extends React.Component {
                         </Card>
                     </Sider>
 
-                    <Content>
+                    <Content className="content_cards">
                         <Card id="FeaturedCard" className="ContentCard" title="FEATURED SONG">
                             <img id="FeaturedAlbumCover" className="AlbumCover" src={albumPic} alt="Image Load Error"/>
                             <p id="FeaturedSongName">SONG NAME</p>
@@ -97,4 +96,4 @@ class Community extends React.Component {
     }
 }
 
-export default Community;
+export default Profile;
