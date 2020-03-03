@@ -34,6 +34,13 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                 tags: tagList,
             });
         }
+        // renderMusic(musicUrl, userInput) {
+        //     console.log(musicUrl, userInput)
+        //     this.props.form.setFieldsValue({
+        //
+        //         musicUrl: userInput
+        //     });
+        // }
 
         render() {
             const { visible, onCancel, onCreate, form } = this.props;
@@ -44,7 +51,14 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                     title="New Music Post"
                     okText="Post"
                     onCancel={onCancel}
-                    onOk={onCreate}
+                    onOk={() => {
+                        onCreate();
+                        // {console.log(this.props.form.getFieldValue('content'))}
+                        // this.props.form.setFieldsValue({
+                        //     musicUrl: this.props.form.getFieldValue('content')
+                        // })
+                        // {console.log(this.props.form.getFieldValue('musicUrl'))}
+                    }}
                 >
                     <Form layout="horizontal">
                         <Layout className="form_layout">
@@ -63,9 +77,17 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                                         ],
                                     })(
                                         <Input addonBefore="https://"
-                                               placeholder="soundcloud.com/your_music"/>
+                                               placeholder="soundcloud.com/your_music"
+                                               // onPressEnter={ () => {
+                                               //     this.renderMusic(this.props.form.getFieldValue('musicUrl'),
+                                               //         this.props.form.getFieldValue('content'))
+                                               // }}
+                                        />
                                     )}
                                 </Form.Item>
+                                {/*{getFieldDecorator('musicUrl', {})(*/}
+                                {/*    */}
+                                {/*)}*/}
                                 <Form.Item
                                     help=' Separate tags with ";" enter to save'>
                                     {getFieldDecorator('tags', {})(
@@ -121,8 +143,8 @@ class NewMusicPost extends React.Component {
                 author: "Jellicle Cat",
                 rating: values.rating,
                 avatar: "https://tinyurl.com/v43wzfn",
-                musicUrl: values.musicUrl,
-                content: values.content,
+                musicUrl: values.content,
+                content: null,
                 tags: values.tags,
             };
 

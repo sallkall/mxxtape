@@ -83,6 +83,11 @@ class TextPost extends React.Component {
                     <div>
                         <p>{this.props.content}</p>
                         {
+                            this.props.musicUrl ? (
+                                <ReactPlayer width="auto" height='100px' url={this.props.musicUrl} />)
+                                : null
+                        }
+                        {
                             this.props.rating ? (<Rate disabled defaultValue={this.props.rating} />)
                                 : null
                         }
