@@ -14,6 +14,7 @@ import LoginPage from './react-components/LoginPage';
 import RegisterPage from './react-components/RegisterPage';
 import SettingsPage from "./react-components/SettingsPage";
 import ForgotPassword from "./react-components/ForgotPasswordPage";
+import CreateCommunityPage from "./react-components/CreateCommunityPage";
 
 class App extends React.Component {
 
@@ -25,6 +26,7 @@ class App extends React.Component {
         dashboard: "dashboard",
         forgot_password: 'forgot_password',
         register: 'register',
+        create_community: 'create-community',
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
         loggedIn: -1,
@@ -72,6 +74,8 @@ class App extends React.Component {
                             (<SettingsPage state={this.state}/>)}/>
                         <Route exact path='/community/jazzitup' render={() =>
                             (<Community state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.create_community} render={() =>
+                            (<CreateCommunityPage state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
