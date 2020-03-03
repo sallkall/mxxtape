@@ -3,7 +3,7 @@ import React from "react";
 import "./index.css";
 import 'antd/dist/antd.css';
 import {Avatar, Badge, Button, List, Skeleton} from "antd";
-import {getUserInfo, getUserNotices} from "../../Navigation/NotificationBadge";
+import {getMoreNotice, getUserInfo, getUserNotices} from "../../Navigation/NotificationBadge";
 
 class NotificationsList extends React.Component {
     constructor(props) {
@@ -49,6 +49,16 @@ class NotificationsList extends React.Component {
 
     loadMore = () => {
         console.log("load more clicked");
+        this.setState({initLoading: true});
+        getMoreNotice(this.state.loggedIn, notices => {
+            console.log("loadMore getMoreNotice",notices);
+            this.setState({
+                data: this.state.data.concat(notices),
+                initLoading: false,
+            }, () => {
+                console.log("state.data:", this.state)
+            })
+        });
     };
 
     render() {
