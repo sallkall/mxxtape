@@ -1,7 +1,9 @@
-import {Form, Input, Tooltip, Icon} from "antd";
+import {Form, Input, Tooltip, Icon, Mentions} from "antd";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import './index.css'
+
+const {Option} = Mentions;
 
 class CreateCommunityForm extends React.Component {
     constructor(props){
@@ -12,7 +14,8 @@ class CreateCommunityForm extends React.Component {
             genre_tooltip: "List as many genres as you like, but you need at least one.",
             description_tooltip: "Give an explanation of what you hope to see in your community. This will also be " +
                 "how new members come to understand your community as well as explain what makes your community " +
-                "unique!."
+                "unique!.",
+            mods_tooltip: "Add some mods! You will be added automatically"
         }
     }
 
@@ -82,6 +85,28 @@ class CreateCommunityForm extends React.Component {
                             className="community-input"
                             autoSize={{ minRows: 6, maxRows: 20 }}
                         />
+                    )}
+                </Form.Item>
+                <Form.Item
+                    label={
+                        <span>
+                            Add moderators to your community&nbsp;
+                            <Tooltip title={this.state.mods_tooltip} >
+                                <Icon type="question-circle-o" />
+                            </Tooltip>
+                        </span>
+                    }
+                >
+                    {getFieldDecorator("community-mods", {
+                        rules: [{required: false, message: "Add some mods! You will be added automatically"}]
+                    })(
+                        <Mentions
+                            className="community-input"
+                            placeholder="Add moderators! Use @ to reference users on this platform.">
+                            <Option value="sallyk">sallyk</Option>
+                            <Option value="janetw">janetw</Option>
+                            <Option value="connorf">connorf</Option>
+                        </Mentions>
                     )}
                 </Form.Item>
             </Form>
