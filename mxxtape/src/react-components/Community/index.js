@@ -5,15 +5,17 @@ import 'antd/dist/antd.css';
 import Nav from "../Navigation";
 import NewTextPost from "./NewTextPost"
 import NewMusicPost from "./NewMusicPost";
-import TextPosts from "./TextPost"
+import CommunityFeed from "./CommunityFeed"
 import FeedFilter from "./FeedFilter"
 import FeedTags from "./FeedTags";
 import MembersList from "./MembersList";
+import TextPost from "./Post";
 
 import {Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
 
 const {SubMenu} = Menu;
 const { Content, Footer, Sider} = Layout;
+const samplePost = new TextPost(this, 'Sally', '', 'this is a test');
 
 class Community extends React.Component {
     state = {
@@ -72,7 +74,7 @@ class Community extends React.Component {
                                 </div>
                             </div>
                             <div className="posts">
-                                <TextPosts/>
+                                <CommunityFeed/>
                             </div>
                         </Content>
                         <Sider className="sidebar" width={240}>
@@ -87,7 +89,7 @@ class Community extends React.Component {
                         </Sider>
                     </Layout>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>mxxtape ©2020 </Footer>
+                {/*<Footer style={{textAlign: 'center'}}>mxxtape ©2020 </Footer>*/}
             </Layout>
         )
     }

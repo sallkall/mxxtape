@@ -5,7 +5,7 @@ import NewPostTags from "../NewPostTags";
 
 import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Tooltip} from 'antd';
 
-import {posts} from "../TextPost";
+import {posts} from "../CommunityFeed";
 import moment from "moment";
 import MusicLinkUpload from "../MusicLinkUpload";
 
@@ -108,7 +108,7 @@ class NewTextPost extends React.Component {
             if (err) {
                 return;
             }
-            // Create new post information to push to all feed posts in TextPost
+            // Create new post information to push to all feed posts in CommunityFeed
             const post_information = {
                 actions: null,
                 author: "jazzy cat",
