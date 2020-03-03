@@ -4,7 +4,8 @@ import {Link, BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./styles.css";
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import {Menu, Icon, Input, Badge} from 'antd';
+import {Menu, Icon, Input, Badge, Dropdown} from 'antd';
+import NotificationMenu from "./NotificationMenu";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
@@ -116,44 +117,19 @@ class Nav extends React.Component {
                                onClick={() => this.redirect('/')}>
                         <Link to="/"><Icon type="compass" theme="twoTone" /> Dashboard </Link>
                     </Menu.Item>
-                    <SubMenu className='menu_community'
-                               key="menu_community"
-                               title={<Badge
-                                   // count={unreadNotifs}
-                               >
-                                   <Icon type="bell" theme="twoTone" />
-                               </Badge>}>
-                        <Menu.ItemGroup title="User">
-                            <Menu.Item key="setting:1">Likes</Menu.Item>
-                            <Menu.Item
-                                key="create-community"
-                                onClick = { () => {
-                                    const addr = '/' + state.create_community;
-                                    this.redirect(addr)
-                                }}
-                            >
-                                Create Community
-                            </Menu.Item>
+                    <Menu.SubMenu className='menu-notifications'
+                        key="notifications"
+                        title={
+                            <Badge>
+                                <Icon type="bell" theme="twoTone" />
+                            </Badge>
+                        }
+                    >
+                        <Menu.ItemGroup title="Notifications">
+                            <Menu.Item key="setting:1">Notification 1</Menu.Item>
+                            <Menu.Item key="create-community">Notification 2</Menu.Item>
                         </Menu.ItemGroup>
-                        <Menu.ItemGroup title="Settings">
-                            <Menu.Item
-                                key="settings"
-                                onClick={ () => {
-                                    this.redirect('/settings')
-                                }}
-                            >
-                                Account Settings
-                            </Menu.Item>
-                            <Menu.Item
-                                key="setting:4"
-                                onClick={ () => {
-                                    state.handleLogOut();
-                                }}
-                            >
-                                Logout
-                            </Menu.Item>
-                        </Menu.ItemGroup>
-                    </SubMenu>
+                    </Menu.SubMenu>
 
                     <SubMenu
                         className='menu_sub'
