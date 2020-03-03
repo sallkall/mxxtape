@@ -4,7 +4,8 @@ import {Link, BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./styles.css";
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import {Menu, Icon, Input} from 'antd';
+import {Menu, Icon, Input, Badge} from 'antd';
+import NavigationNotification from "./NavigationNotification";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
@@ -24,6 +25,13 @@ class Nav extends React.Component {
         console.log(addr);
         this.props.history.push(addr);
     };
+
+    getLoggedInFromStateProp(state) {
+        console.log(state);
+        if (state && state.loggedIn) {
+            return state.loggedIn
+        }
+    }
 
     render() {
         const {state} = this.props;
@@ -48,8 +56,8 @@ class Nav extends React.Component {
                     </Menu.Item>
                     <Menu.Item className='menu_community'
                                key="menu_community"
-                               onClick={() => this.redirect('/community')}>
-                        <Link to="/community"><Icon type="bank" theme="twoTone" /> Community </Link>
+                               onClick={() => {console.log(state.loggedIn)}}>
+                        <NavigationNotification user={this.getLoggedInFromStateProp(state)}/>
                     </Menu.Item>
 
                     <SubMenu
