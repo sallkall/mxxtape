@@ -45,7 +45,7 @@ let SubList = [
 ];
 
 function RenderNewStarSong(react) {
-    const starSongInput = document.getElementById("SidebarSongInput");
+    const starSongInput = document.getElementById("DashboardSidebarSongInput");
     starSong = starSongInput.value;
     starSongInput.value = "";
     react.forceUpdate();
