@@ -1,4 +1,4 @@
-import {Form, Input, Tooltip, Icon, Mentions, Button} from "antd";
+import {Button, Form, Icon, Input, Mentions, Tooltip} from "antd";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import './index.css'
@@ -8,6 +8,9 @@ const {Option} = Mentions;
 class CreateCommunityForm extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            validName: null,
+        };
         // tooltips
         this.tooltip = {
             name_tooltip: "Give your community a good name that doesn't overlap with existing communities! " +
@@ -20,12 +23,47 @@ class CreateCommunityForm extends React.Component {
         }
     }
 
+    getExistingCommunityNames = () => {
+        //will get this list of community names from server
+        return {
+            community_names: ["jazz it up"],
+        }
+    };
+
+    checkCommunityName = (rule, value, callback) => {
+        if (value){
+            const cleanName = value.replace(/\s/g, "");
+            const communityNames = this.getExistingCommunityNames().community_names;
+
+            for (let i = 0; i < communityNames.length; i++){
+                if (cleanName === communityNames[i].replace(/\s/g, "")) {
+                    this.setState(
+                        {validName: false},
+                        () => {
+                            console.log("community name invalid", value);
+                            callback("This community exists already!")
+                        }
+                    )
+                }
+            }
+
+            this.setState(
+                {validName: false},
+                () => {
+                    console.log("community name accepted!", value);
+                    callback()
+                }
+            );
+        }
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if(!err) {
                 console.log("Received values of form: ", values);
                 // send values to server, add to a list of communities to validate
+                // note that will only be able to submit request for a community that doesn't exist yet
                 // redirect user to dashboard
                 this.props.history.push("/")
             }
@@ -47,7 +85,10 @@ class CreateCommunityForm extends React.Component {
                     }
                 >
                     {getFieldDecorator("community-name", {
-                        rules: [{required: true, message: "Need a name for a new community!"}]
+                        rules: [
+                            {required: true, message: "Need a name for a new community!"},
+                            {validator: this.checkCommunityName}
+                        ]
                     })(
                         <Input
                             className="community-input-short"
