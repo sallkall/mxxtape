@@ -72,7 +72,7 @@ class NotificationsList extends React.Component {
                         actions={[
                             <Button
                                 key="list-goto"
-                                onClick={this.redirect(item.community)}
+                                onClick={() => this.redirect(item.community)}
                             >
                                 Go to community
                             </Button>]}
