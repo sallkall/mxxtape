@@ -3,6 +3,7 @@ import React from "react";
 import "./index.css";
 import 'antd/dist/antd.css';
 import Nav from "../Navigation";
+import NotificationsList from "./NotificationsList";
 
 class NotificationsPage extends React.Component {
     render() {
@@ -16,6 +17,7 @@ class NotificationsPage extends React.Component {
                         Notifications
                     </header>
                     <hr/>
+                    <NotificationsList loggedIn={state.loggedIn}/>
                 </div>
             </div>
         )
