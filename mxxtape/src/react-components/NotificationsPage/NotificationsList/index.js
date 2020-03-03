@@ -2,7 +2,7 @@ import React from "react";
 
 import "./index.css";
 import 'antd/dist/antd.css';
-import {Avatar, Button, List, Skeleton} from "antd";
+import {Avatar, Badge, Button, List, Skeleton} from "antd";
 import {getUserInfo, getUserNotices} from "../../Navigation/NotificationBadge";
 
 class NotificationsList extends React.Component {
@@ -39,14 +39,15 @@ class NotificationsList extends React.Component {
         }
     }
 
-    redirect = (notice) => {
-        if (notice) {console.log("go to community", notice.replace(/\s/g, ""));}
-        else {console.log("nowhere to redirect")}
+    redirect = (community) => {
+        if (community) {
+            const cleaned = community.replace(/\s/g, "");
+            console.log("go to community", cleaned);
+        } else {console.log("nowhere to redirect")}
     };
 
     render() {
         const { data } = this.state;
-        // const {loggedIn} = this.state.loggedIn ? this.state.loggedIn : -1;
 
         return (
             <List
@@ -65,15 +66,17 @@ class NotificationsList extends React.Component {
                                 Go to community
                             </Button>]}
                     >
-                        {/*<Skeleton avatar title={false} loading={item.loading} active>*/}
+                        <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta
                                 avatar={
-                                    <Avatar src={item.avatar} />
+                                    <Badge dot={!item.read}>
+                                        <Avatar src={item.avatar} />
+                                    </Badge>
                                 }
-                                title={<a href="https://ant.design">{item.name}</a>}
+                                title={item.author}
                                 description={item.content}
                             />
-                        {/*</Skeleton>*/}
+                        </Skeleton>
                     </List.Item>
                 )}
             />
