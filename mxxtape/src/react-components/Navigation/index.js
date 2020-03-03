@@ -66,6 +66,15 @@ class Nav extends React.Component {
                     content: "Lorem...ipsum???",
                     timestamp: "2020-03-03 01:51:18",
                     updatedAt:"2020-03-03 01:51:18"
+                },
+                {
+                    read: true,
+                    postId: 2,
+                    author: "Janet Wang",
+                    avatar: 'https://scontent.fyto1-2.fna.fbcdn.net/v/t1.0-9/15871890_1178229362264200_2730942226162743028_n.jpg?_nc_cat=108&_nc_sid=85a577&_nc_ohc=GhhoJ0IXttIAX_Xql-z&_nc_ht=scontent.fyto1-2.fna&oh=65c60f89ab0c02ffb8961f4f69acf7ab&oe=5EFD122F',
+                    content: "something about ui?",
+                    timestamp: "2020-03-03 00:51:18",
+                    updatedAt:"2020-03-03 00:51:18"
                 }
             ];
             const userInfo = {
@@ -80,22 +89,10 @@ class Nav extends React.Component {
                 () => console.log(userInfo)
             );
 
-            return posts;
+            return notice;
         } else {
             return [];
         }
-    };
-
-    getUnreadNotifications = () => {
-        let count = 0;
-        if (this.state.posts) {
-            for (let i = 0; i < this.state.posts.length; i++) {
-                if (!this.state.posts[i].read) {
-                    count ++
-                }
-            }
-        }
-        return count
     };
 
     render() {
@@ -119,15 +116,44 @@ class Nav extends React.Component {
                                onClick={() => this.redirect('/')}>
                         <Link to="/"><Icon type="compass" theme="twoTone" /> Dashboard </Link>
                     </Menu.Item>
-                    <Menu.Item className='menu_community'
+                    <SubMenu className='menu_community'
                                key="menu_community"
-                               onClick={() => {console.log(state.loggedIn)}}>
-                        <Badge
-                            count={unreadNotifs}
-                        >
-                            <Icon type="bell" theme="twoTone" />
-                        </Badge>
-                    </Menu.Item>
+                               title={<Badge
+                                   // count={unreadNotifs}
+                               >
+                                   <Icon type="bell" theme="twoTone" />
+                               </Badge>}>
+                        <Menu.ItemGroup title="User">
+                            <Menu.Item key="setting:1">Likes</Menu.Item>
+                            <Menu.Item
+                                key="create-community"
+                                onClick = { () => {
+                                    const addr = '/' + state.create_community;
+                                    this.redirect(addr)
+                                }}
+                            >
+                                Create Community
+                            </Menu.Item>
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup title="Settings">
+                            <Menu.Item
+                                key="settings"
+                                onClick={ () => {
+                                    this.redirect('/settings')
+                                }}
+                            >
+                                Account Settings
+                            </Menu.Item>
+                            <Menu.Item
+                                key="setting:4"
+                                onClick={ () => {
+                                    state.handleLogOut();
+                                }}
+                            >
+                                Logout
+                            </Menu.Item>
+                        </Menu.ItemGroup>
+                    </SubMenu>
 
                     <SubMenu
                         className='menu_sub'
