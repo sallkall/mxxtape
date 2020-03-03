@@ -31,15 +31,9 @@ class Nav extends React.Component {
         this.props.history.push(addr);
     };
 
-    componentDidMount() {
-        if (this.state.user) {
-            this.getUserInfo(this.props.state.user);
-            console.log("Nav bar mounted", 5);
-        }
-    }
-
     getLoggedInFromStateProp(state) {
-        console.log(state);
+        // console.log(state);
+        // this will be a server call for current user
         if (state && state.loggedIn) {
             return state.loggedIn
         }
@@ -47,7 +41,6 @@ class Nav extends React.Component {
 
     render() {
         const {state} = this.props;
-        const userInfo = this.state.userInfo ? this.state.userInfo : {};
         return (
             <Router>
                 <Menu
@@ -70,7 +63,6 @@ class Nav extends React.Component {
                     <Menu.SubMenu
                         className='menu-notifications'
                         key="notifications"
-                        onClick={() => {console.log(state.loggedIn)}}
                         title={
                             <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
                         }
