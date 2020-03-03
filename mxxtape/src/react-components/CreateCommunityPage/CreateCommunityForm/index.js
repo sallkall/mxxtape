@@ -32,11 +32,11 @@ class CreateCommunityForm extends React.Component {
 
     checkCommunityName = (rule, value, callback) => {
         if (value){
-            const cleanName = value.replace(/\s/g, "");
+            const cleanName = value.toLowerCase().replace(/\s/g, "");
             const communityNames = this.getExistingCommunityNames().community_names;
 
             for (let i = 0; i < communityNames.length; i++){
-                if (cleanName === communityNames[i].replace(/\s/g, "")) {
+                if (cleanName === communityNames[i].toLowerCase().replace(/\s/g, "")) {
                     this.setState(
                         {validName: false},
                         () => {
