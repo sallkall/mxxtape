@@ -50,6 +50,12 @@ class App extends React.Component {
                 {loggedIn: -1},
                 () => {console.log(this.state)}
             );
+        },
+        updateGlobal: () => {
+            console.log("state.updateGlobal");
+            this.setState(
+                {update: this.state.update? this.state.update++ : 0}
+            )
         }
     };
 

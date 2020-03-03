@@ -17,7 +17,7 @@ class NotificationsPage extends React.Component {
                         Notifications
                     </header>
                     <hr/>
-                    <NotificationsList loggedIn={state.loggedIn}/>
+                    <NotificationsList loggedIn={state.loggedIn} updateGlobal={state.updateGlobal}/>
                 </div>
             </div>
         )

@@ -125,7 +125,7 @@ export function getMoreNotice(user, callback) {
     }
 }
 
-export function setNoticeRead() {
+export function setAllNoticeRead() {
     // server call to set notifications as read
     for (let i = 0; i < unreadnotice.length; i++) {
         const notice = unreadnotice[i];
@@ -133,7 +133,10 @@ export function setNoticeRead() {
             notice.read = true;
         }
     }
+    // server call to update unread count
+    userInfo.unreadCount=0;
 }
+
 
 class NotificationBadge extends React.Component {
     constructor(props) {
