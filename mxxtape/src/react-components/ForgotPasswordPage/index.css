@@ -1,0 +1,25 @@
+/*.forgot-password-form {*/
+/*    !*background-color: #C7E8F3;*!*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    flex-direction: column;*/
+/*    min-height: 50vh;*/
+/*}*/
+
+.form-header {
+    min-height: 33vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: Black;
+}
+
+.forgot-password-form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
