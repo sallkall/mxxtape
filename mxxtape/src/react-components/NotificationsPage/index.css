@@ -1,4 +1,4 @@
-.create-community-form {
+.notifications-page {
     max-width: 700px;
     margin: 0 auto;
     padding: 0 16px;
@@ -8,19 +8,11 @@
     font-variant: all-small-caps;
 }
 
-.create-community-header {
+.notifications-page-header {
     height: 70px;
     align-items: flex-end;
     display: flex;
-    font-size: 16px;
-}
-
-#create-community-header-admin {
-    height: 70px;
-    align-items: flex-end;
-    display: flex;
-    font-size: 24px;
-    font-variant: all-petite-caps;
+    font-size: 18px;
 }
 
 hr {
