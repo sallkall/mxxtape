@@ -84,8 +84,14 @@ class TextPost extends React.Component {
                     <Avatar src={this.props.avatar}/>
                 }
                 content={
-                    <div><p>{this.props.content}</p>
-                        <p><b>{this.props.tags}</b></p></div>
+                    <div>
+                        <p>{this.props.content}</p>
+                        {
+                            this.props.rating ? (<Rate disabled defaultValue={this.props.rating} />)
+                                : null
+                        }
+                        <p><b>{this.props.tags}</b></p>
+                    </div>
                 }
                 datetime={
                     <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>

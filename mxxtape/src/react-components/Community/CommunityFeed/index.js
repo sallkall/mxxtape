@@ -9,9 +9,10 @@ import TextPost from "../Post";
 //  array of post objects:
 export const posts = [
     {
-        key:0,
+        key: 0,
         actions: null,
         author: 'Sally Kang',
+        rating: null,
         avatar: 'https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/83337570_3515329088508799_4523582417981669376_n.jpg?_nc_cat=104&_nc_sid=85a577&_nc_ohc=6unpVlo76lgAX_kJl9K&_nc_ht=scontent.fyto1-1.fna&oh=b515f36742c04f5c702bf2426e9f0739&oe=5EF63A44',
         musicUrl: null,
         content: 'Hey guys! Welcome to the Jazz it Up community. We are a group of jazz enthusiast here to talk, ' +
@@ -21,7 +22,7 @@ export const posts = [
         tags: '#welcome',
     },
     {
-        key:1,
+        key: 1,
         actions: null,
         rating: 2,
         author: 'Janet wang',
@@ -32,13 +33,14 @@ export const posts = [
         tags: '#music',
     },
     {
-        key:2,
+        key: 2,
         actions: null,
+        rating: null,
         author: 'Connor Ferwerda',
         avatar: 'https://scontent-yyz1-1.xx.fbcdn.net/v/t1.0-9/17796794_111333216080695_8382139360744649163_n.jpg?_nc_cat=111&_nc_sid=85a577&_nc_ohc=Gf4HcH4bUcQAX_g6YG3&_nc_ht=scontent-yyz1-1.xx&oh=f5c0629f62f78998651c403538c80b3e&oe=5EEE926E',
         musicUrl: null,
-        content: 'Hello hello!!! '
-        ,
+        content: 'Hello hello!!! ',
+        tags: null,
     },
 ];
 
@@ -53,10 +55,10 @@ class CommunityFeed extends React.Component {
         console.log(this.state.posts)
         return (
             <div>
-                <TextPost author='Jolly Kang' avatar='https://tinyurl.com/v6m3tap' content='testing 123' tags='#taggy'/>
                 {
                     this.state.posts.map(item => (
-                        <TextPost key={item.key} author={item.author} avatar={item.avatar} content={item.content} tags={item.tags}/>
+                        <TextPost key={item.key} rating={item.rating} author={item.author} avatar={item.avatar} content={item.content}
+                                  tags={item.tags}/>
                     ))
                 }
             </div>

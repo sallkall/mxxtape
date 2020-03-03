@@ -6,7 +6,7 @@ import { Tag, Input, Tooltip, Icon } from 'antd';
 
 class NewPostTags extends React.Component {
     state = {
-        tags: ['Sample Tag', 'Another one'],
+        tags: ['Sample Tag', 'taggytag'],
         inputVisible: false,
         inputValue: '',
     };

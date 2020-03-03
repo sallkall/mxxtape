@@ -7,7 +7,6 @@ import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Toolti
 
 import {posts} from "../CommunityFeed";
 import moment from "moment";
-import MusicLinkUpload from "../MusicLinkUpload";
 
 const {Option} = Mentions;
 const {Sider, Content} = Layout;
@@ -31,7 +30,6 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
 
         render() {
             const {visible, onCancel, onCreate, form} = this.props;
-            // console.log("my props:", this.props);
             const {getFieldDecorator} = form;
 
 
@@ -57,13 +55,6 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
                                                 {
                                                     validator: this.validateContentInput,
                                                 },
-                                                // {
-                                                //     required: true,
-                                                //     message: 'Text posts must be less than 140 characters',
-                                                // },
-                                                // {
-                                                //     validator: this.validateInputLength,
-                                                // },
                                             ],
                                         })(
                                             <Mentions rows="5"
@@ -108,21 +99,19 @@ class NewTextPost extends React.Component {
             if (err) {
                 return;
             }
+            console.log(values.tags)
             // Create new post information to push to all feed posts in CommunityFeed
             const post_information = {
+                key: 4, //tempo key will fix later
                 actions: null,
                 author: "jazzy cat",
-                avatar: "https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/s150x150/83885851_189723372356264_5738621742125501341_n.jpg?_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_ohc=ZPjpLIhE5OsAX8Eb7w9&oh=0b0c2559e5786cad55d35b9cc8003714&oe=5E849C44",
-                content: values.content,
                 rating: values.rating,
-                datetime:
-                    <Tooltip
-                        title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                        <span>{moment().fromNow()}</span>
-                    </Tooltip>,
-                musicUrl: values.musicUrl
+                avatar: "https://tinyurl.com/wy5zbp2",
+                musicUrl: values.musicUrl,
+                content: values.content,
+                tags: values.tags,
             };
-            console.log(values)
+            console.log(values);
             posts.unshift(post_information);
             form.resetFields();
             this.setState({visible: false});
