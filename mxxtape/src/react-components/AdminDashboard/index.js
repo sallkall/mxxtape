@@ -75,7 +75,6 @@ class AdminDashboard extends React.Component {
                         <Card id="AdminSidebarCard" title="Administrator">
                             <Avatar id="AdminSidebarAvatar" shape="square" src={profilePic}/>
                             <Divider/>
-                            TODO Stuff here
                         </Card>
                     </Sider>
 
@@ -84,7 +83,7 @@ class AdminDashboard extends React.Component {
                             <ReactPlayer height={500} width={450} controls={false} url={featuredSong}/>
                             <br/>
                             <input id="AdminSongInput" type="text" placeholder="Song URL"/>
-                            <Button id="AdminSongButton" onClick={() => RenderNewStarSong(this)}>Set Starred Song</Button>
+                            <Button id="AdminSongButton" onClick={() => RenderNewStarSong(this)}>Set Featured Song</Button>
                         </Card>
 
 

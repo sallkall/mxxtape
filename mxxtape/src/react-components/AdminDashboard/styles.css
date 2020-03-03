@@ -19,8 +19,10 @@
 }
 #AdminContents {
     position: absolute;
-    margin-left: 250px;
-    width: 1200px;
+    padding-left: 100px;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    width: 1300px;
 }
 
 #AdminFeaturedCard {
