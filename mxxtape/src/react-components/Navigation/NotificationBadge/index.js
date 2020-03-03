@@ -137,6 +137,17 @@ export function setAllNoticeRead() {
     userInfo.unreadCount=0;
 }
 
+export function setNoticeRead(postId) {
+    // server call to set notifications as read
+    for (let i = 0; i < unreadnotice.length; i++) {
+        const notice = unreadnotice[i];
+        if (notice && notice.postId === postId){
+            notice.read = true;
+        }
+    }
+    //server call to update unread count
+    userInfo.unreadCount = userInfo.unreadCount === 0? 0 : userInfo.unreadCount--;
+}
 
 class NotificationBadge extends React.Component {
     constructor(props) {
