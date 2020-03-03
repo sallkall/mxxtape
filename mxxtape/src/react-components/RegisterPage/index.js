@@ -4,7 +4,7 @@ import {Form} from "antd";
 import RegisterForm from "./RegisterForm/RegisterForm";
 
 
-class Register extends React.Component {
+class RegisterPage extends React.Component {
 
     render() {
         const {state} = this.props;
@@ -16,9 +16,8 @@ class Register extends React.Component {
         return (
             <div className="Register">
                 <div className="register-form">
-                    <br/><br/><br/><br/><br/>
-                    <h2>
-                        Register
+                    <h2 className="register-form-header">
+                        RegisterPage
                     </h2>
                     <RegisterPageRegisterForm />
                 </div>
@@ -27,4 +26,4 @@ class Register extends React.Component {
 
     }
 }
-export default Register;
+export default RegisterPage;

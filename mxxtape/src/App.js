@@ -10,11 +10,14 @@ import 'antd/dist/antd.css';
 import Community from './react-components/Community';
 import UserDashboard from './react-components/UserDashboard';
 import LoginPage from './react-components/LoginPage';
-import Register from './react-components/Register';
 import History from './react-components/History';
 import SubbedCommunities from './react-components/SubbedCommunities';
 import AdminDashboard from './react-components/AdminDashboard';
 import UserProfile from './react-components/UserProfile';
+import RegisterPage from './react-components/RegisterPage';
+import SettingsPage from "./react-components/SettingsPage";
+import ForgotPassword from "./react-components/ForgotPasswordPage";
+import CreateCommunityPage from "./react-components/CreateCommunityPage";
 
 class App extends React.Component {
 
@@ -24,6 +27,9 @@ class App extends React.Component {
         community: "community",
         profile: "profile",
         dashboard: "dashboard",
+        forgot_password: 'forgot_password',
+        register: 'register',
+        create_community: 'create-community',
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
         loggedIn: -1,
@@ -41,7 +47,7 @@ class App extends React.Component {
             this.setState(
                 {loggedIn: -1},
                 () => {console.log(this.state)}
-                );
+            );
         }
     };
 
@@ -53,17 +59,24 @@ class App extends React.Component {
                         { /* Each Route below shows a different component depending on the exact path in the URL  */ }
                         <Route exact path='/'>
                             {this.state.loggedIn !== -1 ?
-                            <UserDashboard state={this.state}/> :
-                            <Redirect to="/login"/>}
+                                <UserDashboard state={this.state}/> :
+                                <Redirect to="/login"/>}
                         </Route>
-                        <Route exact path='/community' render={() =>
+                        <Route exact path='/login'>
+                            {this.state.loggedIn !== -1 ?
+                                <Redirect to="/"/> :
+                                <LoginPage state={this.state}/>}
+                        </Route>
+                        <Route exact path={'/' + this.state.register} render={()=>
+                            (<RegisterPage state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.forgot_password} render={()=>
+                            (<ForgotPassword state={this.state}/>)}/>
+                        <Route exact path='/settings' render={()=>
+                            (<SettingsPage state={this.state}/>)}/>
+                        <Route exact path='/community/jazzitup' render={() =>
                             (<Community state={this.state}/>)}/>
-                        <Route exact path='/dashboard' render={() =>
-                            (<UserDashboard state={this.state}/>)}/>
-                        <Route exact path='/login' render={()=>
-                            (<LoginPage state={this.state}/>)}/>
-                        <Route exact path='/register' render={()=>
-                            (<Register state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.create_community} render={() =>
+                            (<CreateCommunityPage state={this.state}/>)}/>
                         <Route exact path='/history' render={()=>
                             (<History state={this.state}/>)}/>
                         <Route exact path='/subscriptions' render={()=>
@@ -72,6 +85,8 @@ class App extends React.Component {
                             (<AdminDashboard state={this.state}/>)}/>
                         <Route exact path='/profile' render={()=>
                             (<UserProfile state={this.state}/>)}/>
+                        <Route exact path='/dashboard' render={()=>
+                            (<UserDashboard state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
