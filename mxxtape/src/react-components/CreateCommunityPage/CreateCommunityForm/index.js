@@ -1,4 +1,4 @@
-import {Button, Form, Icon, Input, Mentions, Tooltip} from "antd";
+import {Button, Form, Icon, Input, Mentions, message, Tooltip} from "antd";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import './index.css'
@@ -65,6 +65,7 @@ class CreateCommunityForm extends React.Component {
                 // send values to server, add to a list of communities to validate
                 // note that will only be able to submit request for a community that doesn't exist yet
                 // redirect user to dashboard
+                message.success("Community creation submission successful! Please wait for approval", 5);
                 this.props.history.push("/")
             }
         });
