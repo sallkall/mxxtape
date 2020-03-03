@@ -60,7 +60,7 @@ class NotificationsList extends React.Component {
                     <List.Item key={item.postId}
                         actions={[
                             <Button
-                                key="list-loadmore-goto"
+                                key="list-goto"
                                 onClick={this.redirect(item.community)}
                             >
                                 Go to community

@@ -48,7 +48,7 @@ let unreadnotice = [
     }
 ];
 
-const readNotice = [
+const moreNotice = [
     {
         read: true,
         postId: 20,
@@ -114,12 +114,12 @@ export function getUserNotices(user, callback) {
     }
 }
 
-export function getMoreNotices(user, callback) {
+export function getMoreNotice(user, callback) {
     if (user && user !== -1) {
         // get user's notification list and update state
         console.log("got more notifications from server");
 
-        callback(readNotice);
+        callback(moreNotice);
     } else {
         callback([]);
     }
