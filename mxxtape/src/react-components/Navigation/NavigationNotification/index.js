@@ -53,8 +53,7 @@ class NavigationNotification extends React.Component {
 
         return (
             <Badge count={notification_list.length}>
-                <Icon type="compass" theme="twoTone" />
-                Notifications
+                <Icon type="bell" theme="twoTone" />
             </Badge>
         )
     }
