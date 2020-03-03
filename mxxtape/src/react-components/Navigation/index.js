@@ -64,7 +64,7 @@ class Nav extends React.Component {
                     <Menu.Item
                         className='menu-notifications'
                         key="notifications"
-                        onClick={() => this.redirect('/')}
+                        onClick={() => this.redirect('/'+ state.notifications)}
                     >
                         <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
                     </Menu.Item>
