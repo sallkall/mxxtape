@@ -27,6 +27,7 @@ class CreateCommunityForm extends React.Component {
                 console.log("Received values of form: ", values);
                 // send values to server, add to a list of communities to validate
                 // redirect user to dashboard
+                this.props.history.push("/")
             }
         });
     };
