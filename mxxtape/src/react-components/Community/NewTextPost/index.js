@@ -9,7 +9,7 @@ import {posts} from "../CommunityFeed";
 import moment from "moment";
 
 const {Option} = Mentions;
-const {Sider, Content} = Layout;
+const {Content} = Layout;
 
 
 const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
@@ -28,11 +28,24 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
             callback();
         };
 
+        renderTags(tags) {
+            tags = tags.replace(/\s/g, '');
+            let tagList = tags.split(";");
+            for (let i=0; i < tagList.length; i ++) {
+                tagList[i] = ' #' +  tagList[i];
+            }
+            tagList.pop()
+            this.props.form.setFieldsValue({
+                tags: tagList,
+            });
+        }
+
         render() {
             const {visible, onCancel, onCreate, form} = this.props;
             const {getFieldDecorator} = form;
+            console.log("FORM TAGS", this.props.form.getFieldValue('tags'))
 
-
+            // const selecetedTags = this.props.form.getFieldValue('tags');
             return (
                 <Modal
                     visible={visible}
@@ -65,11 +78,23 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
                                             </Mentions>
                                         )}
                                     </Form.Item>
-                                    <Form.Item>
+                                    <Form.Item
+                                        help=' Separate tags with ";" enter to save'>
                                         {getFieldDecorator('tags', {})(
-                                            <NewPostTags/>
+                                            <Input onPressEnter={ () => {
+                                                this.renderTags(this.props.form.getFieldValue('tags'))
+                                            }}
+                                                   size="small"
+                                                   suffix={
+                                                       <Tooltip title="Tags will help us classify your post">
+                                                           <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+                                                       </Tooltip>
+                                                   }
+                                            placeholder="Tags" prefix='#'/>
                                         )}
                                     </Form.Item>
+                                {
+                                }
                             </Content>
 
                         </Layout>
@@ -99,7 +124,6 @@ class NewTextPost extends React.Component {
             if (err) {
                 return;
             }
-            console.log(values.tags)
             // Create new post information to push to all feed posts in CommunityFeed
             const post_information = {
                 key: 4, //tempo key will fix later
@@ -123,6 +147,7 @@ class NewTextPost extends React.Component {
     };
 
     render() {
+
         const {state} = this.props;
         return (
             <div>
