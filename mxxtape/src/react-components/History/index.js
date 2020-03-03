@@ -1,4 +1,5 @@
 import React from "react";
+import {BrowserRouter as Router, withRouter} from "react-router-dom";
 
 import "./styles.css";
 import 'antd/dist/antd.css';
@@ -29,24 +30,27 @@ function RemoveFromHistory(songName, react) {
 
 class History extends React.Component {
     render() {
+        const { state } = this.props;
         return (
-            <div id={"Root"}>
-                <Nav/>
-                <Button id="BackButton" href="./Profile">{"< Back"}</Button>
-                <Card id="History" className="ContentCard" title="HISTORY">
-                    <List
-                        dataSource = {SongList}
-                        renderItem = {item => (
-                            <List.Item>
-                                <ReactPlayer height={70} width={700} controls={false} url={item}/>
-                                <input type="image" className="HistoryRemoveButton" src={removePic} alt="Image Load Error" onClick={() => RemoveFromHistory(item, this)}/>
-                            </List.Item>
-                        )}
-                    />
-                </Card>
+            <div>
+                <Nav state={state}/>
+                <Router>
+                    <Button id="BackButton" href="./Profile">{"< Back"}</Button>
+                    <Card id="History" className="ContentCard" title="HISTORY">
+                        <List
+                            dataSource = {SongList}
+                            renderItem = {item => (
+                                <List.Item>
+                                    <ReactPlayer height={70} width={700} controls={false} url={item}/>
+                                    <input type="image" className="HistoryRemoveButton" src={removePic} alt="Image Load Error" onClick={() => RemoveFromHistory(item, this)}/>
+                                </List.Item>
+                            )}
+                        />
+                    </Card>
+                </Router>
             </div>
         );
     }
 }
 
-export default History;
+export default withRouter(History);
