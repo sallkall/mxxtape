@@ -8,7 +8,6 @@ const {Option} = Mentions;
 class CreateCommunityForm extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
         // tooltips
         this.tooltip = {
             name_tooltip: "Give your community a good name that doesn't overlap with existing communities! " +
@@ -26,6 +25,8 @@ class CreateCommunityForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if(!err) {
                 console.log("Received values of form: ", values);
+                // send values to server, add to a list of communities to validate
+                // redirect user to dashboard
             }
         });
     };
@@ -117,7 +118,7 @@ class CreateCommunityForm extends React.Component {
                         htmlType="submit"
                         className="submit-button"
                     >
-                        Submit
+                        Submit for approval
                     </Button>
                 </Form.Item>
             </Form>
