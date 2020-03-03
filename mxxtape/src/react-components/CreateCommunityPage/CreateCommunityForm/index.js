@@ -8,7 +8,9 @@ const {Option} = Mentions;
 class CreateCommunityForm extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
+        this.state = {};
+        // tooltips
+        this.tooltip = {
             name_tooltip: "Give your community a good name that doesn't overlap with existing communities! " +
                 "Note that this can't be changed in the future.",
             genre_tooltip: "List as many genres as you like, but you need at least one.",
@@ -36,7 +38,7 @@ class CreateCommunityForm extends React.Component {
                     label={
                         <span>
                             Name your community&nbsp;
-                            <Tooltip title={this.state.name_tooltip} >
+                            <Tooltip title={this.tooltip.name_tooltip} >
                                 <Icon type="question-circle-o" />
                             </Tooltip>
                         </span>
@@ -54,7 +56,7 @@ class CreateCommunityForm extends React.Component {
                     label={
                         <span>
                             What genres of music will your community be interested in?&nbsp;
-                            <Tooltip title={this.state.genre_tooltip} >
+                            <Tooltip title={this.tooltip.genre_tooltip} >
                                 <Icon type="question-circle-o" />
                             </Tooltip>
                         </span>
@@ -72,7 +74,7 @@ class CreateCommunityForm extends React.Component {
                     label={
                         <span>
                             Description &nbsp;
-                            <Tooltip title={this.state.description_tooltip} >
+                            <Tooltip title={this.tooltip.description_tooltip} >
                                 <Icon type="question-circle-o" />
                             </Tooltip>
                         </span>
@@ -91,7 +93,7 @@ class CreateCommunityForm extends React.Component {
                     label={
                         <span>
                             Add moderators to your community&nbsp;
-                            <Tooltip title={this.state.mods_tooltip} >
+                            <Tooltip title={this.tooltip.mods_tooltip} >
                                 <Icon type="question-circle-o" />
                             </Tooltip>
                         </span>
