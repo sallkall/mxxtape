@@ -1,5 +1,7 @@
 .content {
     padding: 0 150px;
+    height: 100%;
+    background-color: white;
 }
 
 .header {
@@ -79,6 +81,7 @@
 }
 
 .posts {
+    max-width: 88%;
     position: absolute;
     margin-top: 30px;
     margin-right: 100px;
@@ -92,13 +95,13 @@
 #newmusic_button {
     position: absolute;
     right: 0;
-    margin-right: 320px;
+    margin-right: 240px;
 }
 
 #newtextpost_button {
     position: absolute;
     right: 0;
-    margin-right: 220px;
+    margin-right: 140px;
 }
 
 .header_join_button {

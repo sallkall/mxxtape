@@ -2,9 +2,15 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 
-import { Button, Modal, Form, Input, Radio, Icon } from 'antd';
+// import { Button, Modal, Form, Input, Radio, Icon, Layout } from 'antd';
+import {Button, Modal, Form, Icon, Upload, Rate, Layout, Mentions} from 'antd';
 
-const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+import MusicLinkUpload from "../MusicLinkUpload";
+
+const {Sider, Content} = Layout;
+const {Option} = Mentions;
+
+const NewMusicCreateForm = Form.create({ name: 'form_in_modal' })(
     // eslint-disable-next-line
     class extends React.Component {
         render() {
@@ -13,30 +19,67 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
             return (
                 <Modal
                     visible={visible}
-                    title="Create a new collection"
-                    okText="Create"
+                    title="New Music Post"
+                    okText="Post"
                     onCancel={onCancel}
                     onOk={onCreate}
                 >
-                    <Form layout="vertical">
-                        <Form.Item label="Title">
-                            {getFieldDecorator('title', {
-                                rules: [{ required: true, message: 'Please input the title of collection!' }],
-                            })(<Input />)}
-                        </Form.Item>
-                        <Form.Item label="Description">
-                            {getFieldDecorator('description')(<Input type="textarea" />)}
-                        </Form.Item>
-                        <Form.Item className="collection-create-form_last-form-item">
-                            {getFieldDecorator('modifier', {
-                                initialValue: 'public',
-                            })(
-                                <Radio.Group>
-                                    <Radio value="public">Public</Radio>
-                                    <Radio value="private">Private</Radio>
-                                </Radio.Group>,
-                            )}
-                        </Form.Item>
+                    <Form layout="horizontal">
+                        <Layout className="form_layout">
+                            <Content className="music_display">
+                                <Form.Item label="Music Upload:">
+                                    {getFieldDecorator('music', {
+                                        valuePropName: 'fileList',
+                                        getValueFromEvent: this.normFile,
+                                    })(
+                                        <Upload.Dragger name="files" action="/upload.do">
+                                            <p className="ant-upload-drag-icon">
+                                                <Icon type="inbox"/>
+                                            </p>
+                                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                                            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                                        </Upload.Dragger>,
+                                    )}
+                                </Form.Item>
+                            </Content>
+                            <Sider className="post_sider" width={400}>
+                                <div id='right_side'>
+                                    <Form.Item name="musicUrl" >
+                                        {getFieldDecorator('musicUrl', {})(
+                                            <MusicLinkUpload/>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item name="content">
+                                        {getFieldDecorator('content', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'content cannot be blank',
+                                                },
+                                                {
+                                                    validator: this.validateContentInput,
+                                                },
+                                            ],
+                                        })(
+                                            <Mentions rows="5"
+                                                      placeholder="What's on your mind? Use @ to ref user here.">
+                                                <Option value="sallyk">sallyk</Option>
+                                                <Option value="janetw">janetw</Option>
+                                                <Option value="connorf">connorf</Option>
+                                            </Mentions>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        {getFieldDecorator('rating', {})(
+                                            <Rate className="ratings"
+                                                  character={<Icon type="thunderbolt" theme="filled"/>}
+                                                  allowHalf/>
+                                        )}
+                                    </Form.Item>
+                                </div>
+
+                            </Sider>
+                        </Layout>
                     </Form>
                 </Modal>
             );
@@ -87,7 +130,7 @@ class NewMusicPost extends React.Component {
                             + Music <Icon type="sound"/></Button>)
                 }
 
-                <CollectionCreateForm
+                <NewMusicCreateForm
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
                     onCancel={this.handleCancel}

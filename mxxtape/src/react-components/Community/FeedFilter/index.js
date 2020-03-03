@@ -27,8 +27,8 @@ class FeedFilter extends React.Component {
         return (
             <Select
                 showSearch
-                style={{ width: 200 }}
-                placeholder="Filter"
+                className='filter'
+                placeholder="Sort"
                 optionFilterProp="children"
                 onChange={onChange}
                 onFocus={onFocus}

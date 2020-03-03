@@ -1,8 +1,10 @@
 import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
+import NewPostTags from "../NewPostTags";
 
 import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Tooltip} from 'antd';
+
 import {posts} from "../TextPost";
 import moment from "moment";
 import MusicLinkUpload from "../MusicLinkUpload";
@@ -11,20 +13,18 @@ const {Option} = Mentions;
 const {Sider, Content} = Layout;
 
 
-const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
+const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
     class extends React.Component {
-        normFile = e => {
-            console.log('Upload event:', e);
-            if (Array.isArray(e)) {
-                return e;
-            }
-            return e && e.fileList;
-        };
 
         validateContentInput = (rule, value, callback) => {
             const { form } = this.props;
             if (value) {
                 form.validateFields(['confirm'], { force: true });
+                if (value.length > 140) {
+                    callback('Exceeded maximum characters');
+                } else {
+                    callback();
+                }
             }
             callback();
         };
@@ -38,38 +38,15 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
             return (
                 <Modal
                     visible={visible}
-                    title="Create Post"
-                    okText="POST"
-                    cancelText="CANCEL"
+                    title="New Text Post"
+                    okText="Post"
                     onCancel={onCancel}
                     onOk={onCreate}
-                    width={750}
                 >
                     <Form layout="horizontal">
                         <Layout className="form_layout">
-                            <Content className="music_display">
-                                <Form.Item label="Music Upload:">
-                                    {getFieldDecorator('music', {
-                                        valuePropName: 'fileList',
-                                        getValueFromEvent: this.normFile,
-                                    })(
-                                        <Upload.Dragger name="files" action="/upload.do">
-                                            <p className="ant-upload-drag-icon">
-                                                <Icon type="inbox"/>
-                                            </p>
-                                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                                        </Upload.Dragger>,
-                                    )}
-                                </Form.Item>
-                            </Content>
-                            <Sider className="post_sider" width={400}>
-                                <div id='right_side'>
-                                    <Form.Item name="musicUrl" >
-                                        {getFieldDecorator('musicUrl', {})(
-                                            <MusicLinkUpload/>
-                                        )}
-                                    </Form.Item>
+                            <Content className="newtextpost_content">
+                                <h1>What's on your mind?</h1>
                                     <Form.Item name="content">
                                         {getFieldDecorator('content', {
                                             rules: [
@@ -80,10 +57,17 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                                 {
                                                     validator: this.validateContentInput,
                                                 },
+                                                // {
+                                                //     required: true,
+                                                //     message: 'Text posts must be less than 140 characters',
+                                                // },
+                                                // {
+                                                //     validator: this.validateInputLength,
+                                                // },
                                             ],
                                         })(
                                             <Mentions rows="5"
-                                                      placeholder="What's on your mind? Use @ to ref user here.">
+                                                      placeholder="Use @ to reference users here.">
                                                 <Option value="sallyk">sallyk</Option>
                                                 <Option value="janetw">janetw</Option>
                                                 <Option value="connorf">connorf</Option>
@@ -91,20 +75,16 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                         )}
                                     </Form.Item>
                                     <Form.Item>
-                                        {getFieldDecorator('rating', {})(
-                                            <Rate className="ratings"
-                                                  character={<Icon type="thunderbolt" theme="filled"/>}
-                                                  allowHalf/>
+                                        {getFieldDecorator('tags', {})(
+                                            <NewPostTags/>
                                         )}
                                     </Form.Item>
-                                </div>
+                            </Content>
 
-                            </Sider>
                         </Layout>
                     </Form>
                 </Modal>
-            )
-                ;
+            );
         }
     },
 );
@@ -163,10 +143,10 @@ class NewTextPost extends React.Component {
                             + Text <Icon type="form"/></Button>)
                         :
                         (<Button className="textbutton" type="primary" onClick={this.showModal} disabled>
-                           + Text <Icon type="form"/></Button>)
+                            + Text <Icon type="form"/></Button>)
                 }
 
-                <CollectionCreateForm
+                <NewTextPostCreateForm
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
                     onCancel={this.handleCancel}

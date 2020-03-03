@@ -1,5 +1,8 @@
 .textbutton {
     border-radius: 40px;
+    border-color: #45a2fa;
+    background-color: ghostwhite;
+    color: #093e9b;
 }
 .ratings {
     color: lightskyblue;
@@ -18,7 +21,7 @@
     background: none;
     padding: 0 24px 0 0;
 }
-.music_display {
+.newtextpost_content {
     padding: 0 24px;
 }
 
