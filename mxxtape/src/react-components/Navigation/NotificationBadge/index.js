@@ -10,6 +10,7 @@ export function getUserInfo(user) {
         console.log("got unread notifications list from server");
         const notice = [
             {
+                read: false,
                 postId: 5,
                 author: "jazzy cat",
                 avatar: "https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/s150x150/83885851_189723372356264_5738621742125501341_n.jpg?_nc_ht=scontent-yyz1-1.cd…",
