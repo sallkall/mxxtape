@@ -2,17 +2,39 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 
-// import { Button, Modal, Form, Input, Radio, Icon, Layout } from 'antd';
-import {Button, Modal, Form, Icon, Upload, Rate, Layout, Mentions} from 'antd';
+import {Button, Modal, Form, Icon, Input, Rate, Layout, Tooltip} from 'antd';
 
-import MusicLinkUpload from "../MusicLinkUpload";
+import {posts} from "../CommunityFeed";
 
-const {Sider, Content} = Layout;
-const {Option} = Mentions;
+const { Content} = Layout;
 
-const NewMusicCreateForm = Form.create({ name: 'form_in_modal' })(
-    // eslint-disable-next-line
+const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
     class extends React.Component {
+        validateLink = (rule, value, callback) => {
+            const { form } = this.props;
+            if (value) {
+                form.validateFields(['confirm'], { force: true });
+                if (!value.includes("soundcloud")) {
+                    callback('Must be a soundcloud link');
+                } else {
+                    callback();
+                }
+            }
+            callback();
+        };
+
+        renderTags(tags) {
+            tags = tags.replace(/\s/g, '');
+            let tagList = tags.split(";");
+            for (let i=0; i < tagList.length; i ++) {
+                tagList[i] = ' #' +  tagList[i];
+            }
+            tagList.pop()
+            this.props.form.setFieldsValue({
+                tags: tagList,
+            });
+        }
+
         render() {
             const { visible, onCancel, onCreate, form } = this.props;
             const { getFieldDecorator } = form;
@@ -27,58 +49,44 @@ const NewMusicCreateForm = Form.create({ name: 'form_in_modal' })(
                     <Form layout="horizontal">
                         <Layout className="form_layout">
                             <Content className="music_display">
-                                <Form.Item label="Music Upload:">
-                                    {getFieldDecorator('music', {
-                                        valuePropName: 'fileList',
-                                        getValueFromEvent: this.normFile,
+                                <h1>Select a track:</h1>
+                                <Form.Item name="content" >
+                                    {getFieldDecorator('content', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'content cannot be blank',
+                                            },
+                                            {
+                                                validator: this.validateLink,
+                                            },
+                                        ],
                                     })(
-                                        <Upload.Dragger name="files" action="/upload.do">
-                                            <p className="ant-upload-drag-icon">
-                                                <Icon type="inbox"/>
-                                            </p>
-                                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                                        </Upload.Dragger>,
+                                        <Input addonBefore="https://"
+                                               placeholder="soundcloud.com/your_music"/>
+                                    )}
+                                </Form.Item>
+                                <Form.Item
+                                    help=' Separate tags with ";" enter to save'>
+                                    {getFieldDecorator('tags', {})(
+                                        <Input onPressEnter={ () => {
+                                            this.renderTags(this.props.form.getFieldValue('tags'))
+                                        }}
+                                               size="small"
+                                               suffix={
+                                                   <Tooltip title="Tags will help us classify your post">
+                                                       <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+                                                   </Tooltip>
+                                               }
+                                               placeholder="Tags" prefix='#'/>
+                                    )}
+                                </Form.Item>
+                                <Form.Item>
+                                    {getFieldDecorator('rating', {})(
+                                        <Rate allowHalf/>
                                     )}
                                 </Form.Item>
                             </Content>
-                            <Sider className="post_sider" width={400}>
-                                <div id='right_side'>
-                                    <Form.Item name="musicUrl" >
-                                        {getFieldDecorator('musicUrl', {})(
-                                            <MusicLinkUpload/>
-                                        )}
-                                    </Form.Item>
-                                    <Form.Item name="content">
-                                        {getFieldDecorator('content', {
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: 'content cannot be blank',
-                                                },
-                                                {
-                                                    validator: this.validateContentInput,
-                                                },
-                                            ],
-                                        })(
-                                            <Mentions rows="5"
-                                                      placeholder="What's on your mind? Use @ to ref user here.">
-                                                <Option value="sallyk">sallyk</Option>
-                                                <Option value="janetw">janetw</Option>
-                                                <Option value="connorf">connorf</Option>
-                                            </Mentions>
-                                        )}
-                                    </Form.Item>
-                                    <Form.Item>
-                                        {getFieldDecorator('rating', {})(
-                                            <Rate className="ratings"
-                                                  character={<Icon type="thunderbolt" theme="filled"/>}
-                                                  allowHalf/>
-                                        )}
-                                    </Form.Item>
-                                </div>
-
-                            </Sider>
                         </Layout>
                     </Form>
                 </Modal>
@@ -107,7 +115,19 @@ class NewMusicPost extends React.Component {
                 return;
             }
 
+            const post_information = {
+                key: 5,     //tempo key will fix later
+                actions: null,
+                author: "Jellicle Cat",
+                rating: values.rating,
+                avatar: "https://tinyurl.com/v43wzfn",
+                musicUrl: values.musicUrl,
+                content: values.content,
+                tags: values.tags,
+            };
+
             console.log('Received values of form: ', values);
+            posts.unshift(post_information);
             form.resetFields();
             this.setState({ visible: false });
         });
@@ -134,7 +154,10 @@ class NewMusicPost extends React.Component {
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
-                    onCreate={this.handleCreate}
+                    onCreate={() => {
+                        this.handleCreate();
+                        state.updateFeed();
+                    }}
                 />
             </div>
         );

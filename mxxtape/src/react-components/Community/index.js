@@ -31,7 +31,6 @@ class Community extends React.Component {
     }
 
     render() {
-        // let join_button_text = this.state.isMember ? "" : "warning";
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
         let join_button_color = this.state.isMember ? "" : "#52c41a";
 

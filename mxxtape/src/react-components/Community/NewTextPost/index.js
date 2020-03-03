@@ -14,7 +14,6 @@ const {Content} = Layout;
 
 const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
     class extends React.Component {
-
         validateContentInput = (rule, value, callback) => {
             const { form } = this.props;
             if (value) {
@@ -43,9 +42,7 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
         render() {
             const {visible, onCancel, onCreate, form} = this.props;
             const {getFieldDecorator} = form;
-            console.log("FORM TAGS", this.props.form.getFieldValue('tags'))
 
-            // const selecetedTags = this.props.form.getFieldValue('tags');
             return (
                 <Modal
                     visible={visible}
@@ -128,10 +125,10 @@ class NewTextPost extends React.Component {
             const post_information = {
                 key: 4, //tempo key will fix later
                 actions: null,
-                author: "jazzy cat",
-                rating: values.rating,
+                author: "Texty cat",
+                rating: null,
                 avatar: "https://tinyurl.com/wy5zbp2",
-                musicUrl: values.musicUrl,
+                musicUrl: null,
                 content: values.content,
                 tags: values.tags,
             };

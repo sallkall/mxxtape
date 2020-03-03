@@ -21,10 +21,6 @@ class TextPost extends React.Component {
         }
     }
 
-    getContent() {
-        return this.content;
-    }
-
     like = () => {
         this.setState({
             likes: 1,
@@ -72,9 +68,9 @@ class TextPost extends React.Component {
         <span style={{paddingLeft: 8, cursor: 'auto'}}>{dislikes}</span>
       </span>,
         ];
-        {
-            console.log(this.props)
-        }
+        // {
+        //     console.log(this.props)
+        // }
 
         return (
             <Comment
