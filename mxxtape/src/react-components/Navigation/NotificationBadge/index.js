@@ -146,7 +146,9 @@ export function setNoticeRead(postId) {
         }
     }
     //server call to update unread count
-    userInfo.unreadCount = userInfo.unreadCount === 0? 0 : userInfo.unreadCount--;
+    const count = userInfo.unreadCount;
+    userInfo.unreadCount = count > 0? count - 1: 0;
+    console.log(userInfo.unreadCount);
 }
 
 class NotificationBadge extends React.Component {

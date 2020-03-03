@@ -3,7 +3,13 @@ import React from "react";
 import "./index.css";
 import 'antd/dist/antd.css';
 import {Avatar, Badge, Button, List, Skeleton} from "antd";
-import {getMoreNotice, getUserInfo, getUserNotices, setAllNoticeRead} from "../../Navigation/NotificationBadge";
+import {
+    getMoreNotice,
+    getUserInfo,
+    getUserNotices,
+    setAllNoticeRead,
+    setNoticeRead
+} from "../../Navigation/NotificationBadge";
 
 class NotificationsList extends React.Component {
     constructor(props) {
@@ -86,7 +92,11 @@ class NotificationsList extends React.Component {
                             actions={[
                                 <Button
                                     key="list-goto"
-                                    onClick={() => this.redirect(item.community)}
+                                    onClick={() => {
+                                        this.redirect(item.community);
+                                        setNoticeRead(item.postId);
+                                        if (updateGlobal) {updateGlobal()}
+                                    }}
                                 >
                                     Go to community
                                 </Button>]}
