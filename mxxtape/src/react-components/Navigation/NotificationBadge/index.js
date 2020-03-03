@@ -125,6 +125,13 @@ export function getMoreNotice(user, callback) {
     }
 }
 
+export function setNoticeRead(notice) {
+    // server call to set this notification as read
+    if (notice && !notice.read){
+        notice.read = true;
+    }
+}
+
 class NotificationBadge extends React.Component {
     constructor(props) {
         super(props);
