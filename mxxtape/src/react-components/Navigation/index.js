@@ -61,13 +61,13 @@ class Nav extends React.Component {
                                onClick={() => this.redirect('/')}>
                         <Link to="/"><Icon type="compass" theme="twoTone" /> Dashboard </Link>
                     </Menu.Item>
-                    <Menu.SubMenu
+                    <Menu.Item
                         className='menu-notifications'
                         key="notifications"
-                        title={
-                            <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
-                        }
-                    />
+                        onClick={() => this.redirect('/')}
+                    >
+                        <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
+                    </Menu.Item>
                     <SubMenu
                         className='menu_sub'
                         title={
