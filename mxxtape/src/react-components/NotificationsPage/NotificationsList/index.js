@@ -32,6 +32,7 @@ class NotificationsList extends React.Component {
                 console.log("componentDidMount getUserNotices",notices);
                 this.setState({
                     data: notices,
+                    initLoading: !this.state.initLoading,
                 }, () => {
                     console.log("state.data:", this.state.data)
                 })
@@ -46,15 +47,25 @@ class NotificationsList extends React.Component {
         } else {console.log("nowhere to redirect")}
     };
 
+    loadMore = () => {
+        console.log("load more clicked");
+    };
+
     render() {
-        const { data } = this.state;
+        const { data, initLoading, loading } = this.state;
+
+        const loadMore = !initLoading && !loading ? (
+            <div className="load-more">
+                <Button onClick={this.loadMore}>Load More</Button>
+            </div>
+        ) : null;
 
         return (
             <List
                 className="demo-loadmore-list"
-                // loading={initLoading}
+                loading={initLoading}
                 itemLayout="horizontal"
-                // loadMore={loadMore}
+                loadMore={loadMore}
                 dataSource={data}
                 renderItem={item => (
                     <List.Item key={item.postId}
