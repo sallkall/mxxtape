@@ -17,7 +17,24 @@ import { Button } from 'antd';
 
 const { Sider, Content } = Layout;
 
-let starSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
+let starSong = "https://soundcloud.com/aperturesciencepsychoacousticlaboratories/want-you-gone";
+
+let FeaturedSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
+
+let DiscoverList = [
+    "https://soundcloud.com/eveyx/65daysofstatic-debutante-no-mans-sky-trailer-edit",
+    "https://soundcloud.com/m-w-j/kerbal-space-program-main",
+    "https://soundcloud.com/melatonin-nl/factorio",
+    "https://soundcloud.com/sarahbrightman/time-to-say-goodbye-con-te",
+    "https://soundcloud.com/owlcityofficial/1-hot-air-balloon"
+];
+
+let HistoryList = [
+    "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
+    "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
+    "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
+    "https://soundcloud.com/thefatrat/thefatrat-mayday-feat-laura-brehm"
+];
 
 let SubList = [
     ["Jazz It Up", "jazzitup"],
@@ -59,12 +76,12 @@ class UserDashboard extends React.Component {
 
                         <Content id="DashboardContents">
                             <Card id="DashboardFeaturedCard" className="DashboardContentCard" title="FEATURED SONG">
-                                <ReactPlayer height={450} width={350} controls={false} url="https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2"/>
+                                <ReactPlayer height={450} width={350} controls={false} url={FeaturedSong}/>
                             </Card>
 
                             <Card className="DashboardContentCard SongListCard" title="DISCOVER">
                                 <List
-                                    dataSource = {["https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2"]}
+                                    dataSource = {DiscoverList}
                                     renderItem = {item => (
                                         <List.Item>
                                             <ReactPlayer height={70} width={650} controls={false} url={item}/>
@@ -76,7 +93,7 @@ class UserDashboard extends React.Component {
                             <Card className="DashboardContentCard SongListCard" title="HISTORY">
                                 <List
                                     footer = {<Button onClick={() => this.redirect("/history")}>[MORE]</Button>}
-                                    dataSource = {["https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2"]}
+                                    dataSource = {HistoryList}
                                     renderItem = {item => (
                                         <List.Item>
                                             <ReactPlayer height={70} width={650} controls={false} url={item}/>

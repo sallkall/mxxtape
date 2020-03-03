@@ -19,6 +19,13 @@ const { Sider, Content } = Layout;
 
 let starSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
 
+let HistoryList = [
+    "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
+    "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
+    "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
+    "https://soundcloud.com/thefatrat/thefatrat-mayday-feat-laura-brehm"
+];
+
 let SubList = [
     ["Jazz It Up", "jazzitup"],
     ["Digital", "digital"],
@@ -51,7 +58,7 @@ class UserProfile extends React.Component {
                             <Card className="ProfileContentCard SongListCard" title="USER HISTORY">
                                 <List
                                     footer = {<Button onClick={() => this.redirect("/history")}>[MORE]</Button>}
-                                    dataSource = {["https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2", "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2"]}
+                                    dataSource = {HistoryList}
                                     renderItem = {item => (
                                         <List.Item>
                                             <ReactPlayer height={70} width={650} controls={false} url={item}/>
