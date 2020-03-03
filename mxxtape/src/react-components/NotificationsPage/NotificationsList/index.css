@@ -1,0 +1,22 @@
+.right{
+    text-align: right;
+}
+.absolute{
+    position: absolute;
+}
+
+.relative{
+    position: relative;
+}
+
+.load-more{
+    margin: 5px;
+}
+
+.center{
+    text-align: center;
+}
+
+.notification-list{
+    position: relative;
+}

@@ -76,28 +76,30 @@ class NotificationsList extends React.Component {
         const { data, initLoading, loading } = this.state;
 
         const loadMore = !initLoading && !loading ? (
-            <div className="load-more">
+            <div className="load-more center">
                 <Button onClick={this.loadMore}>Load More</Button>
             </div>
         ) : null;
 
         return (
             <div>
-                <Button
-                    className="mark-read-button"
-                    onClick={() => {
-                        setAllNoticeRead();
-                        this.setState({markAllAsRead: true});
-                        if (updateGlobal) {
-                            // refreshing
-                            updateGlobal();
-                        }
-                    }}
-                >
-                    Mark all as read
-                </Button>
+                <div className="right">
+                    <Button
+                        className="mark-read-button"
+                        onClick={() => {
+                            setAllNoticeRead();
+                            this.setState({markAllAsRead: true});
+                            if (updateGlobal) {
+                                // refreshing
+                                updateGlobal();
+                            }
+                        }}
+                    >
+                        Mark all as read
+                    </Button>
+                </div>
                 <List
-                    className="demo-loadmore-list"
+                    className="notification-list"
                     loading={initLoading}
                     itemLayout="horizontal"
                     loadMore={loadMore}
