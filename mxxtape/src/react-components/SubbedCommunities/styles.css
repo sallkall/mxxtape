@@ -1,12 +1,4 @@
 
-#Root {
-    height: 100%;
-    margin: auto;
-}
-#Layout {
-    height: calc(100% - 20px);
-    width: 100%;
-}
 #Sidebar {
     background: inherit;
 }
@@ -22,11 +14,9 @@
     text-align: center;
 }
 #Subscriptions {
-    width: 900px;
+    position: absolute;
+    width: 1000px;
     height: auto;
-}
-.CommunityItem {
-    margin: 0;
 }
 .SubbedCommunityDiv {
     height: 100px;
@@ -44,8 +34,4 @@
     color: #FFFFFF;
     text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
     font-size: 30px;
-}
-.UnSubButton {
-    width: 50px;
-    height: 50px;
 }

@@ -18,6 +18,14 @@ const { Sider, Content } = Layout;
 
 let starSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
 
+let SubList = [
+    ["Jazz It Up", "jazzitup"],
+    ["Digital", "digital"],
+    ["Rock N Roll", "rocknroll"],
+    ["Stubdep", "stubdep"],
+    ["Harmonica Remixes", "harmonicaremixes"],
+];
+
 function RenderNewStarSong(react) {
     const starSongInput = document.getElementById("SidebarSongInput");
     starSong = starSongInput.value;
@@ -74,12 +82,12 @@ class UserDashboard extends React.Component {
                         <Card id="DashboardCommunityCard" className="DashboardContentCard" title="YOUR COMMUNITIES">
                             <List
                                 footer = {<Button href="./Subscriptions">[MORE]</Button>}
-                                dataSource = {["Rock N Roll", "Digital", "AAAAA", "Rickrolls", "8"]}
+                                dataSource = {SubList}
                                 renderItem = {item => (
                                     <List.Item>
                                         <div className="CommunityDiv">
                                             <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                            <a className="CommunityTitle" href="../Community">{item}</a>
+                                            <a className="CommunityTitle" href={"../Community/"+item[1]}>{item[0]}</a>
                                         </div>
                                     </List.Item>
                                 )}

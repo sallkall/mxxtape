@@ -18,6 +18,14 @@ const { Sider, Content } = Layout;
 
 let starSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
 
+let SubList = [
+    ["Jazz It Up", "jazzitup"],
+    ["Digital", "digital"],
+    ["Rock N Roll", "rocknroll"],
+    ["Stubdep", "stubdep"],
+    ["Harmonica Remixes", "harmonicaremixes"],
+];
+
 class UserProfile extends React.Component {
     render() {
         return (
@@ -49,12 +57,12 @@ class UserProfile extends React.Component {
                         <Card id="ProfileCommunityCard" className="ProfileContentCard" title="USER COMMUNITIES">
                             <List
                                 footer = {<Button href="./Subscriptions">[MORE]</Button>}
-                                dataSource = {["Rock N Roll", "Digital", "AAAAA", "Rickrolls", "8"]}
+                                dataSource = {SubList}
                                 renderItem = {item => (
                                     <List.Item>
                                         <div className="CommunityDiv">
                                             <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                            <a className="CommunityTitle" href="../Community">{item}</a>
+                                            <a className="CommunityTitle" href={"../Community/"+item[1]}>{item[0]}</a>
                                         </div>
                                     </List.Item>
                                 )}

@@ -4,7 +4,7 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 import Nav from "../Navigation";
 
-import {Layout} from 'antd';
+import {Icon, Layout} from 'antd';
 import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
@@ -15,7 +15,13 @@ import bannerPic from "../UserDashboard/randombanner.jpg";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-let SubList = ["Rock N Roll", "Digital", "AAAAA", "Rickrolls", "8"];
+let SubList = [
+    ["Jazz It Up", "jazzitup"],
+    ["Digital", "digital"],
+    ["Rock N Roll", "rocknroll"],
+    ["Stubdep", "stubdep"],
+    ["Harmonica Remixes", "harmonicaremixes"],
+];
 
 function UnSub(community, react) {
     SubList.splice(SubList.indexOf(community), 1);
@@ -25,9 +31,9 @@ function UnSub(community, react) {
 class SubbedCommunities extends React.Component {
     render() {
         return (
-            <div id={"Root"}>
+            <div>
                 <Nav/>
-                <Layout id="Layout">
+                <Layout>
                     <Sider id="Sidebar">
                         <Button id="BackButton" href="./Profile">{"< Back"}</Button>
                     </Sider>
@@ -36,12 +42,15 @@ class SubbedCommunities extends React.Component {
                             <List
                                 dataSource = {SubList}
                                 renderItem = {item => (
-                                    <List.Item className="CommunityItem">
+                                    <List.Item>
                                         <div className="SubbedCommunityDiv">
                                             <img className="SubbedCommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                            <a className="SubbedCommunityTitle" href="../Community">{item}</a>
+                                            <a className="SubbedCommunityTitle" href={"../Community/"+item[1]}>{item[0]}</a>
                                         </div>
-                                        <input type="image" className="UnSubButton" src={removePic} alt="Image Load Error" onClick={() => UnSub(item, this)}/>
+                                        <Button onClick={() => UnSub(item, this)} size='large'>
+                                            Leave Community
+                                            <Icon type="minus-square" theme="twoTone"/>
+                                        </Button>
                                     </List.Item>
                                 )}
                             />
