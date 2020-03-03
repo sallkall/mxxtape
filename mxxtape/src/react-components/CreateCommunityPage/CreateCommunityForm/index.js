@@ -1,4 +1,4 @@
-import {Form, Input, Tooltip, Icon, Mentions} from "antd";
+import {Form, Input, Tooltip, Icon, Mentions, Button} from "antd";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import './index.css'
@@ -108,6 +108,15 @@ class CreateCommunityForm extends React.Component {
                             <Option value="connorf">connorf</Option>
                         </Mentions>
                     )}
+                </Form.Item>
+                <Form.Item>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="submit-button"
+                    >
+                        Submit
+                    </Button>
                 </Form.Item>
             </Form>
         )
