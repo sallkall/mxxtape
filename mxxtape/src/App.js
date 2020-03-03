@@ -8,9 +8,12 @@ import 'antd/dist/antd.css';
 
 // Importing the Queue and our simple Home Page
 import Community from './react-components/Community';
-import Dashboard from './react-components/Dashboard';
-import Profile from './react-components/Profile';
+import UserDashboard from './react-components/UserDashboard';
 import LoginPage from './react-components/LoginPage';
+import History from './react-components/History';
+import SubbedCommunities from './react-components/SubbedCommunities';
+import AdminDashboard from './react-components/AdminDashboard';
+import UserProfile from './react-components/UserProfile';
 import RegisterPage from './react-components/RegisterPage';
 import SettingsPage from "./react-components/SettingsPage";
 import ForgotPassword from "./react-components/ForgotPasswordPage";
@@ -56,11 +59,9 @@ class App extends React.Component {
                         { /* Each Route below shows a different component depending on the exact path in the URL  */ }
                         <Route exact path='/'>
                             {this.state.loggedIn !== -1 ?
-                                <Dashboard state={this.state}/> :
+                                <UserDashboard state={this.state}/> :
                                 <Redirect to="/login"/>}
                         </Route>
-                        <Route exact path='/profile' render={() =>
-                            (<Profile state={this.state}/>)}/>
                         <Route exact path='/login'>
                             {this.state.loggedIn !== -1 ?
                                 <Redirect to="/"/> :
@@ -76,6 +77,16 @@ class App extends React.Component {
                             (<Community state={this.state}/>)}/>
                         <Route exact path={'/' + this.state.create_community} render={() =>
                             (<CreateCommunityPage state={this.state}/>)}/>
+                        <Route exact path='/history' render={()=>
+                            (<History state={this.state}/>)}/>
+                        <Route exact path='/subscriptions' render={()=>
+                            (<SubbedCommunities state={this.state}/>)}/>
+                        <Route exact path='/admin' render={()=>
+                            (<AdminDashboard state={this.state}/>)}/>
+                        <Route exact path='/profile' render={()=>
+                            (<UserProfile state={this.state}/>)}/>
+                        <Route exact path='/dashboard' render={()=>
+                            (<UserDashboard state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>

@@ -1,0 +1,57 @@
+#ProfileSidebar {
+    position: absolute;
+    height: 650px;
+    margin: 10px;
+    border-radius: 10px;
+    background: inherit;
+}
+#ProfileSidebarCard {
+    height: 100%;
+    border-radius: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+#ProfileSidebarAvatar {
+    width: 150px;
+    height: 150px;
+}
+
+#ProfileContents {
+    position: absolute;
+    padding-left: 100px;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    width: 1300px;
+}
+
+
+#ProfileCommunityCard {
+    width: 400px;
+    height: 550px;
+}
+.CommunityDiv {
+    height: 50px;
+    width: 350px;
+}
+.CommunityBanner {
+    height: 50px;
+    width: 350px;
+}
+.CommunityTitle {
+    display: block;
+    text-align: center;
+    margin-top: -50px;
+    transform: translate(0%, 50%);
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+    font-size: 15px;
+}
+
+.ProfileContentCard {
+    float: left;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+
