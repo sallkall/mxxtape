@@ -125,10 +125,13 @@ export function getMoreNotice(user, callback) {
     }
 }
 
-export function setNoticeRead(notice) {
-    // server call to set this notification as read
-    if (notice && !notice.read){
-        notice.read = true;
+export function setNoticeRead() {
+    // server call to set notifications as read
+    for (let i = 0; i < unreadnotice.length; i++) {
+        const notice = unreadnotice[i];
+        if (notice && !notice.read){
+            notice.read = true;
+        }
     }
 }
 
