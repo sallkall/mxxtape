@@ -10,6 +10,7 @@ import {
     setAllNoticeRead,
     setNoticeRead
 } from "../../Navigation/NotificationBadge";
+import {withRouter} from "react-router-dom";
 
 class NotificationsList extends React.Component {
     constructor(props) {
@@ -51,6 +52,7 @@ class NotificationsList extends React.Component {
         if (community) {
             const cleaned = community.replace(/\s/g, "");
             console.log("go to community", cleaned);
+            this.props.history.push("/community/" +cleaned);
         } else {console.log("nowhere to redirect")}
     };
 
@@ -81,6 +83,19 @@ class NotificationsList extends React.Component {
 
         return (
             <div>
+                <Button
+                    className="mark-read-button"
+                    onClick={() => {
+                        setAllNoticeRead();
+                        this.setState({markAllAsRead: true});
+                        if (updateGlobal) {
+                            // refreshing
+                            updateGlobal();
+                        }
+                    }}
+                >
+                    Mark all as read
+                </Button>
                 <List
                     className="demo-loadmore-list"
                     loading={initLoading}
@@ -115,21 +130,8 @@ class NotificationsList extends React.Component {
                         </List.Item>
                     )}
                 />
-            <Button
-                className="mark-read-button"
-                onClick={() => {
-                    setAllNoticeRead();
-                    this.setState({markAllAsRead: true});
-                    if (updateGlobal) {
-                        // refreshing
-                        updateGlobal();
-                    }
-                }}
-            >
-                Mark all as read
-            </Button>
         </div>
         )
     }
 }
-export default NotificationsList;
+export default withRouter(NotificationsList);
