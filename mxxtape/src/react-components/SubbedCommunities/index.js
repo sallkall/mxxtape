@@ -1,4 +1,5 @@
 import React from "react";
+import {BrowserRouter as Router, withRouter} from "react-router-dom";
 
 import "./styles.css";
 import 'antd/dist/antd.css';
@@ -10,10 +11,9 @@ import { List } from 'antd';
 import { Button } from 'antd';
 
 
-import removePic from "./removeicon.png"
 import bannerPic from "../UserDashboard/randombanner.jpg";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 let SubList = [
     ["Jazz It Up", "jazzitup"],
@@ -29,34 +29,40 @@ function UnSub(community, react) {
 }
 
 class SubbedCommunities extends React.Component {
+    redirect(dir) {
+        this.props.history.push(dir);
+    }
     render() {
+        const { state } = this.props;
         return (
             <div>
-                <Nav/>
-                <Layout>
-                    <Sider id="Sidebar">
-                        <Button id="BackButton" href="./Profile">{"< Back"}</Button>
-                    </Sider>
-                    <Content>
-                        <Card id="Subscriptions" className="ContentCard" title="SUBSCRIPTIONS">
-                            <List
-                                dataSource = {SubList}
-                                renderItem = {item => (
-                                    <List.Item>
-                                        <div className="SubbedCommunityDiv">
-                                            <img className="SubbedCommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                            <a className="SubbedCommunityTitle" href={"../Community/"+item[1]}>{item[0]}</a>
-                                        </div>
-                                        <Button onClick={() => UnSub(item, this)} size='large'>
-                                            Leave Community
-                                            <Icon type="minus-square" theme="twoTone"/>
-                                        </Button>
-                                    </List.Item>
-                                )}
-                            />
-                        </Card>
-                    </Content>
-                </Layout>
+                <Nav state={ state }/>
+                <Router>
+                    <Layout>
+                        <Sider id="Sidebar">
+                            <Button id="BackButton" onClick={() => this.redirect("/dashboard")}>{"< Back"}</Button>
+                        </Sider>
+                        <Content>
+                            <Card id="Subscriptions" className="ContentCard" title="SUBSCRIPTIONS">
+                                <List
+                                    dataSource = {SubList}
+                                    renderItem = {item => (
+                                        <List.Item>
+                                            <div className="SubbedCommunityDiv">
+                                                <img className="SubbedCommunityBanner" src={bannerPic} alt="Image Load Error"/>
+                                                <a className="SubbedCommunityTitle" onClick={() => this.redirect("/community/"+item[1])}>{item[0]}</a>
+                                            </div>
+                                            <Button onClick={() => UnSub(item, this)} size='large'>
+                                                Leave Community
+                                                <Icon type="minus-square" theme="twoTone"/>
+                                            </Button>
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                        </Content>
+                    </Layout>
+                </Router>
             </div>
         );
     }
@@ -64,4 +70,4 @@ class SubbedCommunities extends React.Component {
 
 
 
-export default SubbedCommunities;
+export default withRouter(SubbedCommunities);

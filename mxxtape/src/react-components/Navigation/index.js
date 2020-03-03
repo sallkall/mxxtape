@@ -41,6 +41,7 @@ class Nav extends React.Component {
 
     render() {
         const {state} = this.props;
+        console.log(state);
         return (
             <Router>
                 <Menu
@@ -77,7 +78,14 @@ class Nav extends React.Component {
                         }
                     >
                         <Menu.ItemGroup title="User">
-                            <Menu.Item key="setting:1">Likes</Menu.Item>
+                            <Menu.Item
+                                key="goto-subscriptions"
+                                onClick = { () => {
+                                    this.redirect("/subscriptions")
+                                }}
+                            >
+                                Subscriptions
+                            </Menu.Item>
                             <Menu.Item
                                 key="create-community"
                                 onClick = { () => {
@@ -101,6 +109,7 @@ class Nav extends React.Component {
                                 key="setting:4"
                                 onClick={ () => {
                                     state.handleLogOut();
+                                    this.redirect("/login");
                                 }}
                             >
                                 Logout
@@ -113,6 +122,6 @@ class Nav extends React.Component {
     }
 }
 
-ReactDOM.render(<Nav/>, document.getElementById('root'));
+/*ReactDOM.render(<Nav/>, document.getElementById('root'));*/
 
 export default withRouter(Nav);

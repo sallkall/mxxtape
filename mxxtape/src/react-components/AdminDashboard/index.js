@@ -1,4 +1,5 @@
 import React from "react";
+import {BrowserRouter as Router, withRouter} from "react-router-dom";
 
 import "./styles.css";
 import 'antd/dist/antd.css';
@@ -67,33 +68,36 @@ function RemoveRequest(request, react) {
 
 class AdminDashboard extends React.Component {
     render() {
+        const { state } = this.props;
         return (
-            <div id={"Root"}>
-                <Nav/>
-                <Layout>
-                    <Sider id="AdminSidebar">
-                        <Card id="AdminSidebarCard" title="Administrator">
-                            <Avatar id="AdminSidebarAvatar" shape="square" src={profilePic}/>
-                            <Divider/>
-                        </Card>
-                    </Sider>
+            <div>
+                <Nav state={ state }/>
+                <Router>
+                    <Layout>
+                        <Sider id="AdminSidebar">
+                            <Card id="AdminSidebarCard" title="Administrator">
+                                <Avatar id="AdminSidebarAvatar" shape="square" src={profilePic}/>
+                                <Divider/>
+                            </Card>
+                        </Sider>
 
-                    <Content id="AdminContents">
-                        <Card id="AdminFeaturedCard" className="AdminContentCard" title="CURRENT FEATURED SONG">
-                            <ReactPlayer height={500} width={450} controls={false} url={featuredSong}/>
-                            <br/>
-                            <input id="AdminSongInput" type="text" placeholder="Song URL"/>
-                            <Button id="AdminSongButton" onClick={() => RenderNewStarSong(this)}>Set Featured Song</Button>
-                        </Card>
+                        <Content id="AdminContents">
+                            <Card id="AdminFeaturedCard" className="AdminContentCard" title="CURRENT FEATURED SONG">
+                                <ReactPlayer height={500} width={450} controls={false} url={featuredSong}/>
+                                <br/>
+                                <input id="AdminSongInput" type="text" placeholder="Song URL"/>
+                                <Button id="AdminSongButton" onClick={() => RenderNewStarSong(this)}>Set Featured Song</Button>
+                            </Card>
 
 
-                        {RenderAdminRequests(this)}
+                            {RenderAdminRequests(this)}
 
-                    </Content>
-                </Layout>
+                        </Content>
+                    </Layout>
+                </Router>
             </div>
         );
     }
 }
 
-export default AdminDashboard;
+export default withRouter(AdminDashboard);
