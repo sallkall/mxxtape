@@ -3,19 +3,25 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 import Nav from "../Navigation";
+import ReactPlayer from 'react-player'
 
-import {Layout} from 'antd';
 import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
 
-import albumPic from "../Profile/unregisteredhypercam2.jpg"
-import song from "../Profile/unregisteredhypercam2.m4a"
 import removePic from "./removeicon.png"
 
-const { Header, Footer, Sider, Content } = Layout;
-
-let SongList = ["Song Uno", "Extremely Long Song Name For Testing Purposes", "Song 3", "Song Four", "Song E", "Additional Song", "A113", "112358", "Keter Containment Breach"]
+let SongList = [
+    "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
+    "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
+    "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
+    "https://soundcloud.com/thefatrat/thefatrat-mayday-feat-laura-brehm",
+    "https://soundcloud.com/shinya-kougami/ajoura-the-scp-foundation-main",
+    "https://soundcloud.com/giammarco-simonelli/portal-2-main-theme",
+    "https://soundcloud.com/jerry-berg/56k-dialup-model-connection-sound",
+    "https://soundcloud.com/annsoselia/danube",
+    "https://soundcloud.com/soundcirclemusic/elite-dangerous-kickstarter"
+];
 function RemoveFromHistory(songName, react) {
     SongList.splice(SongList.indexOf(songName), 1);
     react.forceUpdate();
@@ -26,33 +32,21 @@ class History extends React.Component {
         return (
             <div id={"Root"}>
                 <Nav/>
-                <Layout id="Layout">
-                    <Sider id="Sidebar">
-                        <Button id="BackButton" href="./Profile">{"< Back"}</Button>
-                    </Sider>
-                    <Content>
-                        <Card id="History" className="ContentCard" title="HISTORY">
-                            <List
-                                dataSource = {SongList}
-                                renderItem = {item => (
-                                    <List.Item className="HistoryItem">
-                                        <img className="HistoryAlbumCover AlbumCover" src={albumPic} alt="Image Load Error"/>
-                                        <p className="HistoryTitle">{item}</p>
-                                        <audio controls>
-                                            <source src={song}/>
-                                        </audio>
-                                        <input type="image" className="HistoryRemoveButton" src={removePic} alt="Image Load Error" onClick={() => RemoveFromHistory(item, this)}/>
-                                    </List.Item>
-                                )}
-                            />
-                        </Card>
-                    </Content>
-                </Layout>
+                <Button id="BackButton" href="./Profile">{"< Back"}</Button>
+                <Card id="History" className="ContentCard" title="HISTORY">
+                    <List
+                        dataSource = {SongList}
+                        renderItem = {item => (
+                            <List.Item>
+                                <ReactPlayer height={70} width={700} controls={false} url={item}/>
+                                <input type="image" className="HistoryRemoveButton" src={removePic} alt="Image Load Error" onClick={() => RemoveFromHistory(item, this)}/>
+                            </List.Item>
+                        )}
+                    />
+                </Card>
             </div>
         );
     }
 }
-
-
 
 export default History;

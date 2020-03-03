@@ -11,7 +11,7 @@ import { Button } from 'antd';
 
 
 import removePic from "./removeicon.png"
-import bannerPic from "../Profile/randombanner.jpg";
+import bannerPic from "../UserDashboard/randombanner.jpg";
 
 const { Header, Footer, Sider, Content } = Layout;
 

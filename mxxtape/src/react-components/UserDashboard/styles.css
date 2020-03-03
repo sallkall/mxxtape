@@ -1,79 +1,49 @@
-
-.AlbumCover {
-    object-fit: cover;
-}
-
-
-#Layout {
-    position: relative;
-    width: 100%;
-}
-
-#Sidebar {
+#DashboardSidebar {
     position: absolute;
-    background: #DDDDDD;
     height: 650px;
-    margin: 10px 10px 10px 200px;
+    margin: 10px;
     border-radius: 10px;
+    background: inherit;
 }
-#SidebarCard {
+#DashboardSidebarCard {
     height: 100%;
     border-radius: 10px;
     text-align: center;
     word-wrap: break-word;
 }
-#SidebarAvatar {
+#DashboardSidebarAvatar {
     width: 150px;
     height: 150px;
 }
-#SidebarAlbumCover {
+#DashboardSidebarSongInput {
     width: 150px;
-    height: 150px;
 }
-#SidebarAudio {
+#DashboardSidebarSongButton {
     width: 150px;
-    height: 25px;
 }
 
-#FeaturedCard {
+#DashboardContents {
+    position: absolute;
+    margin-left: 250px;
+    width: 1200px;
+}
+
+#DashboardFeaturedCard {
     width: 400px;
     height: 550px;
 }
-#FeaturedAlbumCover {
-    width: 350px;
-    height: 350px;
-    border-radius: 10px;
-    text-align: center;
-}
-#FeaturedSongName {
-    font-size: 20px;
-    text-align: center;
-}
-#FeaturedAudio {
-    width: 350px;
-}
 
-#HistoryCard {
+#DashboardDiscoverCard {
     width: 700px;
     height: 550px;
 }
-.HistoryItem {
-    margin: 0;
-}
-.HistoryAlbumCover {
-    width: 50px;
-    height: 50px;
-}
-.HistoryAudio {
-    width: 300px;
-}
-
-#DiscoverCard {
+.SongListCard {
     width: 700px;
     height: 550px;
 }
 
-#CommunityCard {
+
+#DashboardCommunityCard {
     width: 400px;
     height: 550px;
 }
@@ -95,14 +65,11 @@
     font-size: 15px;
 }
 
-.ContentCard {
+.DashboardContentCard {
     float: left;
     border-radius: 10px;
     margin: 10px;
     text-align: center;
 }
 
-.content_cards {
-    position: absolute;
-    margin-left: 240px;
-}
+

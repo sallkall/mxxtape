@@ -1,0 +1,69 @@
+
+#AdminSidebar {
+    position: absolute;
+    width: 300px;
+    height: 650px;
+    margin: 10px;
+    border-radius: 10px;
+    background: inherit;
+}
+#AdminSidebarCard {
+    height: 100%;
+    border-radius: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+#AdminSidebarAvatar {
+    width: 150px;
+    height: 150px;
+}
+#AdminContents {
+    position: absolute;
+    margin-left: 250px;
+    width: 1200px;
+}
+
+#AdminFeaturedCard {
+    display: block;
+    width: 500px; /*400*/
+    height: 640px; /*550*/
+}
+#AdminSongInput {
+    width: 250px;
+    float: left;
+}
+#AdminSongButton {
+    width: 150px;
+    float: right;
+}
+
+
+.AdminQueueCard {
+    width: 500px;
+    height: 200px;
+}
+.AdminQueueCard .ant-card-head .ant-card-head-wrapper .ant-card-head-title {
+    font-size: 12px;
+}
+.AdminQueueApprove {
+    width: 100px;
+    float: bottom;
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+}
+.AdminQueueDecline {
+    width: 100px;
+    float: bottom;
+    position: absolute;
+    bottom: 10px;
+    left: 300px;
+}
+
+
+.AdminContentCard {
+    float: left;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}

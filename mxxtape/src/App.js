@@ -8,13 +8,13 @@ import 'antd/dist/antd.css';
 
 // Importing the Queue and our simple Home Page
 import Community from './react-components/Community';
-import Dashboard from './react-components/Dashboard';
-import Profile from './react-components/Profile';
+import UserDashboard from './react-components/UserDashboard';
 import LoginPage from './react-components/LoginPage';
 import Register from './react-components/Register';
 import History from './react-components/History';
 import SubbedCommunities from './react-components/SubbedCommunities';
-import AdminProfile from './react-components/AdminProfile';
+import AdminDashboard from './react-components/AdminDashboard';
+import UserProfile from './react-components/UserProfile';
 
 class App extends React.Component {
 
@@ -53,13 +53,13 @@ class App extends React.Component {
                         { /* Each Route below shows a different component depending on the exact path in the URL  */ }
                         <Route exact path='/'>
                             {this.state.loggedIn !== -1 ?
-                            <Dashboard state={this.state}/> :
+                            <UserDashboard state={this.state}/> :
                             <Redirect to="/login"/>}
                         </Route>
                         <Route exact path='/community' render={() =>
                             (<Community state={this.state}/>)}/>
-                        <Route exact path='/profile' render={() =>
-                            (<Profile state={this.state}/>)}/>
+                        <Route exact path='/dashboard' render={() =>
+                            (<UserDashboard state={this.state}/>)}/>
                         <Route exact path='/login' render={()=>
                             (<LoginPage state={this.state}/>)}/>
                         <Route exact path='/register' render={()=>
@@ -69,7 +69,9 @@ class App extends React.Component {
                         <Route exact path='/subscriptions' render={()=>
                             (<SubbedCommunities state={this.state}/>)}/>
                         <Route exact path='/admin' render={()=>
-                            (<AdminProfile state={this.state}/>)}/>
+                            (<AdminDashboard state={this.state}/>)}/>
+                        <Route exact path='/profile' render={()=>
+                            (<UserProfile state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
