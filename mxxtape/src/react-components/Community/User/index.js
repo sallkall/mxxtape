@@ -12,10 +12,12 @@ import MembersList from "../MembersList";
 
 import {Layout, Breadcrumb, Icon, Button} from 'antd';
 
-const { Content, Sider} = Layout;
+const {Content, Sider} = Layout;
 
+// This is a sample community for 'jazz it up' in user's view
 class Community extends React.Component {
     state = {
+        // membership will be checked against data retrieved from server in phase 2
         isMember: false,
         newPost: false,
         updateFeed: () => {
@@ -24,6 +26,7 @@ class Community extends React.Component {
     };
 
     joinCommunity() {
+        // this will make a server call to update user info in phase 2
         this.setState({isMember: !this.state.isMember})
     }
 
@@ -46,8 +49,8 @@ class Community extends React.Component {
                                 className="header_join_button"
                                 onClick={() => this.joinCommunity()}
                                 size='large'
-                            > {this.state.isMember ? 'Leave Community' :'Join Community'}
-                                <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color} />
+                            > {this.state.isMember ? 'Leave Community' : 'Join Community'}
+                                <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color}/>
                             </Button>
                         </div>
                     </Content>
@@ -62,16 +65,20 @@ class Community extends React.Component {
                                 {/*------ FEED/WALL -----*/}
                                 <div id="feed_buttons">
                                     <div id="newmusic_button">
+                                        {/*Make new music post*/}
                                         <NewMusicPost isMember={this.state.isMember} state={this.state}/>
                                     </div>
                                     <div id="newtextpost_button">
-                                        <NewTextPost isMember={this.state.isMember} state={this.state} />
+                                        {/*Make new text post*/}
+                                        <NewTextPost isMember={this.state.isMember} state={this.state}/>
                                     </div>
                                     <div id="feed_filter">
+                                        {/*Filter by most recent or oldest*/}
                                         <FeedFilter state={this.state}/>
                                     </div>
                                 </div>
                                 <div className="posts">
+                                    {/*Render all of community feed/users' posts*/}
                                     <CommunityFeed/>
                                 </div>
                             </Content>

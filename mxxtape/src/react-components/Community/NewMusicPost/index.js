@@ -46,11 +46,6 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                     onCancel={onCancel}
                     onOk={() => {
                         onCreate();
-                        // {console.log(this.props.form.getFieldValue('content'))}
-                        // this.props.form.setFieldsValue({
-                        //     musicUrl: this.props.form.getFieldValue('content')
-                        // })
-                        // {console.log(this.props.form.getFieldValue('musicUrl'))}
                     }}
                 >
                     <Form layout="horizontal">
@@ -122,9 +117,10 @@ class NewMusicPost extends React.Component {
             if (err) {
                 return;
             }
-
+            // should be making server calls to directly manipulate the posts for phase 2, pushed directly into the post
+            // array for now...
             const post_information = {
-                key: 5,     //tempo key will fix later
+                key: 5,     //tempo key hardcoded in for now
                 actions: null,
                 author: "Jellicle Cat",
                 rating: values.rating,

@@ -2,10 +2,9 @@ import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
 
-import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Tooltip} from 'antd';
+import {Button, Modal, Form, Input, Icon, Layout, Mentions, Tooltip} from 'antd';
 
 import {posts} from "../CommunityFeed";
-import moment from "moment";
 
 const {Option} = Mentions;
 const {Content} = Layout;
@@ -120,6 +119,9 @@ class NewTextPost extends React.Component {
             if (err) {
                 return;
             }
+            // should be making server calls to directly manipulate the posts for phase 2, pushed directly into the post
+            // array for now...
+
             // Create new post information to push to all feed posts in CommunityFeed
             const post_information = {
                 key: 4, //tempo key will fix later
@@ -131,7 +133,6 @@ class NewTextPost extends React.Component {
                 content: values.content,
                 tags: values.tags,
             };
-            console.log(values);
             posts.unshift(post_information);
             form.resetFields();
             this.setState({visible: false});

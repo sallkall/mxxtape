@@ -4,7 +4,8 @@ import 'antd/dist/antd.css';
 
 import TextPost from "../Post";
 
- // THIS IS THE TESTING CODE FOR ALL FEED / POSTS IN THIS COMMUNITY
+ // THIS IS THE TESTING CODE: A sample post object array, this stores all of community's posts made by users
+// Will get this data from serve using JSON format in phase 2
 export let posts = [
     {
         key: 0,
@@ -50,7 +51,6 @@ class CommunityFeed extends React.Component {
 
 
     render() {
-        console.log(this.state.posts)
         return (
             <div>
                 {

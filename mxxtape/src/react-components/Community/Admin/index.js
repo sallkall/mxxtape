@@ -32,6 +32,7 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
+// This is a sample community for 'jazz it up' in admin's view
 class CommunityAdmin extends React.Component {
     state = {
         // admin have total access, cannot leave the group
