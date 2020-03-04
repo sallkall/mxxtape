@@ -25,12 +25,24 @@ Username: admin
 
 Password: admin
 
-## Operating the app as a user
+## GENERAL OPERATION:
+- To log in as User: user, user. To log in as Admin: admin, admin.
+- Do not refresh the page! Without cookies, refreshing the page will immediately log you out.
+- There is no existential check for usernames in URLs, even blank ones will be accepted.
+- There is currently only one community - “Jazz it Up” (/community/jazzitup)
 
-## Operating the app as an admin
+# Dashboard:
+- The Dashboard is intended as the user’s primary landing page. It contains a user’s ‘starred song’, which they can change, as well as several cards with various other songs. The Featured card is set by the site admin for all users, and contains a song they think is worth sharing. The Recommended card contains various songs from communities the user frequents. The History card contains songs the user has recently listened to, and the Communities card contains the communities the user is subscribed to. The History and Communities cards both contain links to a page with the full list, to save space.
 
+NB: Currently, the default site does not navigate to specific user’s dashboards. To view a specific user, go to /dashboard/[Username]. ‘Connor’ currently has a profile picture.
 
-# Community Pages Instructions:
+## Admin Dashboard:
+- The Admin Dashboard is a feature-focused dashboard intended to be the admin’s center of attention. The Featured card allows the admin to see the currently featured song, as well as set a new one. The remaining cards are administrative requests sent in by users, which the admin can choose to approve or deny.
+
+## Profile:
+- The Profile is intended to be seen by everyone except the person who owns it. A lightweight version of the Dashboard, Profile is intended to give a quick overview of another user’s activity on the site. Lacking any means of customization, it is intended to allow the viewer to see another user’s profile picture, starred song, history, and subscribed communities.
+
+NB: To access, go to /profile/[Username]. ‘Connor’ currently has a profile picture.
 
 ### Community Page - Users's View 
 
