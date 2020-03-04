@@ -78,7 +78,10 @@ class App extends React.Component {
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/'>
+                            <Route path='/'>
+                                <UserDashboard state={this.state}/>
+                            </Route>
+                            <Route path='/dashboard'>
                                 <UserDashboard state={this.state}/>
                             </Route>
                             <Route exact path='/login'>
@@ -94,11 +97,11 @@ class App extends React.Component {
                                 (<Community state={this.state}/>)}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
-                            <Route exact path='/history' render={()=>
+                            <Route path='/history' render={()=>
                                 (<History state={this.state}/>)}/>
-                            <Route exact path='/subscriptions' render={()=>
+                            <Route path='/subscriptions' render={()=>
                                 (<SubbedCommunities state={this.state}/>)}/>
-                            <Route exact path='/profile' render={()=>
+                            <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
@@ -131,11 +134,11 @@ class App extends React.Component {
                                 (<CommunityAdmin state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
-                            <Route exact path='/history' render={()=>
+                            <Route path='/history' render={()=>
                                 (<History state={this.state}/>)}/>
-                            <Route exact path='/subscriptions' render={()=>
+                            <Route path='/subscriptions' render={()=>
                                 (<SubbedCommunities state={this.state}/>)}/>
-                            <Route exact path='/profile' render={()=>
+                            <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
@@ -178,7 +181,7 @@ class App extends React.Component {
                                 (<AdminDashboard state={this.state}/>)}/>
                             <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
-                            <Route path='/dashboard' render={()=>
+                            <Route path='/dashboard/Connor' render={()=>
                                 (<UserDashboard state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
