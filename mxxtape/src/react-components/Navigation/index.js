@@ -15,7 +15,6 @@ class Nav extends React.Component {
     constructor(props) {
         super(props);
         this.state  = {
-            current: 'menu_dashboard',
             userInfo: {}
         };
     }
@@ -105,7 +104,7 @@ class Nav extends React.Component {
                                 Account Settings
                             </Menu.Item>
                             <Menu.Item
-                                key="setting:4"
+                                key="logout"
                                 onClick={ () => {
                                     state.handleLogOut();
                                     this.redirect("/login");
