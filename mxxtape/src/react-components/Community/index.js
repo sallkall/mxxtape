@@ -11,11 +11,9 @@ import FeedTags from "./FeedTags";
 import MembersList from "./MembersList";
 import TextPost from "./Post";
 
-import {Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
+import {Layout, Breadcrumb, Icon, Button} from 'antd';
 
-const {SubMenu} = Menu;
-const { Content, Footer, Sider} = Layout;
-const samplePost = new TextPost(this, 'Sally', '', 'this is a test');
+const { Content, Sider} = Layout;
 
 class Community extends React.Component {
     state = {
@@ -66,10 +64,10 @@ class Community extends React.Component {
                                     <NewMusicPost isMember={this.state.isMember} state={this.state}/>
                                 </div>
                                 <div id="newtextpost_button">
-                                    <NewTextPost isMember={this.state.isMember} state={this.state} handleUpdate={this.updateFeed}/>
+                                    <NewTextPost isMember={this.state.isMember} state={this.state} />
                                 </div>
                                 <div id="feed_filter">
-                                    <FeedFilter/>
+                                    <FeedFilter state={this.state}/>
                                 </div>
                             </div>
                             <div className="posts">
@@ -88,7 +86,6 @@ class Community extends React.Component {
                         </Sider>
                     </Layout>
                 </Content>
-                {/*<Footer style={{textAlign: 'center'}}>mxxtape ©2020 </Footer>*/}
             </Layout>
         )
     }

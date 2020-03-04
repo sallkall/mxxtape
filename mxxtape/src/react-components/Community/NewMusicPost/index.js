@@ -34,13 +34,6 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                 tags: tagList,
             });
         }
-        // renderMusic(musicUrl, userInput) {
-        //     console.log(musicUrl, userInput)
-        //     this.props.form.setFieldsValue({
-        //
-        //         musicUrl: userInput
-        //     });
-        // }
 
         render() {
             const { visible, onCancel, onCreate, form } = this.props;
@@ -78,16 +71,9 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                                     })(
                                         <Input addonBefore="https://"
                                                placeholder="soundcloud.com/your_music"
-                                               // onPressEnter={ () => {
-                                               //     this.renderMusic(this.props.form.getFieldValue('musicUrl'),
-                                               //         this.props.form.getFieldValue('content'))
-                                               // }}
                                         />
                                     )}
                                 </Form.Item>
-                                {/*{getFieldDecorator('musicUrl', {})(*/}
-                                {/*    */}
-                                {/*)}*/}
                                 <Form.Item
                                     help=' Separate tags with ";" enter to save'>
                                     {getFieldDecorator('tags', {})(
@@ -105,7 +91,7 @@ const NewMusicCreateForm = Form.create({ name: 'musicpost_form' })(
                                 </Form.Item>
                                 <Form.Item>
                                     {getFieldDecorator('rating', {})(
-                                        <Rate allowHalf/>
+                                        <Rate/>
                                     )}
                                 </Form.Item>
                             </Content>
@@ -143,12 +129,10 @@ class NewMusicPost extends React.Component {
                 author: "Jellicle Cat",
                 rating: values.rating,
                 avatar: "https://tinyurl.com/v43wzfn",
+                content: "",
                 musicUrl: values.content,
-                content: null,
                 tags: values.tags,
             };
-
-            console.log('Received values of form: ', values);
             posts.unshift(post_information);
             form.resetFields();
             this.setState({ visible: false });

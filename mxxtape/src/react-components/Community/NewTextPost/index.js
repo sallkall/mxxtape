@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
 import 'antd/dist/antd.css';
-import NewPostTags from "../NewPostTags";
 
 import {Button, Modal, Form, Input, Icon, Upload, Rate, Layout, Mentions, Tooltip} from 'antd';
 
@@ -144,7 +143,6 @@ class NewTextPost extends React.Component {
     };
 
     render() {
-
         const {state} = this.props;
         return (
             <div>
