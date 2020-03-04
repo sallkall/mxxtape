@@ -72,4 +72,3 @@ NB: To access, go to /profile/[Username]. ‘Connor’ currently has a profile p
 
 Additional features/differences:
 - cannot leave the community
-- can upload an avatar to the community 
