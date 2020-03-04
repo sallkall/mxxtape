@@ -80,9 +80,6 @@ class App extends React.Component {
                             <Route exact path='/'>
                                     <UserDashboard state={this.state}/>
                             </Route>
-                            <Route exact path='/login'>
-                                    <LoginPage state={this.state}/>
-                            </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.forgot_password} render={()=>
