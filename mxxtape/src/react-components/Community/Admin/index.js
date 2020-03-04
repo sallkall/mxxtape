@@ -88,10 +88,12 @@ class CommunityAdmin extends React.Component {
             </div>
         );
         const {imageUrl, headerUrl} = this.state;
+        const {state} = this.props;
 
         return (
+            <div>
+                <Nav state={state}/>
             <Layout>
-                <Nav/>
                 <Content className="content">
                     <div className="header">
                         <div id="header_container">
@@ -148,6 +150,7 @@ class CommunityAdmin extends React.Component {
                     </Layout>
                 </Content>
             </Layout>
+            </div>
         )
     }
 }
