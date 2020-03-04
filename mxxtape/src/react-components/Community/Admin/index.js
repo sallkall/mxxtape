@@ -59,6 +59,22 @@ class CommunityAdmin extends React.Component {
         }
     };
 
+    handleHeaderChange = info => {
+        if (info.file.status === 'uploading') {
+            this.setState({loading: true});
+            return;
+        }
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, imageUrl =>
+                this.setState({
+                    imageUrl,
+                    loading: false,
+                }),
+            );
+        }
+    };
+
     joinCommunity() {
         this.setState({isMember: !this.state.isMember})
     }
@@ -70,7 +86,7 @@ class CommunityAdmin extends React.Component {
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
-        const {imageUrl} = this.state;
+        const {imageUrl, headerUrl} = this.state;
 
         return (
             <Layout>

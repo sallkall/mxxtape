@@ -15,7 +15,11 @@
 #header_container {
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("../static/jazz_banner.jpg");
+    background-color: #aacffa;
+    height: 100px;
+}
+
+.group_header{
     height: 100px;
 }
 
