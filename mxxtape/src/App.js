@@ -56,7 +56,7 @@ class App extends React.Component {
         updateGlobal: () => {
             console.log("state.updateGlobal");
             this.setState(
-                {update: this.state.update? this.state.update++ : 0}
+                {update: this.state.update? this.state.update + 1 : 0}
             )
         }
     };
@@ -70,13 +70,8 @@ class App extends React.Component {
                             <Route exact path='/'>
                                 <LoginPage state={this.state}/>
                             </Route>
-                            <Route exact path='/login'>
-                                <LoginPage state={this.state}/>
-                            </Route>
-                            <Route path={'/register'} render={()=>
-                                (<RegisterPage state={this.state}/>)}/>
-                            <Route path={'/forgot_password'} render={()=>
-                                (<ForgotPassword state={this.state}/>)}/>
+                            <Route exact path={'/register'} ><RegisterPage state={this.state}/></Route>
+                            <Route exact path={'/forgot_password'}><ForgotPassword state={this.state}/></Route>
                             <Route path="*">
                                 <Redirect path={'/'}/>
                             </Route>
