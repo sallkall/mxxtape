@@ -78,7 +78,7 @@ class App extends React.Component {
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route path='/'>
+                            <Route exact path='/'>
                                 <UserDashboard state={this.state}/>
                             </Route>
                             <Route path='/dashboard'>
