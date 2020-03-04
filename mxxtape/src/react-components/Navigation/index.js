@@ -4,15 +4,21 @@ import {Link, BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./styles.css";
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import {Menu, Icon, Input} from 'antd';
+import {Menu, Icon, Input, Badge} from 'antd';
+import NotificationBadge from "./NotificationBadge";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
 
 class Nav extends React.Component {
-    state = {
-        current: 'menu_dashboard',
-    };
+
+    constructor(props) {
+        super(props);
+        this.state  = {
+            current: 'menu_dashboard',
+            userInfo: {}
+        };
+    }
 
     handleSearch(inputValue) {
         let cleanInput = inputValue.replace(/\s/g, "");
@@ -24,6 +30,14 @@ class Nav extends React.Component {
         console.log(addr);
         this.props.history.push(addr);
     };
+
+    getLoggedInFromStateProp(state) {
+        // console.log(state);
+        // this will be a server call for current user
+        if (state && state.loggedIn) {
+            return state.loggedIn
+        }
+    }
 
     render() {
         const {state} = this.props;
@@ -47,12 +61,13 @@ class Nav extends React.Component {
                                onClick={() => this.redirect('/')}>
                         <Link to="/"><Icon type="compass" theme="twoTone" /> Dashboard </Link>
                     </Menu.Item>
-                    <Menu.Item className='menu_community'
-                               key="menu_community"
-                               onClick={() => this.redirect('/community')}>
-                        <Link to="/community"><Icon type="bank" theme="twoTone" /> Community </Link>
+                    <Menu.Item
+                        className='menu-notifications'
+                        key="notifications"
+                        onClick={() => this.redirect('/'+ state.notifications)}
+                    >
+                        <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
                     </Menu.Item>
-
                     <SubMenu
                         className='menu_sub'
                         title={

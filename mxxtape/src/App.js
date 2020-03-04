@@ -18,6 +18,7 @@ import RegisterPage from './react-components/RegisterPage';
 import SettingsPage from "./react-components/SettingsPage";
 import ForgotPassword from "./react-components/ForgotPasswordPage";
 import CreateCommunityPage from "./react-components/CreateCommunityPage";
+import NotificationsPage from "./react-components/NotificationsPage";
 
 class App extends React.Component {
 
@@ -30,6 +31,7 @@ class App extends React.Component {
         forgot_password: 'forgot_password',
         register: 'register',
         create_community: 'create-community',
+        notifications: 'notifications',
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
         loggedIn: -1,
@@ -48,6 +50,12 @@ class App extends React.Component {
                 {loggedIn: -1},
                 () => {console.log(this.state)}
             );
+        },
+        updateGlobal: () => {
+            console.log("state.updateGlobal");
+            this.setState(
+                {update: this.state.update? this.state.update++ : 0}
+            )
         }
     };
 
@@ -87,6 +95,8 @@ class App extends React.Component {
                             (<UserProfile state={this.state}/>)}/>
                         <Route exact path='/dashboard' render={()=>
                             (<UserDashboard state={this.state}/>)}/>
+                        <Route exact path={'/' + this.state.notifications} render={()=>
+                            (<NotificationsPage state={this.state}/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
