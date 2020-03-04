@@ -19,6 +19,7 @@ import SettingsPage from "./react-components/SettingsPage";
 import ForgotPassword from "./react-components/ForgotPasswordPage";
 import CreateCommunityPage from "./react-components/CreateCommunityPage";
 import NotificationsPage from "./react-components/NotificationsPage";
+import NoMatch from "./react-components/NoMatch";
 
 class App extends React.Component {
 
@@ -97,6 +98,9 @@ class App extends React.Component {
                             (<UserDashboard state={this.state}/>)}/>
                         <Route exact path={'/' + this.state.notifications} render={()=>
                             (<NotificationsPage state={this.state}/>)}/>
+                        <Route path="*">
+                            <NoMatch state={this.state}/>
+                        </Route>
                     </Switch>
                 </BrowserRouter>
             </div>
