@@ -71,6 +71,7 @@ class TextPost extends React.Component {
 
         return (
             <Comment
+                className="single_post"
                 actions={actions}
                 author={this.props.author}
                 avatar={
