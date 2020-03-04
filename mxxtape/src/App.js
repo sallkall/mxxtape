@@ -72,6 +72,80 @@ class App extends React.Component {
                     </BrowserRouter>
                 </div>
             )
+        } else if (this.state.loggedIn === 1) {
+            return (
+                <div>
+                    <BrowserRouter>
+                        <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+                            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+                            <Route exact path='/'>
+                                <UserDashboard state={this.state}/>
+                            </Route>
+                            <Route exact path='/login'>
+                                <Redirect path={'/'}/>
+                            </Route>
+                            <Route exact path={'/' + this.state.register} render={()=>
+                                (<RegisterPage state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.forgot_password} render={()=>
+                                (<ForgotPassword state={this.state}/>)}/>
+                            <Route exact path='/settings' render={()=>
+                                (<SettingsPage state={this.state}/>)}/>
+                            <Route exact path='/community/jazzitup' render={() =>
+                                (<Community state={this.state}/>)}/>)}/>
+                            <Route exact path={'/' + this.state.create_community} render={() =>
+                                (<CreateCommunityPage state={this.state}/>)}/>
+                            <Route exact path='/history' render={()=>
+                                (<History state={this.state}/>)}/>
+                            <Route exact path='/subscriptions' render={()=>
+                                (<SubbedCommunities state={this.state}/>)}/>
+                            <Route exact path='/profile' render={()=>
+                                (<UserProfile state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.notifications} render={()=>
+                                (<NotificationsPage state={this.state}/>)}/>
+                            <Route path="*">
+                                <NoMatch state={this.state}/>
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+            );
+        } else if (this.state.loggedIn === 2) { //admin versions
+            return (
+                <div>
+                    <BrowserRouter>
+                        <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+                            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+                            <Route exact path='/'>
+                                <AdminDashboard state={this.state}/>
+                            </Route>
+                            <Route exact path='/login'>
+                                <Redirect path={'/'}/>
+                            </Route>
+                            <Route exact path={'/' + this.state.register} render={()=>
+                                (<RegisterPage state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.forgot_password} render={()=>
+                                (<ForgotPassword state={this.state}/>)}/>
+                            <Route exact path='/settings' render={()=>
+                                (<SettingsPage state={this.state}/>)}/>
+                            <Route exact path='/community/jazzitup' render={() =>
+                                (<CommunityAdmin state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.create_community} render={() =>
+                                (<CreateCommunityPage state={this.state}/>)}/>
+                            <Route exact path='/history' render={()=>
+                                (<History state={this.state}/>)}/>
+                            <Route exact path='/subscriptions' render={()=>
+                                (<SubbedCommunities state={this.state}/>)}/>
+                            <Route exact path='/profile' render={()=>
+                                (<UserProfile state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.notifications} render={()=>
+                                (<NotificationsPage state={this.state}/>)}/>
+                            <Route path="*">
+                                <NoMatch state={this.state}/>
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+            );
         } else {
             return (
                 <div>
@@ -79,10 +153,10 @@ class App extends React.Component {
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
                             <Route exact path='/'>
-                                    <UserDashboard state={this.state}/>
+                                <UserDashboard state={this.state}/>
                             </Route>
                             <Route exact path='/login'>
-                                    <Redirect path={'/'}/>
+                                <Redirect path={'/'}/>
                             </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
