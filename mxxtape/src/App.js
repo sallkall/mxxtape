@@ -7,7 +7,8 @@ import 'antd/dist/antd.css';
 
 
 // Importing the Queue and our simple Home Page
-import Community from './react-components/Community';
+import Community from './react-components/Community/User';
+import CommunityAdmin from './react-components/Community/Admin';
 import UserDashboard from './react-components/UserDashboard';
 import LoginPage from './react-components/LoginPage';
 import History from './react-components/History';
@@ -80,6 +81,9 @@ class App extends React.Component {
                             <Route exact path='/'>
                                     <UserDashboard state={this.state}/>
                             </Route>
+                            <Route exact path='/login'>
+                                    <Redirect path={'/'}/>
+                            </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.forgot_password} render={()=>
@@ -88,6 +92,8 @@ class App extends React.Component {
                                 (<SettingsPage state={this.state}/>)}/>
                             <Route exact path='/community/jazzitup' render={() =>
                                 (<Community state={this.state}/>)}/>
+                            <Route exact path='/community/jazzitup/admin' render={() =>
+                                (<CommunityAdmin state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
                             <Route exact path='/history' render={()=>
