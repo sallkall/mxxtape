@@ -1,5 +1,38 @@
 # team64
 
+## Submission
+
+This submission should be regarded as late. The last commit made to master with changes to the project was on Tue Mar 3 
+at 23:20:03. 
+
+However, we make the note that the submission at the last commit before 10PM is also a completely working project. 
+The problems were due to merge conflicts on the master branch that we had to take some time to resolve before merging 
+from our development `dev` branch.
+
+### git logs
+
+Last commit before 10PM: 
+
+````git
+commit babe442028a1a6aaae2570ab13a8f83fd81e4454 (origin/dev, dev)
+Merge: b18955d 6869474
+Author: Janet Wang <38889794+jwangwangj@users.noreply.github.com>
+Date:   Tue Mar 3 21:56:09 2020 -0500
+
+    Merge pull request #25 from csc309-winter-2020/readme
+    
+    Readme
+````
+
+Last commit with changes:
+
+```git
+commit 24e66d874586ffd02ae155bbe54fec1db0d86602 (HEAD -> master, origin/master, origin/HEAD)
+Author: Sally Zi Kang <sallyzi.kang@mail.utoronto.ca>
+Date:   Tue Mar 3 23:20:03 2020 -0500
+
+    updated some community styling thta went away during messed up merge
+```
 ## Running the app for the fist time
 
 Follow these steps exactly to build the app for the first time:
@@ -7,7 +40,7 @@ Follow these steps exactly to build the app for the first time:
 2. navigate to the `mxxtape` folder
 3. in the terminal, run:
     1. `npm i`
-    2. `npm run-scripts build`
+    2. `npm run-script build`
     3. `npm start`
 4. the web app should start in your browser at `localhost:3000`
 
