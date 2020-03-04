@@ -3,11 +3,12 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 
 import { Select } from 'antd';
+import {posts} from "../CommunityFeed";
 
 const { Option } = Select;
 
-function onChange(value) {
-    console.log(`selected ${value}`);
+function onChange() {
+    posts.reverse();
 }
 
 function onBlur() {
@@ -19,18 +20,25 @@ function onFocus() {
 }
 
 function onSearch(val) {
+    if (val === 'oldest') {
+        posts.reverse();
+    }
     console.log('search:', val);
 }
 
 class FeedFilter extends React.Component {
     render() {
+        const {state} = this.props;
         return (
             <Select
                 showSearch
-                style={{ width: 200 }}
-                placeholder="Filter"
+                className='filter'
+                placeholder="Sort"
                 optionFilterProp="children"
-                onChange={onChange}
+                onChange={() => {
+                    onChange();
+                    state.updateFeed()
+                }}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onSearch={onSearch}
@@ -38,8 +46,6 @@ class FeedFilter extends React.Component {
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
             >
-                <Option value="music">Music</Option>
-                <Option value="text">Text Posts</Option>
                 <Option value="recent">Most Recent</Option>
                 <Option value="oldest">Oldest to Recent</Option>
             </Select>

@@ -1,0 +1,30 @@
+.textbutton {
+    border-radius: 40px;
+    border-color: #45a2fa;
+    background-color: ghostwhite;
+    color: #093e9b;
+}
+.ratings {
+    color: lightskyblue;
+}
+
+.music_display {
+    /*width: 30px;*/
+    /*height: 100px;*/
+}
+
+.form_layout {
+    background: none;
+}
+
+.post_sider {
+    background: none;
+    padding: 0 24px 0 0;
+}
+.newtextpost_content {
+    padding: 0 24px;
+}
+
+#right_side {
+    /*margin-top: 39px;*/
+}
