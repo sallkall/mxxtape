@@ -7,7 +7,7 @@ import {posts} from "../CommunityFeed";
 
 const { Option } = Select;
 
-function onChange(value) {
+function onChange() {
     posts.reverse();
 }
 
