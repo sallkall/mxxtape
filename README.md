@@ -11,6 +11,20 @@ Follow these steps exactly to build the app for the first time:
     3. `npm start`
 4. the web app should start in your browser at `localhost:3000`
 
+## Login credentials: 
+
+Any other combination will not work
+
+### As user
+Username: user
+
+Password: user
+
+### As admin
+Username: admin
+
+Password: admin
+
 ## Operating the app as a user
 
 ## Operating the app as an admin
