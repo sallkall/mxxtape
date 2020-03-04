@@ -1,0 +1,22 @@
+.notifications-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-bottom: 48px;
+}
+
+.all-small-caps {
+    font-variant: all-small-caps;
+}
+
+.notifications-page-header {
+    height: 70px;
+    align-items: flex-end;
+    display: flex;
+    font-size: 18px;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
