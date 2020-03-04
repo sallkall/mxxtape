@@ -76,8 +76,8 @@ class NotificationsList extends React.Component {
         const { data, initLoading, loading } = this.state;
 
         const loadMore = !initLoading && !loading ? (
-            <div className="load-more center">
-                <Button onClick={this.loadMore}>Load More</Button>
+            <div className="load-more center margin-vert12">
+                <Button onClick={this.loadMore} type="primary" ghost>Load More</Button>
             </div>
         ) : null;
 
@@ -85,7 +85,8 @@ class NotificationsList extends React.Component {
             <div>
                 <div className="right">
                     <Button
-                        className="mark-read-button"
+                        type="primary"
+                        className="mark-read-button margin-vert12"
                         onClick={() => {
                             setAllNoticeRead();
                             this.setState({markAllAsRead: true});
@@ -125,7 +126,7 @@ class NotificationsList extends React.Component {
                                             <Avatar src={item.avatar} />
                                         </Badge>
                                     }
-                                    title={item.author}
+                                    title={<span>{item.author} <span className="timestamp">{item.timestamp}</span></span>}
                                     description={item.content}
                                 />
                             </Skeleton>
