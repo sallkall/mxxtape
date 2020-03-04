@@ -34,13 +34,17 @@ class SubbedCommunities extends React.Component {
     }
     render() {
         const { state } = this.props;
+        let username = this.props.location.pathname.substring(15);
+        if(username==="") {
+            username = "USERNAME";
+        }
         return (
             <div>
                 <Nav state={ state }/>
                 <Router>
                     <Layout>
                         <Sider id="Sidebar">
-                            <Button id="BackButton" onClick={() => this.redirect("/dashboard")}>{"< Back"}</Button>
+                            <Button id="BackButton" onClick={() => this.redirect("/profile/"+username)}>{"< Back"}</Button>
                         </Sider>
                         <Content>
                             <Card id="Subscriptions" className="ContentCard" title="SUBSCRIPTIONS">

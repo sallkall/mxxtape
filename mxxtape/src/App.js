@@ -81,6 +81,9 @@ class App extends React.Component {
                             <Route exact path='/'>
                                 <UserDashboard state={this.state}/>
                             </Route>
+                            <Route path='/dashboard'>
+                                <UserDashboard state={this.state}/>
+                            </Route>
                             <Route exact path='/login'>
                                 <Redirect path={'/'}/>
                             </Route>
@@ -94,11 +97,11 @@ class App extends React.Component {
                                 (<Community state={this.state}/>)}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
-                            <Route exact path='/history' render={()=>
+                            <Route path='/history' render={()=>
                                 (<History state={this.state}/>)}/>
-                            <Route exact path='/subscriptions' render={()=>
+                            <Route path='/subscriptions' render={()=>
                                 (<SubbedCommunities state={this.state}/>)}/>
-                            <Route exact path='/profile' render={()=>
+                            <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
@@ -131,11 +134,11 @@ class App extends React.Component {
                                 (<CommunityAdmin state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
-                            <Route exact path='/history' render={()=>
+                            <Route path='/history' render={()=>
                                 (<History state={this.state}/>)}/>
-                            <Route exact path='/subscriptions' render={()=>
+                            <Route path='/subscriptions' render={()=>
                                 (<SubbedCommunities state={this.state}/>)}/>
-                            <Route exact path='/profile' render={()=>
+                            <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
@@ -170,15 +173,15 @@ class App extends React.Component {
                                 (<CommunityAdmin state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
-                            <Route exact path='/history' render={()=>
+                            <Route path='/history' render={()=>
                                 (<History state={this.state}/>)}/>
-                            <Route exact path='/subscriptions' render={()=>
+                            <Route path='/subscriptions' render={()=>
                                 (<SubbedCommunities state={this.state}/>)}/>
                             <Route exact path='/admin' render={()=>
                                 (<AdminDashboard state={this.state}/>)}/>
-                            <Route exact path='/profile' render={()=>
+                            <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
-                            <Route exact path='/dashboard' render={()=>
+                            <Route path='/dashboard/Connor' render={()=>
                                 (<UserDashboard state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>

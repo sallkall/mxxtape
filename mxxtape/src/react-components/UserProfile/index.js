@@ -6,7 +6,6 @@ import 'antd/dist/antd.css';
 import Nav from "../Navigation";
 import ReactPlayer from 'react-player'
 
-import profilePic from "./profile.png"
 import bannerPic from "./randombanner.jpg"
 
 import {Divider, Layout} from 'antd';
@@ -40,14 +39,18 @@ class UserProfile extends React.Component {
     }
     render() {
         const { state } = this.props;
+        let username = this.props.location.pathname.substring(9);
+        if(username==="") {
+            username = "USERNAME";
+        }
         return (
             <div>
                 <Nav state={ state }/>
                 <Router>
                     <Layout>
                         <Sider id="ProfileSidebar">
-                            <Card id="ProfileSidebarCard" title="Username">
-                                <Avatar id="ProfileSidebarAvatar" shape="square" src={profilePic}/>
+                            <Card id="ProfileSidebarCard" title={username}>
+                                <Avatar id="ProfileSidebarAvatar" shape="square" src={"/"+username+".png"}/>
                                 <Divider/>
                                 <p>Starred Song</p>
                                 <ReactPlayer height={200} width={150} controls={false} url={starSong}/>
@@ -57,7 +60,7 @@ class UserProfile extends React.Component {
                         <Content id="ProfileContents">
                             <Card className="ProfileContentCard SongListCard" title="USER HISTORY">
                                 <List
-                                    footer = {<Button onClick={() => this.redirect("/history")}>[MORE]</Button>}
+                                    footer = {<Button onClick={() => this.redirect("/history/"+username)}>[MORE]</Button>}
                                     dataSource = {HistoryList}
                                     renderItem = {item => (
                                         <List.Item>
@@ -69,7 +72,7 @@ class UserProfile extends React.Component {
 
                             <Card id="ProfileCommunityCard" className="ProfileContentCard" title="USER COMMUNITIES">
                                 <List
-                                    footer = {<Button onClick={() => this.redirect("/subscriptions")}>[MORE]</Button>}
+                                    footer = {<Button onClick={() => this.redirect("/subscriptions/"+username)}>[MORE]</Button>}
                                     dataSource = {SubList}
                                     renderItem = {item => (
                                         <List.Item>
