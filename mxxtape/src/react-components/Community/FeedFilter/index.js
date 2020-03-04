@@ -20,6 +20,7 @@ function onFocus() {
 }
 
 function onSearch(val) {
+    // Sorts posts for now, should be making server calls to directly manipulate the posts for phase 2
     if (val === 'oldest') {
         posts.reverse();
     }
