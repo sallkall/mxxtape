@@ -66,9 +66,21 @@ class App extends React.Component {
             return(
                 <div>
                     <BrowserRouter>
-                        <Route path="*">
-                            <LoginPage state={this.state}/>
-                        </Route>
+                        <Switch>
+                            <Route exact path='/'>
+                                <LoginPage state={this.state}/>
+                            </Route>
+                            <Route exact path='/login'>
+                                <LoginPage state={this.state}/>
+                            </Route>
+                            <Route path={'/register'} render={()=>
+                                (<RegisterPage state={this.state}/>)}/>
+                            <Route path={'/forgot_password'} render={()=>
+                                (<ForgotPassword state={this.state}/>)}/>
+                            <Route path="*">
+                                <Redirect path={'/'}/>
+                            </Route>
+                        </Switch>
                     </BrowserRouter>
                 </div>
             )
@@ -87,9 +99,9 @@ class App extends React.Component {
                             <Route exact path='/login'>
                                 <Redirect path={'/'}/>
                             </Route>
-                            <Route exact path={'/' + this.state.register} render={()=>
+                            <Route exact path={'/register'} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
-                            <Route exact path={'/' + this.state.forgot_password} render={()=>
+                            <Route exact path={'/forgot_password'} render={()=>
                                 (<ForgotPassword state={this.state}/>)}/>
                             <Route exact path='/settings' render={()=>
                                 (<SettingsPage state={this.state}/>)}/>
