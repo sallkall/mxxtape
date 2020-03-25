@@ -1,16 +1,11 @@
 #DashboardSidebar {
     position: absolute;
     height: 650px;
-    margin: 10px;
+    margin: 72px 48px 48px 48px;
     border-radius: 10px;
-    background: inherit;
+    background-color: transparent;
 }
-#DashboardSidebarCard {
-    height: 100%;
-    border-radius: 10px;
-    text-align: center;
-    word-wrap: break-word;
-}
+
 #DashboardSidebarAvatar {
     width: 150px;
     height: 150px;
@@ -24,14 +19,15 @@
 
 #DashboardContents {
     position: absolute;
-    padding-left: 100px;
-    margin-left: 50%;
-    transform: translate(-50%, 0);
-    width: 1300px;
+    width: 75%;
+    margin-top: 24px;
+    margin-left: 300px;
+    margin-right: 100px;
+    text-align: center;
 }
 
-#DashboardFeaturedCard {
-    width: 400px;
+.DashboardFeaturedCard {
+    width: 350px;
     height: 550px;
 }
 
@@ -39,18 +35,12 @@
     width: 700px;
     height: 550px;
 }
-.SongListCard {
-    width: 700px;
-    height: 550px;
-}
-
 
 #DashboardCommunityCard {
     width: 400px;
     height: 550px;
 }
 .CommunityDiv {
-    height: 50px;
     width: 350px;
 }
 .CommunityBanner {
@@ -68,10 +58,44 @@
 }
 
 .DashboardContentCard {
-    float: left;
     border-radius: 10px;
-    margin: 10px;
     text-align: center;
 }
 
+#topCards{
+    position: relative;
+}
 
+.featuredSongCard{
+    float:left;
+    width: 45%;
+}
+
+.discoverCard {
+    width: 50%;
+    float: right;
+    margin-left: 48px;
+}
+
+#bottomCards{
+    position: relative;
+}
+.historyCard{
+    float: left;
+    margin-top: 24px;
+    width: 45%;
+}
+
+.communitiesCard{
+    width: 50%;
+    margin-top: 24px;
+    float: right;
+    text-align: center;
+
+}
+
+.listItems{
+    /*background-color: blue;*/
+    margin-bottom: -20px;
+    margin-top: -24px;
+}
