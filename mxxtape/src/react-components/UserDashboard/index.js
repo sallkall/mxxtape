@@ -59,7 +59,7 @@ class UserDashboard extends React.Component {
             <div>
                 <Nav state={ state }/>
                 <Router>
-                    <Layout>
+                    <Layout id="layout">
                         <Sider id="DashboardSidebar">
                             <Card title={username}>
                                 <Avatar id="DashboardSidebarAvatar" shape="square" src={"/"+username+".png"}/>
