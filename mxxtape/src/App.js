@@ -22,11 +22,19 @@ import CreateCommunityPage from "./react-components/CreateCommunityPage";
 import NotificationsPage from "./react-components/NotificationsPage";
 import NoMatch from "./react-components/NoMatch";
 
+import { readCookie } from "./actions/user";
+
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        readCookie(this);
+    }
 
     // a 'global' state that you can pass through to any child components of App.
     //   In the Routes below they are passed to both the Home and Queue states.
     state = {
+        currentUser: null,
+
         community: "community",
         profile: "profile",
         dashboard: "dashboard",
@@ -62,6 +70,8 @@ class App extends React.Component {
     };
 
     render() {
+        const { currentUser } = this.state;
+
         if (this.state.loggedIn === -1) {
             return(
                 <div>
@@ -162,6 +172,7 @@ class App extends React.Component {
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+                            {/* TODO: Tweak routing with the new system. Also, remember to set the url in each component.*/}
                             <Route exact path='/'>
                                 <UserDashboard state={this.state}/>
                             </Route>
