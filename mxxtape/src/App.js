@@ -7,7 +7,8 @@ import 'antd/dist/antd.css';
 
 
 // Importing the Queue and our simple Home Page
-import Community from './react-components/Community';
+import Community from './react-components/Community/User';
+import CommunityAdmin from './react-components/Community/Admin';
 import UserDashboard from './react-components/UserDashboard';
 import LoginPage from './react-components/LoginPage';
 import History from './react-components/History';
@@ -63,7 +64,7 @@ class App extends React.Component {
         updateGlobal: () => {
             console.log("state.updateGlobal");
             this.setState(
-                {update: this.state.update? this.state.update++ : 0}
+                {update: this.state.update? this.state.update + 1 : 0}
             )
         }
     };
@@ -75,12 +76,96 @@ class App extends React.Component {
             return(
                 <div>
                     <BrowserRouter>
-                        <Route path="*">
-                            <LoginPage state={this.state}/>
-                        </Route>
+                        <Switch>
+                            <Route exact path='/'>
+                                <LoginPage state={this.state}/>
+                            </Route>
+                            <Route exact path={'/register'} ><RegisterPage state={this.state}/></Route>
+                            <Route exact path={'/forgot_password'}><ForgotPassword state={this.state}/></Route>
+                            <Route path="*">
+                                <Redirect path={'/'}/>
+                            </Route>
+                        </Switch>
                     </BrowserRouter>
                 </div>
             )
+        } else if (this.state.loggedIn === 1) {
+            return (
+                <div>
+                    <BrowserRouter>
+                        <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+                            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+                            <Route exact path='/'>
+                                <UserDashboard state={this.state}/>
+                            </Route>
+                            <Route path='/dashboard'>
+                                <UserDashboard state={this.state}/>
+                            </Route>
+                            <Route exact path='/login'>
+                                <Redirect path={'/'}/>
+                            </Route>
+                            <Route exact path={'/register'} render={()=>
+                                (<RegisterPage state={this.state}/>)}/>
+                            <Route exact path={'/forgot_password'} render={()=>
+                                (<ForgotPassword state={this.state}/>)}/>
+                            <Route exact path='/settings' render={()=>
+                                (<SettingsPage state={this.state}/>)}/>
+                            <Route exact path='/community/jazzitup' render={() =>
+                                (<Community state={this.state}/>)}/>)}/>
+                            <Route exact path={'/' + this.state.create_community} render={() =>
+                                (<CreateCommunityPage state={this.state}/>)}/>
+                            <Route path='/history' render={()=>
+                                (<History state={this.state}/>)}/>
+                            <Route path='/subscriptions' render={()=>
+                                (<SubbedCommunities state={this.state}/>)}/>
+                            <Route path='/profile' render={()=>
+                                (<UserProfile state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.notifications} render={()=>
+                                (<NotificationsPage state={this.state}/>)}/>
+                            <Route path="*">
+                                <NoMatch state={this.state}/>
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+            );
+        } else if (this.state.loggedIn === 2) { //admin versions
+            return (
+                <div>
+                    <BrowserRouter>
+                        <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+                            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
+                            <Route exact path='/'>
+                                <AdminDashboard state={this.state}/>
+                            </Route>
+                            <Route exact path='/login'>
+                                <Redirect path={'/'}/>
+                            </Route>
+                            <Route exact path={'/' + this.state.register} render={()=>
+                                (<RegisterPage state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.forgot_password} render={()=>
+                                (<ForgotPassword state={this.state}/>)}/>
+                            <Route exact path='/settings' render={()=>
+                                (<SettingsPage state={this.state}/>)}/>
+                            <Route exact path='/community/jazzitup' render={() =>
+                                (<CommunityAdmin state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.create_community} render={() =>
+                                (<CreateCommunityPage state={this.state}/>)}/>
+                            <Route path='/history' render={()=>
+                                (<History state={this.state}/>)}/>
+                            <Route path='/subscriptions' render={()=>
+                                (<SubbedCommunities state={this.state}/>)}/>
+                            <Route path='/profile' render={()=>
+                                (<UserProfile state={this.state}/>)}/>
+                            <Route exact path={'/' + this.state.notifications} render={()=>
+                                (<NotificationsPage state={this.state}/>)}/>
+                            <Route path="*">
+                                <NoMatch state={this.state}/>
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+            );
         } else {
             return (
                 <div>
@@ -89,10 +174,10 @@ class App extends React.Component {
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
                             {/* TODO: Tweak routing with the new system. Also, remember to set the url in each component.*/}
                             <Route exact path='/'>
-                                    <UserDashboard state={this.state}/>
+                                <UserDashboard state={this.state}/>
                             </Route>
                             <Route exact path='/login'>
-                                    <LoginPage state={this.state}/>
+                                <Redirect path={'/'}/>
                             </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
@@ -102,6 +187,8 @@ class App extends React.Component {
                                 (<SettingsPage state={this.state}/>)}/>
                             <Route exact path='/community/jazzitup' render={() =>
                                 (<Community state={this.state}/>)}/>
+                            <Route exact path='/community/jazzitup/admin' render={() =>
+                                (<CommunityAdmin state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
                             <Route path='/history' render={()=>
@@ -112,7 +199,7 @@ class App extends React.Component {
                                 (<AdminDashboard state={this.state}/>)}/>
                             <Route path='/profile' render={()=>
                                 (<UserProfile state={this.state}/>)}/>
-                            <Route path='/dashboard' render={()=>
+                            <Route path='/dashboard/Connor' render={()=>
                                 (<UserDashboard state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>

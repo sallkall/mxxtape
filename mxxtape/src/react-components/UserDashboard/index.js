@@ -24,23 +24,18 @@ let DiscoverList = [
     "https://soundcloud.com/eveyx/65daysofstatic-debutante-no-mans-sky-trailer-edit",
     "https://soundcloud.com/m-w-j/kerbal-space-program-main",
     "https://soundcloud.com/melatonin-nl/factorio",
-    "https://soundcloud.com/sarahbrightman/time-to-say-goodbye-con-te",
-    "https://soundcloud.com/owlcityofficial/1-hot-air-balloon"
 ];
 
 let HistoryList = [
     "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
     "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
     "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
-    "https://soundcloud.com/thefatrat/thefatrat-mayday-feat-laura-brehm"
 ];
 
 let SubList = [
     ["Jazz It Up", "jazzitup"],
     ["Digital", "digital"],
     ["Rock N Roll", "rocknroll"],
-    ["Stubdep", "stubdep"],
-    ["Harmonica Remixes", "harmonicaremixes"],
 ];
 
 function RenderNewStarSong(react) {
@@ -66,11 +61,11 @@ class UserDashboard extends React.Component {
                 <Router>
                     <Layout>
                         <Sider id="DashboardSidebar">
-                            <Card id="DashboardSidebarCard" title={username}>
+                            <Card title={username}>
                                 <Avatar id="DashboardSidebarAvatar" shape="square" src={"/"+username+".png"}/>
                                 <Divider/>
                                 <p>Starred Song</p>
-                                <ReactPlayer height={200} width={150} controls={false} url={starSong}/>
+                                <ReactPlayer height={150} width={150} controls={false} url={starSong}/>
                                 <br/><br/>
                                 <input id="DashboardSidebarSongInput" type="text" placeholder="Song URL"/>
                                 <Button id="DashboardSidebarSongButton" onClick={() => RenderNewStarSong(this)}>Set Starred Song</Button>
@@ -78,36 +73,41 @@ class UserDashboard extends React.Component {
                         </Sider>
 
                         <Content id="DashboardContents">
-                            <Card id="DashboardFeaturedCard" className="DashboardContentCard" title="FEATURED SONG">
-                                <ReactPlayer height={450} width={350} controls={false} url={FeaturedSong}/>
+                            <div id="topCards">
+                            <Card className="featuredSongCard" title="FEATURED SONG">
+                                <ReactPlayer width="auto" height='150px' controls={false} url={FeaturedSong}/>
                             </Card>
 
-                            <Card className="DashboardContentCard SongListCard" title="DISCOVER">
+                            <Card className="discoverCard" title="DISCOVER">
                                 <List
+                                    className="listItems"
                                     dataSource = {DiscoverList}
                                     renderItem = {item => (
                                         <List.Item>
-                                            <ReactPlayer height={70} width={650} controls={false} url={item}/>
+                                            <ReactPlayer height='60px' controls={false} url={item}/>
                                         </List.Item>
                                     )}
                                 />
                             </Card>
-
-                            <Card className="DashboardContentCard SongListCard" title="HISTORY">
+                            </div>
+                            <div id="bottomCards">
+                            <Card className="historyCard" title="HISTORY">
                                 <List
-                                    footer = {<Button onClick={() => this.redirect("/history/"+username)}>[MORE]</Button>}
+                                    className="listItems"
+                                    footer = {<Button onClick={() => this.redirect("/history/"+username)}>MORE</Button>}
                                     dataSource = {HistoryList}
                                     renderItem = {item => (
                                         <List.Item>
-                                            <ReactPlayer height={70} width={650} controls={false} url={item}/>
+                                            <ReactPlayer height={70}  controls={false} url={item}/>
                                         </List.Item>
                                     )}
                                 />
                             </Card>
 
-                            <Card id="DashboardCommunityCard" className="DashboardContentCard" title="YOUR COMMUNITIES">
+                            <Card className="communitiesCard" title="YOUR COMMUNITIES">
                                 <List
-                                    footer = {<Button onClick={() => this.redirect("/subscriptions/"+username)}>[MORE]</Button>}
+                                    className="listItems"
+                                    footer = {<Button onClick={() => this.redirect("/subscriptions/"+username)}>MORE</Button>}
                                     dataSource = {SubList}
                                     renderItem = {item => (
                                         <List.Item>
@@ -119,6 +119,7 @@ class UserDashboard extends React.Component {
                                     )}
                                 />
                             </Card>
+                            </div>
                         </Content>
                     </Layout>
                 </Router>
