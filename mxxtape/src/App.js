@@ -34,15 +34,17 @@ class App extends React.Component {
         register: 'register',
         create_community: 'create-community',
         notifications: 'notifications',
-        //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
+        //loggedIn is null if not logged in otherwise username
         //will eventually be replaced with a user's information in login
-        loggedIn: -1,
+        loggedIn: null,
         handleLoggedIn: (val) => {
             console.log("handleLogin", val);
-            if (val === 1 || val === 2 || val === 3){
+            if (val === 1 || val === 2 || val === 3) {
                 this.setState(
                     {loggedIn: val},
-                    () => {console.log(this.state)}
+                    () => {
+                        console.log(this.state)
+                    }
                 );
             }
         },
@@ -50,19 +52,21 @@ class App extends React.Component {
             console.log("Logout", -1);
             this.setState(
                 {loggedIn: -1},
-                () => {console.log(this.state)}
+                () => {
+                    console.log(this.state)
+                }
             );
         },
         updateGlobal: () => {
             console.log("state.updateGlobal");
             this.setState(
-                {update: this.state.update? this.state.update + 1 : 0}
+                {update: this.state.update ? this.state.update + 1 : 0}
             )
         }
     };
 
     render() {
-        if (this.state.loggedIn === -1) {
+        if (!this.state.loggedIn) {
             return(
                 <div>
                     <BrowserRouter>
@@ -125,11 +129,11 @@ class App extends React.Component {
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/'>
-                                <AdminDashboard state={this.state}/>
-                            </Route>
                             <Route exact path='/login'>
                                 <Redirect path={'/'}/>
+                            </Route>
+                            <Route exact path={['/', '/dashboard']}>
+                                <AdminDashboard state={this.state}/>
                             </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
@@ -162,11 +166,11 @@ class App extends React.Component {
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/'>
-                                <UserDashboard state={this.state}/>
-                            </Route>
                             <Route exact path='/login'>
                                 <Redirect path={'/'}/>
+                            </Route>
+                            <Route exact path={['/', '/dashboard']}>
+                                <UserDashboard state={this.state}/>
                             </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
