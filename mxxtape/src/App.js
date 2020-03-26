@@ -120,7 +120,7 @@ class App extends React.Component {
                                 (<UserProfile state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
-                            <Route path="*" render={()=><Redirect path={'/'}/>}/>
+                            <Route path="*" render={()=><NoMatch state={this.state}/>}/>
                         </Switch>
                     </BrowserRouter>
                 </div>
@@ -155,7 +155,7 @@ class App extends React.Component {
                                 (<UserProfile state={this.state}/>)}/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
-                            <Route path="*" render={()=><Redirect path={'/'}/>}/>
+                            <Route path="*" render={()=><NoMatch state={this.state}/>}/>
                         </Switch>
                     </BrowserRouter>
                 </div>
@@ -170,7 +170,7 @@ class App extends React.Component {
                             <Route exact path='/' render={() => <LoginPage state={this.state}/>}/>
                             <Route exact path='/register' render={() => <RegisterPage state={this.state}/>}/>
                             <Route exact path='/forgot_password' render={() => <ForgotPassword state={this.state}/>}/>
-                            <Route path="*" render={()=><Redirect path={'/'}/>}/>
+                            <Route path="*" render={()=><NoMatch state={this.state}/>}/>
                         </Switch>
                     </BrowserRouter>
                 </div>
