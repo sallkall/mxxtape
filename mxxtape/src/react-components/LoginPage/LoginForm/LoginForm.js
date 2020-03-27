@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
                 console.log("TODO: HANDLE LOGIN: ", values);
                 this.setState(
                     {"username": values.username, "password": values.password},
-                    () => {login(this, this.app)})
+                    () => {login(this, this.app); this.props.history.push("/");})
             }
         });
     };
@@ -71,8 +71,6 @@ class LoginForm extends React.Component {
                             type="primary"
                             htmlType="submit"
                             className="login-form-button"
-                            // onSubmit={setTimeout(handleLoggedIn(this.state.loggedIn), 2000)}
-                            // onSubmit={setTimeout(() => , 2000)}
                         >
                             Log In
                         </Button>
