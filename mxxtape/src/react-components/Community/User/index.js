@@ -17,9 +17,9 @@ const {Content, Sider} = Layout;
 // This is a sample community for 'jazz it up' in user's view
 class Community extends React.Component {
     state = {
-        // membership will be checked against data retrieved from server in phase 2
-        isMember: false,
+        isMember: false,    //check
         newPost: false,
+        message: { type: "", body: "" },
         updateFeed: () => {
             this.setState({newPost: !this.state.newPost});
         }

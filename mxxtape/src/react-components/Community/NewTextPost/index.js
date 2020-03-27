@@ -6,6 +6,9 @@ import {Button, Modal, Form, Input, Icon, Layout, Mentions, Tooltip} from 'antd'
 
 import {posts} from "../CommunityFeed";
 
+// import action methods
+import { addPost} from "../../../actions/post";
+
 const {Option} = Mentions;
 const {Content} = Layout;
 
@@ -103,6 +106,9 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
 class NewTextPost extends React.Component {
     state = {
         visible: false,
+        posts: {
+            content: "memememe",
+        },
     };
 
     showModal = () => {
@@ -113,27 +119,38 @@ class NewTextPost extends React.Component {
         this.setState({visible: false});
     };
 
-    handleCreate = () => {
+    handleCreate = (state) => {
         const {form} = this.formRef.props;
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-            // should be making server calls to directly manipulate the posts for phase 2, pushed directly into the post
-            // array for now...
+            // console.log(form.getFieldValue("content"))
 
-            // Create new post information to push to all feed posts in CommunityFeed
-            const post_information = {
-                key: 4, //tempo key will fix later
-                actions: null,
-                author: "Texty cat",
-                rating: null,
-                avatar: "https://tinyurl.com/wy5zbp2",
-                musicUrl: null,
-                content: values.content,
-                tags: values.tags,
+            const formInfo = {
+                id: 0,  //get id
+                content: form.getFieldValue('content'),
+                // actions: null,
+                author_id: "6",
+                // rating: null,
+                // avatar: "https://tinyurl.com/wy5zbp2",
+                // musicUrl: null,
+                // tags: form.getFieldValue('tags'),
             };
-            posts.unshift(post_information);
+            addPost(formInfo, state);
+
+            // // Create new post information to push to all feed posts in CommunityFeed
+            // const post_information = {
+            //     key: 4, //tempo key will fix later
+            //     actions: null,
+            //     author: "Texty cat",
+            //     rating: null,
+            //     avatar: "https://tinyurl.com/wy5zbp2",
+            //     musicUrl: null,
+            //     content: values.content,
+            //     tags: values.tags,
+            // };
+            // posts.unshift(post_information);
             form.resetFields();
             this.setState({visible: false});
         });
@@ -161,7 +178,7 @@ class NewTextPost extends React.Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={() => {
-                        this.handleCreate();
+                        this.handleCreate(state);
                         state.updateFeed()
                     }}
                 />

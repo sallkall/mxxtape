@@ -9,10 +9,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    community_id: {
-        type: Number,
-        required: true,
-    },
+    // community_id: {
+    //     type: Number,
+    //     required: true,
+    // },
     author_id: {
         type: Number,
         required: true,
@@ -20,12 +20,12 @@ const UserSchema = new mongoose.Schema({
         maxlength: 1,
         trim: true
     },
-    post_type: {
-        type: String,
-        required: true,
-        minlegth: 1,
-        trim: true
-    },
+    // post_type: {
+    //     type: String,
+    //     required: true,
+    //     minlegth: 1,
+    //     trim: true
+    // },
     // rating: {
     //     type: Number,
     //     required: false,
@@ -44,16 +44,16 @@ const UserSchema = new mongoose.Schema({
     //     //     message: 'Not valid music url'
     //     // }
     // },
-    //
-    // content: {
-    //     type: String,
-    //     required: false,
-    //     trim: true,
-    //     maxlength: 140,
-    // },
-    //
+
+    content: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: 140,
+    },
+
     // tags: {
-    //     type: Array,
+    //     type: String,
     //     required: false,
     //     trim: true
     // }
