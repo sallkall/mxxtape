@@ -4,7 +4,6 @@ const log = console.log;
 const express = require("express");
 const app = express();
 
-//TODO: This code is more or less pulled directly from the example, and needs a lot of tweaking.
 
 // mongoose and mongo connection
 const { mongoose } = require("./db/mongoose");
@@ -12,6 +11,8 @@ mongoose.set('useFindAndModify', false);
 
 // import the mongoose models
 const { User } = require("./models/user");
+
+const { Post } = require("./models/post");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -105,7 +106,101 @@ app.post("/users", (req, res) => {
             res.status(400).send(error); // 400 for bad request
         }
     );
+})
+
+/*********************************************************/
+/*************    POST API      *************/
+
+app.post("/post", (req, res) => {
+    // log(req.body);
+    const post = new Post({
+        id: req.body.id,
+        community_id: req.body.community_id,
+        author_id: req.body.author_id,
+        post_type: req.body.post_type,
+        rating: req.body.rating,
+        avatar: req.body.avatar,
+        musicUrl: req.body.musicUrl,
+        content: req.body.content,
+        tags: req.body.tags,
+    });
+
+    // Save the post to db
+    post.save().then(
+        result => {
+            res.send(result);
+        },
+        error => {
+            res.status(400).send(error); // 400 for bad request
+        }
+    );
 });
+
+// get all posts
+app.get('/post', (req, res)=> {
+    Post.find().then(
+        posts => {
+            log();
+            res.send({ posts }); // can wrap in object if want to add more properties
+        },
+        error => {
+            res.status(500).send(error); // server error
+        }
+    );
+});
+
+// get by post id
+app.get('/post/:post_id', (req, res) => {
+    /// req.params has the wildcard parameters in the url, in this case, id.
+    // log(req.params.post_id)
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // findById
+    Post.findById(id)
+        .then((post) => {
+            if (!post) {
+                res.status(404).send()  // could not find this student
+            } else {
+                /// sometimes we wrap returned object in another object:
+                //res.send({student})
+                res.send(post)
+            }
+    }).catch((error) => {
+        res.status(500).send()  // server error
+    })
+});
+
+/// a DELETE route to remove a student by their id.
+app.delete('/post/:id', (req, res) => {
+    const id = req.params.id
+
+    // Validate id
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // Delete a student by their id
+    Post.findByIdAndRemove(id).then((post) => {
+        if (!post) {
+            res.status(404).send()
+        } else {
+            res.send(post)
+        }
+    }).catch((error) => {
+        res.status(500).send() // server error, could not delete.
+    })
+});
+
+
+/************************ END POST API ****************************/
+
+
 
 /*** Webpage routes below **********************************/
 // Serve the build
