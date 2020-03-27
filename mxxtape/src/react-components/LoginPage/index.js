@@ -18,14 +18,17 @@ class LoginPage extends React.Component {
             <Router>
                 <div className="Login">
                     <div className="login-form">
-                        <h2 className="form-header">
-                            Login
-                        </h2>
-                        <NormalLoginForm
-                            loggedIn={state.loggedIn}
-                            state={state}
-                            app={app}
-                        />
+                        <div className="form-box login-form">
+                            <h2 >WELCOME to mxxtape</h2>
+
+                            Please login to continue
+
+                            <NormalLoginForm
+                                loggedIn={state.loggedIn}
+                                state={state}
+                                app={app}
+                            />
+                        </div>
                     </div>
                 </div>
             </Router>
