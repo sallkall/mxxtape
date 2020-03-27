@@ -24,8 +24,8 @@
 
 .Login{
     height: 100vh;
-    background: rgb(58,28,93);
-    background: linear-gradient(90deg, rgba(58,28,93,1) 0%, rgb(46, 177, 178) 50%, rgba(144,205,54,1) 100%);
+    background: rgb(94, 31, 133);
+    background: linear-gradient(90deg, rgb(94, 31, 133) 0%, rgb(46, 177, 178) 50%, rgba(144,205,54,1) 100%);
 }
 
 .form-box {

@@ -73,9 +73,9 @@ class App extends React.Component {
                             path={['/', '/dashboard', '/login']}
                             render={ () => {
                                 if (this.state.loggedIn === 1) {
-                                    return <UserDashboard state={this.state}/>
+                                    return <UserDashboard state={this.state} app={this}/>
                                 } else if (this.state.loggedIn === 2) {
-                                    return <AdminDashboard state={this.state}/>
+                                    return <AdminDashboard state={this.state} app={this}/>
                                 } else {
                                     return <LoginPage state={this.state} app = {this}/>
                                 }

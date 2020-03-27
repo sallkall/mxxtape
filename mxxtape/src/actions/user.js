@@ -55,3 +55,21 @@ export const login = (loginComp, app) => {
             console.log(error);
         });
 };
+
+// handle logout
+export const logout = (loginComp, app) => {
+    console.log(app.state);
+    console.log("logging out!");
+
+    fetch("/users/logout")
+        .then(res => {
+            app.setState({
+                currentUser: null,
+                loggedIn: null,
+                message: { type: "", body: "" }
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
