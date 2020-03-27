@@ -1,6 +1,12 @@
 {
   "name": "team64",
   "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build-run": "cd mxxtape && npm run build && cd .. && node server.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
