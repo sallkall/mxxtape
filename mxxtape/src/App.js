@@ -88,19 +88,14 @@ class App extends React.Component {
                 </div>
             )
         } else if (this.state.loggedIn === 1) {
+            // logged in is a user
             return (
                 <div>
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/'>
+                            <Route exact path={['/', '/dashboard', '/login']}>
                                 <UserDashboard state={this.state}/>
-                            </Route>
-                            <Route path='/dashboard'>
-                                <UserDashboard state={this.state}/>
-                            </Route>
-                            <Route exact path='/login'>
-                                <Redirect path={'/'}/>
                             </Route>
                             <Route exact path={'/register'} render={()=>
                                 (<RegisterPage state={this.state}/>)}/>
@@ -125,16 +120,14 @@ class App extends React.Component {
                     </BrowserRouter>
                 </div>
             );
-        } else if (this.state.loggedIn === 2) { //admin versions
+        } else if (this.state.loggedIn === 2) {
+            //admin versions
             return (
                 <div>
                     <BrowserRouter>
                         <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
                             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/login'>
-                                <Redirect path={'/'}/>
-                            </Route>
-                            <Route exact path={['/', '/dashboard']}>
+                            <Route exact path={['/', '/dashboard', '/login']}>
                                 <AdminDashboard state={this.state}/>
                             </Route>
                             <Route exact path={'/' + this.state.register} render={()=>
