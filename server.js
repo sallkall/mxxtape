@@ -52,7 +52,8 @@ app.post("/users/login", (req, res) => {
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
             req.session.username = user.username;
-            res.send({ currentUser: user.username });
+            req.session.type = user.type;
+            res.send({ currentUser: user.username, type: user.type });
         })
         .catch(error => {
             res.status(400).send()
@@ -75,7 +76,7 @@ app.get("/users/logout", (req, res) => {
 app.get("/users/check-session", (req, res) => {
     log(req.body);
     if (req.session.user) {
-        res.send({ currentUser: req.session.username });
+        res.send({ currentUser: req.session.username, type: req.session.type });
     } else {
         res.status(401).send();
     }

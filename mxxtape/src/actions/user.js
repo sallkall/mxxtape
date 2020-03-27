@@ -1,5 +1,6 @@
 //From example
 export const readCookie = (app) => {
+    console.log("checking", app.state);
     const url = "/users/check-session";
 
     fetch(url)
@@ -21,7 +22,8 @@ export const readCookie = (app) => {
 
 // handle login
 export const login = (loginComp, app) => {
-    console.log("logging in", loginComp.state);
+    console.log("logging in");
+    console.log(loginComp.state);
     // Create our request constructor with all the parameters we need
 
     const request = new Request("/users/login", {
