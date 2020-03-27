@@ -40,6 +40,7 @@ app.use(
 
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
+    log("/users/login", req.body);
     const username = req.body.username;
     const password = req.body.password;
 
@@ -72,6 +73,7 @@ app.get("/users/logout", (req, res) => {
 
 // A route to check if a use is logged in on the session cookie
 app.get("/users/check-session", (req, res) => {
+    log(req.body);
     if (req.session.user) {
         res.send({ currentUser: req.session.username });
     } else {
@@ -93,7 +95,8 @@ app.post("/users", (req, res) => {
     const user = new User({
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        type: req.body.type
     });
 
     // Save the user

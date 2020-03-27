@@ -3,14 +3,12 @@ import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./index.css";
 import LoginForm from "./LoginForm/LoginForm.js";
 import { Form} from "antd";
-import { Redirect } from "react-router-dom";
-
 
 
 class LoginPage extends React.Component {
 
     render() {
-        const {state} = this.props;
+        const {state, app} = this.props;
 
         const NormalLoginForm = Form.create({ name: "normal_login"})(
             LoginForm
@@ -27,6 +25,7 @@ class LoginPage extends React.Component {
                             handleLoggedIn={state.handleLoggedIn}
                             loggedIn={state.loggedIn}
                             state={state}
+                            app={app}
                         />
                     </div>
                 </div>

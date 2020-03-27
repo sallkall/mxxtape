@@ -15,4 +15,11 @@
     margin-left: auto;
     margin-right: auto;
 }
-  
+
+.login-forgot {
+    float: right;
+}
+
+.login-register {
+    float: left;
+}

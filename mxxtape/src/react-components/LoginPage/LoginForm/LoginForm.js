@@ -4,58 +4,43 @@ import './LoginForm.css'
 // import {Form, Icon, Input, Button, Checkbox, message} from "antd";
 import {Form, Icon, Input, Button, message} from "antd";
 import {withRouter} from "react-router-dom";
+import {login} from "../../../actions/user";
 
 class LoginForm extends React.Component {
 
     constructor(props) {
         super(props);
         console.log("Construct Login Form", props);
-        this.state = {
-            loggedIn: this.props
-        };
-
+        this.app = this.props
     }
+
+    state = {
+        username: "",
+        password: ""
+    };
 
     handleSubmit = e => {
         e.preventDefault();
+
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log("Received values of form: ", values);
-                //Code below requires server calls to check if values.username is a valid username
-                //and if values.password is a valid password for this user
-                if (values.username === 'user' && values.password === 'user') {
-                    this.setState(
-                        //Server call needed: loggedIn will eventually require user's information instead of 1 or 2
-                        {loggedIn: 1},
-                        () => {
-                            console.log("user loggedIn", this.state.loggedIn);
-                        }
-                    );
-                    message.success('Login Successful! Welcome ' + values.username);
-                } else if (values.username === 'admin' && values.password === 'admin') {
-                    this.setState(
-                        {loggedIn: 2},
-                        () => {
-                            console.log("admin loggedIn", this.state.loggedIn);
-                        }
-                    );
-                    message.success('Login Successful! Welcome ' + values.username);
-                }else {
-                    console.log("incorrect username and password", this.state.loggedIn);
-                    message.error('Incorrect username or password');
-                }
+                console.log("TODO: HANDLE LOGIN: ", values);
+                this.setState(
+                    {"username": values.username, "password": values.password},
+                    () => {login(this, this.app)})
             }
         });
     };
 
-    handleRedirect = (addr) => {
-        console.log("/" + addr);
-        this.props.history.push("/" + addr);
-    };
+    // handleRedirect = (addr) => {
+    //     console.log("/" + addr);
+    //     this.props.history.push("/" + addr);
+    // };
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { handleLoggedIn, state } = this.props;
+        const {app} = this.props;
+
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
@@ -86,15 +71,16 @@ class LoginForm extends React.Component {
                             type="primary"
                             htmlType="submit"
                             className="login-form-button"
-                            onSubmit={ setTimeout(handleLoggedIn(this.state.loggedIn), 2000) }
+                            // onSubmit={setTimeout(handleLoggedIn(this.state.loggedIn), 2000)}
+                            // onSubmit={setTimeout(() => , 2000)}
                         >
                             Log In
                         </Button>
                         <Button
                             className="login-form-register"
-                            type = "link"
+                            type="link"
                             onClick={() => {
-                                this.handleRedirect(state.register);
+                                // this.handleRedirect(state.register);
                             }}
                         >
                             Register now!
@@ -103,8 +89,8 @@ class LoginForm extends React.Component {
                             className="login-form-forgot"
                             type="link"
                             onClick={() => {
-                                this.handleRedirect(state.forgot_password)}
-                            }
+                                // this.handleRedirect(state.forgot_password)
+                            }}
                         >
                             Forgot password
                         </Button>
