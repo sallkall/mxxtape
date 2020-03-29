@@ -39,10 +39,10 @@ class Nav extends React.Component {
         }
     }
 
-    navbarLogout = (app) => {
+    navbarLogout = (app, handleLogOut) => {
         this.props.history.push("/login");
         // logout(app);
-        state.handleLogOut()
+        handleLogOut()
     };
 
     render() {
@@ -112,7 +112,7 @@ class Nav extends React.Component {
                             </Menu.Item>
                             <Menu.Item
                                 key="logout"
-                                onClick={ () => { this.navbarLogout(app) }}
+                                onClick={ () => { this.navbarLogout(app, state.handleLogOut()) }}
                             >
                                 Logout
                             </Menu.Item>
