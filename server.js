@@ -74,7 +74,7 @@ app.get("/users/logout", (req, res) => {
 
 // A route to check if a use is logged in on the session cookie
 app.get("/users/check-session", (req, res) => {
-    log(req.body);
+    log("/users/check-session", req.body);
     if (req.session.user) {
         res.send({ currentUser: req.session.username, type: req.session.type });
     } else {

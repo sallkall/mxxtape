@@ -4,20 +4,14 @@ import './LoginForm.css'
 // import {Form, Icon, Input, Button, Checkbox, message} from "antd";
 import {Form, Icon, Input, Button, message} from "antd";
 import {withRouter} from "react-router-dom";
-import {login} from "../../../actions/user";
 
 class LoginForm extends React.Component {
 
     constructor(props) {
         super(props);
         console.log("Construct Login Form", props);
-        this.app = this.props
+        this.handleLogin = this.props.handleLogin;
     }
-
-    state = {
-        username: "",
-        password: ""
-    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -25,21 +19,13 @@ class LoginForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("TODO: HANDLE LOGIN: ", values);
-                this.setState(
-                    {"username": values.username, "password": values.password},
-                    () => {login(this, this.app); this.props.history.push("/");})
+                this.handleLogin(values.username, values.password)
             }
         });
     };
 
-    // handleRedirect = (addr) => {
-    //     console.log("/" + addr);
-    //     this.props.history.push("/" + addr);
-    // };
-
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {app} = this.props;
 
         return (
             <div>

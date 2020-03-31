@@ -1,35 +1,36 @@
 //From example
 export const readCookie = (app) => {
-    console.log("checking", app.state);
+    console.log("readCookie", app.state);
     const url = "/users/check-session";
 
     fetch(url)
         .then(res => {
+            console.log(url, "res", res);
             if (res.status === 200) {
                 return res.json();
             }
         })
         .then(json => {
+            console.log(url, "json", json);
             if (json && json.currentUser) {
                 // get current user and type, default 1 as regular user
-                app.setState({currentUser: json.currentUser, loggedIn: json.type ? json.type : 1});
+                app.setState({currentUser: json.currentUser, loggedIn: json.type});
             }
         })
         .catch(error => {
-            console.log(error);
+            console.log(url, "error", error);
         });
 };
 
 // handle login
 export const login = (loginComp, app) => {
-    console.log("logging in");
-    console.log(loginComp.state);
+    console.log("login", loginComp.state);
     // Create our request constructor with all the parameters we need
 
     const request = new Request("/users/login", {
         method: "post",
         body: JSON.stringify({
-            username : loginComp.state.username,
+            username: loginComp.state.username,
             password: loginComp.state.password
         }),
         headers: {
@@ -45,14 +46,19 @@ export const login = (loginComp, app) => {
                 return res.json();
             }
         })
+        .then(
+            json => {console.log("login response, now setting state", app, json, json.currentUser, json.username); return json;}
+        )
         .then(json => {
-            if (json.username !== undefined) {
+            if (json.currentUser !== undefined) {
                 // TODO: set to regular user by default
-                app.setState({ currentUser: json.username, loggedIn: json.type });
+                const newstate = {currentUser: json.currentUser, loggedIn: json.type};
+                console.log("have user, now setting app state", newstate, app);
+                app.setState({currentUser: json.currentUser, loggedIn: json.type}, ()=>console.log(app));
             }
         })
         .catch(error => {
-            console.log(error);
+            console.log("login catch error", request, error);
         });
 };
 
@@ -66,7 +72,7 @@ export const logout = (loginComp, app) => {
             app.setState({
                 currentUser: null,
                 loggedIn: null,
-                message: { type: "", body: "" }
+                message: {type: "", body: ""}
             });
         })
         .catch(error => {
