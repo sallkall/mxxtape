@@ -47,7 +47,6 @@ class Nav extends React.Component {
 
     render() {
         const {state, app} = this.props;
-        console.log(app.state);
         return (
             <Router>
                 <Menu
