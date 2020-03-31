@@ -5,13 +5,11 @@ export const readCookie = (app) => {
 
     fetch(url)
         .then(res => {
-            console.log(url, "res", res);
             if (res.status === 200) {
                 return res.json();
             }
         })
         .then(json => {
-            console.log(url, "json", json);
             if (json && json.currentUser) {
                 // get current user and type, default 1 as regular user
                 app.setState({currentUser: json.currentUser, loggedIn: json.type});
@@ -46,14 +44,9 @@ export const login = (loginComp, app) => {
                 return res.json();
             }
         })
-        .then(
-            json => {console.log("login response, now setting state", app, json, json.currentUser, json.username); return json;}
-        )
         .then(json => {
             if (json.currentUser !== undefined) {
                 // TODO: set to regular user by default
-                const newstate = {currentUser: json.currentUser, loggedIn: json.type};
-                console.log("have user, now setting app state", newstate, app);
                 app.setState({currentUser: json.currentUser, loggedIn: json.type}, ()=>console.log(app));
             }
         })
