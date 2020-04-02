@@ -85,9 +85,9 @@ class App extends React.Component {
                             }}
                         />
                         <Route exact path={'/' + this.state.register} render={()=>
-                            (<RegisterPage state={this.state}/>)}/>
+                            (<Redirect path='/'/>)}/>
                         <Route exact path={'/' + this.state.forgot_password} render={()=>
-                            (<ForgotPassword state={this.state}/>)}/>
+                            (<Redirect path='/'/>)}/>
                         <Route exact path='/settings' render={()=>
                             (<SettingsPage state={this.state}/>)}/>
                         <Route
@@ -99,7 +99,7 @@ class App extends React.Component {
                                 } else if (this.state.loggedIn === 2) {
                                     return <CommunityAdmin state={this.state}/>
                                 } else {
-                                    return <Redirect path='\login'/>
+                                    return <Redirect path='/'/>
                                 }
                             }
                         }/>
@@ -122,9 +122,15 @@ class App extends React.Component {
             return (
                 <div>
                     <BrowserRouter>
-                        <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
-                            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/' render={() => <LoginPage state={this.state} app = {this}/>}/>
+                        <Switch>
+                            <Route exact
+                                   path={[
+                                       '/', '/dashboard', '/login', '/settings', '/community/jazzitup',
+                                       '/' + this.state.create_community,'/history','/subscriptions','/profile',
+                                       '/' + this.state.notifications
+                                   ]}
+                                   render={() => <LoginPage app = {this}/>}
+                            />
                             <Route exact path='/register' render={() => <RegisterPage state={this.state}/>}/>
                             <Route exact path='/forgot_password' render={() => <ForgotPassword state={this.state}/>}/>
                             <Route path="*" render={()=><NoMatch state={this.state}/>}/>
