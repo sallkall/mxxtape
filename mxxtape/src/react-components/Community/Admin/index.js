@@ -88,11 +88,10 @@ class CommunityAdmin extends React.Component {
             </div>
         );
         const {imageUrl, headerUrl} = this.state;
-        const {state} = this.props;
 
         return (
             <div>
-                <Nav state={state}/>
+                <Nav app={this.props.app}/>
             <Layout>
                 <Content className="content">
                     <div className="header">

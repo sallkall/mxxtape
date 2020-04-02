@@ -8,13 +8,12 @@ import CreateCommunityForm from "./CreateCommunityForm";
 
 class CreateCommunityPage extends React.Component {
     render() {
-        const {state} = this.props;
         const CreateACommunityForm = Form.create({name: 'create_a_community'})(
             CreateCommunityForm
         );
         return (
             <div>
-                <Nav state={state} />
+                <Nav app={this.props.app} />
                 <div className="create-community-form">
                     <header className="create-community-header">
                         Create a community!

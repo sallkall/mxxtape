@@ -38,14 +38,13 @@ class UserProfile extends React.Component {
         this.props.history.push(dir);
     }
     render() {
-        const { state } = this.props;
         let username = this.props.location.pathname.substring(9);
         if(username==="") {
             username = "USERNAME";
         }
         return (
             <div>
-                <Nav state={ state }/>
+                <Nav app={ this.props.app }/>
                 <Router>
                     <Layout>
                         <Sider id="ProfileSidebar">

@@ -33,14 +33,13 @@ class History extends React.Component {
         this.props.history.push(dir);
     }
     render() {
-        const { state } = this.props;
         let username = this.props.location.pathname.substring(9);
         if(username==="") {
             username = "USERNAME";
         }
         return (
             <div>
-                <Nav state={state}/>
+                <Nav app={this.props.app}/>
                 <Router>
                     <Button id="BackButton" onClick={() => this.redirect("/profile/"+username)}>{"< Back"}</Button>
                     <Card id="History" className="ContentCard" title="HISTORY">

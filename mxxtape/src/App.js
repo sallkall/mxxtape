@@ -76,7 +76,7 @@ class App extends React.Component {
                                 if (this.state.loggedIn === 1) {
                                     return <UserDashboard history={history} app={this}/>
                                 } else if (this.state.loggedIn === 2) {
-                                    return <AdminDashboard history={history} state={this.state} app={this}/>
+                                    return <AdminDashboard history={history} app={this}/>
                                 } else {
                                     // should call logout here
                                     this.state.handleLogOut();
@@ -89,28 +89,28 @@ class App extends React.Component {
                         <Route exact path={'/' + this.state.forgot_password} render={()=>
                             (<Redirect path='/'/>)}/>
                         <Route exact path='/settings' render={()=>
-                            (<SettingsPage state={this.state}/>)}/>
+                            (<SettingsPage app={this}/>)}/>
                         <Route
                             exact
                             path='/community/jazzitup'
                             render={() => {
                                 if (this.state.loggedIn === 1) {
-                                    return <Community state={this.state} app={this}/>
+                                    return <Community app={this}/>
                                 } else if (this.state.loggedIn === 2) {
-                                    return <CommunityAdmin state={this.state} app={this}/>
+                                    return <CommunityAdmin app={this}/>
                                 } else {
                                     return <Redirect path='/'/>
                                 }
                             }
                         }/>
                         <Route exact path={'/' + this.state.create_community} render={() =>
-                            (<CreateCommunityPage state={this.state} app={this}/>)}/>
+                            (<CreateCommunityPage app={this}/>)}/>
                         <Route path='/history' render={()=>
-                            (<History state={this.state} app={this}/>)}/>
+                            (<History app={this}/>)}/>
                         <Route path='/subscriptions' render={()=>
-                            (<SubbedCommunities state={this.state} app={this}/>)}/>
+                            (<SubbedCommunities app={this}/>)}/>
                         <Route path='/profile' render={()=>
-                            (<UserProfile state={this.state} app={this}/>)}/>
+                            (<UserProfile app={this}/>)}/>
                         <Route exact path={'/' + this.state.notifications} render={()=>
                             (<NotificationsPage state={this.state} app={this}/>)}/>
                         <Route path="*" render={()=><NoMatch state={this.state} app={this}/>}/>
