@@ -18,6 +18,7 @@ class Nav extends React.Component {
         this.state  = {
             userInfo: {}
         };
+        this.app = this.props.app;
     }
 
     handleSearch(inputValue) {
@@ -31,22 +32,16 @@ class Nav extends React.Component {
         this.props.history.push(addr);
     };
 
-    getLoggedInFromStateProp(state) {
+    getLoggedInFromStateProp() {
         // console.log(state);
         // this will be a server call for current user
-        if (state && state.loggedIn) {
-            return state.loggedIn
-        }
+        // if (state && state.loggedIn) {
+        //     return state.loggedIn
+        // }
+        return this.app.state.loggedIn
     }
 
-    navbarLogout = (app, handleLogOut) => {
-        this.props.history.push("/login");
-        // logout(app);
-        handleLogOut()
-    };
-
     render() {
-        const {state, app} = this.props;
         return (
             <Router>
                 <Menu
@@ -68,9 +63,9 @@ class Nav extends React.Component {
                     <Menu.Item
                         className='menu-notifications'
                         key="notifications"
-                        onClick={() => this.redirect('/'+ state.notifications)}
+                        onClick={() => this.redirect('/notifications')}
                     >
-                        <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
+                        <NotificationBadge user={this.getLoggedInFromStateProp()}/>
                     </Menu.Item>
                     <SubMenu
                         className='menu_sub'
@@ -93,7 +88,7 @@ class Nav extends React.Component {
                             <Menu.Item
                                 key="create-community"
                                 onClick = { () => {
-                                    const addr = '/' + state.create_community;
+                                    const addr = '/create-community';
                                     this.redirect(addr)
                                 }}
                             >
@@ -111,7 +106,7 @@ class Nav extends React.Component {
                             </Menu.Item>
                             <Menu.Item
                                 key="logout"
-                                onClick={ () => { this.navbarLogout(app, state.handleLogOut()) }}
+                                onClick={ () => { logout(this.app) }}
                             >
                                 Logout
                             </Menu.Item>

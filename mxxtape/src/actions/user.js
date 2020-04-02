@@ -102,9 +102,8 @@ export const registerNewUser = (registerComp, history) => {
 };
 
 // handle logout
-export const logout = (loginComp, app) => {
-    console.log(app.state);
-    console.log("logging out!");
+export const logout = (app) => {
+    console.log("action: logging out!", app);
 
     fetch("/users/logout")
         .then(res => {
