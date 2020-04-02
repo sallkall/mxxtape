@@ -7,8 +7,6 @@ import RegisterForm from "./RegisterForm/RegisterForm";
 class RegisterPage extends React.Component {
 
     render() {
-        const {state} = this.props;
-
         const RegisterPageRegisterForm = Form.create({ name: "register"})(
             RegisterForm
         );
