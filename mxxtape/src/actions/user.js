@@ -46,7 +46,7 @@ export const login = (loginComp, app) => {
         })
         .then(json => {
             if (json.currentUser !== undefined) {
-                // TODO: set to regular user by default
+                // if current user exists, then set the state and the type of user
                 app.setState({currentUser: json.currentUser, loggedIn: json.type}, ()=>console.log(app));
             }
         })
