@@ -1,8 +1,8 @@
 .Login {
     height: 100vh;
-    background: linear-gradient(-45deg, #FF9926, #F1E8B8, #87B38D, #00435B, #061826);
+    background: linear-gradient(-45deg, #FF9926, #F1E8B8, #87B38D, #00435B, #031026);
     background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    animation: gradient 12s ease infinite;
 }
 
 @keyframes gradient {
@@ -24,7 +24,7 @@
     justify-content: flex-end;
 }
 
-.login-form {
+.form {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -46,4 +46,8 @@
     background-color: #ffffff;
     padding: 20px;
     border-radius: 20px;
+}
+
+.header {
+    color: #031026;
 }

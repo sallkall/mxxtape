@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.css";
+import "../LoginPage/index.css"
 import {Form} from "antd";
 import RegisterForm from "./RegisterForm/RegisterForm";
 
@@ -12,12 +13,13 @@ class RegisterPage extends React.Component {
         );
 
         return (
-            <div className="Register">
-                <div className="register-form">
-                    <h2 className="register-form-header">
-                        RegisterPage
-                    </h2>
-                    <RegisterPageRegisterForm />
+            <div className="Login">
+                <div className="form">
+                    <div className="form-box form">
+                        <h1 className={"header"}>First time here?</h1>
+                        <h2 className={"header"}> Make an account!</h2>
+                        <RegisterPageRegisterForm />
+                    </div>
                 </div>
             </div>
         )

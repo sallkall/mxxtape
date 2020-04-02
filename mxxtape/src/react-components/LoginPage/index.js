@@ -38,9 +38,9 @@ class LoginPage extends React.Component {
         return (
             <Router>
                 <div className="Login">
-                    <div className="login-form">
-                        <div className="form-box login-form">
-                            <h2>WELCOME to mxxtape</h2>
+                    <div className="form">
+                        <div className="form-box form">
+                            <h1 className={"header"}>WELCOME to mxxtape</h1>
 
                             Please login to continue
 
