@@ -3,15 +3,34 @@ import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./index.css";
 import LoginForm from "./LoginForm/LoginForm.js";
 import { Form} from "antd";
-import { Redirect } from "react-router-dom";
-
+import {login, readCookie} from "../../actions/user";
 
 
 class LoginPage extends React.Component {
 
-    render() {
-        const {state} = this.props;
+    constructor(props) {
+        super(props);
+        console.log("Construct Login Page", props);
+        this.app = this.props.app;//this.props.app;
+        // this.handleLogin = this.handleLogin.bind(this.app)
+    }
 
+    state = {
+        username: "",
+        password: ""
+    };
+
+    handleLogin = (username, password) => {
+        console.log(this.app);
+        this.setState(
+            {"username": username, "password": password},
+            () => {
+                login(this, this.app);
+                this.props.history.push("/");
+            })
+    };
+
+    render() {
         const NormalLoginForm = Form.create({ name: "normal_login"})(
             LoginForm
         );
@@ -20,14 +39,15 @@ class LoginPage extends React.Component {
             <Router>
                 <div className="Login">
                     <div className="login-form">
-                        <h2 className="form-header">
-                            Login
-                        </h2>
-                        <NormalLoginForm
-                            handleLoggedIn={state.handleLoggedIn}
-                            loggedIn={state.loggedIn}
-                            state={state}
-                        />
+                        <div className="form-box login-form">
+                            <h2>WELCOME to mxxtape</h2>
+
+                            Please login to continue
+
+                            <NormalLoginForm
+                                handleLogin={this.handleLogin}
+                            />
+                        </div>
                     </div>
                 </div>
             </Router>

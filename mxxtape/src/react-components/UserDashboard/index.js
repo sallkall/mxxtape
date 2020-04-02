@@ -50,14 +50,14 @@ class UserDashboard extends React.Component {
         this.props.history.push(dir);
     }
     render() {
-        const { state } = this.props;
+        const { state, app } = this.props;
         let username = this.props.location.pathname.substring(11);
         if(username==="") {
             username = "USERNAME";
         }
         return (
             <div>
-                <Nav state={ state }/>
+                <Nav state={ state } app={app}/>
                 <Router>
                     <Layout id="layout">
                         <Sider id="DashboardSidebar">

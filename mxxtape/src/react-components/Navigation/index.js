@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Menu, Icon, Input, Badge} from 'antd';
 import NotificationBadge from "./NotificationBadge";
+import {logout} from "../../actions/user";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
@@ -38,9 +39,14 @@ class Nav extends React.Component {
         }
     }
 
+    navbarLogout = (app, handleLogOut) => {
+        this.props.history.push("/login");
+        // logout(app);
+        handleLogOut()
+    };
+
     render() {
-        const {state} = this.props;
-        console.log(state);
+        const {state, app} = this.props;
         return (
             <Router>
                 <Menu
@@ -105,10 +111,7 @@ class Nav extends React.Component {
                             </Menu.Item>
                             <Menu.Item
                                 key="logout"
-                                onClick={ () => {
-                                    state.handleLogOut();
-                                    this.redirect("/login");
-                                }}
+                                onClick={ () => { this.navbarLogout(app, state.handleLogOut()) }}
                             >
                                 Logout
                             </Menu.Item>

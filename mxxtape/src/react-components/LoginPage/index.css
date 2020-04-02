@@ -1,10 +1,8 @@
 .form-header {
-    min-height: 33vh;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-end;
-    color: Black;
 }
 
 .login-form {
@@ -15,4 +13,24 @@
     margin-left: auto;
     margin-right: auto;
 }
-  
+
+.login-forgot {
+    float: right;
+}
+
+.login-register {
+    float: left;
+}
+
+.Login{
+    height: 100vh;
+    background: rgb(94, 31, 133);
+    background: linear-gradient(90deg, rgb(94, 31, 133) 0%, rgb(46, 177, 178) 50%, rgba(144,205,54,1) 100%);
+}
+
+.form-box {
+    margin-top: 33vh;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+}
