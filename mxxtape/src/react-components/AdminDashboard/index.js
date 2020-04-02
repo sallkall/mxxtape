@@ -68,10 +68,9 @@ function RemoveRequest(request, react) {
 
 class AdminDashboard extends React.Component {
     render() {
-        const { state, app } = this.props;
         return (
             <div>
-                <Nav state={ state } app={app}/>
+                <Nav app={this.props.app}/>
                 <Router>
                     <Layout>
                         <Sider id="AdminSidebar">

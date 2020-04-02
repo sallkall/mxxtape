@@ -8,36 +8,35 @@ import {Form} from "antd";
 class SettingsPage extends React.Component {
 
     render() {
-        const { state } = this.props;
 
         //will need api call to find out if the user is an admin or regular user
-        if (state.loggedIn === -1) {
-            return (<Redirect to='/login'/>)
-        } else if (state.loggedIn === 1) {
+        if (this.props.app.state.loggedIn === 1) {
             const UserSettings = Form.create({name: "userSettings"})(
                 SettingsForm
             );
             return (
                 <div>
-                    <Nav state={ state }/>
+                    <Nav app={ this.props.app }/>
                     <div className="settingsForm" >
-                        <UserSettings state={ state } username="user"/>
+                        <UserSettings state={ this.props.app.state } username="user"/>
                     </div>
                 </div>
             )
-        } else if (state.loggedIn === 2) {
+        } else if (this.props.app.state.loggedIn === 2) {
             const AdminSettings = Form.create({name: "adminSettings"})(
                 SettingsForm
             );
             return (
                 <div>
-                    <Nav state={ state }/>
+                    <Nav app={ this.props.app }/>
                     <div className="settingsForm" >
                         <header id="settings-header-admin">Welcome, admin user.</header>
-                        <AdminSettings state={state} username="admin" isAdmin={true}/>
+                        <AdminSettings state={this.props.app.state} username="admin" isAdmin={true}/>
                     </div>
                 </div>
             )
+        } else {
+            return (<Redirect to='/login'/>)
         }
     }
 

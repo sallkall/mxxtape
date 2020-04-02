@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./index.css";
 import LoginForm from "./LoginForm/LoginForm.js";
-import { Form} from "antd";
+import {Button, Form} from "antd";
 import {login, readCookie} from "../../actions/user";
 
 
@@ -38,15 +38,35 @@ class LoginPage extends React.Component {
         return (
             <Router>
                 <div className="Login">
-                    <div className="login-form">
-                        <div className="form-box login-form">
-                            <h2>WELCOME to mxxtape</h2>
+                    <div className="form">
+                        <div className="form-box form">
+                            <h1 className="dark">WELCOME to mxxtape</h1>
 
                             Please login to continue
 
                             <NormalLoginForm
                                 handleLogin={this.handleLogin}
                             />
+                            <div>
+                                <Button
+                                    className="login-form-register"
+                                    type="link"
+                                    onClick={() => {
+                                        this.props.history.push('/'+this.app.state.register);
+                                    }}
+                                >
+                                    Register now!
+                                </Button>
+                                <Button
+                                    className="login-form-forgot"
+                                    type="link"
+                                    onClick={() => {
+                                        this.props.history.push('/'+this.app.state.forgot_password)
+                                    }}
+                                >
+                                    Forgot password
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>

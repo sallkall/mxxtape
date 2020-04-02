@@ -60,24 +60,6 @@ class LoginForm extends React.Component {
                         >
                             Log In
                         </Button>
-                        <Button
-                            className="login-form-register"
-                            type="link"
-                            onClick={() => {
-                                // this.handleRedirect(state.register);
-                            }}
-                        >
-                            Register now!
-                        </Button>
-                        <Button
-                            className="login-form-forgot"
-                            type="link"
-                            onClick={() => {
-                                // this.handleRedirect(state.forgot_password)
-                            }}
-                        >
-                            Forgot password
-                        </Button>
                     </Form.Item>
                 </Form>
             </div>

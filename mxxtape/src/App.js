@@ -47,13 +47,13 @@ class App extends React.Component {
         create_community: 'create-community',
         notifications: 'notifications',
         handleLogOut: () => {
-            console.log("Logout", null);
-            this.setState(
-                {loggedIn: null},
-                () => {
-                    console.log(this.state)
-                }
-            );
+            console.log("Logout");
+            // this.setState(
+            //     {loggedIn: null},
+            //     () => {
+            //         console.log(this.state)
+            //     }
+            // );
         },
         updateGlobal: () => {
             console.log("state.updateGlobal");
@@ -74,46 +74,46 @@ class App extends React.Component {
                             path={['/', '/dashboard', '/login']}
                             render={ (history) => {
                                 if (this.state.loggedIn === 1) {
-                                    return <UserDashboard history={history} state={this.state} app={this}/>
+                                    return <UserDashboard history={history} app={this}/>
                                 } else if (this.state.loggedIn === 2) {
-                                    return <AdminDashboard history={history} state={this.state} app={this}/>
+                                    return <AdminDashboard history={history} app={this}/>
                                 } else {
                                     // should call logout here
                                     this.state.handleLogOut();
-                                    return <LoginPage history={history} app = {this}/>
+                                    return <LoginPage history={history} app={this}/>
                                 }
                             }}
                         />
                         <Route exact path={'/' + this.state.register} render={()=>
-                            (<RegisterPage state={this.state}/>)}/>
+                            (<Redirect path='/'/>)}/>
                         <Route exact path={'/' + this.state.forgot_password} render={()=>
-                            (<ForgotPassword state={this.state}/>)}/>
+                            (<Redirect path='/'/>)}/>
                         <Route exact path='/settings' render={()=>
-                            (<SettingsPage state={this.state}/>)}/>
+                            (<SettingsPage app={this}/>)}/>
                         <Route
                             exact
                             path='/community/jazzitup'
                             render={() => {
                                 if (this.state.loggedIn === 1) {
-                                    return <Community state={this.state} app={this}/>
+                                    return <Community app={this}/>
                                 } else if (this.state.loggedIn === 2) {
-                                    return <CommunityAdmin state={this.state}/>
+                                    return <CommunityAdmin app={this}/>
                                 } else {
-                                    return <Redirect path='\login'/>
+                                    return <Redirect path='/'/>
                                 }
                             }
                         }/>
                         <Route exact path={'/' + this.state.create_community} render={() =>
-                            (<CreateCommunityPage state={this.state}/>)}/>
+                            (<CreateCommunityPage app={this}/>)}/>
                         <Route path='/history' render={()=>
-                            (<History state={this.state}/>)}/>
+                            (<History app={this}/>)}/>
                         <Route path='/subscriptions' render={()=>
-                            (<SubbedCommunities state={this.state}/>)}/>
+                            (<SubbedCommunities app={this}/>)}/>
                         <Route path='/profile' render={()=>
-                            (<UserProfile state={this.state}/>)}/>
+                            (<UserProfile app={this}/>)}/>
                         <Route exact path={'/' + this.state.notifications} render={()=>
-                            (<NotificationsPage state={this.state}/>)}/>
-                        <Route path="*" render={()=><NoMatch state={this.state}/>}/>
+                            (<NotificationsPage state={this.state} app={this}/>)}/>
+                        <Route path="*" render={()=><NoMatch state={this.state} app={this}/>}/>
                     </Switch>
                 </BrowserRouter>
             );
@@ -122,9 +122,15 @@ class App extends React.Component {
             return (
                 <div>
                     <BrowserRouter>
-                        <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
-                            { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-                            <Route exact path='/' render={() => <LoginPage state={this.state} app = {this}/>}/>
+                        <Switch>
+                            <Route exact
+                                   path={[
+                                       '/', '/dashboard', '/login', '/settings', '/community/jazzitup',
+                                       '/' + this.state.create_community,'/history','/subscriptions','/profile',
+                                       '/' + this.state.notifications
+                                   ]}
+                                   render={() => <LoginPage app={this}/>}
+                            />
                             <Route exact path='/register' render={() => <RegisterPage state={this.state}/>}/>
                             <Route exact path='/forgot_password' render={() => <ForgotPassword state={this.state}/>}/>
                             <Route path="*" render={()=><NoMatch state={this.state}/>}/>

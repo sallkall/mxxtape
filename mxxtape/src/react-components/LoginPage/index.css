@@ -1,3 +1,22 @@
+.Login {
+    height: 100vh;
+    background: linear-gradient(-45deg, #FF9926, #F1E8B8, #87B38D, #00435B, #031026);
+    background-size: 400% 400%;
+    animation: gradient 12s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .form-header {
     display: flex;
     flex-direction: column;
@@ -5,7 +24,7 @@
     justify-content: flex-end;
 }
 
-.login-form {
+.form {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -14,18 +33,12 @@
     margin-right: auto;
 }
 
-.login-forgot {
+.login-form-forgot {
     float: right;
 }
 
-.login-register {
+.login-form-register {
     float: left;
-}
-
-.Login{
-    height: 100vh;
-    background: rgb(94, 31, 133);
-    background: linear-gradient(90deg, rgb(94, 31, 133) 0%, rgb(46, 177, 178) 50%, rgba(144,205,54,1) 100%);
 }
 
 .form-box {
@@ -33,4 +46,8 @@
     background-color: #ffffff;
     padding: 20px;
     border-radius: 20px;
+}
+
+.dark {
+    color: #031026;
 }

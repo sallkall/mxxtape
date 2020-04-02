@@ -62,6 +62,7 @@ app.post("/users/login", (req, res) => {
 
 // A route to logout a user
 app.get("/users/logout", (req, res) => {
+    log("get /users/logout");
     // Remove the session
     req.session.destroy(error => {
         if (error) {
