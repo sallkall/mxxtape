@@ -22,17 +22,13 @@
 //         });
 // };
 
-// A function to send a POST request with a new student
+// A function to send a POST request with a new post
 export const addPost = (formComp, feedComp) => {
     // the URL for the request
     console.log(formComp)
     const url = "/post";
 
-    // // The data we are going to send in our request
-    // const post = formComp.state
-    // console.log(post)
-
-    // Create our request constructor with all the parameters we need
+    // Create request with all the parameters we need
     const request = new Request(url, {
         method: "post",
         body: JSON.stringify(formComp),

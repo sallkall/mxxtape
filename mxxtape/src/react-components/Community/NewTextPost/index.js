@@ -128,10 +128,12 @@ class NewTextPost extends React.Component {
             // console.log(form.getFieldValue("content"))
 
             const formInfo = {
-                id: 0,  //get id
+                id: 0,  //get id from query
+                community_id: 0, // get from community
                 content: form.getFieldValue('content'),
+                author_id: "0",
+                // post_type: 'text'
                 // actions: null,
-                author_id: "6",
                 // rating: null,
                 // avatar: "https://tinyurl.com/wy5zbp2",
                 // musicUrl: null,
