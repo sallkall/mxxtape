@@ -16,8 +16,8 @@ class RegisterPage extends React.Component {
             <div className="Login">
                 <div className="form">
                     <div className="form-box form">
-                        <h1 className={"header"}>First time here?</h1>
-                        <h2 className={"header"}> Make an account!</h2>
+                        <h1 className="dark">First time here?</h1>
+                        <h2 className="dark"> Make an account!</h2>
                         <RegisterPageRegisterForm />
                     </div>
                 </div>

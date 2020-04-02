@@ -40,7 +40,7 @@ class LoginPage extends React.Component {
                 <div className="Login">
                     <div className="form">
                         <div className="form-box form">
-                            <h1 className={"header"}>WELCOME to mxxtape</h1>
+                            <h1 className="dark">WELCOME to mxxtape</h1>
 
                             Please login to continue
 
