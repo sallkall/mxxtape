@@ -46,15 +46,6 @@ class App extends React.Component {
         register: 'register',
         create_community: 'create-community',
         notifications: 'notifications',
-        handleLogOut: () => {
-            console.log("Logout");
-            // this.setState(
-            //     {loggedIn: null},
-            //     () => {
-            //         console.log(this.state)
-            //     }
-            // );
-        },
         updateGlobal: () => {
             console.log("state.updateGlobal");
             this.setState(
