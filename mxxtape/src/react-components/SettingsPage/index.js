@@ -10,34 +10,23 @@ class SettingsPage extends React.Component {
     render() {
 
         //will need api call to find out if the user is an admin or regular user
-        if (this.props.app.state.loggedIn === 1) {
-            const UserSettings = Form.create({name: "userSettings"})(
-                SettingsForm
-            );
-            return (
-                <div>
-                    <Nav app={ this.props.app }/>
-                    <div className="settingsForm" >
-                        <UserSettings state={ this.props.app.state } username="user"/>
-                    </div>
+        const UserSettings = Form.create({name: "userSettings"})(
+            SettingsForm
+        );
+        return (
+            <div className="settings-page">
+                <Nav app={ this.props.app }/>
+                <div className="settingsForm" >
+                    {this.props.app.state.loggedIn === 2 ?
+                        <header id="settings-header-admin">Welcome, admin user.</header> :
+                        ''}
+                    {this.props.app.state.loggedIn === 2 ?
+                        <UserSettings state={ this.props.app.state } username="admin" isAdmin={true}/>:
+                        <UserSettings state={ this.props.app.state } username="user"/>}
+
                 </div>
-            )
-        } else if (this.props.app.state.loggedIn === 2) {
-            const AdminSettings = Form.create({name: "adminSettings"})(
-                SettingsForm
-            );
-            return (
-                <div>
-                    <Nav app={ this.props.app }/>
-                    <div className="settingsForm" >
-                        <header id="settings-header-admin">Welcome, admin user.</header>
-                        <AdminSettings state={this.props.app.state} username="admin" isAdmin={true}/>
-                    </div>
-                </div>
-            )
-        } else {
-            return (<Redirect to='/login'/>)
-        }
+            </div>
+        )
     }
 
 }
