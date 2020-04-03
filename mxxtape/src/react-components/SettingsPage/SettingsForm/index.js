@@ -4,7 +4,7 @@ import {List, Button, Form, Input, message, Upload, Avatar, Icon} from 'antd'
 import {withRouter} from 'react-router-dom'
 import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
 import {readCookie} from "../../../actions/user";
-import {changeDisplayName, changeEmail, changePassword, getUserSettings} from "../../../actions/settings";
+import {changeAbout, changeDisplayName, changeEmail, changePassword, getUserSettings} from "../../../actions/settings";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -115,17 +115,10 @@ class SettingsForm extends React.Component{
                 if (values.displayName){
                     changeDisplayName(this.state.username, values.displayName, this, this.updateStateFromServer);
                 }
-                //how user information will be updated on the server
-                let user = {
-                    // email: values.email ? values.email : this.state.email,
-                    // password: values.password ? values.password: this.state.password,
-                    displayName: values.displayName ? values.displayName : this.state.displayName,
-                    about: values.about ? values.about : this.state.about,
-                    avatar: values.avatar ? values.avatar : this.state.avatar,
-                };
-                //get new user info from server
-                //need to update user info from server
-                // this.updateStateFromServer();
+                if (values.about){
+                    changeAbout(this.state.username, values.about, this, this.updateStateFromServer)
+                }
+                //update avatar from server
                 //reset the form with new values from server
                 this.resetDesc();
             }
@@ -225,9 +218,6 @@ class SettingsForm extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const SettingsPasswordValidator = Form.create({name:'password validator'})(
-            PasswordValidator
-        );
 
         return (
             <Form onSubmit={this.handleSubmit}>

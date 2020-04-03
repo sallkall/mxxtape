@@ -30,7 +30,7 @@ export const changePassword = (username, password, confirm) => {
         })
         .then(json => {
             if (json){
-                if (json.username !== undefined){
+                if (json.username === username){
                     message.success("Password change successful!")
                 }
             } else {
@@ -65,7 +65,7 @@ export const changeEmail = (username, email, comp, callback) => {
         })
         .then(json => {
             if (json){
-                if (json.username !== undefined && json.email !== undefined){
+                if (json.username === username && json.email !== undefined){
                     message.success("Email changed successfully!");
                     comp.state ? comp.setState({"email":json.email}, () => callback()) : console.log("no state to set");
                 }
@@ -74,7 +74,7 @@ export const changeEmail = (username, email, comp, callback) => {
             }
         })
         .catch(error => {
-            console.log("checkUsernameError...", request, error);
+            console.log("changeEmailError...", request, error);
         });
 };
 
@@ -125,15 +125,53 @@ export const changeDisplayName = (username, displayName, comp, callback) => {
         })
         .then(json => {
             if (json){
-                if (json.username !== undefined && json.displayName !== undefined){
-                    message.success("Display Name changed successfully!");
+                if (json.username === username && json.displayName !== undefined){
+                    message.success("Display name changed successfully!");
                     comp.state ? comp.setState({"displayName":json.displayName}, () => callback()) : console.log("no state to set");
                 }
             } else {
-                message.error('Email change was unsuccessful');
+                message.error('Display name change was unsuccessful');
             }
         })
         .catch(error => {
-            console.log("checkUsernameError...", request, error);
+            console.log("changeDisplayNameError...", request, error);
+        });
+};
+
+export const changeAbout = (username, about, comp, callback) => {
+    console.log("changeAbout", username, about);
+
+    const url = "/users/settings/about";
+
+    const request = new Request(url, {
+        method: "post",
+        body: JSON.stringify({
+            username: username,
+            about: about
+        }),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            if (json){
+                if (json.username === username && json.about !== undefined){
+                    message.success("About changed successfully!");
+                    comp.state ? comp.setState({"about":json.about}, () => callback()) : console.log("no state to set");
+                }
+            } else {
+                message.error('About change was unsuccessful');
+            }
+        })
+        .catch(error => {
+            console.log("changeAboutError...", request, error);
         });
 };
