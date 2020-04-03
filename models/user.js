@@ -23,18 +23,23 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true,
-        minlength: 5
+        minlength: 4
     },
     password: {
         type: String,
         required: true,
-        minlength: 6
+        minlength: 4
     },
 
     history: {
-        type: [String]  //TODO
+        type: [String]
+    },
+    starsong: {
+        type: String
+    },
+    subscriptions: {
+        type: [[String, String]]
     }
-
 });
 
 

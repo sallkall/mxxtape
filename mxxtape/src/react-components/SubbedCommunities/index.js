@@ -12,32 +12,59 @@ import { Button } from 'antd';
 
 
 import bannerPic from "../UserDashboard/randombanner.jpg";
+import {getUserProfile} from "../../actions/user";
 
 const { Sider, Content } = Layout;
 
-let SubList = [
+/*let SubList = [
     ["Jazz It Up", "jazzitup"],
     ["Digital", "digital"],
     ["Rock N Roll", "rocknroll"],
     ["Stubdep", "stubdep"],
     ["Harmonica Remixes", "harmonicaremixes"],
-];
+];*/
 
-function UnSub(community, react) {
-    SubList.splice(SubList.indexOf(community), 1);
-    react.forceUpdate();
-}
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: []
+};
 
 class SubbedCommunities extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.history.push("/subscriptions/"+props.username);
+        getUserProfile(props.username, userjson, this);
+    }
+
+    Unsubscribe(username, community) {
+        const react = this;
+        fetch("/users/"+username+"/subscriptions", {method: 'DELETE', body: "{\"community\": "+community+"}"})
+            .then(
+                res => {
+                    return res.json();
+                }
+            )
+            .then(
+                json => {
+                    userjson.subscriptions = json.subscriptions;
+                    react.forceUpdate();
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
     redirect(dir) {
         this.props.history.push(dir);
     }
     render() {
         const { state } = this.props;
-        let username = this.props.location.pathname.substring(15);
-        if(username==="") {
-            username = "USERNAME";
-        }
+        const username = this.props.username;
         return (
             <div>
                 <Nav state={ state }/>
@@ -49,14 +76,14 @@ class SubbedCommunities extends React.Component {
                         <Content>
                             <Card id="Subscriptions" className="ContentCard" title="SUBSCRIPTIONS">
                                 <List
-                                    dataSource = {SubList}
+                                    dataSource = {userjson.subscriptions}
                                     renderItem = {item => (
                                         <List.Item>
                                             <div className="SubbedCommunityDiv">
                                                 <img className="SubbedCommunityBanner" src={bannerPic} alt="Image Load Error"/>
                                                 <a className="SubbedCommunityTitle" onClick={() => this.redirect("/community/"+item[1])}>{item[0]}</a>
                                             </div>
-                                            <Button onClick={() => UnSub(item, this)} size='large'>
+                                            <Button onClick={() => this.Unsubscribe(username, item)} size='large'>
                                                 Leave Community
                                                 <Icon type="minus-square" theme="twoTone"/>
                                             </Button>

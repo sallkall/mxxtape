@@ -14,9 +14,19 @@ import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
 
+import {getUserProfile} from "../../actions/user";
+
+
 const { Sider, Content } = Layout;
 
-let starSong = "https://soundcloud.com/aperturesciencepsychoacousticlaboratories/want-you-gone";
+let username = "USERNAME";
+
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: []
+};
 
 let FeaturedSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
 
@@ -26,7 +36,7 @@ let DiscoverList = [
     "https://soundcloud.com/melatonin-nl/factorio",
 ];
 
-let HistoryList = [
+/*let HistoryList = [
     "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
     "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
     "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
@@ -36,25 +46,31 @@ let SubList = [
     ["Jazz It Up", "jazzitup"],
     ["Digital", "digital"],
     ["Rock N Roll", "rocknroll"],
-];
+];*/
 
 function RenderNewStarSong(react) {
-    const starSongInput = document.getElementById("DashboardSidebarSongInput");
-    starSong = starSongInput.value;
+    /*const starSongInput = document.getElementById("DashboardSidebarSongInput");
+    userjson.starsong = starSongInput.value;
     starSongInput.value = "";
-    react.forceUpdate();
+    react.forceUpdate();*/
+    const starSongInput = document.getElementById("DashboardSidebarSongInput");
 }
 
 class UserDashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.history.push("/dashboard");
+        getUserProfile(this.props.state.currentUser, userjson, this);
+    }
+
     redirect(dir) {
         this.props.history.push(dir);
     }
     render() {
         const { state } = this.props;
-        let username = this.props.location.pathname.substring(11);
-        if(username==="") {
-            username = "USERNAME";
-        }
+        const username = this.props.state.currentUser;
+        userjson.history = userjson.history.slice(0, 4);
+        userjson.subscriptions = userjson.subscriptions.slice(0, 4);
         return (
             <div>
                 <Nav state={ state }/>
@@ -65,7 +81,7 @@ class UserDashboard extends React.Component {
                                 <Avatar id="DashboardSidebarAvatar" shape="square" src={"/"+username+".png"}/>
                                 <Divider/>
                                 <p>Starred Song</p>
-                                <ReactPlayer height={150} width={150} controls={false} url={starSong}/>
+                                <ReactPlayer height={150} width={150} controls={false} url={userjson.starsong}/>
                                 <br/><br/>
                                 <input id="DashboardSidebarSongInput" type="text" placeholder="Song URL"/>
                                 <Button id="DashboardSidebarSongButton" onClick={() => RenderNewStarSong(this)}>Set Starred Song</Button>
@@ -95,7 +111,7 @@ class UserDashboard extends React.Component {
                                 <List
                                     className="listItems"
                                     footer = {<Button onClick={() => this.redirect("/history/"+username)}>MORE</Button>}
-                                    dataSource = {HistoryList}
+                                    dataSource = {userjson.history}
                                     renderItem = {item => (
                                         <List.Item>
                                             <ReactPlayer height={70}  controls={false} url={item}/>
@@ -108,7 +124,7 @@ class UserDashboard extends React.Component {
                                 <List
                                     className="listItems"
                                     footer = {<Button onClick={() => this.redirect("/subscriptions/"+username)}>MORE</Button>}
-                                    dataSource = {SubList}
+                                    dataSource = {userjson.subscriptions}
                                     renderItem = {item => (
                                         <List.Item>
                                             <div className="CommunityDiv">

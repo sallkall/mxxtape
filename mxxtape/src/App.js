@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Importing react-router-dom to use the React Router
-import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, BrowserRouter, Redirect, useParams} from 'react-router-dom';
 import './App.css';
 import 'antd/dist/antd.css';
 
@@ -33,7 +33,7 @@ class App extends React.Component {
     // a 'global' state that you can pass through to any child components of App.
     //   In the Routes below they are passed to both the Home and Queue states.
     state = {
-        currentUser: null,
+        currentUser: "user",
 
         community: "community",
         profile: "profile",
@@ -44,7 +44,7 @@ class App extends React.Component {
         notifications: 'notifications',
         //loggedIn is -1 if not logged in 1 to "user", 2 for "admin"
         //will eventually be replaced with a user's information in login
-        loggedIn: -1,
+        loggedIn: 1,
         handleLoggedIn: (val) => {
             console.log("handleLogin", val);
             if (val === 1 || val === 2 || val === 3){
@@ -70,7 +70,10 @@ class App extends React.Component {
     };
 
     render() {
-        const { currentUser } = this.state;
+        let {currentUser} = "";
+        try {
+             currentUser = this.state.currentUser;
+        } catch {}
 
         if (this.state.loggedIn === -1) {
             return(
@@ -114,12 +117,18 @@ class App extends React.Component {
                                 (<Community state={this.state}/>)}/>)}/>
                             <Route exact path={'/' + this.state.create_community} render={() =>
                                 (<CreateCommunityPage state={this.state}/>)}/>
-                            <Route path='/history' render={()=>
-                                (<History state={this.state}/>)}/>
-                            <Route path='/subscriptions' render={()=>
-                                (<SubbedCommunities state={this.state}/>)}/>
-                            <Route path='/profile' render={()=>
-                                (<UserProfile state={this.state}/>)}/>
+                            <Route path='/history/:username' render={(params)=>
+                                (<History state={this.state} username={params.match.params.username}/>)}/>
+                            <Route path='/subscriptions/:username' render={(params)=>
+                                (<SubbedCommunities state={this.state} username={params.match.params.username}/>)}/>
+                            <Route path='/profile/:username' render={(params)=>
+                                (
+                                    <div>
+                                        { currentUser===params.match.params.username && <UserDashboard state={this.state}/>}
+                                        { currentUser!==params.match.params.username && <UserProfile state={this.state} username={params.match.params.username}/>}
+                                    </div>
+                                )
+                            }/>
                             <Route exact path={'/' + this.state.notifications} render={()=>
                                 (<NotificationsPage state={this.state}/>)}/>
                             <Route path="*">

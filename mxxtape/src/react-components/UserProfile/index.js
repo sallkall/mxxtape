@@ -14,35 +14,44 @@ import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
 
+import NoMatch from "../NoMatch"
+
+import {getUserProfile} from "../../actions/user";
+
+
 const { Sider, Content } = Layout;
 
-let starSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
-
-let HistoryList = [
-    "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
-    "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
-    "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
-    "https://soundcloud.com/thefatrat/thefatrat-mayday-feat-laura-brehm"
-];
-
-let SubList = [
-    ["Jazz It Up", "jazzitup"],
-    ["Digital", "digital"],
-    ["Rock N Roll", "rocknroll"],
-    ["Stubdep", "stubdep"],
-    ["Harmonica Remixes", "harmonicaremixes"],
-];
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: []
+};
 
 class UserProfile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.history.push("/profile/"+props.username);
+        getUserProfile(props.username, userjson, this);
+
+    }
+
     redirect(dir) {
         this.props.history.push(dir);
     }
+
     render() {
-        const { state } = this.props;
-        let username = this.props.location.pathname.substring(9);
-        if(username==="") {
-            username = "USERNAME";
+        if(!userjson.exists) {
+            return (
+                <NoMatch/>
+            )
         }
+        userjson.history = userjson.history.slice(0, 4);
+        userjson.subscriptions = userjson.subscriptions.slice(0, 4);
+        const { state } = this.props;
+        const username = this.props.username;
+
+        console.log(userjson);
         return (
             <div>
                 <Nav state={ state }/>
@@ -53,7 +62,7 @@ class UserProfile extends React.Component {
                                 <Avatar id="ProfileSidebarAvatar" shape="square" src={"/"+username+".png"}/>
                                 <Divider/>
                                 <p>Starred Song</p>
-                                <ReactPlayer height={200} width={150} controls={false} url={starSong}/>
+                                <ReactPlayer height={200} width={150} controls={false} url={userjson.starsong}/>
                             </Card>
                         </Sider>
 
@@ -61,7 +70,7 @@ class UserProfile extends React.Component {
                             <Card className="ProfileContentCard SongListCard" title="USER HISTORY">
                                 <List
                                     footer = {<Button onClick={() => this.redirect("/history/"+username)}>[MORE]</Button>}
-                                    dataSource = {HistoryList}
+                                    dataSource = {userjson.history}
                                     renderItem = {item => (
                                         <List.Item>
                                             <ReactPlayer height={70} width={650} controls={false} url={item}/>
@@ -73,7 +82,7 @@ class UserProfile extends React.Component {
                             <Card id="ProfileCommunityCard" className="ProfileContentCard" title="USER COMMUNITIES">
                                 <List
                                     footer = {<Button onClick={() => this.redirect("/subscriptions/"+username)}>[MORE]</Button>}
-                                    dataSource = {SubList}
+                                    dataSource = {userjson.subscriptions}
                                     renderItem = {item => (
                                         <List.Item>
                                             <div className="CommunityDiv">
