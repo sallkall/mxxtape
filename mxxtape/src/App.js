@@ -22,7 +22,7 @@ import CreateCommunityPage from "./react-components/CreateCommunityPage";
 import NotificationsPage from "./react-components/NotificationsPage";
 import NoMatch from "./react-components/NoMatch";
 
-import { readCookie } from "./actions/user";
+import {logout, readCookie} from "./actions/user";
 
 class App extends React.Component {
     constructor(props) {
@@ -79,7 +79,7 @@ class App extends React.Component {
                                     return <AdminDashboard history={history} app={this}/>
                                 } else {
                                     // should call logout here
-                                    this.state.handleLogOut();
+                                    logout(this);
                                     return <LoginPage history={history} app={this}/>
                                 }
                             }}
