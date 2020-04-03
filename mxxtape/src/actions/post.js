@@ -26,7 +26,7 @@
 export const addPost = (formComp, feedComp) => {
     // the URL for the request
     console.log(formComp)
-    const url = "/post";
+    const url = "/textpost";
 
     // Create request with all the parameters we need
     const request = new Request(url, {

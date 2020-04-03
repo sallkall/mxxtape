@@ -111,18 +111,18 @@ app.post("/users", (req, res) => {
 /*********************************************************/
 /*************    POST API      *************/
 
-app.post("/post", (req, res) => {
+app.post("/textpost", (req, res) => {
     // log(req.body);
     const post = new Post({
-        id: req.body.id,
-        community_id: req.body.community_id,
         author_id: req.body.author_id,
-        post_type: req.body.post_type,
-        rating: req.body.rating,
         avatar: req.body.avatar,
-        musicUrl: req.body.musicUrl,
+        community_id: req.body.community_id,
         content: req.body.content,
         tags: req.body.tags,
+
+        // post_type: req.body.post_type,  // dont need this, can just make it a different api
+        // rating: req.body.rating,
+        // musicUrl: req.body.musicUrl,
     });
 
     // Save the post to db
@@ -137,10 +137,9 @@ app.post("/post", (req, res) => {
 });
 
 // get all posts
-app.get('/post', (req, res)=> {
+app.get('/textpost', (req, res)=> {
     Post.find().then(
         posts => {
-            log();
             res.send({ posts }); // can wrap in object if want to add more properties
         },
         error => {
@@ -150,7 +149,7 @@ app.get('/post', (req, res)=> {
 });
 
 // get by post id
-app.get('/post/:post_id', (req, res) => {
+app.get('/textpost/:id', (req, res) => {
     /// req.params has the wildcard parameters in the url, in this case, id.
     // log(req.params.post_id)
     const id = req.params.id;
@@ -176,7 +175,7 @@ app.get('/post/:post_id', (req, res) => {
 });
 
 /// a DELETE route to remove a student by their id.
-app.delete('/post/:id', (req, res) => {
+app.delete('/textpost/:id', (req, res) => {
     const id = req.params.id
 
     // Validate id

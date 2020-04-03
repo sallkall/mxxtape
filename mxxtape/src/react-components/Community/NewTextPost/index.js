@@ -128,18 +128,20 @@ class NewTextPost extends React.Component {
             // console.log(form.getFieldValue("content"))
 
             const formInfo = {
-                id: 0,  //get id from query
+                // id: 0,  //get id from query
+                author_id: 0,   //get from user
+                avatar: "https://tinyurl.com/wy5zbp2",
                 community_id: 0, // get from community
                 content: form.getFieldValue('content'),
-                author_id: "0",
+                tags: form.getFieldValue('tags'),
+
                 // post_type: 'text'
                 // actions: null,
                 // rating: null,
                 // avatar: "https://tinyurl.com/wy5zbp2",
                 // musicUrl: null,
-                // tags: form.getFieldValue('tags'),
             };
-            addPost(formInfo, state);
+            addPost(formInfo, this);
 
             // // Create new post information to push to all feed posts in CommunityFeed
             // const post_information = {

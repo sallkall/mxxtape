@@ -1,13 +1,17 @@
 /* Student mongoose model */
 const mongoose = require('mongoose')
 const validator = require('validator')
-const bcrypt = require('bcryptjs')
 
 const UserSchema = new mongoose.Schema({
-    id: {
+    author_id: {
         type: Number,
         required: true,
-        unique: true,
+        trim: true
+    },
+    avatar: {
+        type: String,
+        required: true,
+        // trim: false
     },
     community_id: {
         type: Number,
@@ -20,13 +24,12 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         maxlength: 140,
     },
+    tags: {
+        type: Array,
+        required: false,
+        // trim: true
+    }
 
-    author_id: {
-        type: Number,
-        required: true,
-        minlength: 1,
-        trim: true
-    },
     // post_type: {
     //     type: String,
     //     required: true,
@@ -41,11 +44,7 @@ const UserSchema = new mongoose.Schema({
     //     type: Number,
     //     required: false,
     // },
-    // avatar: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
+
     // musicUrl: {
     //     type: String,
     //     required: false,
@@ -56,11 +55,7 @@ const UserSchema = new mongoose.Schema({
     //     // }
     // },
 
-    // tags: {
-    //     type: String,
-    //     required: false,
-    //     trim: true
-    // }
+
 
 });
 
