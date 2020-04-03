@@ -1,6 +1,7 @@
 import React from "react";
 
-import "./index.css";
+// import "./index.css";
+import "../LoginPage/index.css"
 import 'antd/dist/antd.css';
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import {Form} from "antd";
@@ -14,12 +15,14 @@ class ForgotPassword extends React.Component {
         );
 
         return (
-            <div className="forgot-password">
-                <div className="forgot-password-form">
-                    <h2 className="form-header">
-                        Forgot Password
-                    </h2>
-                    <ForgotPasswordPageForm />
+            <div className="Login">
+                <div className="form">
+                    <div className="form-box form">
+                        <h2 className="dark">
+                            Forgot Password
+                        </h2>
+                        <ForgotPasswordPageForm />
+                    </div>
                 </div>
             </div>
         )

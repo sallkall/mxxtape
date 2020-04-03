@@ -47,29 +47,31 @@ class ForgotPasswordForm extends React.Component {
         );
 
         return (
-            <Form onSubmit={this.handleSubmit} className="forgot-password-form">
-                <Form.Item>
-                    {getFieldDecorator("username", {
-                        rules: [{required: true, message: "Please input your username!"}]
-                    })(
-                        <Input
-                            className="input"
-                            prefix={<Icon type="user"  className="input-icon"/>}
-                            placeholder="Username"
-                        />
-                    )}
-                </Form.Item>
-                <ForgotPasswordValidator handleSubmit={this.handleSubmit}/>
-                <Form.Item>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        className="forgot-password-form-button"
-                    >
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
+            <div>
+                <Form onSubmit={this.handleSubmit} className="forgot-password-form">
+                    <Form.Item>
+                        {getFieldDecorator("username", {
+                            rules: [{required: true, message: "Please input your username!"}]
+                        })(
+                            <Input
+                                className="input"
+                                prefix={<Icon type="user"  className="input-icon"/>}
+                                placeholder="Username"
+                            />
+                        )}
+                    </Form.Item>
+                    <ForgotPasswordValidator handleSubmit={this.handleSubmit}/>
+                    <Form.Item>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="forgot-password-form-button"
+                        >
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         );
     }
 }
