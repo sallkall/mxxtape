@@ -6,7 +6,6 @@ import {
     Form,
     Input,
     Button,
-    message,
     Icon
 } from 'antd';
 import {withRouter} from "react-router-dom";

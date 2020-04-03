@@ -3,15 +3,7 @@ import './RegisterForm.css'
 import {Button, Form, Icon, Input, message} from "antd";
 import {withRouter} from "react-router-dom";
 import {registerNewUser} from "../../../actions/user";
-
-function checkValidEmail(email) {
-    // regex for email taken from https://emailregex.com
-    const isEmailAddress = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    if (!isEmailAddress){
-        message.error('You must enter a valid email address!')
-    }
-    return isEmailAddress;
-}
+import {checkValidEmail} from "../../../actions/settings";
 
 class RegisterForm extends React.Component {
 

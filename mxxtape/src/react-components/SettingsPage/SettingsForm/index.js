@@ -2,9 +2,14 @@ import React from "react";
 import './index.css'
 import {List, Button, Form, Input, message, Upload, Avatar, Icon} from 'antd'
 import {withRouter} from 'react-router-dom'
-import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
-import {readCookie} from "../../../actions/user";
-import {changeAbout, changeDisplayName, changeEmail, changePassword, getUserSettings} from "../../../actions/settings";
+import {
+    changeAbout,
+    changeDisplayName,
+    changeEmail,
+    changePassword,
+    checkValidEmail,
+    getUserSettings
+} from "../../../actions/settings";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -86,7 +91,8 @@ class SettingsForm extends React.Component{
                         password: user.password ? user.password : errorInput,
                         displayName: user.displayName ? user.displayName : user.username,
                         about: user.about ? user.about : "Change your about here!",
-                        avatar: user.avatar ? user.avatar : "Change your avatar!"
+                        avatar: user.avatar ? user.avatar : "Change your avatar!",
+                        isAdmin: user.type === 2
                     // },
                     // () => {
                     //     console.log(this.state);
@@ -106,7 +112,7 @@ class SettingsForm extends React.Component{
         this.props.form.validateFields((err, values) => {
             if(!err) {
                 console.log("Received values of form: ", values);
-                if (values.email) {
+                if (values.email && checkValidEmail(values.email)) {
                     changeEmail(this.state.username, values.email, this, this.updateStateFromServer);
                 }
                 if (values.password && values.confirm) {
