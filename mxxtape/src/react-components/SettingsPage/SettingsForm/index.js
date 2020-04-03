@@ -81,7 +81,6 @@ class SettingsForm extends React.Component{
     //get user info from server
     updateStateFromServer = () => {
         getUserSettings(this.state.username, this, () => {
-            console.log("updating user state", this.state.user);
             const errorInput = "Something went wrong";
             const user = this.state.user;
             if (user){
@@ -93,9 +92,6 @@ class SettingsForm extends React.Component{
                         about: user.about ? user.about : "Change your about here!",
                         avatar: user.avatar ? user.avatar : "Change your avatar!",
                         isAdmin: user.type === 2
-                    // },
-                    // () => {
-                    //     console.log(this.state);
                     }
                 );
             }
