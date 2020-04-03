@@ -111,19 +111,34 @@ app.post("/users", (req, res) => {
 /*********************************************************/
 /*************    POST API      *************/
 
-app.post("/textpost", (req, res) => {
+app.post("/post", (req, res) => {
     // log(req.body);
-    const post = new Post({
-        author_id: req.body.author_id,
-        avatar: req.body.avatar,
-        community_id: req.body.community_id,
-        content: req.body.content,
-        tags: req.body.tags,
+    const type = req.body.post_type;
+    let post = null;
+    if (type == "text") {
+        post = new Post({
+            author_id: req.body.author_id,
+            avatar: req.body.avatar,
+            community_id: req.body.community_id,
+            content: req.body.content,
+            tags: req.body.tags,
+            post_type: req.body.post_type,
+            rating: null,
+            musicUrl: null,
+        });
+    } else if (type == "music") {
+        post = new Post({
+            author_id: req.body.author_id,
+            avatar: req.body.avatar,
+            community_id: req.body.community_id,
+            // content: req.body.content,
+            tags: req.body.tags,
+            post_type: req.body.post_type,
+            rating: req.body.rating,
+            musicUrl: req.body.musicUrl,
+        });
+    }
 
-        // post_type: req.body.post_type,  // dont need this, can just make it a different api
-        // rating: req.body.rating,
-        // musicUrl: req.body.musicUrl,
-    });
 
     // Save the post to db
     post.save().then(
@@ -137,7 +152,7 @@ app.post("/textpost", (req, res) => {
 });
 
 // get all posts
-app.get('/textpost', (req, res)=> {
+app.get('/post', (req, res)=> {
     Post.find().then(
         posts => {
             res.send({ posts }); // can wrap in object if want to add more properties
@@ -149,7 +164,7 @@ app.get('/textpost', (req, res)=> {
 });
 
 // get by post id
-app.get('/textpost/:id', (req, res) => {
+app.get('/post/:id', (req, res) => {
     /// req.params has the wildcard parameters in the url, in this case, id.
     // log(req.params.post_id)
     const id = req.params.id;
@@ -175,7 +190,7 @@ app.get('/textpost/:id', (req, res) => {
 });
 
 /// a DELETE route to remove a student by their id.
-app.delete('/textpost/:id', (req, res) => {
+app.delete('/post/:id', (req, res) => {
     const id = req.params.id
 
     // Validate id

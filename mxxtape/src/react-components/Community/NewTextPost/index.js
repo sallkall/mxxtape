@@ -134,11 +134,9 @@ class NewTextPost extends React.Component {
                 community_id: 0, // get from community
                 content: form.getFieldValue('content'),
                 tags: form.getFieldValue('tags'),
-
-                // post_type: 'text'
+                post_type: 'text',
                 // actions: null,
                 // rating: null,
-                // avatar: "https://tinyurl.com/wy5zbp2",
                 // musicUrl: null,
             };
             addPost(formInfo, this);

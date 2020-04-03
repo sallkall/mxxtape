@@ -1,8 +1,8 @@
-/* Student mongoose model */
+/* Post mongoose model */
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-const UserSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
     author_id: {
         type: Number,
         required: true,
@@ -28,14 +28,13 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         required: false,
         // trim: true
-    }
+    },
 
-    // post_type: {
-    //     type: String,
-    //     required: true,
-    //     minlegth: 1,
-    //     trim: true
-    // },
+    post_type: {
+        type: String,
+        required: true,
+    },
+
     // actions : {
     //     type: Array,
     //     required: false,
@@ -62,5 +61,5 @@ const UserSchema = new mongoose.Schema({
 // TODO: mongoose middleware
 
 
-const Post = mongoose.model('Post', UserSchema)
+const Post = mongoose.model('Post', PostSchema)
 module.exports = { Post }
