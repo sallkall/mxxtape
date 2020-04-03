@@ -50,7 +50,7 @@ class ForgotPasswordForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('ForgotpasswordFormValues: ', values);
                 changePassword(values.username, values.password, values.confirm);
                 this.props.history.push('/');
             }
@@ -117,6 +117,16 @@ class ForgotPasswordForm extends React.Component {
                             className="forgot-password-form-button"
                         >
                             Submit
+                        </Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button
+                            type="link"
+                            onClick={() => {
+                                this.props.history.push('/')
+                            }}
+                        >
+                            Back to Login Page
                         </Button>
                     </Form.Item>
                 </Form>

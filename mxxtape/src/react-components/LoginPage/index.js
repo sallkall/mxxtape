@@ -10,9 +10,8 @@ class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Construct Login Page", props);
+        // console.log("LoginPage constructor", props);
         this.app = this.props.app;//this.props.app;
-        // this.handleLogin = this.handleLogin.bind(this.app)
     }
 
     state = {

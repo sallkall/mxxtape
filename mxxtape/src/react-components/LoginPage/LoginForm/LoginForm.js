@@ -9,7 +9,7 @@ class LoginForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Construct Login Form", props);
+        // console.log("LoginForm constructor props", props);
         this.handleLogin = this.props.handleLogin;
     }
 

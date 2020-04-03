@@ -15,11 +15,6 @@ function checkValidEmail(email) {
 
 class RegisterForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-        console.log("Construct RegisterPage Form", props);
-    }
-
     state = {
         email: "",
         username: "",
@@ -31,10 +26,8 @@ class RegisterForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log("Register handleSubmit: Received values of form: ", values);
+                // console.log("RegisterForm values ", values);
                 if (checkValidEmail(values.email) && values.username && values.password) {
-                    // will eventually need to make server calls to make new users
-                    // for now nothing happens
                     this.setState(
                         {
                             email: values.email,
@@ -155,6 +148,16 @@ class RegisterForm extends React.Component {
                             className="register-form-button"
                         >
                             Register Now!
+                        </Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button
+                            type="link"
+                            onClick={() => {
+                                this.props.history.push('/')
+                            }}
+                        >
+                            Back to Login Page
                         </Button>
                     </Form.Item>
                 </Form>

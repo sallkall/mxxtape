@@ -53,6 +53,7 @@ export const login = (loginComp, app) => {
             }
         })
         .catch(error => {
+            message.error('Login error! Is your password correct?');
             console.log("login catch error", request, error);
         });
 };
