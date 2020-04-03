@@ -80,7 +80,7 @@ class Nav extends React.Component {
                             <Menu.Item
                                 key="goto-subscriptions"
                                 onClick = { () => {
-                                    this.redirect("/subscriptions")
+                                    this.redirect("/subscriptions/"+this.props.app.state.currentUser)
                                 }}
                             >
                                 Subscriptions
