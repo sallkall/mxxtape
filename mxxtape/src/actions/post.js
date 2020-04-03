@@ -26,7 +26,7 @@
 export const addPost = (formComp, feedComp) => {
     // the URL for the request
     console.log(formComp)
-    const url = "/textpost";
+    const url = "/posts";
 
     // Create request with all the parameters we need
     const request = new Request(url, {
@@ -61,6 +61,29 @@ export const addPost = (formComp, feedComp) => {
                     }
                 });
             }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+export const getFeed = (posts) => {
+    // the URL for the request
+    const url = "/posts";
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get students");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            posts.setState({ posts: json.posts });
         })
         .catch(error => {
             console.log(error);

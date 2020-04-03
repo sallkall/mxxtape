@@ -3,12 +3,12 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 
 import { Select } from 'antd';
-import {posts} from "../CommunityFeed";
+// import {posts} from "../CommunityFeed";
 
 const { Option } = Select;
 
 function onChange() {
-    posts.reverse();
+    // posts.reverse();
 }
 
 function onBlur() {
@@ -22,7 +22,7 @@ function onFocus() {
 function onSearch(val) {
     // Sorts posts for now, should be making server calls to directly manipulate the posts for phase 2
     if (val === 'oldest') {
-        posts.reverse();
+        // posts.reverse();
     }
     console.log('search:', val);
 }

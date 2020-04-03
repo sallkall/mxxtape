@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 
 import {Button, Modal, Form, Input, Icon, Layout, Mentions, Tooltip} from 'antd';
 
-import {posts} from "../CommunityFeed";
+// import {posts} from "../CommunityFeed";
 
 // import action methods
 import { addPost} from "../../../actions/post";
@@ -128,16 +128,16 @@ class NewTextPost extends React.Component {
             // console.log(form.getFieldValue("content"))
 
             const formInfo = {
-                // id: 0,  //get id from query
                 author_id: 0,   //get from user
                 avatar: "https://tinyurl.com/wy5zbp2",
                 community_id: 0, // get from community
                 content: form.getFieldValue('content'),
                 tags: form.getFieldValue('tags'),
                 post_type: 'text',
-                // actions: null,
-                // rating: null,
-                // musicUrl: null,
+                rating: null,
+                musicUrl: null,
+                likes: 0,
+                dislikes: 0,
             };
             addPost(formInfo, this);
 

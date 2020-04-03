@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
+
 const PostSchema = new mongoose.Schema({
     author_id: {
         type: Number,
@@ -34,29 +35,32 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    rating: {
+        type: Number,
+        required: false,
+    },
 
-    // actions : {
-    //     type: Array,
-    //     required: false,
-    // },
-    // rating: {
-    //     type: Number,
-    //     required: false,
-    // },
+    musicUrl: {
+        type: String,
+        required: false,
+        trim: true,
+        // validate: {
+        //     validator: validator.isValidMusic,   // TODO: validator
+        //     message: 'Not valid music url'
+        // }
+    },
+    likes: {
+        type: Number,
+        required: true,
+    },
 
-    // musicUrl: {
-    //     type: String,
-    //     required: false,
-    //     trim: true,
-    //     // validate: {
-    //     //     validator: validator.isValidMusic,   // TODO: validator
-    //     //     message: 'Not valid music url'
-    //     // }
-    // },
-
-
-
+    dislikes: {
+        type: Number,
+        required: true,
+    }
 });
+
+
 
 // TODO: mongoose middleware
 
