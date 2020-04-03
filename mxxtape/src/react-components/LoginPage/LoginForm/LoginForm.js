@@ -2,14 +2,14 @@ import React from "react";
 import './LoginForm.css'
 
 // import {Form, Icon, Input, Button, Checkbox, message} from "antd";
-import {Form, Icon, Input, Button, message} from "antd";
+import {Form, Icon, Input, Button} from "antd";
 import {withRouter} from "react-router-dom";
 
 class LoginForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Construct Login Form", props);
+        // console.log("LoginForm constructor props", props);
         this.handleLogin = this.props.handleLogin;
     }
 

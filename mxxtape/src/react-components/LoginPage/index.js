@@ -3,16 +3,15 @@ import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import "./index.css";
 import LoginForm from "./LoginForm/LoginForm.js";
 import {Button, Form} from "antd";
-import {login, readCookie} from "../../actions/user";
+import {login} from "../../actions/user";
 
 
 class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Construct Login Page", props);
+        // console.log("LoginPage constructor", props);
         this.app = this.props.app;//this.props.app;
-        // this.handleLogin = this.handleLogin.bind(this.app)
     }
 
     state = {

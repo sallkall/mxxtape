@@ -37,6 +37,15 @@ const UserSchema = new mongoose.Schema({
         default: 1
 
     },
+    displayName: {
+        type: String,
+    },
+    avatar: {
+        type: String
+    },
+    about: {
+        type:String
+    },
 
     history: {
         type: [String]
@@ -83,6 +92,18 @@ UserSchema.statics.findUser = function(username, password) {
                 }
             })
         })
+    })
+};
+
+//get user by just the username
+UserSchema.statics.findUserByUsername = function(username) {
+    const User = this;
+
+    return User.findOne({username: username}).then((user) => {
+        if (!user) {
+            return Promise.reject()
+        }
+        return Promise.resolve(user)
     })
 };
 

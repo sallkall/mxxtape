@@ -1,8 +1,15 @@
 import React from "react";
 import './index.css'
-import {List, Button, Form, Input, message, Upload, Avatar} from 'antd'
+import {List, Button, Form, Input, message, Upload, Avatar, Icon} from 'antd'
 import {withRouter} from 'react-router-dom'
-import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
+import {
+    changeAbout,
+    changeDisplayName,
+    changeEmail,
+    changePassword,
+    checkValidEmail,
+    getUserSettings
+} from "../../../actions/settings";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -25,31 +32,15 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
-function checkValidEmail(email) {
-    // regex for email taken from https://emailregex.com
-    const isEmailAddress = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-    if (!isEmailAddress){
-        message.error('You must enter a valid email address!')
-    }
-    return isEmailAddress;
-}
-
-function checkValidSpotify(spotify) {
-    // check if spotify with spotify's API
-    // temporarily validating
-    return true
-}
 
 class SettingsForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props.username ? this.props.username : "whoareyou?",
-            user: null,
+            username: this.props.username,
             changingSetting: false,
             changeEmail: false,
             changePassword: false,
-            changeSpotifyAccount: false,
             changeDisplayName: false,
             changeAbout: false,
             changeAvatar: false,
@@ -59,24 +50,22 @@ class SettingsForm extends React.Component{
         // needed to maintain changingSettingSToggle
         this.emailSetting = "email";
         this.passwordSetting = "password";
-        this.spotifyAccountSetting = "spotifyAccount";
         this.displayNameSetting = "displayName";
         this.aboutSetting = "about";
-        this.avatarSetting = "avatar";
 
         // temp variable for current user
         // only for phase 1, eventually will user information will include whether or not they are an admin
         this.isAdmin = this.props.isAdmin;
     }
 
+    // reset the buttons
     resetDesc = () => {
-        console.log("resetting fields");
+        // console.log("resetting fields");
         this.setState(
             {
                 changingSetting: false,
                 changeEmail: false,
                 changePassword: false,
-                changeSpotifyAccount: false,
                 changeDisplayName: false,
                 changeAbout: false,
                 changeAvatar: false
@@ -86,58 +75,27 @@ class SettingsForm extends React.Component{
 
     componentDidMount() {
         //make server call with state.username passed from parent component
-        // let user = getUser(state.username);
-        //populate email. displayName, about, spotifyAccount, links to avatar
-        let user = null;
-        if (this.isAdmin) {
-            user = {
-                email: "admin@admin.com",
-                password: "admin",
-                displayName: "admin-display-name",
-                about: "Music has always had a magic in that it is able to unite people in ways that other mediums " +
-                    "can’t. For many people, music defines the cultural identity of the times they grew up in, the " +
-                    "interests they have, and as a way to easily express their personality. And yet, the base " +
-                    "functionality of music streaming sites on the internet like Spotify and Apple Music are very " +
-                    "focused on providing users with a place to listen to music. Beyond allowing users to create " +
-                    "playlists, they provide their users very little opportunity for people to connect with each " +
-                    "other and share their love for music. In this way, the sense of community and unity through music " +
-                    "is lost. For these reasons we came up with our project: Mxxtape.",
-                spotifyAccount: "admin-spotify-account",
-                avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
-            };
-        } else {
-            user = {
-                email: "user@user.com",
-                password: "user",
-                displayName: "user-display-name",
-                about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give " +
-                    "context around the programming that we do in the course. By the end of the course, you should " +
-                    "be able to explain the architecture behind a web application, and understand which technologies " +
-                    "you can use to create web applications yourself.",
-                spotifyAccount: "user-spotify-account",
-                avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
-            };
-        }
-        //callback
-        this.updateStateFromServer(user)
+        this.updateStateFromServer()
     }
 
-    updateStateFromServer = user => {
-        console.log("updating user state");
-        const errorInput = "something went wrong";
-        this.setState(
-            {
-                email: user.email ? user.email : errorInput,
-                password: user.password ? user.password : errorInput,
-                displayName: user.displayName ? user.displayName : errorInput,
-                about: user.about ? user.about : errorInput,
-                spotifyAccount: user.spotifyAccount ? user.spotifyAccount : errorInput,
-                avatar: user.avatar ? user.avatar : errorInput
-            },
-            () => {
-                console.log(this.state);
+    //get user info from server
+    updateStateFromServer = () => {
+        getUserSettings(this.state.username, this, () => {
+            const errorInput = "Something went wrong";
+            const user = this.state.user;
+            if (user){
+                this.setState(
+                    {
+                        email: user.email ? user.email : errorInput,
+                        password: user.password ? user.password : errorInput,
+                        displayName: user.displayName ? user.displayName : user.username,
+                        about: user.about ? user.about : "Change your about here!",
+                        avatar: user.avatar ? user.avatar : "Change your avatar!",
+                        isAdmin: user.type === 2
+                    }
+                );
             }
-        );
+        });
     };
 
     redirect = addr => {
@@ -150,24 +108,19 @@ class SettingsForm extends React.Component{
         this.props.form.validateFields((err, values) => {
             if(!err) {
                 console.log("Received values of form: ", values);
-                if (values.email) {
-                    values.email = checkValidEmail(values.email) ? values.email : this.state.email;
-                } else if (values.spotifyAccount) {
-                    values.spotifyAccount = checkValidSpotify(values.spotifyAccount) ? values.spotifyAccount : this.state.spotifyAccount;
+                if (values.email && checkValidEmail(values.email)) {
+                    changeEmail(this.state.username, values.email, this, this.updateStateFromServer);
                 }
-                //how user information will be updated on the server
-                let user = {
-                    email: values.email ? values.email : this.state.email,
-                    password: values.password ? values.password: this.state.password,
-                    displayName: values.displayName ? values.displayName : this.state.displayName,
-                    about: values.about ? values.about : this.state.about,
-                    spotifyAccount: values.spotifyAccount ? values.spotifyAccount: this.state.spotifyAccount,
-                    avatar: values.avatar ? values.avatar : this.state.avatar,
-                };
-                this.updateServerInfo(values);
-                //get new user info from server
-                //need to update user info from server
-                this.updateStateFromServer(user);
+                if (values.password && values.confirm) {
+                    changePassword(this.state.username, values.password, values.confirm);
+                }
+                if (values.displayName){
+                    changeDisplayName(this.state.username, values.displayName, this, this.updateStateFromServer);
+                }
+                if (values.about){
+                    changeAbout(this.state.username, values.about, this, this.updateStateFromServer)
+                }
+                //update avatar from server
                 //reset the form with new values from server
                 this.resetDesc();
             }
@@ -180,6 +133,7 @@ class SettingsForm extends React.Component{
         message.success("Updated Info!")
     };
 
+    // toggle for the buttons
     changingSettingSToggle = (s) => {
         this.setState({changingSetting: !this.state.changingSetting});
 
@@ -193,11 +147,6 @@ class SettingsForm extends React.Component{
             this.setState({
                 changePassword: !this.state.changePassword
             })
-        } else if (s === this.spotifyAccountSetting) {
-            console.log("change spotify account", !this.state.changeSpotifyAccount);
-            this.setState({
-                changeSpotifyAccount: !this.state.changeSpotifyAccount
-            })
         } else if (s === this.displayNameSetting) {
             console.log("change display name", !this.state.changeDisplayName);
             this.setState({
@@ -210,6 +159,36 @@ class SettingsForm extends React.Component{
             })
         }
     };
+
+    //****** validating passwords*****//
+    handleConfirmBlur = e => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { value } = e.target;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    };
+
+    compareToFirstPassword = (rule, value, callback) => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { form } = this.props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('The passwords don\'t match!');
+        } else {
+            callback();
+        }
+    };
+
+    validateToNextPassword = (rule, value, callback) => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { form } = this.props;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback();
+    };
+    // *** end password functions ***//
 
     handleAvatarChange = info => {
         // sample code from antd for uploading images
@@ -232,7 +211,6 @@ class SettingsForm extends React.Component{
                     password: this.state.password,
                     displayName: this.state.displayName,
                     about: this.state.about,
-                    spotifyAccount: this.state.spotifyAccount,
                     avatar: values.avatar ? values.avatar : this.state.avatar,
                 };
                 this.updateStateFromServer(user);
@@ -242,9 +220,6 @@ class SettingsForm extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const SettingsPasswordValidator = Form.create({name:'password validator'})(
-            PasswordValidator
-        );
 
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -300,7 +275,43 @@ class SettingsForm extends React.Component{
                             title={"Change Password"}
                             description={this.state.changePassword ?
                                 <Form.Item>
-                                    <SettingsPasswordValidator handleSubmit={this.handleSubmit}/>
+                                    {/*<SettingsPasswordValidator handleSubmit={this.handleSubmit}/>*/}
+                                    <Form.Item hasFeedback>
+                                        {getFieldDecorator('password', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your password!',
+                                                },
+                                                {
+                                                    validator: this.validateToNextPassword,
+                                                },
+                                            ],
+                                        })(<Input.Password
+                                            className="input"
+                                            prefix={<Icon type="lock" className="input-icon"/>}
+                                            placeholder="New password"/>)}
+                                    </Form.Item>
+                                    <Form.Item hasFeedback>
+                                        {getFieldDecorator('confirm', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'Please confirm your password!',
+                                                },
+                                                {
+                                                    validator: this.compareToFirstPassword,
+                                                },
+                                            ],
+                                        })(
+                                            <Input.Password
+                                                className="input"
+                                                prefix={<Icon type="lock" className="input-icon"/>}
+                                                placeholder="Confirm password"
+                                                onBlur={this.handleConfirmBlur}
+                                            />
+                                        )}
+                                    </Form.Item>
                                     <Form.Item>
                                         <Button
                                             type="primary"
@@ -320,39 +331,6 @@ class SettingsForm extends React.Component{
                             disabled={this.state.changingSetting}
                         >
                             {this.state.changePassword ? "Save New": "Change" } Password
-                        </Button>
-                    </List.Item>
-                    <List.Item>
-                        <List.Item.Meta
-                            title={"Spotify Account"}
-                            description={ this.state.changeSpotifyAccount ?
-                                <Form.Item>
-                                    <Form.Item>
-                                        {getFieldDecorator("spotifyAccount", {
-                                            initialValue: this.state.spotifyAccount
-                                        })(
-                                            <Input className="settings-field"/>
-                                        )}
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Button
-                                            type="primary"
-                                            htmlType="submit"
-                                        >
-                                            Save Changes
-                                        </Button>
-                                    </Form.Item>
-                                </Form.Item>
-                                : this.state.spotifyAccount
-                            }
-                        />
-                        <Button
-                            onClick={() => {
-                                this.changingSettingSToggle(this.spotifyAccountSetting)
-                            }}
-                            disabled={this.state.changingSetting}
-                        >
-                            Change Spotify account
                         </Button>
                     </List.Item>
                 </List>

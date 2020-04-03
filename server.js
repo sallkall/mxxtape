@@ -83,6 +83,121 @@ app.get("/users/check-session", (req, res) => {
     }
 });
 
+// route to change user's password
+app.post("/users/password", (req, res) => {
+    log("/users/password", req.body);
+    const username = req.body.username;
+    const password = req.body.password;
+    const confirm = req.body.confirmation;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            if (password === confirm){
+                user.password = req.body.password;
+                user.save().then(
+                    user => {
+                        res.send({username: user.username})
+                    },
+                    error => {
+                        res.status(400).send(error); // 400 for bad request
+                    }
+                )
+            } else {
+                res.status(401).send(); // 401 for invalid confirmation
+            }
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
+
+// route to change user's email
+app.post("/users/email", (req, res) => {
+    log("/users/email", req.body);
+    const username = req.body.username;
+    const email = req.body.email;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            user.email = email;
+            user.save().then(
+                user => {
+                    res.send({"username": user.username, "email": user.email})
+                },
+                error => {
+                    res.status(400).send(error); // 400 for bad request
+                }
+            )
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
+
+app.get("/users/settings/:username", (req, res) => {
+    const username = req.params.username;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            res.send({
+                "username": user.username,
+                "email": user.email,
+                "displayName": user.displayName,
+                "avatar": user.avatar,
+                "about": user.about
+            })
+        })
+        .catch(error => {
+            res.status(400).send(error);
+        });
+});
+
+// route to change user's displayName
+app.post("/users/settings/display-name", (req, res) => {
+    log("/users/settings/display-name", req.body);
+    const username = req.body.username;
+    const displayName = req.body.displayName;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            user.displayName = displayName;
+            user.save().then(
+                user => {
+                    res.send({"username": user.username, "displayName": user.displayName})
+                },
+                error => {
+                    res.status(400).send(error); // 400 for bad request
+                }
+            )
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
+
+// route to change user's displayName
+app.post("/users/settings/about", (req, res) => {
+    log("/users/settings/about", req.body);
+    const username = req.body.username;
+    const about = req.body.about;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            user.about = about;
+            user.save().then(
+                user => {
+                    res.send({"username": user.username, "about": user.about})
+                },
+                error => {
+                    res.status(400).send(error); // 400 for bad request
+                }
+            )
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
+
 /*********************************************************/
 
 /*** API Routes below ************************************/

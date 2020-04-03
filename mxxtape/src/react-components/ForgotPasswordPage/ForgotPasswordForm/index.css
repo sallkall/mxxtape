@@ -1,3 +1,14 @@
+.forgot-password-form {
+    max-width: 40vw;
+    font-size: 14px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .forgot-password-form-button {
     padding-left:6vw;
     padding-right:6vw;

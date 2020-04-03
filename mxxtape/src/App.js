@@ -22,7 +22,7 @@ import CreateCommunityPage from "./react-components/CreateCommunityPage";
 import NotificationsPage from "./react-components/NotificationsPage";
 import NoMatch from "./react-components/NoMatch";
 
-import { readCookie } from "./actions/user";
+import {logout, readCookie} from "./actions/user";
 
 class App extends React.Component {
     constructor(props) {
@@ -46,7 +46,6 @@ class App extends React.Component {
         register: 'register',
         create_community: 'create-community',
         notifications: 'notifications',
-
         updateGlobal: () => {
             console.log("state.updateGlobal");
             this.setState(
@@ -75,7 +74,8 @@ class App extends React.Component {
                                 } else if (this.state.loggedIn === 2) {
                                     return <AdminDashboard history={history} app={this}/>
                                 } else {
-                                    this.state.handleLogOut();
+                                    // should call logout here
+                                    logout(this);
                                     return <LoginPage history={history} app={this}/>
                                 }
                             }}
@@ -134,9 +134,9 @@ class App extends React.Component {
                                    ]}
                                    render={() => <LoginPage app={this}/>}
                             />
-                            <Route exact path='/register' render={() => <RegisterPage state={this.state}/>}/>
-                            <Route exact path='/forgot_password' render={() => <ForgotPassword state={this.state}/>}/>
-                            <Route path="*" render={()=><LoginPage app={this}/>}/>
+                            <Route exact path='/register' render={() => <RegisterPage app={this}/>}/>
+                            <Route exact path='/forgot_password' render={() => <ForgotPassword app={this}/>}/>
+                            <Route path="*" render={()=><NoMatch state={this.state}/>}/>
                         </Switch>
                     </BrowserRouter>
                 </div>
