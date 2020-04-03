@@ -4,11 +4,10 @@ import React from "react";
 import "../LoginPage/index.css"
 import 'antd/dist/antd.css';
 import ForgotPasswordForm from "./ForgotPasswordForm";
-import {Form} from "antd";
+import {Button, Form} from "antd";
 
 class ForgotPassword extends React.Component {
     render() {
-        const {state} = this.props;
 
         const ForgotPasswordPageForm = Form.create({name: 'forgot-password'}) (
             ForgotPasswordForm
