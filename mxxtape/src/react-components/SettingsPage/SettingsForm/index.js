@@ -34,11 +34,6 @@ function checkValidEmail(email) {
     return isEmailAddress;
 }
 
-function checkValidSpotify(spotify) {
-    // check if spotify with spotify's API
-    // temporarily validating
-    return true
-}
 
 class SettingsForm extends React.Component{
     constructor(props) {
@@ -49,7 +44,6 @@ class SettingsForm extends React.Component{
             changingSetting: false,
             changeEmail: false,
             changePassword: false,
-            changeSpotifyAccount: false,
             changeDisplayName: false,
             changeAbout: false,
             changeAvatar: false,
@@ -59,7 +53,6 @@ class SettingsForm extends React.Component{
         // needed to maintain changingSettingSToggle
         this.emailSetting = "email";
         this.passwordSetting = "password";
-        this.spotifyAccountSetting = "spotifyAccount";
         this.displayNameSetting = "displayName";
         this.aboutSetting = "about";
         this.avatarSetting = "avatar";
@@ -76,7 +69,6 @@ class SettingsForm extends React.Component{
                 changingSetting: false,
                 changeEmail: false,
                 changePassword: false,
-                changeSpotifyAccount: false,
                 changeDisplayName: false,
                 changeAbout: false,
                 changeAvatar: false
@@ -87,7 +79,7 @@ class SettingsForm extends React.Component{
     componentDidMount() {
         //make server call with state.username passed from parent component
         // let user = getUser(state.username);
-        //populate email. displayName, about, spotifyAccount, links to avatar
+        //populate email. displayName, about, links to avatar
         let user = null;
         if (this.isAdmin) {
             user = {
@@ -102,7 +94,6 @@ class SettingsForm extends React.Component{
                     "playlists, they provide their users very little opportunity for people to connect with each " +
                     "other and share their love for music. In this way, the sense of community and unity through music " +
                     "is lost. For these reasons we came up with our project: Mxxtape.",
-                spotifyAccount: "admin-spotify-account",
                 avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
             };
         } else {
@@ -114,7 +105,6 @@ class SettingsForm extends React.Component{
                     "context around the programming that we do in the course. By the end of the course, you should " +
                     "be able to explain the architecture behind a web application, and understand which technologies " +
                     "you can use to create web applications yourself.",
-                spotifyAccount: "user-spotify-account",
                 avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
             };
         }
@@ -131,7 +121,6 @@ class SettingsForm extends React.Component{
                 password: user.password ? user.password : errorInput,
                 displayName: user.displayName ? user.displayName : errorInput,
                 about: user.about ? user.about : errorInput,
-                spotifyAccount: user.spotifyAccount ? user.spotifyAccount : errorInput,
                 avatar: user.avatar ? user.avatar : errorInput
             },
             () => {
@@ -152,8 +141,6 @@ class SettingsForm extends React.Component{
                 console.log("Received values of form: ", values);
                 if (values.email) {
                     values.email = checkValidEmail(values.email) ? values.email : this.state.email;
-                } else if (values.spotifyAccount) {
-                    values.spotifyAccount = checkValidSpotify(values.spotifyAccount) ? values.spotifyAccount : this.state.spotifyAccount;
                 }
                 //how user information will be updated on the server
                 let user = {
@@ -161,7 +148,6 @@ class SettingsForm extends React.Component{
                     password: values.password ? values.password: this.state.password,
                     displayName: values.displayName ? values.displayName : this.state.displayName,
                     about: values.about ? values.about : this.state.about,
-                    spotifyAccount: values.spotifyAccount ? values.spotifyAccount: this.state.spotifyAccount,
                     avatar: values.avatar ? values.avatar : this.state.avatar,
                 };
                 this.updateServerInfo(values);
@@ -192,11 +178,6 @@ class SettingsForm extends React.Component{
             console.log("change Password", !this.state.changePassword);
             this.setState({
                 changePassword: !this.state.changePassword
-            })
-        } else if (s === this.spotifyAccountSetting) {
-            console.log("change spotify account", !this.state.changeSpotifyAccount);
-            this.setState({
-                changeSpotifyAccount: !this.state.changeSpotifyAccount
             })
         } else if (s === this.displayNameSetting) {
             console.log("change display name", !this.state.changeDisplayName);
@@ -232,7 +213,6 @@ class SettingsForm extends React.Component{
                     password: this.state.password,
                     displayName: this.state.displayName,
                     about: this.state.about,
-                    spotifyAccount: this.state.spotifyAccount,
                     avatar: values.avatar ? values.avatar : this.state.avatar,
                 };
                 this.updateStateFromServer(user);
@@ -320,39 +300,6 @@ class SettingsForm extends React.Component{
                             disabled={this.state.changingSetting}
                         >
                             {this.state.changePassword ? "Save New": "Change" } Password
-                        </Button>
-                    </List.Item>
-                    <List.Item>
-                        <List.Item.Meta
-                            title={"Spotify Account"}
-                            description={ this.state.changeSpotifyAccount ?
-                                <Form.Item>
-                                    <Form.Item>
-                                        {getFieldDecorator("spotifyAccount", {
-                                            initialValue: this.state.spotifyAccount
-                                        })(
-                                            <Input className="settings-field"/>
-                                        )}
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Button
-                                            type="primary"
-                                            htmlType="submit"
-                                        >
-                                            Save Changes
-                                        </Button>
-                                    </Form.Item>
-                                </Form.Item>
-                                : this.state.spotifyAccount
-                            }
-                        />
-                        <Button
-                            onClick={() => {
-                                this.changingSettingSToggle(this.spotifyAccountSetting)
-                            }}
-                            disabled={this.state.changingSetting}
-                        >
-                            Change Spotify account
                         </Button>
                     </List.Item>
                 </List>
