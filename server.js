@@ -83,6 +83,34 @@ app.get("/users/check-session", (req, res) => {
     }
 });
 
+// route to change user's password
+app.post("/users/password", (req, res) => {
+    log("/users/password", req.body);
+    const username = req.body.username;
+    const password = req.body.password;
+    const confirm = req.body.confirmation;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            if (password === confirm){
+                user.password = req.body.password;
+                user.save().then(
+                    user => {
+                        res.send({username: user.username})
+                    },
+                    error => {
+                        res.status(400).send(error); // 400 for bad request
+                    }
+                )
+            } else {
+                res.status(401).send(); // 401 for invalid confirmation
+            }
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
+
 /*********************************************************/
 
 /*** API Routes below ************************************/

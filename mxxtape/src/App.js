@@ -131,8 +131,8 @@ class App extends React.Component {
                                    ]}
                                    render={() => <LoginPage app={this}/>}
                             />
-                            <Route exact path='/register' render={() => <RegisterPage state={this.state}/>}/>
-                            <Route exact path='/forgot_password' render={() => <ForgotPassword state={this.state}/>}/>
+                            <Route exact path='/register' render={() => <RegisterPage app={this}/>}/>
+                            <Route exact path='/forgot_password' render={() => <ForgotPassword app={this}/>}/>
                             <Route path="*" render={()=><NoMatch state={this.state}/>}/>
                         </Switch>
                     </BrowserRouter>
