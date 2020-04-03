@@ -10,7 +10,7 @@ import {
     Icon
 } from 'antd';
 import {withRouter} from "react-router-dom";
-import {changePassword} from "../../../actions/user";
+import {changePassword} from "../../../actions/settings";
 
 class ForgotPasswordForm extends React.Component {
 
