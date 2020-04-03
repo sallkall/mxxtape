@@ -35,6 +35,15 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: 1
     },
+    display_name: {
+        type: String,
+    },
+    avatar: {
+        type: String
+    },
+    about: {
+        type:String
+    },
 
     history: {
         type: [String]  //TODO
@@ -80,6 +89,7 @@ UserSchema.statics.findUser = function(username, password) {
     })
 };
 
+//get user by just the username
 UserSchema.statics.findUserByUsername = function(username) {
     const User = this;
 

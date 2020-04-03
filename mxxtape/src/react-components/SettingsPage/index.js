@@ -8,7 +8,7 @@ import {Form} from "antd";
 class SettingsPage extends React.Component {
 
     render() {
-
+        const {app} = this.props;
         //will need api call to find out if the user is an admin or regular user
         const UserSettings = Form.create({name: "userSettings"})(
             SettingsForm
@@ -22,7 +22,7 @@ class SettingsPage extends React.Component {
                         ''}
                     {this.props.app.state.loggedIn === 2 ?
                         <UserSettings state={ this.props.app.state } username="admin" isAdmin={true}/>:
-                        <UserSettings state={ this.props.app.state } username="user"/>}
+                        <UserSettings state={ this.props.app.state } username={app.state.currentUser}/>}
 
                 </div>
             </div>

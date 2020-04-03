@@ -3,6 +3,8 @@ import './index.css'
 import {List, Button, Form, Input, message, Upload, Avatar} from 'antd'
 import {withRouter} from 'react-router-dom'
 import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
+import {readCookie} from "../../../actions/user";
+import {getUserSettings} from "../../../actions/settings";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -39,8 +41,7 @@ class SettingsForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props.username ? this.props.username : "whoareyou?",
-            user: null,
+            username: this.props.username,
             changingSetting: false,
             changeEmail: false,
             changePassword: false,
@@ -55,7 +56,6 @@ class SettingsForm extends React.Component{
         this.passwordSetting = "password";
         this.displayNameSetting = "displayName";
         this.aboutSetting = "about";
-        this.avatarSetting = "avatar";
 
         // temp variable for current user
         // only for phase 1, eventually will user information will include whether or not they are an admin
@@ -78,55 +78,40 @@ class SettingsForm extends React.Component{
 
     componentDidMount() {
         //make server call with state.username passed from parent component
-        // let user = getUser(state.username);
-        //populate email. displayName, about, links to avatar
-        let user = null;
-        if (this.isAdmin) {
-            user = {
-                email: "admin@admin.com",
-                password: "admin",
-                displayName: "admin-display-name",
-                about: "Music has always had a magic in that it is able to unite people in ways that other mediums " +
-                    "can’t. For many people, music defines the cultural identity of the times they grew up in, the " +
-                    "interests they have, and as a way to easily express their personality. And yet, the base " +
-                    "functionality of music streaming sites on the internet like Spotify and Apple Music are very " +
-                    "focused on providing users with a place to listen to music. Beyond allowing users to create " +
-                    "playlists, they provide their users very little opportunity for people to connect with each " +
-                    "other and share their love for music. In this way, the sense of community and unity through music " +
-                    "is lost. For these reasons we came up with our project: Mxxtape.",
-                avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
-            };
-        } else {
-            user = {
-                email: "user@user.com",
-                password: "user",
-                displayName: "user-display-name",
-                about: "Welcome to CSC309H! This course teaches the basics of web programming, and aims to give " +
-                    "context around the programming that we do in the course. By the end of the course, you should " +
-                    "be able to explain the architecture behind a web application, and understand which technologies " +
-                    "you can use to create web applications yourself.",
-                avatar: "https://img.icons8.com/dusk/64/000000/music-record.png"
-            };
-        }
-        //callback
-        this.updateStateFromServer(user)
+        getUserSettings(this.state.username, this, () => {this.updateStateFromServer()});
     }
 
-    updateStateFromServer = user => {
-        console.log("updating user state");
-        const errorInput = "something went wrong";
-        this.setState(
-            {
-                email: user.email ? user.email : errorInput,
-                password: user.password ? user.password : errorInput,
-                displayName: user.displayName ? user.displayName : errorInput,
-                about: user.about ? user.about : errorInput,
-                avatar: user.avatar ? user.avatar : errorInput
-            },
-            () => {
-                console.log(this.state);
-            }
-        );
+    updateStateFromServer = () => {
+        console.log("updating user state", this.state.user);
+        const errorInput = "Something went wrong";
+        const user = this.state.user;
+        if (user){
+            this.setState(
+                {
+                    email: user.email ? user.email : errorInput,
+                    password: user.password ? user.password : errorInput,
+                    displayName: user.displayName ? user.displayName : user.username,
+                    about: user.about ? user.about : "Change your about here!",
+                    avatar: user.avatar ? user.avatar : "Change your avatar!"
+                },
+                () => {
+                    console.log(this.state);
+                }
+            );
+        } else {
+            this.setState(
+                {
+                    email: errorInput,
+                    password: errorInput,
+                    displayName: errorInput,
+                    about: errorInput,
+                    avatar: errorInput
+                },
+                () => {
+                    console.log(this.state);
+                }
+            );
+        }
     };
 
     redirect = addr => {

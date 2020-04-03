@@ -111,6 +111,47 @@ app.post("/users/password", (req, res) => {
         });
 });
 
+// route to change user's email
+app.post("/users/email", (req, res) => {
+    log("/users/email", req.body);
+    const username = req.body.username;
+    const email = req.body.email;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            user.email = email;
+            user.save().then(
+                user => {
+                    res.send({"username": user.username, "email": user.email})
+                },
+                error => {
+                    res.status(400).send(error); // 400 for bad request
+                }
+            )
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
+
+app.get("/users/settings/:username", (req, res) => {
+    const username = req.params.username;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            res.send({
+                "username": user.username,
+                "email": user.email,
+                "displayName": user.display_name,
+                "avatar": user.avatar,
+                "about": user.about
+            })
+        })
+        .catch(error => {
+            res.status(400).send(error);
+        });
+})
+
 /*********************************************************/
 
 /*** API Routes below ************************************/
