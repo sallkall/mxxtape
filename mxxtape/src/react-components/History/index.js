@@ -11,8 +11,9 @@ import { List } from 'antd';
 import { Button } from 'antd';
 
 import removePic from "./removeicon.png"
+import {getUserProfile} from "../../actions/user";
 
-let SongList = [
+/*let SongList = [
     "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
     "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
     "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
@@ -22,21 +23,49 @@ let SongList = [
     "https://soundcloud.com/jerry-berg/56k-dialup-model-connection-sound",
     "https://soundcloud.com/annsoselia/danube",
     "https://soundcloud.com/soundcirclemusic/elite-dangerous-kickstarter"
-];
-function RemoveFromHistory(songName, react) {
-    SongList.splice(SongList.indexOf(songName), 1);
-    react.forceUpdate();
-}
+];*/
+
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: []
+};
+
 
 class History extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.history.push("/history/"+props.username);
+        getUserProfile(props.username, userjson, this);
+    }
+
+    RemoveFromHistory(username, song) {
+        const react = this;
+        fetch("/users/"+username+"/history", {method: 'DELETE', body: "{\"song\": "+song+"}"})
+            .then(
+                res => {
+                    return res.json();
+                }
+            )
+            .then(
+                json => {
+                    userjson.history = json.history;
+                    react.forceUpdate();
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
     redirect(dir) {
         this.props.history.push(dir);
     }
     render() {
-        let username = this.props.location.pathname.substring(9);
-        if(username==="") {
-            username = "USERNAME";
-        }
+        const username = this.props.username;
         return (
             <div>
                 <Nav app={this.props.app}/>
@@ -44,11 +73,11 @@ class History extends React.Component {
                     <Button id="BackButton" onClick={() => this.redirect("/profile/"+username)}>{"< Back"}</Button>
                     <Card id="History" className="ContentCard" title="HISTORY">
                         <List
-                            dataSource = {SongList}
+                            dataSource = {userjson.history}
                             renderItem = {item => (
                                 <List.Item>
                                     <ReactPlayer height={70} width={700} controls={false} url={item}/>
-                                    <input type="image" className="HistoryRemoveButton" src={removePic} alt="Image Load Error" onClick={() => RemoveFromHistory(item, this)}/>
+                                    {this.props.app.state.currentUser===username && <input type="image" className="HistoryRemoveButton" src={removePic} alt="Image Load Error" onClick={() => this.RemoveFromHistory(username, item)}/>}
                                 </List.Item>
                             )}
                         />

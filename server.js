@@ -112,6 +112,103 @@ app.post("/users", (req, res) => {
     );
 });
 
+
+/**
+ * Request body should contain the new star song.
+ */
+app.post("/users/:username/starsong", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            user.starsong = req.body.starsong;
+            user.save();
+            res.send(user);
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.post("/users/:username/history", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            if(user.history.indexOf(req.body.song) > -1) {
+                user.history.splice(user.history.indexOf(req.body.song), 1);
+            }
+            user.history.push(req.body.song);
+            user.save();
+            res.send(user);
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.delete("/users/:username/history", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            user.history.splice(user.history.indexOf(req.body.song), 1);
+            user.save();
+            res.send({"history": user.history});
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.post("/users/:username/subscriptions", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            if(user.subscriptions.indexOf(req.body.community) === -1) {
+                user.subscriptions.push(req.body.community);
+            }
+            user.save();
+            res.send(user);
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.delete("/users/:username/subscriptions", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            user.subscriptions.splice(user.subscriptions.indexOf(req.body.community), 1);
+            user.save();
+            res.send({"subscriptions": user.subscriptions});
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.get("/users/:username/profiledata", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            if(user !== null) {
+                res.send(
+                    {
+                        "exists": true,
+                        "starsong": user.starsong,
+                        "history": user.history,
+                        "subscriptions": user.subscriptions
+                    });
+            } else {
+                res.status(404).send(
+                    {
+                        "exists": false,
+                        "starsong": "",
+                        "history": [],
+                        "subscriptions": []
+                    }
+                );
+            }
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+
 /*** Webpage routes below **********************************/
 // Serve the build
 app.use(express.static(__dirname + "/mxxtape/build"));
