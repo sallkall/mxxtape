@@ -1,10 +1,10 @@
 import React from "react";
 import './index.css'
-import {List, Button, Form, Input, message, Upload, Avatar} from 'antd'
+import {List, Button, Form, Input, message, Upload, Avatar, Icon} from 'antd'
 import {withRouter} from 'react-router-dom'
 import PasswordValidator from "../../ForgotPasswordPage/PasswordValidator";
 import {readCookie} from "../../../actions/user";
-import {getUserSettings} from "../../../actions/settings";
+import {changeDisplayName, changeEmail, changePassword, getUserSettings} from "../../../actions/settings";
 
 function getBase64(img, callback) {
     // sample code from antd
@@ -25,15 +25,6 @@ function beforeUpload(file) {
         message.error('Image must smaller than 2MB!');
     }
     return isJpgOrPng && isLt2M;
-}
-
-function checkValidEmail(email) {
-    // regex for email taken from https://emailregex.com
-    const isEmailAddress = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-    if (!isEmailAddress){
-        message.error('You must enter a valid email address!')
-    }
-    return isEmailAddress;
 }
 
 
@@ -62,8 +53,9 @@ class SettingsForm extends React.Component{
         this.isAdmin = this.props.isAdmin;
     }
 
+    // reset the buttons
     resetDesc = () => {
-        console.log("resetting fields");
+        // console.log("resetting fields");
         this.setState(
             {
                 changingSetting: false,
@@ -78,40 +70,30 @@ class SettingsForm extends React.Component{
 
     componentDidMount() {
         //make server call with state.username passed from parent component
-        getUserSettings(this.state.username, this, () => {this.updateStateFromServer()});
+        this.updateStateFromServer()
     }
 
+    //get user info from server
     updateStateFromServer = () => {
-        console.log("updating user state", this.state.user);
-        const errorInput = "Something went wrong";
-        const user = this.state.user;
-        if (user){
-            this.setState(
-                {
-                    email: user.email ? user.email : errorInput,
-                    password: user.password ? user.password : errorInput,
-                    displayName: user.displayName ? user.displayName : user.username,
-                    about: user.about ? user.about : "Change your about here!",
-                    avatar: user.avatar ? user.avatar : "Change your avatar!"
-                },
-                () => {
-                    console.log(this.state);
-                }
-            );
-        } else {
-            this.setState(
-                {
-                    email: errorInput,
-                    password: errorInput,
-                    displayName: errorInput,
-                    about: errorInput,
-                    avatar: errorInput
-                },
-                () => {
-                    console.log(this.state);
-                }
-            );
-        }
+        getUserSettings(this.state.username, this, () => {
+            console.log("updating user state", this.state.user);
+            const errorInput = "Something went wrong";
+            const user = this.state.user;
+            if (user){
+                this.setState(
+                    {
+                        email: user.email ? user.email : errorInput,
+                        password: user.password ? user.password : errorInput,
+                        displayName: user.displayName ? user.displayName : user.username,
+                        about: user.about ? user.about : "Change your about here!",
+                        avatar: user.avatar ? user.avatar : "Change your avatar!"
+                    // },
+                    // () => {
+                    //     console.log(this.state);
+                    }
+                );
+            }
+        });
     };
 
     redirect = addr => {
@@ -125,20 +107,25 @@ class SettingsForm extends React.Component{
             if(!err) {
                 console.log("Received values of form: ", values);
                 if (values.email) {
-                    values.email = checkValidEmail(values.email) ? values.email : this.state.email;
+                    changeEmail(this.state.username, values.email, this, this.updateStateFromServer);
+                }
+                if (values.password && values.confirm) {
+                    changePassword(this.state.username, values.password, values.confirm);
+                }
+                if (values.displayName){
+                    changeDisplayName(this.state.username, values.displayName, this, this.updateStateFromServer);
                 }
                 //how user information will be updated on the server
                 let user = {
-                    email: values.email ? values.email : this.state.email,
-                    password: values.password ? values.password: this.state.password,
+                    // email: values.email ? values.email : this.state.email,
+                    // password: values.password ? values.password: this.state.password,
                     displayName: values.displayName ? values.displayName : this.state.displayName,
                     about: values.about ? values.about : this.state.about,
                     avatar: values.avatar ? values.avatar : this.state.avatar,
                 };
-                this.updateServerInfo(values);
                 //get new user info from server
                 //need to update user info from server
-                this.updateStateFromServer(user);
+                // this.updateStateFromServer();
                 //reset the form with new values from server
                 this.resetDesc();
             }
@@ -151,6 +138,7 @@ class SettingsForm extends React.Component{
         message.success("Updated Info!")
     };
 
+    // toggle for the buttons
     changingSettingSToggle = (s) => {
         this.setState({changingSetting: !this.state.changingSetting});
 
@@ -176,6 +164,36 @@ class SettingsForm extends React.Component{
             })
         }
     };
+
+    //****** validating passwords*****//
+    handleConfirmBlur = e => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { value } = e.target;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    };
+
+    compareToFirstPassword = (rule, value, callback) => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { form } = this.props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('The passwords don\'t match!');
+        } else {
+            callback();
+        }
+    };
+
+    validateToNextPassword = (rule, value, callback) => {
+        // using sample code from antd
+        // https://3x.ant.design/components/form/
+        const { form } = this.props;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback();
+    };
+    // *** end password functions ***//
 
     handleAvatarChange = info => {
         // sample code from antd for uploading images
@@ -265,7 +283,43 @@ class SettingsForm extends React.Component{
                             title={"Change Password"}
                             description={this.state.changePassword ?
                                 <Form.Item>
-                                    <SettingsPasswordValidator handleSubmit={this.handleSubmit}/>
+                                    {/*<SettingsPasswordValidator handleSubmit={this.handleSubmit}/>*/}
+                                    <Form.Item hasFeedback>
+                                        {getFieldDecorator('password', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your password!',
+                                                },
+                                                {
+                                                    validator: this.validateToNextPassword,
+                                                },
+                                            ],
+                                        })(<Input.Password
+                                            className="input"
+                                            prefix={<Icon type="lock" className="input-icon"/>}
+                                            placeholder="New password"/>)}
+                                    </Form.Item>
+                                    <Form.Item hasFeedback>
+                                        {getFieldDecorator('confirm', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'Please confirm your password!',
+                                                },
+                                                {
+                                                    validator: this.compareToFirstPassword,
+                                                },
+                                            ],
+                                        })(
+                                            <Input.Password
+                                                className="input"
+                                                prefix={<Icon type="lock" className="input-icon"/>}
+                                                placeholder="Confirm password"
+                                                onBlur={this.handleConfirmBlur}
+                                            />
+                                        )}
+                                    </Form.Item>
                                     <Form.Item>
                                         <Button
                                             type="primary"

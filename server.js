@@ -142,7 +142,7 @@ app.get("/users/settings/:username", (req, res) => {
             res.send({
                 "username": user.username,
                 "email": user.email,
-                "displayName": user.display_name,
+                "displayName": user.displayName,
                 "avatar": user.avatar,
                 "about": user.about
             })
@@ -150,7 +150,30 @@ app.get("/users/settings/:username", (req, res) => {
         .catch(error => {
             res.status(400).send(error);
         });
-})
+});
+
+// route to change user's email
+app.post("/users/settings/display-name", (req, res) => {
+    log("/users/settings/display-name", req.body);
+    const username = req.body.username;
+    const displayName = req.body.displayName;
+
+    User.findUserByUsername(username)
+        .then(user => {
+            user.displayName = displayName;
+            user.save().then(
+                user => {
+                    res.send({"username": user.username, "displayName": user.displayName})
+                },
+                error => {
+                    res.status(400).send(error); // 400 for bad request
+                }
+            )
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+});
 
 /*********************************************************/
 

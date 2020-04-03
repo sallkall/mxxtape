@@ -31,7 +31,7 @@ export const changePassword = (username, password, confirm) => {
         .then(json => {
             if (json){
                 if (json.username !== undefined){
-                    message.success("Password Change Successful! Please login to continue")
+                    message.success("Password change successful!")
                 }
             } else {
                 message.error(username + ' doesn\'t exist!');
@@ -42,7 +42,7 @@ export const changePassword = (username, password, confirm) => {
         });
 };
 
-export const changeEmail = (username, email, comp) => {
+export const changeEmail = (username, email, comp, callback) => {
     console.log("changeEmail", username, email);
 
     const request = new Request("/users/email", {
@@ -67,7 +67,7 @@ export const changeEmail = (username, email, comp) => {
             if (json){
                 if (json.username !== undefined && json.email !== undefined){
                     message.success("Email changed successfully!");
-                    comp.state ? comp.setState({"email":json.email}) : console.log("no state to set");
+                    comp.state ? comp.setState({"email":json.email}, () => callback()) : console.log("no state to set");
                 }
             } else {
                 message.error('Email change was unsuccessful');
@@ -98,4 +98,42 @@ export const getUserSettings = (username, comp, callback) => {
         .catch(error => {
             console.log(url, "error", error);
         });
-}
+};
+
+export const changeDisplayName = (username, displayName, comp, callback) => {
+    console.log("changeDisplayName", username, displayName);
+
+    const url = "/users/settings/display-name";
+
+    const request = new Request(url, {
+        method: "post",
+        body: JSON.stringify({
+            username: username,
+            displayName: displayName
+        }),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            if (json){
+                if (json.username !== undefined && json.displayName !== undefined){
+                    message.success("Display Name changed successfully!");
+                    comp.state ? comp.setState({"displayName":json.displayName}, () => callback()) : console.log("no state to set");
+                }
+            } else {
+                message.error('Email change was unsuccessful');
+            }
+        })
+        .catch(error => {
+            console.log("checkUsernameError...", request, error);
+        });
+};

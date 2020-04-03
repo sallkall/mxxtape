@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: 1
     },
-    display_name: {
+    displayName: {
         type: String,
     },
     avatar: {
