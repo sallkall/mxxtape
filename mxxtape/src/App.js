@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Importing react-router-dom to use the React Router
-import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, BrowserRouter, Redirect, useParams} from 'react-router-dom';
 import './App.css';
 import 'antd/dist/antd.css';
 
@@ -55,6 +55,11 @@ class App extends React.Component {
     };
 
     render() {
+        let {currentUser} = "";
+        try {
+            currentUser = this.state.currentUser;
+        } catch {}
+
         if (this.state.loggedIn){ // loggedIn is not null
             return (
                 <BrowserRouter>
@@ -96,12 +101,19 @@ class App extends React.Component {
                         }/>
                         <Route exact path={'/' + this.state.create_community} render={() =>
                             (<CreateCommunityPage app={this}/>)}/>
-                        <Route path='/history' render={()=>
-                            (<History app={this}/>)}/>
-                        <Route path='/subscriptions' render={()=>
-                            (<SubbedCommunities app={this}/>)}/>
-                        <Route path='/profile' render={()=>
-                            (<UserProfile app={this}/>)}/>
+                        <Route path='/history/:username' render={(params)=>
+                            (<History app={this} username={params.match.params.username}/>)}/>
+                        <Route path='/subscriptions/:username' render={(params)=>
+                            (<SubbedCommunities app={this} username={params.match.params.username}/>)}/>
+                        <Route path='/profile/:username'
+                               render={(params)=> {
+                                   if(params.match.params.username === currentUser) {
+                                       return (<UserDashboard app={this}/>);
+                                   } else {
+                                       return (<UserProfile app={this} username={params.match.params.username}/>)
+                                   }
+                               }
+                        }/>
                         <Route exact path={'/' + this.state.notifications} render={()=>
                             (<NotificationsPage state={this.state} app={this}/>)}/>
                         <Route path="*" render={()=><NoMatch state={this.state} app={this}/>}/>

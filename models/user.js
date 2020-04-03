@@ -29,11 +29,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 4
+
     },
     type: {
         type: Number,
         required: true,
         default: 1
+
     },
     displayName: {
         type: String,
@@ -46,9 +48,14 @@ const UserSchema = new mongoose.Schema({
     },
 
     history: {
-        type: [String]  //TODO
+        type: [String]
+    },
+    starsong: {
+        type: String
+    },
+    subscriptions: {
+        type: [[String, String]]
     }
-
 });
 
 
@@ -71,10 +78,9 @@ UserSchema.pre('save', function(next) {
 
 //TODO: This code is from the example.
 UserSchema.statics.findUser = function(username, password) {
-    const User = this;
-
     return User.findOne({ username: username }).then((user) => {
         if (!user) {
+            console.log(user);
             return Promise.reject()
         }
         return new Promise((resolve, reject) => {
