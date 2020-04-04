@@ -1,8 +1,3 @@
-#layout {
-    padding: 0 150px;
-    height: 100%;
-}
-
 #DashboardSidebar {
     position: absolute;
     height: 650px;
@@ -23,7 +18,6 @@
 }
 
 #DashboardContents {
-    height: 100%;
     position: absolute;
     width: 75%;
     margin-top: 24px;
@@ -46,6 +40,7 @@
     height: 550px;
 }
 .CommunityDiv {
+    height: 50px;
     width: 350px;
 }
 .CommunityBanner {
@@ -56,7 +51,9 @@
     display: block;
     text-align: center;
     margin-top: -50px;
+    transform: translate(0%, 50%);
     color: #FFFFFF;
+    text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
     font-size: 15px;
 }
 
@@ -94,9 +91,11 @@
     margin-top: 24px;
     float: right;
     text-align: center;
+
 }
 
 .listItems{
+    /*background-color: blue;*/
     margin-bottom: -20px;
     margin-top: -24px;
 }
