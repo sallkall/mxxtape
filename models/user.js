@@ -113,61 +113,63 @@ UserSchema.statics.findUserByUsername = function(username) {
     })
 };
 
-/*********COMMUNITY SCHEMA**********/
-// community model
-
-const CommmunitySchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 1,
-        trim: true,
-        unique: true,
-        validate: {
-            validator: validator.isAlpha,
-            message: 'Not valid community name'
-        }
-    },
-    genres: {
-        // type: String,
-        //TODO: make this happen!!!
-        type: [{
-            type: String,
-            validate: {
-                validator: validator.isAlpha,
-                message: 'Not valid genre'
-            }
-        }],
-        minlength: 1,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true,
-        minlength: 1
-    },
-    moderators: {
-        // type: String
-        //TODO: make this happen!
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-        required: true
-    },
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
-    members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
-});
-
-CommmunitySchema.statics.findCommunityByName = function(name) {
-    return Community.findOne({name: name}).then((community) => {
-        return !community ? Promise.reject() : Promise.resolve(community)
-    })
-};
-/*****END COMMUNITY SCHEMA************/
-
-
 
 // make a model using the User schema
 const User = mongoose.model('User', UserSchema);
-// Community model using community schema
-const Community = mongoose.model('Community', CommmunitySchema);
-module.exports = { User, Community };
+module.exports={User}
 
+
+
+// Community model using community schema
+// module.exports = { User, Community };
+
+// /*********COMMUNITY SCHEMA**********/
+// // community model
+//
+// const CommmunitySchema = new mongoose.Schema({
+//     name: {
+//         type: String,
+//         required: true,
+//         minlength: 1,
+//         trim: true,
+//         unique: true,
+//         validate: {
+//             validator: validator.isAlpha,
+//             message: 'Not valid community name'
+//         }
+//     },
+//     genres: {
+//         // type: String,
+//         //TODO: make this happen!!!
+//         type: [{
+//             type: String,
+//             validate: {
+//                 validator: validator.isAlpha,
+//                 message: 'Not valid genre'
+//             }
+//         }],
+//         minlength: 1,
+//         required: true
+//     },
+//     description: {
+//         type: String,
+//         required: true,
+//         minlength: 1
+//     },
+//     moderators: {
+//         // type: String
+//         //TODO: make this happen!
+//         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+//         required: true
+//     },
+//     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+//     members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+// });
+//
+// CommmunitySchema.statics.findCommunityByName = function(name) {
+//     return Community.findOne({name: name}).then((community) => {
+//         return !community ? Promise.reject() : Promise.resolve(community)
+//     })
+// };
+// const Community = mongoose.model('Community', CommmunitySchema);
+// /*****END COMMUNITY SCHEMA************/

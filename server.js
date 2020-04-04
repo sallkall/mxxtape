@@ -11,12 +11,12 @@ mongoose.set('useFindAndModify', false);
 
 // import the mongoose models
 const { User } = require("./models/user");
-const { Community } = require("./models/user");
+// const { Community } = require("./models/user");
 const { FeaturedSong } = require("./models/featuredSong");
-// const { Community } = require("./models/community");
+const { Community } = require("./models/community");
 
-const { Post } = require("./models/post");
-
+// const { Post } = require("./models/post");
+const Post = require("./models/community");
 // to validate object IDs
 const { ObjectID } = require("mongodb");
 

@@ -48,7 +48,13 @@ class Community extends React.Component {
             communityjson.description = json.description;
             communityjson.moderators = json.moderators;
             communityjson.members = json.members;
-            this.setState({loadingCommunity: false, posts: json.posts}, () => console.log(communityjson))
+            this.setState({
+                loadingCommunity: false,
+                // loadingFeed: false,
+                // posts: json.posts ? json.posts : []
+                },
+                () => console.log(communityjson)
+            )
         })
         // console.log("Community constructor", this.state);
     }
