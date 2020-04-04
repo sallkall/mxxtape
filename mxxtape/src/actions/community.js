@@ -62,6 +62,35 @@ export const parseWords = (toParse) => {
     return parsed ? parsed : []
 };
 
+export const getCommunity = (communityName, comp, callback) => {
+    console.log('getCommunity', communityName , comp);
+    if (!comp || !comp.state) return;
+
+    if (!communityName) {
+        comp.setState({loadingCommunity: false});
+        return
+    }
+
+    comp.setState({loadingCommunity: true});
+
+    const url = "/communities/byname/name=" + communityName;
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            if (json) {
+                // get current user and type, default 1 as regular user
+                comp.setState({loadingCommunity: false}, () => callback(json));
+            }
+        })
+        .catch(error => {
+            console.log(url, "error", error);
+        });
+};
+
 // fetch all users
 export const loadUsers = (key, comp) => {
     console.log('loadUsers', comp);

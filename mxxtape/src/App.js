@@ -88,10 +88,10 @@ class App extends React.Component {
                             (<SettingsPage app={this}/>)}/>
                         <Route
                             exact
-                            path='/community/jazzitup'
-                            render={() => {
+                            path='/community/:community'
+                            render={params => {
                                 if (this.state.loggedIn === 1) {
-                                    return <Community app={this}/>
+                                    return <Community app={this} name={params.match.params.community}/>
                                 } else if (this.state.loggedIn === 2) {
                                     return <CommunityAdmin app={this}/>
                                 } else {
@@ -128,15 +128,21 @@ class App extends React.Component {
                         <Switch>
                             <Route exact
                                    path={[
-                                       '/', '/dashboard', '/login', '/settings', '/community/jazzitup',
-                                       '/' + this.state.create_community,'/history','/subscriptions','/profile',
-                                       '/' + this.state.notifications
+                                       '/', '/dashboard', '/login'
                                    ]}
                                    render={() => <LoginPage app={this}/>}
                             />
                             <Route exact path='/register' render={() => <RegisterPage app={this}/>}/>
                             <Route exact path='/forgot_password' render={() => <ForgotPassword app={this}/>}/>
-                            <Route path="*" render={()=><NoMatch state={this.state}/>}/>
+                            <Route exact
+                                   path={[
+                                       '/settings', '/community/:communityname',
+                                       '/' + this.state.create_community,'/history','/subscriptions','/profile',
+                                       '/' + this.state.notifications
+                                   ]}
+                                   render={() => <Redirect path="/"/>}
+                            />
+                            <Route path="*" render={()=> <Redirect path="/"/>}/>
                         </Switch>
                     </BrowserRouter>
                 </div>

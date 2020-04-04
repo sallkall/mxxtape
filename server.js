@@ -13,6 +13,7 @@ mongoose.set('useFindAndModify', false);
 const { User } = require("./models/user");
 const { Community } = require("./models/user");
 const { FeaturedSong } = require("./models/featuredSong");
+// const { Community } = require("./models/community");
 
 const { Post } = require("./models/post");
 
@@ -610,6 +611,25 @@ app.post("/featuredsong", (req, res) => {
             res.status(400).send(error);
         }
     )
+});
+
+//Get community information
+app.get("/communities/byname/name=:key", (req, res) => {
+    const key = req.params.key;
+    log("get /communities/byname/name=:key", key, "\n",key.length, key.length > 0);
+    if (key.length > 0) {
+        Community.find({ "name": {"$regex": `^${key}$`} })
+            .then(docs => {log(docs[0]);return docs[0]})
+            .then(docs => {
+                res.send(docs);
+            })
+            .catch(error => {
+                res.status(400).send(error);
+            });
+    } else {
+        res.status(400).send('no key provided!');
+    }
+
 });
 
 /*** Webpage routes below **********************************/

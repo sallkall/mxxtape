@@ -13,6 +13,7 @@ import MembersList from "../MembersList";
 import {Layout, Breadcrumb, Icon, Button} from 'antd';
 import {getFeed} from "../../../actions/post";
 import {getUserProfile, subscribeToCommunity} from "../../../actions/user";
+import {getCommunity} from "../../../actions/community";
 
 const {Content, Sider} = Layout;
 
@@ -38,12 +39,33 @@ class Community extends React.Component {
         //get community info
 
         // console.log("Community constructor", this.state);
+
+        this.communityName = this.props.name;
+        console.log("state set", this.communityName, this);
+        this.communityInfo = {
+            name: "Something went wrong...",
+            genres: [],
+            description: "Something went wrong...",
+            moderators: [],
+            members: []
+        };
+        getCommunity(this.communityName, this, (json) => {
+            this.communityInfo.name = json.name;
+            this.communityInfo.genres = json.genres;
+            this.communityInfo.description = json.description;
+            this.communityInfo.moderators = json.moderators;
+            this.communityInfo.members = json.members
+        })
+        // console.log("Community constructor", this.state);
     }
+
 
     state = {
         posts: [],
+        community: {},
         loadingFeed: true,
         isMember: userjson.subscriptions.includes("tempo_name"),    //check
+        loadingCommunity: true,
         newPost: false,
         message: { type: "", body: "" },
         updateFeed: () => {
@@ -69,7 +91,7 @@ class Community extends React.Component {
                         <div className="header">
                             <div id="header_container">
                                 <div id="group_avatar"/>
-                                <h1 className="header_h1"> Jazz it Up </h1>
+                                <h1 className="header_h1"> {this.communityInfo.name} </h1>
                             </div>
                             <Button
                                 className="header_join_button"
