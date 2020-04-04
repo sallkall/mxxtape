@@ -119,8 +119,10 @@ class NewTextPost extends React.Component {
         this.setState({visible: false});
     };
 
-    handleCreate = (state) => {
+    handleCreate = (state, username) => {
         const {form} = this.formRef.props;
+        console.log(username)
+
         form.validateFields((err, values) => {
             if (err) {
                 return;
@@ -128,8 +130,8 @@ class NewTextPost extends React.Component {
             // console.log(form.getFieldValue("content"))
 
             const formInfo = {
-                author_id: 0,   //get from user
-                avatar: "https://tinyurl.com/wy5zbp2",
+                author: username,   //get from user
+                avatar: "/" + username + ".png",
                 community_id: 0, // get from community
                 content: form.getFieldValue('content'),
                 tags: form.getFieldValue('tags'),
@@ -152,6 +154,7 @@ class NewTextPost extends React.Component {
 
     render() {
         const {state} = this.props;
+        console.log(this.props.username)
         return (
             <div>
                 {
@@ -168,7 +171,7 @@ class NewTextPost extends React.Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={() => {
-                        this.handleCreate(state);
+                        this.handleCreate(state, this.props.username);
                         // state.updateFeed()
                     }}
                 />

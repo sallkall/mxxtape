@@ -20,7 +20,7 @@ class Community extends React.Component {
     constructor(props) {
         super(props);
         getFeed(this);
-        console.log("Community constructor", this.state);
+        // console.log("Community constructor", this.state);
     }
     state = {
         posts: [],
@@ -42,7 +42,8 @@ class Community extends React.Component {
     render() {
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
         let join_button_color = this.state.isMember ? "" : "#52c41a";
-
+        const username = this.props.app.state.currentUser;
+        console.log(username)
         return (
             <div>
                 <Nav app={this.props.app}/>
@@ -74,11 +75,11 @@ class Community extends React.Component {
                                 <div id="feed_buttons">
                                     <div id="newmusic_button">
                                         {/*Make new music post*/}
-                                        <NewMusicPost isMember={this.state.isMember} state={this.state}/>
+                                        <NewMusicPost username={username} isMember={this.state.isMember} state={this.state}/>
                                     </div>
                                     <div id="newtextpost_button">
                                         {/*Make new text post*/}
-                                        <NewTextPost isMember={this.state.isMember} state={this.state}/>
+                                        <NewTextPost username={username} isMember={this.state.isMember} state={this.state}/>
                                     </div>
                                     <div id="feed_filter">
                                         {/*Filter by most recent or oldest*/}

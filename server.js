@@ -238,7 +238,7 @@ app.post("/posts", (req, res) => {
     let post = null;
     if (type == "text") {
         post = new Post({
-            author_id: req.body.author_id,
+            author: req.body.author,
             avatar: req.body.avatar,
             community_id: req.body.community_id,
             content: req.body.content,
@@ -251,7 +251,7 @@ app.post("/posts", (req, res) => {
         });
     } else if (type == "music") {
         post = new Post({
-            author_id: req.body.author_id,
+            author: req.body.author,
             avatar: req.body.avatar,
             community_id: req.body.community_id,
             tags: req.body.tags,
@@ -350,8 +350,8 @@ app.post('/posts/:id/likes', (req, res) => {
 
 app.patch('/posts/:id/', (req, res) => {
     const id = req.params.id;
-    const { author_id, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes } = req.body;
-    const body = { author_id, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes };
+    const { author, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes } = req.body;
+    const body = { author, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes };
 
     if (!ObjectID.isValid(id)) {
         res.status(404).send();

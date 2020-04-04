@@ -4,8 +4,8 @@ const validator = require('validator')
 
 
 const PostSchema = new mongoose.Schema({
-    author_id: {
-        type: Number,
+    author: {
+        type: String,
         required: true,
         trim: true
     },

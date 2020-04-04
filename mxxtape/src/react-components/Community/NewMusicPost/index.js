@@ -119,7 +119,7 @@ class NewMusicPost extends React.Component {
                 return;
             }
             const formInfo = {
-                author_id: 1,   //get from user
+                author: 1,   //get from user
                 avatar: "https://tinyurl.com/wy5zbp2",
                 community_id: 0, // get from community
                 content: null,
