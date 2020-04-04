@@ -83,7 +83,7 @@ class Community extends React.Component {
                                     </div>
                                     <div id="feed_filter">
                                         {/*Filter by most recent or oldest*/}
-                                        <FeedFilter state={this.state}/>
+                                        <FeedFilter state={this}/>
                                     </div>
                                 </div>
                                 <div className="posts">
