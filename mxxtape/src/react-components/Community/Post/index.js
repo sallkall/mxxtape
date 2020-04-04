@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player'
 
 import {Comment, Icon, Tooltip, Rate, List, Avatar} from 'antd';
 import moment from 'moment';
-import {updateLikes} from "../../../actions/post";
+import {updateDislikes, updateLikes} from "../../../actions/post";
 
 class Post extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class Post extends React.Component {
     };
 
     dislike = () => {
-        updateLikes(this, this.state.postId);
+        updateDislikes(this, this.state.postId);
         // this.setState({
         //     likes: 0,
         //     dislikes: 1,

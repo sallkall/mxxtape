@@ -99,3 +99,33 @@ export const updateLikes = (post, id) => {
             console.log(error);
         });
 };
+
+export const updateDislikes = (post, id) => {
+    // the URL for the request
+    const url = "/posts/" + id + "/dislikes";
+
+    const request = new Request(url, {
+        method: "post",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Couldn't dislike ");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            post.setState({ dislikes: json.dislikes });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};

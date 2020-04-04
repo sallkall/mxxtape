@@ -350,6 +350,40 @@ app.post('/posts/:id/likes', (req, res) => {
     })
 });
 
+// add dislike
+app.post('/posts/:id/dislikes', (req, res) => {
+    /// req.params has the wildcard parameters in the url, in this case, id.
+    // log(req.params.post_id)
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // findById
+    Post.findById(id)
+        .then((post) => {
+            if (!post) {
+                res.status(404).send()  // could not find this student
+            } else {
+                /// sometimes we wrap returned object in another object:
+                //res.send({student})
+                post.dislikes ++;
+                post.save().then(
+                    post => {
+                        res.send({"dislikes": post.dislikes})
+                    },
+                    error => {
+                        res.status(400).send(error);
+                    }
+                )
+            }
+        }).catch((error) => {
+        res.status(500).send()  // server error
+    })
+});
+
 app.patch('/posts/:id/', (req, res) => {
     const id = req.params.id;
     const { author, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes } = req.body;
