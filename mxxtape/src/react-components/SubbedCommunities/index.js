@@ -40,7 +40,7 @@ class SubbedCommunities extends React.Component {
 
     Unsubscribe(username, community) {
         const react = this;
-        fetch("/users/"+username+"/subscriptions", {method: 'DELETE', body: "{\"community\": "+community+"}"})
+        fetch("/users/"+username+"/subscriptions", {method: 'DELETE', headers:{'Content-Type': 'application/json'}, body: JSON.stringify({"community": community})})
             .then(
                 res => {
                     return res.json();

@@ -82,7 +82,7 @@
 }
 
 .posts {
-    max-width: 88%;
+    min-width: 750px;
     position: absolute;
     margin-top: 30px;
     margin-right: 100px;

@@ -28,7 +28,7 @@ let userjson = {
 };
 
 let communityjson = {
-    name: "tempo_name"
+    name: "jazzitup"
 };
 
 class Community extends React.Component {
@@ -58,8 +58,8 @@ class Community extends React.Component {
         posts: [],
         community: {},
         loadingFeed: true,
-        isMember: userjson.subscriptions.includes("tempo_name"),    //check
         loadingCommunity: true,
+        isMember: userjson.subscriptions.includes(communityjson.name),    //check
         newPost: false,
         message: { type: "", body: "" },
         updateFeed: () => {
