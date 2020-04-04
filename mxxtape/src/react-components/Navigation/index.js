@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Menu, Icon, Input, Badge} from 'antd';
 import NotificationBadge from "./NotificationBadge";
+import {logout} from "../../actions/user";
 
 const {SubMenu} = Menu;
 const {Search} = Input;
@@ -17,6 +18,7 @@ class Nav extends React.Component {
         this.state  = {
             userInfo: {}
         };
+        this.app = this.props.app;
     }
 
     handleSearch(inputValue) {
@@ -30,17 +32,16 @@ class Nav extends React.Component {
         this.props.history.push(addr);
     };
 
-    getLoggedInFromStateProp(state) {
+    getLoggedInFromStateProp() {
         // console.log(state);
         // this will be a server call for current user
-        if (state && state.loggedIn) {
-            return state.loggedIn
-        }
+        // if (state && state.loggedIn) {
+        //     return state.loggedIn
+        // }
+        return this.app.state.loggedIn
     }
 
     render() {
-        const {state} = this.props;
-        console.log(state);
         return (
             <Router>
                 <Menu
@@ -62,9 +63,9 @@ class Nav extends React.Component {
                     <Menu.Item
                         className='menu-notifications'
                         key="notifications"
-                        onClick={() => this.redirect('/'+ state.notifications)}
+                        onClick={() => this.redirect('/notifications')}
                     >
-                        <NotificationBadge user={this.getLoggedInFromStateProp(state)}/>
+                        <NotificationBadge user={this.getLoggedInFromStateProp()}/>
                     </Menu.Item>
                     <SubMenu
                         className='menu_sub'
@@ -79,7 +80,7 @@ class Nav extends React.Component {
                             <Menu.Item
                                 key="goto-subscriptions"
                                 onClick = { () => {
-                                    this.redirect("/subscriptions")
+                                    this.redirect("/subscriptions/"+this.props.app.state.currentUser)
                                 }}
                             >
                                 Subscriptions
@@ -87,7 +88,7 @@ class Nav extends React.Component {
                             <Menu.Item
                                 key="create-community"
                                 onClick = { () => {
-                                    const addr = '/' + state.create_community;
+                                    const addr = '/create-community';
                                     this.redirect(addr)
                                 }}
                             >
@@ -105,10 +106,7 @@ class Nav extends React.Component {
                             </Menu.Item>
                             <Menu.Item
                                 key="logout"
-                                onClick={ () => {
-                                    state.handleLogOut();
-                                    this.redirect("/login");
-                                }}
+                                onClick={ () => { logout(this.app) }}
                             >
                                 Logout
                             </Menu.Item>

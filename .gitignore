@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+package-lock.json
+mongo-data/
+mxxtape/build/
+mxxtape/package-lock.json
+mxxtape/node_modules/
+.idea/

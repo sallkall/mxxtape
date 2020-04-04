@@ -7,17 +7,18 @@ import NotificationsList from "./NotificationsList";
 
 class NotificationsPage extends React.Component {
     render() {
-        const {state} = this.props;
 
         return (
             <div>
-                <Nav state={state} />
+                <Nav app={this.props.app} />
                 <div className="notifications-page">
                     <header className="notifications-page-header">
                         Notifications
                     </header>
                     <hr/>
-                    <NotificationsList loggedIn={state.loggedIn} updateGlobal={state.updateGlobal}/>
+                    <NotificationsList
+                        loggedIn={this.props.app.state.loggedIn}
+                        updateGlobal={this.props.app.state.updateGlobal}/>
                 </div>
             </div>
         )

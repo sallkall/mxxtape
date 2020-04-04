@@ -42,11 +42,10 @@ class Community extends React.Component {
     render() {
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
         let join_button_color = this.state.isMember ? "" : "#52c41a";
-        const {state} = this.props;
 
         return (
             <div>
-                <Nav state={state}/>
+                <Nav app={this.props.app}/>
                 <Layout>
                     <Content className="content">
                         <div className="header">

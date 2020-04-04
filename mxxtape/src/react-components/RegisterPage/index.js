@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.css";
+import "../LoginPage/index.css"
 import {Form} from "antd";
 import RegisterForm from "./RegisterForm/RegisterForm";
 
@@ -7,19 +8,18 @@ import RegisterForm from "./RegisterForm/RegisterForm";
 class RegisterPage extends React.Component {
 
     render() {
-        const {state} = this.props;
-
         const RegisterPageRegisterForm = Form.create({ name: "register"})(
             RegisterForm
         );
 
         return (
-            <div className="Register">
-                <div className="register-form">
-                    <h2 className="register-form-header">
-                        RegisterPage
-                    </h2>
-                    <RegisterPageRegisterForm />
+            <div className="Login">
+                <div className="form">
+                    <div className="form-box form">
+                        <h1 className="dark">First time here?</h1>
+                        <h2 className="dark"> Make an account!</h2>
+                        <RegisterPageRegisterForm />
+                    </div>
                 </div>
             </div>
         )

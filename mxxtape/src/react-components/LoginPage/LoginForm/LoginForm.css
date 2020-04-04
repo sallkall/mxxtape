@@ -1,17 +1,10 @@
 .login-form {
-    max-width: 300px;
+    max-width: 40vw;
     font-size: 14px;
-}
-.login-form-forgot {
-    float: right;
 }
 .login-form-button {
     width: 100%;
 }
-.login-form-register {
-    float: left;
-}
-
 .input-icon {
     color: rgba(0,0,0,.25)
 }
