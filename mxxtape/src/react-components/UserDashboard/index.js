@@ -13,13 +13,12 @@ import { Avatar } from 'antd';
 import { Card } from 'antd';
 import { List } from 'antd';
 import { Button } from 'antd';
+import { Input } from 'antd';
 
-import {getUserProfile} from "../../actions/user";
+import {getUserProfile, addToHistory} from "../../actions/user";
 
 
 const { Sider, Content } = Layout;
-
-let username = "USERNAME";
 
 let userjson = {
     exists: false,
@@ -28,7 +27,7 @@ let userjson = {
     subscriptions: []
 };
 
-let FeaturedSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
+let featuredSong = "";
 
 let DiscoverList = [
     "https://soundcloud.com/eveyx/65daysofstatic-debutante-no-mans-sky-trailer-edit",
@@ -36,36 +35,53 @@ let DiscoverList = [
     "https://soundcloud.com/melatonin-nl/factorio",
 ];
 
-/*let HistoryList = [
-    "https://soundcloud.com/qaffass/peter-gabriel-down-to-earth",
-    "https://soundcloud.com/stromunfall8bit/we-didnt-start-the-fire-8bit",
-    "https://soundcloud.com/mememanboi/take-me-home-country-roads-fallout",
-];
-
-let SubList = [
-    ["Jazz It Up", "jazzitup"],
-    ["Digital", "digital"],
-    ["Rock N Roll", "rocknroll"],
-];*/
-
-function RenderNewStarSong(react) {
-    /*const starSongInput = document.getElementById("DashboardSidebarSongInput");
-    userjson.starsong = starSongInput.value;
-    starSongInput.value = "";
-    react.forceUpdate();*/
-    const starSongInput = document.getElementById("DashboardSidebarSongInput");
-}
+/*function addToHistory(username, song) {
+    console.log("ADDING");
+    console.log(username);
+    console.log(song);
+}*/
 
 class UserDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.props.history.push("/dashboard");
         getUserProfile(this.props.app.state.currentUser, userjson, this);
+        fetch("/featuredsong", {method: 'GET'})
+            .then(
+                res => {
+                    return res.json();
+                }
+            )
+            .then(
+                json => {
+                    featuredSong = json.featuredSong;
+                    this.forceUpdate();
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
     }
 
     redirect(dir) {
         this.props.history.push(dir);
     }
+
+    setStarSong(username, react) {
+        const starSongInput = document.getElementById("DashboardSidebarSongInput");
+        userjson.starsong = starSongInput.value;
+        starSongInput.value = "";
+        react.forceUpdate();
+        fetch("/users/"+username+"/starsong", {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({"starsong": userjson.starsong})})
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
     render() {
         const username = this.props.app.state.currentUser;
         userjson.history = userjson.history.slice(0, 4);
@@ -80,17 +96,17 @@ class UserDashboard extends React.Component {
                                 <Avatar id="DashboardSidebarAvatar" shape="square" src={"/"+username+".png"}/>
                                 <Divider/>
                                 <p>Starred Song</p>
-                                <ReactPlayer height={150} width={150} controls={false} url={userjson.starsong}/>
+                                <ReactPlayer height={150} width={150} controls={false} url={userjson.starsong} onPlay={function() {addToHistory(username, userjson.starsong)}}/>
                                 <br/><br/>
-                                <input id="DashboardSidebarSongInput" type="text" placeholder="Song URL"/>
-                                <Button id="DashboardSidebarSongButton" onClick={() => RenderNewStarSong(this)}>Set Starred Song</Button>
+                                <Input id="DashboardSidebarSongInput" type="text" placeholder="Song URL"/>
+                                <Button id="DashboardSidebarSongButton" onClick={() => this.setStarSong(username, this)}>Set Starred Song</Button>
                             </Card>
                         </Sider>
 
                         <Content id="DashboardContents">
                             <div id="topCards">
                             <Card className="featuredSongCard" title="FEATURED SONG">
-                                <ReactPlayer width="auto" height='150px' controls={false} url={FeaturedSong}/>
+                                <ReactPlayer width="auto" height='150px' controls={false} url={featuredSong} onPlay={function() {addToHistory(username, featuredSong)}}/>
                             </Card>
 
                             <Card className="discoverCard" title="DISCOVER">
@@ -99,7 +115,7 @@ class UserDashboard extends React.Component {
                                     dataSource = {DiscoverList}
                                     renderItem = {item => (
                                         <List.Item>
-                                            <ReactPlayer height='60px' controls={false} url={item}/>
+                                            <ReactPlayer height='60px' controls={false} url={item} onPlay={function() {addToHistory(username, item)}}/>
                                         </List.Item>
                                     )}
                                 />
@@ -113,7 +129,7 @@ class UserDashboard extends React.Component {
                                     dataSource = {userjson.history}
                                     renderItem = {item => (
                                         <List.Item>
-                                            <ReactPlayer height={70}  controls={false} url={item}/>
+                                            <ReactPlayer height={70}  controls={false} url={item} onPlay={function() {addToHistory(username, item)}}/>
                                         </List.Item>
                                     )}
                                 />
