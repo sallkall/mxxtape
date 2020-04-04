@@ -88,3 +88,23 @@ export const loadUsers = (key, comp) => {
             }
         })
 };
+
+//get all community names
+export const getAllCommunities = (comp) => {
+    console.log('getAllCommunities');
+    const url = "/communities/q=?";
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            if (json && comp.state) {
+                comp.setState({communityNames: json});
+                return json
+            } else return json ? json : []
+        })
+        .then(json => {console.log(url, "returned", comp, json); return json;})
+
+};
