@@ -1,5 +1,5 @@
 // A function to send a POST request with a new post
-export const addPost = (formComp, feedComp) => {
+export const addPost = (formComp, feedComp, callback) => {
     // the URL for the request
     console.log(formComp)
     const url = "/posts";
@@ -26,7 +26,7 @@ export const addPost = (formComp, feedComp) => {
                         body: "Success: Added a post.",
                         type: "success"
                     }
-                });
+                }, callback);
             } else {
                 // If server couldn't add the student, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
@@ -35,11 +35,12 @@ export const addPost = (formComp, feedComp) => {
                         body: "Error: Could not add post.",
                         type: "error"
                     }
-                });
+                }, callback);
             }
         })
         .catch(error => {
             console.log(error);
+            callback();
         });
 };
 

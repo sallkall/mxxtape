@@ -139,7 +139,7 @@ class NewTextPost extends React.Component {
                 likes: 0,
                 dislikes: 0,
             };
-            addPost(formInfo, this);
+            addPost(formInfo, this, state.updateFeed);
             form.resetFields();
             this.setState({visible: false});
         });

@@ -29,7 +29,7 @@ class Community extends React.Component {
         newPost: false,
         message: { type: "", body: "" },
         updateFeed: () => {
-            this.setState({newPost: !this.state.newPost});
+            this.setState({newPost: !this.state.newPost, loadingFeed: true}, () => getFeed());
         }
     };
 
