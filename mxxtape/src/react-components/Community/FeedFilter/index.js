@@ -7,17 +7,17 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 
-function onChange() {
-    // posts.reverse();
-}
+// function onChange() {
+//     // posts.reverse();
+// }
 
-function onBlur() {
-    console.log('filter status: blur');
-}
-
-function onFocus() {
-    console.log('filter status: focus');
-}
+// function onBlur() {
+//     console.log('filter status: blur');
+// }
+//
+// function onFocus() {
+//     console.log('filter status: focus');
+// }
 
 // function mySearch(val, state) {
 //     if (val === 'newest') {
@@ -26,39 +26,44 @@ function onFocus() {
 //     }
 // }
 
-let swap = false;
+// let swap = false;
 
-function onSearch(val) {
-    if (val == 'oldest') {
-        swap = true;
-    } else {
-        swap = false;
-    }
-    // console.log(val == 'oldest')
-    // return val == 'oldest';
-
-}
+// function onSearch(val) {
+//     if (val == 'oldest') {
+//         swap = true;
+//     } else {
+//         swap = false;
+//     }
+//     // console.log(val == 'oldest')
+//     // return val == 'oldest';
+//
+// }
 
 class FeedFilter extends React.Component {
     render() {
         const {state} = this.props;
         // console.log(state.state.posts.reverse())
+        // const posts = this.props.state.state.posts;
+        // console.log(state.state.posts.reverse());
 
         return (
             <Select
-                showSearch
                 className='filter'
                 placeholder="Sort"
                 optionFilterProp="children"
-                onChange={() => {
-                    onChange();
-                    state.state.posts.reverse()
-
-                    // state.updateFeed()
+                onChange={val => {
+                    console.log("filter onChange", val);
+                    state.setState({sort: val})
                 }}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onSearch={onSearch}
+                // onFocus={onFocus}
+                // onBlur={onBlur}
+                // onSearch={(val) => {
+                //     console.log("filter onsearch");
+                //     if (val === 'recent') {
+                //         posts.reverse();
+                //         state.setState({posts: posts});
+                //     }
+                // }}
                 filterOption={(input, option) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }

@@ -60,6 +60,7 @@ class Community extends React.Component {
 
 
     state = {
+        sortPosts: "oldest",
         posts: [],
         community: {},
         loadingFeed: true,
@@ -78,10 +79,27 @@ class Community extends React.Component {
     }
 
     render() {
-        console.log("userinfooooooo", userjson)
+        // console.log("userinfooooooo", userjson)
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
         let join_button_color = this.state.isMember ? "" : "#52c41a";
         const username = this.props.app.state.currentUser;
+
+        // // srt posts
+        // let compare = x => {
+        //     return x;
+        // };
+        if (this.state.sortPosts === "oldest") {
+            // compare = (a, b) => {
+            //     return a.timestamp - b.timestamp;
+            // };
+            this.state.posts.reverse()
+        } else if (this.state.sortPosts === "recent") {
+            // compare = (a, b) => {
+            //     return b.timestamp - a.timestamp;
+            // };
+            this.state.posts.reverse()
+        }
+
         return (
             <div>
                 <Nav app={this.props.app}/>
