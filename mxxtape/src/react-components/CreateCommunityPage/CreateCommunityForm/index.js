@@ -2,7 +2,13 @@ import {Button, Form, Icon, Input, Mentions, message, Tooltip} from "antd";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import './index.css'
-import {loadUsers, parseTaggedUsers, parseWords, registerNewCommunity} from "../../../actions/community";
+import {
+    getAllCommunities,
+    loadUsers,
+    parseTaggedUsers,
+    parseWords,
+    registerNewCommunity
+} from "../../../actions/community";
 import debounce from 'lodash/debounce';
 
 const {Option} = Mentions;
@@ -13,14 +19,16 @@ class CreateCommunityForm extends React.Component {
         // tooltips
         this.tooltip = {
             name_tooltip: "Give your community a good name that doesn't overlap with existing communities! " +
+                "Names can only contain alphabet characters! So no charcters (not even spaces!)" +
                 "Note that this can't be changed in the future.",
             genre_tooltip: "List as many genres as you like, but you need at least one.",
             description_tooltip: "Give an explanation of what you hope to see in your community. This will also be " +
                 "how new members come to understand your community as well as explain what makes your community " +
                 "unique!.",
-            mods_tooltip: "Add some mods by tagging them @username! You will be added automatically"
+            mods_tooltip: "Add some mods by tagging them @username!"
         };
-        this.loadUsers = debounce(loadUsers, 500)
+        this.loadUsers = debounce(loadUsers, 500);
+        getAllCommunities(this)
     }
 
     state = {
@@ -31,7 +39,8 @@ class CreateCommunityForm extends React.Component {
         moderators: null,
         users: [],
         loading: false,
-        search: ''
+        search: '',
+        communityNames: []
     };
 
     onSearch = search => {
@@ -40,45 +49,45 @@ class CreateCommunityForm extends React.Component {
         this.loadUsers(search, this);
     };
 
-    getExistingCommunityNames = () => {
-        //will get this list of community names from server
-        return {
-            community_names: ["jazz it up"],
-        }
-    };
-
     checkCommunityName = (rule, value, callback) => {
         if (value){
-            const cleanName = value.toLowerCase().replace(/\s/g, "");
-            const communityNames = this.getExistingCommunityNames().community_names;
+            if (value.match(/\s/g)) {
+                // console.log(value, this.state.communityNames);
+                callback("This name contains spaces! Unfortunately that's not allowed")
+            } else {
+                const cleanName = value.toLowerCase();
+                // console.log(value, cleanName, this.state.communityNames, this.state.communityNames.length);
 
-            for (let i = 0; i < communityNames.length; i++){
-                if (cleanName === communityNames[i].toLowerCase().replace(/\s/g, "")) {
-                    this.setState(
-                        {validName: false},
-                        () => {
-                            console.log("community name invalid", value);
-                            callback("This community exists already!")
-                        }
-                    )
-                }
+                this.state.communityNames.forEach(name => {
+                    // console.log(value, cleanName, name.toLowerCase(), cleanName === name.toLowerCase());
+                    if (cleanName === name.toLowerCase()) {
+                        this.setState(
+                            {validName: false},
+                            () => {
+                                // console.log("community name invalid", value);
+                                callback("This community exists already!")
+                            }
+                        )
+                    }
+                });
+
+                this.setState(
+                    {validName: false},
+                    () => {
+                        // console.log("community name accepted!", value);
+                        callback()
+                    }
+                );
             }
-
-            this.setState(
-                {validName: false},
-                () => {
-                    console.log("community name accepted!", value);
-                    callback()
-                }
-            );
         }
     };
 
     handleSubmit = e => {
         e.preventDefault();
+        // console.log(this.state.communityNames);
         this.props.form.validateFields((err, values) => {
             if(!err) {
-                console.log("CreateCommunityForm values", values);
+                // console.log("CreateCommunityForm values", values);
                 if(values) {
                     const mods = parseTaggedUsers(values.moderators+" @"+this.props.app.state.currentUser);
                     console.log("mods", mods);

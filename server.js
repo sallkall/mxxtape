@@ -553,6 +553,34 @@ app.post("/register-new-community", (req, res) => {
     });
 });
 
+//route for getting communities lists of community names
+app.get("/communities/q=?:key", (req, res) => {
+    const key = req.params.key;
+    // log("get /communities/q=?:key", key, key.length, !key);
+    if (key.length > 1) {
+        Community.find(
+            { "name": {"$regex": `^${key}`, "$options": "i"} },
+            function(err,docs) {
+                docs.forEach((community, i) => docs[i] = community.name);
+                res.send(docs.slice(0, 10));
+            })
+            .catch(error => {
+                res.status(400).send(error);
+            });
+    } else {
+        Community.find(
+            { "name": {"$regex": `.`, "$options": "i"} },
+            function(err,docs) {
+                docs.forEach((community, i) => docs[i] = community.name);
+                res.send(docs.slice(0, 10));
+            })
+            .catch(error => {
+                res.status(400).send(error);
+            });
+    }
+
+});
+
 app.get("/featuredsong", (req, res) => {
     FeaturedSong.findOne({}).then(
         featured => {
