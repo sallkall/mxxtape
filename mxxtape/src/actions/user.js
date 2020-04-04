@@ -144,3 +144,17 @@ export const getUserProfile = (username, user_json, react) => {
             }
         );
 };
+
+export const addToHistory = (username, song) => {
+    fetch("/users/"+username+"/history", {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({"song": song})})
+        .then(
+            res => {
+                return res.json();
+            }
+        )
+        .catch(
+            error => {
+                console.log(error);
+            }
+        );
+};

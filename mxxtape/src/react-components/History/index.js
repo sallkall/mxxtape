@@ -42,7 +42,7 @@ class History extends React.Component {
 
     RemoveFromHistory(username, song) {
         const react = this;
-        fetch("/users/"+username+"/history", {method: 'DELETE', body: "{\"song\": "+song+"}"})
+        fetch("/users/"+username+"/history", {method: 'DELETE', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({"song": song})})
             .then(
                 res => {
                     return res.json();

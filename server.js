@@ -12,6 +12,7 @@ mongoose.set('useFindAndModify', false);
 // import the mongoose models
 const { User } = require("./models/user");
 const { Community } = require("./models/user");
+const { FeaturedSong } = require("./models/featuredSong");
 
 const { Post } = require("./models/post");
 
@@ -431,7 +432,9 @@ app.delete("/users/:username/history", (req, res) => {
     const username = req.params.username;
     User.findOne({username: username}).then(
         user => {
-            user.history.splice(user.history.indexOf(req.body.song), 1);
+            if(user.history.indexOf(req.body.song) > -1) {
+                user.history.splice(user.history.indexOf(req.body.song), 1);
+            }
             user.save();
             res.send({"history": user.history});
         }, error => {
@@ -493,6 +496,7 @@ app.get("/users/:username/profiledata", (req, res) => {
     )
 });
 
+
 // get list of usernames by key
 app.get("/users/q=:key", (req, res) => {
     const key = req.params.key;
@@ -512,7 +516,7 @@ app.post("/register-new-community", (req, res) => {
     log("/register-new-community", req.body);
     const {name, genres, description, moderators} = req.body;
 
-    if (!name || !genres || !description || !moderators || genres.length < 1 || moderators.length < 1)
+    if (!name || !genres || !description || !moderators || genres.length < 1)
         res.status(400).send('Sorry bad inputs');
     else{
         const mods = [];
@@ -549,6 +553,35 @@ app.post("/register-new-community", (req, res) => {
                 })
         });
     }
+});
+
+app.get("/featuredsong", (req, res) => {
+    FeaturedSong.findOne({}).then(
+        featured => {
+            if(featured===null) {
+                res.send({"featuredSong": ""});
+            } else {
+                res.send({"featuredSong": featured.featuredSong});
+            }
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.post("/featuredsong", (req, res) => {
+    FeaturedSong.findOne({}).then(
+        featured => {
+            if(featured===null) {
+                featured = new FeaturedSong({featuredSong: req.body.featuredSong});
+            } else {
+                featured.featuredSong = req.body.featuredSong;
+            }
+            featured.save();
+            res.send({"featuredSong": featured.featuredSong});
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
 });
 
 /*** Webpage routes below **********************************/

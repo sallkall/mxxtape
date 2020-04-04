@@ -18,7 +18,7 @@ class CreateCommunityForm extends React.Component {
             description_tooltip: "Give an explanation of what you hope to see in your community. This will also be " +
                 "how new members come to understand your community as well as explain what makes your community " +
                 "unique!.",
-            mods_tooltip: "Add some mods! You will be added automatically"
+            mods_tooltip: "Add some mods by tagging them @username! You will be added automatically"
         };
         this.loadUsers = debounce(loadUsers, 500)
     }
@@ -80,7 +80,7 @@ class CreateCommunityForm extends React.Component {
             if(!err) {
                 console.log("CreateCommunityForm values", values);
                 if(values) {
-                    const mods = parseTaggedUsers(values.moderators);
+                    const mods = parseTaggedUsers(values.moderators+" @"+this.props.app.state.currentUser);
                     console.log("mods", mods);
                     this.setState({
                         name: values.name,
