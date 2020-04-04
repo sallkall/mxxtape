@@ -4,7 +4,10 @@ import 'antd/dist/antd.css';
 
 import {Button, Modal, Form, Input, Icon, Layout, Mentions, Tooltip} from 'antd';
 
-import {posts} from "../CommunityFeed";
+// import {posts} from "../CommunityFeed";
+
+// import action methods
+import { addPost} from "../../../actions/post";
 
 const {Option} = Mentions;
 const {Content} = Layout;
@@ -103,6 +106,9 @@ const NewTextPostCreateForm = Form.create({name: 'textpost_form'})(
 class NewTextPost extends React.Component {
     state = {
         visible: false,
+        posts: {
+            content: "memememe",
+        },
     };
 
     showModal = () => {
@@ -113,27 +119,28 @@ class NewTextPost extends React.Component {
         this.setState({visible: false});
     };
 
-    handleCreate = () => {
+    handleCreate = (state) => {
         const {form} = this.formRef.props;
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-            // should be making server calls to directly manipulate the posts for phase 2, pushed directly into the post
-            // array for now...
+            // console.log(form.getFieldValue("content"))
 
-            // Create new post information to push to all feed posts in CommunityFeed
-            const post_information = {
-                key: 4, //tempo key will fix later
-                actions: null,
-                author: "Texty cat",
-                rating: null,
+            const formInfo = {
+                author_id: 0,   //get from user
                 avatar: "https://tinyurl.com/wy5zbp2",
+                community_id: 0, // get from community
+                content: form.getFieldValue('content'),
+                tags: form.getFieldValue('tags'),
+                post_type: 'text',
+                rating: null,
                 musicUrl: null,
-                content: values.content,
-                tags: values.tags,
+                likes: 0,
+                dislikes: 0,
             };
-            posts.unshift(post_information);
+            addPost(formInfo, this, state.updateFeed);
+            // addPost(formInfo, this);
             form.resetFields();
             this.setState({visible: false});
         });
@@ -161,8 +168,8 @@ class NewTextPost extends React.Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={() => {
-                        this.handleCreate();
-                        state.updateFeed()
+                        this.handleCreate(state);
+                        // state.updateFeed()
                     }}
                 />
             </div>

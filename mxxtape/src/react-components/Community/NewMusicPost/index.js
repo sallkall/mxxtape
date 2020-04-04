@@ -3,8 +3,9 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 
 import {Button, Modal, Form, Icon, Input, Rate, Layout, Tooltip} from 'antd';
+import {addPost} from "../../../actions/post";
 
-import {posts} from "../CommunityFeed";
+// import {posts} from "../CommunityFeed";
 
 const { Content} = Layout;
 
@@ -111,25 +112,26 @@ class NewMusicPost extends React.Component {
         this.setState({ visible: false });
     };
 
-    handleCreate = () => {
+    handleCreate = (state) => {
         const { form } = this.formRef.props;
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-            // should be making server calls to directly manipulate the posts for phase 2, pushed directly into the post
-            // array for now...
-            const post_information = {
-                key: 5,     //tempo key hardcoded in for now
-                actions: null,
-                author: "Jellicle Cat",
-                rating: values.rating,
-                avatar: "https://tinyurl.com/v43wzfn",
-                content: "",
-                musicUrl: values.content,
-                tags: values.tags,
+            const formInfo = {
+                author_id: 1,   //get from user
+                avatar: "https://tinyurl.com/wy5zbp2",
+                community_id: 0, // get from community
+                content: null,
+                tags: form.getFieldValue('tags'),
+                post_type: 'music',
+                rating: form.getFieldValue('rating'),
+                musicUrl: form.getFieldValue('content'),
+                likes: 0,
+                dislikes: 0,
             };
-            posts.unshift(post_information);
+            // addPost(formInfo, this);
+            addPost(formInfo, this, state.updateFeed);
             form.resetFields();
             this.setState({ visible: false });
         });
@@ -157,8 +159,8 @@ class NewMusicPost extends React.Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={() => {
-                        this.handleCreate();
-                        state.updateFeed();
+                        this.handleCreate(state);
+                        // state.updateFeed();
                     }}
                 />
             </div>

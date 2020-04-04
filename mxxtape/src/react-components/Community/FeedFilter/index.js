@@ -3,12 +3,12 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 
 import { Select } from 'antd';
-import {posts} from "../CommunityFeed";
+// import {posts} from "../CommunityFeed";
 
 const { Option } = Select;
 
 function onChange() {
-    posts.reverse();
+    // posts.reverse();
 }
 
 function onBlur() {
@@ -19,17 +19,27 @@ function onFocus() {
     console.log('filter status: focus');
 }
 
+// function mySearch(val, state) {
+//     if (val === 'newest') {
+//         this.props.state.posts.reverse();
+//         console.log()
+//     }
+// }
+
 function onSearch(val) {
     // Sorts posts for now, should be making server calls to directly manipulate the posts for phase 2
     if (val === 'oldest') {
-        posts.reverse();
+        // posts.reverse();
     }
     console.log('search:', val);
+
+    // return val == 'newest';
+
 }
 
 class FeedFilter extends React.Component {
     render() {
-        const {state} = this.props;
+        // const {state} = this.props;
         return (
             <Select
                 showSearch
@@ -38,11 +48,16 @@ class FeedFilter extends React.Component {
                 optionFilterProp="children"
                 onChange={() => {
                     onChange();
-                    state.updateFeed()
+                    // state.updateFeed()
                 }}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                onSearch={onSearch}
+                onSearch={ (val) => {
+                    if (onSearch(val)) {
+                        this.props.state.posts.reverse();
+                    }
+                }
+                }
                 filterOption={(input, option) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }

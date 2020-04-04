@@ -4,7 +4,6 @@ const log = console.log;
 const express = require("express");
 const app = express();
 
-//TODO: This code is more or less pulled directly from the example, and needs a lot of tweaking.
 
 // mongoose and mongo connection
 const { mongoose } = require("./db/mongoose");
@@ -13,6 +12,8 @@ mongoose.set('useFindAndModify', false);
 // import the mongoose models
 const { User } = require("./models/user");
 const { Community } = require("./models/user");
+
+const { Post } = require("./models/post");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -226,8 +227,175 @@ app.post("/users", (req, res) => {
             res.status(400).send(error); // 400 for bad request
         }
     );
+})
+
+/*********************************************************/
+/*************    POST API      *************/
+
+app.post("/posts", (req, res) => {
+    // log(req.body);
+    const type = req.body.post_type;
+    let post = null;
+    if (type == "text") {
+        post = new Post({
+            author_id: req.body.author_id,
+            avatar: req.body.avatar,
+            community_id: req.body.community_id,
+            content: req.body.content,
+            tags: req.body.tags,
+            post_type: req.body.post_type,
+            rating: null,
+            musicUrl: null,
+            likes: 0,
+            dislikes: 0,
+        });
+    } else if (type == "music") {
+        post = new Post({
+            author_id: req.body.author_id,
+            avatar: req.body.avatar,
+            community_id: req.body.community_id,
+            tags: req.body.tags,
+            post_type: req.body.post_type,
+            rating: req.body.rating,
+            musicUrl: req.body.musicUrl,
+            likes: 0,
+            dislikes: 0,
+        });
+    }
+
+
+    // Save the post to db
+    post.save().then(
+        result => {
+            res.send(result);
+        },
+        error => {
+            res.status(400).send(error); // 400 for bad request
+        }
+    );
 });
 
+// get all posts
+app.get('/posts', (req, res)=> {
+    Post.find().then(
+        posts => {
+            res.send({ posts }); // can wrap in object if want to add more properties
+        },
+        error => {
+            res.status(500).send(error); // server error
+        }
+    );
+});
+
+// get by post id
+app.get('/posts/:id', (req, res) => {
+    /// req.params has the wildcard parameters in the url, in this case, id.
+    // log(req.params.post_id)
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // findById
+    Post.findById(id)
+        .then((post) => {
+            if (!post) {
+                res.status(404).send()  // could not find this student
+            } else {
+                /// sometimes we wrap returned object in another object:
+                //res.send({student})
+                res.send(post)
+            }
+    }).catch((error) => {
+        res.status(500).send()  // server error
+    })
+});
+
+
+// get by post likes
+app.post('/posts/:id/likes', (req, res) => {
+    /// req.params has the wildcard parameters in the url, in this case, id.
+    // log(req.params.post_id)
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // findById
+    Post.findById(id)
+        .then((post) => {
+            if (!post) {
+                res.status(404).send()  // could not find this student
+            } else {
+                /// sometimes we wrap returned object in another object:
+                //res.send({student})
+                post.likes ++;
+                post.save().then(
+                    post => {
+                        res.send({"likes": post.likes})
+                    },
+                    error => {
+                        res.status(400).send(error);
+                    }
+                )
+            }
+        }).catch((error) => {
+        res.status(500).send()  // server error
+    })
+});
+
+app.patch('/posts/:id/', (req, res) => {
+    const id = req.params.id;
+    const { author_id, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes } = req.body;
+    const body = { author_id, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes };
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+
+    // Update the student by their id.
+    Post.findByIdAndUpdate(id, { $set: body }, { new: true })
+        .then(post => {
+            if (!post) {
+                res.status(404).send();
+            } else {
+                res.send(post);
+            }
+        })
+        .catch(error => {
+            res.status(400).send(); // bad request for changing the student.
+        });
+});
+
+/// a DELETE route to remove a student by their id.
+app.delete('/posts/:id', (req, res) => {
+    const id = req.params.id
+
+    // Validate id
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // Delete a student by their id
+    Post.findByIdAndRemove(id).then((post) => {
+        if (!post) {
+            res.status(404).send()
+        } else {
+            res.send(post)
+        }
+    }).catch((error) => {
+        res.status(500).send() // server error, could not delete.
+    })
+});
+
+
+/************************ END POST API ****************************/
 
 /**
  * Request body should contain the new star song.

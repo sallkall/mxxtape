@@ -11,17 +11,26 @@ import FeedTags from "../FeedTags";
 import MembersList from "../MembersList";
 
 import {Layout, Breadcrumb, Icon, Button} from 'antd';
+import {getFeed} from "../../../actions/post";
 
 const {Content, Sider} = Layout;
 
 // This is a sample community for 'jazz it up' in user's view
 class Community extends React.Component {
+    constructor(props) {
+        super(props);
+        getFeed(this);
+        console.log("Community constructor", this.state);
+    }
     state = {
-        // membership will be checked against data retrieved from server in phase 2
-        isMember: false,
+        posts: [],
+        loadingFeed: true,
+        isMember: false,    //check
         newPost: false,
+        message: { type: "", body: "" },
         updateFeed: () => {
-            this.setState({newPost: !this.state.newPost});
+            this.setState({newPost: !this.state.newPost, loadingFeed: true}, () => getFeed(this));
+            // this.setState({newPost: !this.state.newPost});
         }
     };
 
@@ -73,12 +82,13 @@ class Community extends React.Component {
                                     </div>
                                     <div id="feed_filter">
                                         {/*Filter by most recent or oldest*/}
-                                        <FeedFilter state={this.state}/>
+                                        <FeedFilter state={this}/>
                                     </div>
                                 </div>
                                 <div className="posts">
                                     {/*Render all of community feed/users' posts*/}
-                                    <CommunityFeed/>
+                                    {/*<CommunityFeed/>*/}
+                                    {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed posts={this.state.posts}/>}
                                 </div>
                             </Content>
                             <Sider className="sidebar" width={240}>

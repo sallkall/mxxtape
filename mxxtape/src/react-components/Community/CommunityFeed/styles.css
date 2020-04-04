@@ -1,6 +1,7 @@
 .single_post {
     border-radius: 6px;
     background-color: white;
+    width: auto;
     padding: 24px 24px 0 24px;
     margin-top: 24px;
     margin-bottom: 24px;
