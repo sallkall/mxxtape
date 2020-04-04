@@ -58,7 +58,7 @@ class CommunityFeed extends React.Component {
             <div>
                 {
                     this.state.posts.map(item => (
-                        <Post className="single_post" musicUrl={item.musicUrl} key={item._id} rating={item.rating} author={item.author}
+                        <Post className="single_post" musicUrl={item.musicUrl} key={item._id} rating={item.rating} author={this.props.app.state.currentUser}
                                   avatar={item.avatar} content={item.content} tags={item.tags} likes={item.likes} dislikes={item.dislikes}/>
                     ))
                 }

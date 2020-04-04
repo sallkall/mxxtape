@@ -88,7 +88,7 @@ class Community extends React.Component {
                                 <div className="posts">
                                     {/*Render all of community feed/users' posts*/}
                                     {/*<CommunityFeed/>*/}
-                                    {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed posts={this.state.posts}/>}
+                                    {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed app={this.props.app} posts={this.state.posts}/>}
                                 </div>
                             </Content>
                             <Sider className="sidebar" width={240}>
