@@ -51,17 +51,35 @@ class CommunityFeed extends React.Component {
         }
     }
 
+    renderPost = item => {
+        const newId = item._id.toString();
+        console.log("renderpost", item._id, newId);
+        return <Post className="single_post"
+                     musicUrl={item.musicUrl}
+                     key={item._id.toString()}
+                     rating={item.rating}
+                     author={item.author}
+                     avatar={item.avatar}
+                     content={item.content}
+                     tags={item.tags}
+                     likes={item.likes}
+                     dislikes={item.dislikes}
+                     item={item}
+        />
+    };
+
     render() {
         console.log("CommunityFeed", this.state.posts);
         // getFeed(this);
+        this.state.posts.forEach(item => {
+            console.log(item._id);
+        });
         return (
             <div>
                 {
                     this.state.posts.map(item => (
-                        <Post className="single_post" musicUrl={item.musicUrl} key={item._id} rating={item.rating} author={item.author}
-                                  avatar={item.avatar} content={item.content} tags={item.tags} likes={item.likes} dislikes={item.dislikes}/>
-                    ))
-                }
+                        this.renderPost(item)
+                    ))}
             </div>
         );
     }

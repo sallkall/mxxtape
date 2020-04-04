@@ -11,7 +11,7 @@ class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            postId: this.props.key,
+            postId: this.props.item._id,
             likes: this.props.likes,
             dislikes: this.props.dislikes,
             actions: null,
@@ -20,7 +20,8 @@ class Post extends React.Component {
                 <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
                     <span>{moment().fromNow()}</span></Tooltip>
             ),
-        }
+        };
+        // console.log(this.props.item)
         console.log(this.state.postId)
     }
 
@@ -29,11 +30,12 @@ class Post extends React.Component {
     };
 
     dislike = () => {
-        this.setState({
-            likes: 0,
-            dislikes: 1,
-            action: 'disliked',
-        });
+        updateLikes(this, this.state.postId);
+        // this.setState({
+        //     likes: 0,
+        //     dislikes: 1,
+        //     action: 'disliked',
+        // });
     };
 
     setActions() {
