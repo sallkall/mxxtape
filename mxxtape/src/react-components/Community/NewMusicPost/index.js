@@ -112,7 +112,7 @@ class NewMusicPost extends React.Component {
         this.setState({ visible: false });
     };
 
-    handleCreate = () => {
+    handleCreate = (state) => {
         const { form } = this.formRef.props;
         form.validateFields((err, values) => {
             if (err) {
@@ -130,7 +130,8 @@ class NewMusicPost extends React.Component {
                 likes: 0,
                 dislikes: 0,
             };
-            addPost(formInfo, this);
+            // addPost(formInfo, this);
+            addPost(formInfo, this, state.updateFeed);
             form.resetFields();
             this.setState({ visible: false });
         });
@@ -158,8 +159,8 @@ class NewMusicPost extends React.Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={() => {
-                        this.handleCreate();
-                        state.updateFeed();
+                        this.handleCreate(state);
+                        // state.updateFeed();
                     }}
                 />
             </div>

@@ -169,7 +169,7 @@ class NewTextPost extends React.Component {
                     onCancel={this.handleCancel}
                     onCreate={() => {
                         this.handleCreate(state);
-                        state.updateFeed()
+                        // state.updateFeed()
                     }}
                 />
             </div>
