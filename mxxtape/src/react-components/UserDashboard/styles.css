@@ -6,7 +6,7 @@
 #DashboardSidebar {
     position: absolute;
     height: 650px;
-    margin: 72px 48px 48px 48px;
+    margin: 72px 48px 48px -72px;
     border-radius: 10px;
     background-color: transparent;
 }
@@ -27,8 +27,7 @@
     position: absolute;
     width: 75%;
     margin-top: 24px;
-    margin-left: 300px;
-    margin-right: 100px;
+    margin-left: 150px;
     text-align: center;
 }
 
