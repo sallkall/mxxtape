@@ -112,15 +112,15 @@ class NewMusicPost extends React.Component {
         this.setState({ visible: false });
     };
 
-    handleCreate = (state) => {
+    handleCreate = (state, username) => {
         const { form } = this.formRef.props;
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
             const formInfo = {
-                author: 1,   //get from user
-                avatar: "https://tinyurl.com/wy5zbp2",
+                author: username,  
+                avatar: "/" + username + ".png",
                 community_id: 0, // get from community
                 content: null,
                 tags: form.getFieldValue('tags'),
@@ -159,7 +159,7 @@ class NewMusicPost extends React.Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     onCreate={() => {
-                        this.handleCreate(state);
+                        this.handleCreate(state, this.props.username);
                         // state.updateFeed();
                     }}
                 />
