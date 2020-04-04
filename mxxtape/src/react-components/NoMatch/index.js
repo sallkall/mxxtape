@@ -9,7 +9,7 @@ class NoMatch extends React.Component {
     render() {
         return (
             <div className="text-center">
-                <Nav/>
+                <Nav app={this.props.app}/>
                 <header className="text-center no-match-header">
                     <Icon type={"frown"}/> <br/>
                     Sorry! this page doesn't exist
