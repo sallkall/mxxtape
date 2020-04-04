@@ -3,7 +3,7 @@ import "./styles.css";
 import 'antd/dist/antd.css';
 
 import Post from "../Post";
-import {getFeed} from "../../../actions/post";
+// import {getFeed} from "../../../actions/post";
 
 // export let posts = [
 //     {
@@ -46,13 +46,12 @@ class CommunityFeed extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: this.props.posts
         }
     }
 
     render() {
-        // console.log(this.state.posts)
-        getFeed(this);
+        console.log("CommunityFeed", this.state.posts);
         return (
             <div>
                 {
