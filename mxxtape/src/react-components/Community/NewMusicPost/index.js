@@ -131,17 +131,6 @@ class NewMusicPost extends React.Component {
                 dislikes: 0,
             };
             addPost(formInfo, this);
-            // const post_information = {
-            //     key: 5,     //tempo key hardcoded in for now
-            //     actions: null,
-            //     author: "Jellicle Cat",
-            //     rating: values.rating,
-            //     avatar: "https://tinyurl.com/v43wzfn",
-            //     content: "",
-            //     musicUrl: values.content,
-            //     tags: values.tags,
-            // };
-            // posts.unshift(post_information);
             form.resetFields();
             this.setState({ visible: false });
         });

@@ -140,19 +140,6 @@ class NewTextPost extends React.Component {
                 dislikes: 0,
             };
             addPost(formInfo, this);
-
-            // // Create new post information to push to all feed posts in CommunityFeed
-            // const post_information = {
-            //     key: 4, //tempo key will fix later
-            //     actions: null,
-            //     author: "Texty cat",
-            //     rating: null,
-            //     avatar: "https://tinyurl.com/wy5zbp2",
-            //     musicUrl: null,
-            //     content: values.content,
-            //     tags: values.tags,
-            // };
-            // posts.unshift(post_information);
             form.resetFields();
             this.setState({visible: false});
         });
