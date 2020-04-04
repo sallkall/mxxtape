@@ -420,7 +420,7 @@ app.post("/users/:username/history", (req, res) => {
             if(user.history.indexOf(req.body.song) > -1) {
                 user.history.splice(user.history.indexOf(req.body.song), 1);
             }
-            user.history.push(req.body.song);
+            user.history.unshift(req.body.song);
             user.save();
             res.send(user);
         }, error => {
@@ -447,7 +447,7 @@ app.post("/users/:username/subscriptions", (req, res) => {
     User.findOne({username: username}).then(
         user => {
             if(user.subscriptions.indexOf(req.body.community) === -1) {
-                user.subscriptions.push(req.body.community);
+                user.subscriptions.unshift(req.body.community);
             }
             user.save();
             res.send(user);
@@ -460,7 +460,9 @@ app.delete("/users/:username/subscriptions", (req, res) => {
     const username = req.params.username;
     User.findOne({username: username}).then(
         user => {
-            user.subscriptions.splice(user.subscriptions.indexOf(req.body.community), 1);
+            if(user.subscriptions.indexOf(req.body.community) > -1) {
+                user.subscriptions.splice(user.subscriptions.indexOf(req.body.community), 1);
+            }
             user.save();
             res.send({"subscriptions": user.subscriptions});
         }, error => {

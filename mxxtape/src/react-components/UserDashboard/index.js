@@ -144,7 +144,7 @@ class UserDashboard extends React.Component {
                                         <List.Item>
                                             <div className="CommunityDiv">
                                                 <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                                <a className="CommunityTitle" onClick={() => this.redirect("/community/"+item[1])}>{item[0]}</a>
+                                                <a className="CommunityTitle" onClick={() => this.redirect("/community/"+item)}>{item}</a>
                                             </div>
                                         </List.Item>
                                     )}

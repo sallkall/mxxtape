@@ -60,7 +60,7 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
     subscriptions: {
-        type: [[String, String]]
+        type: [String]
     }
 });
 
