@@ -11,7 +11,7 @@ import FeedTags from "../FeedTags";
 import MembersList from "../MembersList";
 
 import {Layout, Breadcrumb, Icon, Button} from 'antd';
-import {getFeed} from "../../../actions/post";
+// import {getFeed} from "../../../actions/post";
 
 const {Content, Sider} = Layout;
 
@@ -19,8 +19,8 @@ const {Content, Sider} = Layout;
 class Community extends React.Component {
     constructor(props) {
         super(props);
-        getFeed(this);
-        console.log("Community constructor", this.state);
+        // getFeed(this);
+        // console.log("Community constructor", this.state);
     }
     state = {
         posts: [],
@@ -29,7 +29,8 @@ class Community extends React.Component {
         newPost: false,
         message: { type: "", body: "" },
         updateFeed: () => {
-            this.setState({newPost: !this.state.newPost, loadingFeed: true}, () => getFeed());
+            // this.setState({newPost: !this.state.newPost, loadingFeed: true}, () => getFeed());
+            this.setState({newPost: !this.state.newPost});
         }
     };
 
@@ -87,7 +88,8 @@ class Community extends React.Component {
                                 </div>
                                 <div className="posts">
                                     {/*Render all of community feed/users' posts*/}
-                                    {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed posts={this.state.posts}/>}
+                                    <CommunityFeed/>
+                                    {/*{this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed posts={this.state.posts}/>}*/}
                                 </div>
                             </Content>
                             <Sider className="sidebar" width={240}>

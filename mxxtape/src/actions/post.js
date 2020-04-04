@@ -1,5 +1,6 @@
 // A function to send a POST request with a new post
-export const addPost = (formComp, feedComp, callback) => {
+// export const addPost = (formComp, feedComp, callback) => {
+export const addPost = (formComp, feedComp) => {
     // the URL for the request
     console.log(formComp)
     const url = "/posts";
@@ -26,7 +27,8 @@ export const addPost = (formComp, feedComp, callback) => {
                         body: "Success: Added a post.",
                         type: "success"
                     }
-                }, callback);
+                })
+                // }, callback);
             } else {
                 // If server couldn't add the student, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
@@ -35,12 +37,13 @@ export const addPost = (formComp, feedComp, callback) => {
                         body: "Error: Could not add post.",
                         type: "error"
                     }
-                }, callback);
+                })
+                // }, callback);
             }
         })
         .catch(error => {
             console.log(error);
-            callback();
+            // callback();
         });
 };
 
@@ -57,9 +60,10 @@ export const getFeed = (posts) => {
         })
         .then(json => {
             // the resolved promise with the JSON body
-            posts.setState({ posts: json.posts, loadingFeed: false }, () => {
-                console.log(posts.state)
-            });
+            posts.setState({ posts: json.posts });
+            // posts.setState({ posts: json.posts, loadingFeed: false }, () => {
+            //     console.log(posts.state)
+            // });
         })
         .catch(error => {
             console.log(error);
