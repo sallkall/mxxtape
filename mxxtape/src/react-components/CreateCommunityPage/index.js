@@ -19,7 +19,7 @@ class CreateCommunityPage extends React.Component {
                         Create a community!
                     </header>
                     <hr/>
-                    <CreateACommunityForm/>
+                    <CreateACommunityForm app={this.props.app}/>
                 </div>
             </div>
         )

@@ -178,4 +178,18 @@ export const subscribeToCommunity = (username, community, CommunityState) => {
         });
     console.log("after", CommunityState.isMember)
 
-}
+};
+
+export const addToHistory = (username, song) => {
+    fetch("/users/"+username+"/history", {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({"song": song})})
+        .then(
+            res => {
+                return res.json();
+            }
+        )
+        .catch(
+            error => {
+                console.log(error);
+            }
+        );
+};

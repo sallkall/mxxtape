@@ -12,10 +12,13 @@ import {Divider, Layout} from 'antd';
 import { Avatar } from 'antd';
 import { Card } from 'antd';
 import { Button } from 'antd';
+import { Input } from 'antd';
+import {addToHistory} from "../../actions/user";
 
 const { Sider, Content } = Layout;
 
-let featuredSong = "https://soundcloud.com/gdfhdhsoundcloud/portal-still-alive-2";
+let featuredSong = "";
+
 let adminRequests = [
     ["DiamondMiner74 requests Moderator on Minecraft Parodies", "hi can i have mod pls"],
     ["Secondary_Computer requests creation of Smooth Jazz (Jazz)", "To keep you tranquil in the face of almost certain death, smooth jazz will be deployed in 3, 2, 1."],
@@ -24,14 +27,6 @@ let adminRequests = [
     ["Title", "Body"],
     ["Title", "Body"]
 ];
-
-
-function RenderNewStarSong(react) {
-    const featuredSongInput = document.getElementById("AdminSongInput");
-    featuredSong = featuredSongInput.value;
-    featuredSongInput.value = "";
-    react.forceUpdate();
-}
 
 function RenderAdminRequests(react) {
     let QueueCardList = [];
@@ -67,6 +62,41 @@ function RemoveRequest(request, react) {
 }
 
 class AdminDashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.history.push("/dashboard");
+        fetch("/featuredsong", {method: 'GET'})
+            .then(
+                res => {
+                    return res.json();
+                }
+            )
+            .then(
+                json => {
+                    featuredSong = json.featuredSong;
+                    this.forceUpdate();
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
+    setFeaturedSong(react) {
+        const featuredSongInput = document.getElementById("AdminSongInput");
+        featuredSong = featuredSongInput.value;
+        featuredSongInput.value = "";
+        react.forceUpdate();
+        fetch("/featuredsong", {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({"featuredSong": featuredSong})})
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
     render() {
         return (
             <div>
@@ -74,7 +104,7 @@ class AdminDashboard extends React.Component {
                 <Router>
                     <Layout>
                         <Sider id="AdminSidebar">
-                            <Card id="AdminSidebarCard" title="Administrator">
+                            <Card id="AdminSidebarCard" title={this.props.app.state.currentUser}>
                                 <Avatar id="AdminSidebarAvatar" shape="square" src={profilePic}/>
                                 <Divider/>
                             </Card>
@@ -82,10 +112,10 @@ class AdminDashboard extends React.Component {
 
                         <Content id="AdminContents">
                             <Card id="AdminFeaturedCard" className="AdminContentCard" title="CURRENT FEATURED SONG">
-                                <ReactPlayer height={500} width={450} controls={false} url={featuredSong}/>
+                                <ReactPlayer height={500} width={450} controls={false} url={featuredSong} onPlay={function() {addToHistory(this.props.app.state.currentUser, featuredSong)}}/>
                                 <br/>
-                                <input id="AdminSongInput" type="text" placeholder="Song URL"/>
-                                <Button id="AdminSongButton" onClick={() => RenderNewStarSong(this)}>Set Featured Song</Button>
+                                <Input id="AdminSongInput" type="text" placeholder="Song URL"/>
+                                <Button id="AdminSongButton" onClick={() => this.setFeaturedSong(this)}>Set Featured Song</Button>
                             </Card>
 
 

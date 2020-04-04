@@ -16,7 +16,7 @@ import { Button } from 'antd';
 
 import NoMatch from "../NoMatch"
 
-import {getUserProfile} from "../../actions/user";
+import {addToHistory, getUserProfile} from "../../actions/user";
 
 
 const { Sider, Content } = Layout;
@@ -63,7 +63,7 @@ class UserProfile extends React.Component {
                                 <Avatar id="ProfileSidebarAvatar" shape="square" src={"/"+username+".png"}/>
                                 <Divider/>
                                 <p>Starred Song</p>
-                                <ReactPlayer height={200} width={150} controls={false} url={userjson.starsong}/>
+                                <ReactPlayer height={200} width={150} controls={false} url={userjson.starsong} onPlay={function() {addToHistory(this.props.app.state.currentUser, userjson.starsong)}}/>
                             </Card>
                         </Sider>
 
@@ -74,7 +74,7 @@ class UserProfile extends React.Component {
                                     dataSource = {userjson.history}
                                     renderItem = {item => (
                                         <List.Item>
-                                            <ReactPlayer height={70} width={650} controls={false} url={item}/>
+                                            <ReactPlayer height={70} width={650} controls={false} url={item} onPlay={function() {addToHistory(this.props.app.state.currentUser, item)}}/>
                                         </List.Item>
                                     )}
                                 />
@@ -88,7 +88,7 @@ class UserProfile extends React.Component {
                                         <List.Item>
                                             <div className="CommunityDiv">
                                                 <img className="CommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                                <a className="CommunityTitle" onClick={() => this.redirect("/community/"+item[1])}>{item[0]}</a>
+                                                <a className="CommunityTitle" onClick={() => this.redirect("/community/"+item)}>{item}</a>
                                             </div>
                                         </List.Item>
                                     )}

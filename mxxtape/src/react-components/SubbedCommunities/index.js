@@ -80,7 +80,7 @@ class SubbedCommunities extends React.Component {
                                         <List.Item>
                                             <div className="SubbedCommunityDiv">
                                                 <img className="SubbedCommunityBanner" src={bannerPic} alt="Image Load Error"/>
-                                                <a className="SubbedCommunityTitle" onClick={() => this.redirect("/community/"+item[1])}>{item[0]}</a>
+                                                <a className="SubbedCommunityTitle" onClick={() => this.redirect("/community/"+item)}>{item}</a>
                                             </div>
                                             <Button onClick={() => this.Unsubscribe(username, item)} size='large'>
                                                 Leave Community

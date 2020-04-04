@@ -12,6 +12,7 @@ mongoose.set('useFindAndModify', false);
 // import the mongoose models
 const { User } = require("./models/user");
 const { Community } = require("./models/user");
+const { FeaturedSong } = require("./models/featuredSong");
 
 const { Post } = require("./models/post");
 
@@ -419,7 +420,7 @@ app.post("/users/:username/history", (req, res) => {
             if(user.history.indexOf(req.body.song) > -1) {
                 user.history.splice(user.history.indexOf(req.body.song), 1);
             }
-            user.history.push(req.body.song);
+            user.history.unshift(req.body.song);
             user.save();
             res.send(user);
         }, error => {
@@ -431,7 +432,9 @@ app.delete("/users/:username/history", (req, res) => {
     const username = req.params.username;
     User.findOne({username: username}).then(
         user => {
-            user.history.splice(user.history.indexOf(req.body.song), 1);
+            if(user.history.indexOf(req.body.song) > -1) {
+                user.history.splice(user.history.indexOf(req.body.song), 1);
+            }
             user.save();
             res.send({"history": user.history});
         }, error => {
@@ -444,7 +447,7 @@ app.post("/users/:username/subscriptions", (req, res) => {
     User.findOne({username: username}).then(
         user => {
             if(user.subscriptions.indexOf(req.body.community) === -1) {
-                user.subscriptions.push(req.body.community);
+                user.subscriptions.unshift(req.body.community);
             }
             user.save();
             res.send(user);
@@ -457,7 +460,9 @@ app.delete("/users/:username/subscriptions", (req, res) => {
     const username = req.params.username;
     User.findOne({username: username}).then(
         user => {
-            user.subscriptions.splice(user.subscriptions.indexOf(req.body.community), 1);
+            if(user.subscriptions.indexOf(req.body.community) > -1) {
+                user.subscriptions.splice(user.subscriptions.indexOf(req.body.community), 1);
+            }
             user.save();
             res.send({"subscriptions": user.subscriptions});
         }, error => {
@@ -493,6 +498,7 @@ app.get("/users/:username/profiledata", (req, res) => {
     )
 });
 
+
 // get list of usernames by key
 app.get("/users/q=:key", (req, res) => {
     const key = req.params.key;
@@ -513,42 +519,97 @@ app.post("/register-new-community", (req, res) => {
     const {name, genres, description, moderators} = req.body;
 
     if (!name || !genres || !description || !moderators || genres.length < 1 || moderators.length < 1)
-        res.status(400).send('Sorry bad inputs');
-    else{
-        const mods = [];
-        log("pre find user", mods);
-        moderators.forEach((user) => {
-            User.findUserByUsername(user)
-                .then(foundUser => {log(foundUser, foundUser.username, foundUser._id); return foundUser})
-                .then(foundUser => {mods.push(foundUser._id)})
-                .then(() => log("post find user", mods))
-                .then(() => {
-                    if (mods.length > 0){
-                        const community = new Community({
-                            name: name,
-                            genres: genres,
-                            description: description,
-                            moderators: mods
-                        });
-                        log("post create new community", mods);
-
-                        community.save().then(
-                            community => {
-                                res.send(community);
-                            },
-                            error => {
-                                //bad request!
-                                res.status(400).send(error);
-                            }
-                        )
-                    }
-                    else res.status(400).send('No mods found?');
-                })
-                .catch(error => {
-                    res.status(404).send(error);
-                })
-        });
+        {res.status(400).send('Sorry bad inputs');
+        return;
     }
+    const mods = [];
+    log("pre find user", mods);
+    moderators.forEach((user, i) => {
+        User.findUserByUsername(user)
+            .then(foundUser => {log(foundUser.username, foundUser._id); return foundUser})
+            .then(foundUser => {mods.push(foundUser._id)})
+            .then(() => log("post find user", i , mods))
+            .then(() => {
+                if (i === (moderators.length - 1)){
+                    const community = new Community({
+                        name: name,
+                        genres: genres,
+                        description: description,
+                        moderators: mods
+                    });
+                    log("post create new community", mods);
+                    community.save().then(
+                        community => {
+                            res.send(community);
+                        },
+                        error => {
+                            //bad request!
+                            res.status(500).send(error);
+                        }
+                    )
+                }
+            })
+            .catch(error => {
+                res.status(404).send(error);
+            })
+    });
+});
+
+//route for getting communities lists of community names
+app.get("/communities/q=?:key", (req, res) => {
+    const key = req.params.key;
+    // log("get /communities/q=?:key", key, key.length, !key);
+    if (key.length > 1) {
+        Community.find(
+            { "name": {"$regex": `^${key}`, "$options": "i"} },
+            function(err,docs) {
+                docs.forEach((community, i) => docs[i] = community.name);
+                res.send(docs.slice(0, 10));
+            })
+            .catch(error => {
+                res.status(400).send(error);
+            });
+    } else {
+        Community.find(
+            { "name": {"$regex": `.`, "$options": "i"} },
+            function(err,docs) {
+                docs.forEach((community, i) => docs[i] = community.name);
+                res.send(docs.slice(0, 10));
+            })
+            .catch(error => {
+                res.status(400).send(error);
+            });
+    }
+
+});
+
+app.get("/featuredsong", (req, res) => {
+    FeaturedSong.findOne({}).then(
+        featured => {
+            if(featured===null) {
+                res.send({"featuredSong": ""});
+            } else {
+                res.send({"featuredSong": featured.featuredSong});
+            }
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.post("/featuredsong", (req, res) => {
+    FeaturedSong.findOne({}).then(
+        featured => {
+            if(featured===null) {
+                featured = new FeaturedSong({featuredSong: req.body.featuredSong});
+            } else {
+                featured.featuredSong = req.body.featuredSong;
+            }
+            featured.save();
+            res.send({"featuredSong": featured.featuredSong});
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
 });
 
 /*** Webpage routes below **********************************/
