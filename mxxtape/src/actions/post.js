@@ -56,9 +56,7 @@ export const getFeed = (posts) => {
         })
         .then(json => {
             // the resolved promise with the JSON body
-            posts.setState({ posts: json.posts }, () => {
-                console.log(posts.state)
-            });
+            posts.setState({ posts: json.posts });
         })
         .catch(error => {
             console.log(error);
