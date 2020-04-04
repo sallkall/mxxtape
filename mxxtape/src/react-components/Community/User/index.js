@@ -12,20 +12,38 @@ import MembersList from "../MembersList";
 
 import {Layout, Breadcrumb, Icon, Button} from 'antd';
 import {getFeed} from "../../../actions/post";
+import {getUserProfile, subscribeToCommunity} from "../../../actions/user";
 
 const {Content, Sider} = Layout;
 
 // This is a sample community for 'jazz it up' in user's view
+
+// store the current user's data
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: []
+};
+
+let communityjson = {
+    name: "tempo_name"
+};
+
 class Community extends React.Component {
     constructor(props) {
         super(props);
         getFeed(this);
+        getUserProfile(props.username, userjson, this);
+        //get community info
+
         // console.log("Community constructor", this.state);
     }
+
     state = {
         posts: [],
         loadingFeed: true,
-        isMember: false,    //check
+        isMember: userjson.subscriptions.includes("tempo_name"),    //check
         newPost: false,
         message: { type: "", body: "" },
         updateFeed: () => {
@@ -34,16 +52,15 @@ class Community extends React.Component {
         }
     };
 
-    joinCommunity() {
-        // this will make a server call to update user info in phase 2
-        this.setState({isMember: !this.state.isMember})
+    joinCommunity(username) {
+        subscribeToCommunity(username, communityjson.name, this)
     }
 
     render() {
+        console.log("userinfooooooo", userjson)
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
         let join_button_color = this.state.isMember ? "" : "#52c41a";
         const username = this.props.app.state.currentUser;
-        console.log(username)
         return (
             <div>
                 <Nav app={this.props.app}/>
@@ -56,7 +73,7 @@ class Community extends React.Component {
                             </div>
                             <Button
                                 className="header_join_button"
-                                onClick={() => this.joinCommunity()}
+                                onClick={() => this.joinCommunity(username)}
                                 size='large'
                             > {this.state.isMember ? 'Leave Community' : 'Join Community'}
                                 <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color}/>

@@ -121,7 +121,6 @@ class NewTextPost extends React.Component {
 
     handleCreate = (state, username) => {
         const {form} = this.formRef.props;
-        console.log(username)
 
         form.validateFields((err, values) => {
             if (err) {
@@ -154,7 +153,6 @@ class NewTextPost extends React.Component {
 
     render() {
         const {state} = this.props;
-        console.log(this.props.username)
         return (
             <div>
                 {

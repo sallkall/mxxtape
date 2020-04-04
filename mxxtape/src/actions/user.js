@@ -144,3 +144,38 @@ export const getUserProfile = (username, user_json, react) => {
             }
         );
 };
+
+export const subscribeToCommunity = (username, community, CommunityState) => {
+    const url = "/users/" + username + "/subscriptions"
+
+    const request = new Request(url, {
+        method: "post",
+        body: JSON.stringify({
+            community: community,
+        }),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    console.log(CommunityState.isMember)
+
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not add community subscription");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            CommunityState.setState({ isMember: true });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    console.log("after", CommunityState.isMember)
+
+}

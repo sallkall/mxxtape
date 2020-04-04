@@ -28,18 +28,23 @@ function onFocus() {
 
 function onSearch(val) {
     // Sorts posts for now, should be making server calls to directly manipulate the posts for phase 2
-    if (val === 'oldest') {
-        // posts.reverse();
-    }
-    console.log('search:', val);
+    // if (val === 'oldest') {
+    //     // posts.reverse();
+    // }
+    // console.log('search:', val);
 
-    // return val == 'newest';
+    return val == 'newest';
 
 }
 
 class FeedFilter extends React.Component {
     render() {
-        // const {state} = this.props;
+        const {state} = this.props;
+        console.log(state)
+        console.log(state.state)
+        console.log(state.state.posts)
+        console.log(state.state.posts.reverse())
+
         return (
             <Select
                 showSearch
@@ -54,7 +59,7 @@ class FeedFilter extends React.Component {
                 onBlur={onBlur}
                 onSearch={ (val) => {
                     if (onSearch(val)) {
-                        this.props.state.posts.reverse();
+                        this.props.state.state.posts.reverse();
                     }
                 }
                 }
