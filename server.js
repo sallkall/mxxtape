@@ -516,42 +516,6 @@ app.post("/register-new-community", (req, res) => {
     log("/register-new-community", req.body);
     const {name, genres, description, moderators} = req.body;
 
-    if (!name || !genres || !description || !moderators || genres.length < 1)
-        res.status(400).send('Sorry bad inputs');
-    else{
-        const mods = [];
-        log("pre find user", mods);
-        moderators.forEach((user) => {
-            User.findUserByUsername(user)
-                .then(foundUser => {log(foundUser, foundUser.username, foundUser._id); return foundUser})
-                .then(foundUser => {mods.push(foundUser._id)})
-                .then(() => log("post find user", mods))
-                .then(() => {
-                    if (mods.length > 0){
-                        const community = new Community({
-                            name: name,
-                            genres: genres,
-                            description: description,
-                            moderators: mods
-                        });
-                        log("post create new community", mods);
-
-                        community.save().then(
-                            community => {
-                                res.send(community);
-                            },
-                            error => {
-                                //bad request!
-                                res.status(400).send(error);
-                            }
-                        )
-                    }
-                    else res.status(400).send('No mods found?');
-                })
-                .catch(error => {
-                    res.status(404).send(error);
-                })
-        });
     if (!name || !genres || !description || !moderators || genres.length < 1 || moderators.length < 1)
         {res.status(400).send('Sorry bad inputs');
         return;
