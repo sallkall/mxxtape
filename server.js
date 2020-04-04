@@ -12,6 +12,7 @@ mongoose.set('useFindAndModify', false);
 
 // import the mongoose models
 const { User } = require("./models/user");
+const { Community } = require("./models/user");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -322,6 +323,64 @@ app.get("/users/:username/profiledata", (req, res) => {
             res.status(400).send(error);
         }
     )
+});
+
+// get list of usernames by key
+app.get("/users/q=:key", (req, res) => {
+    const key = req.params.key;
+    User.find(
+        { "username": {"$regex": `^${key}`, "$options": "i"} },
+        function(err,docs) {
+            docs.forEach((user, i) => docs[i] = {username: user.username, avatar: user.avatar});
+            res.send(docs.slice(0, 10));
+        })
+        .catch(error => {
+            res.status(400).send(error);
+        });
+});
+
+/*********************Create Community routes***********************/
+app.post("/register-new-community", (req, res) => {
+    log("/register-new-community", req.body);
+    const {name, genres, description, moderators} = req.body;
+
+    if (!name || !genres || !description || !moderators || genres.length < 1 || moderators.length < 1)
+        res.status(400).send('Sorry bad inputs');
+    else{
+        const mods = [];
+        log("pre find user", mods);
+        moderators.forEach((user) => {
+            User.findUserByUsername(user)
+                .then(foundUser => {log(foundUser, foundUser.username, foundUser._id); return foundUser})
+                .then(foundUser => {mods.push(foundUser._id)})
+                .then(() => log("post find user", mods))
+                .then(() => {
+                    if (mods.length > 0){
+                        const community = new Community({
+                            name: name,
+                            genres: genres,
+                            description: description,
+                            moderators: mods
+                        });
+                        log("post create new community", mods);
+
+                        community.save().then(
+                            community => {
+                                res.send(community);
+                            },
+                            error => {
+                                //bad request!
+                                res.status(400).send(error);
+                            }
+                        )
+                    }
+                    else res.status(400).send('No mods found?');
+                })
+                .catch(error => {
+                    res.status(404).send(error);
+                })
+        });
+    }
 });
 
 /*** Webpage routes below **********************************/

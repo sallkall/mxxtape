@@ -2,15 +2,14 @@ import {Button, Form, Icon, Input, Mentions, message, Tooltip} from "antd";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import './index.css'
+import {loadUsers, parseTaggedUsers, parseWords, registerNewCommunity} from "../../../actions/community";
+import debounce from 'lodash/debounce';
 
 const {Option} = Mentions;
 
 class CreateCommunityForm extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            validName: null,
-        };
         // tooltips
         this.tooltip = {
             name_tooltip: "Give your community a good name that doesn't overlap with existing communities! " +
@@ -20,8 +19,26 @@ class CreateCommunityForm extends React.Component {
                 "how new members come to understand your community as well as explain what makes your community " +
                 "unique!.",
             mods_tooltip: "Add some mods! You will be added automatically"
-        }
+        };
+        this.loadUsers = debounce(loadUsers, 500)
     }
+
+    state = {
+        validName: null,
+        name: null,
+        genres: null,
+        description: null,
+        moderators: null,
+        users: [],
+        loading: false,
+        search: ''
+    };
+
+    onSearch = search => {
+        this.setState({ search, loading: !!search, users: [] });
+        console.log('onSearch:', search);
+        this.loadUsers(search, this);
+    };
 
     getExistingCommunityNames = () => {
         //will get this list of community names from server
@@ -61,12 +78,17 @@ class CreateCommunityForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if(!err) {
-                console.log("Received values of form: ", values);
-                // send values to server, add to a list of communities to validate
-                // note that will only be able to submit request for a community that doesn't exist yet
-                // redirect user to dashboard
-                message.success("Community creation submission successful! Please wait for approval", 5);
-                this.props.history.push("/")
+                console.log("CreateCommunityForm values", values);
+                if(values) {
+                    const mods = parseTaggedUsers(values.moderators);
+                    console.log("mods", mods);
+                    this.setState({
+                        name: values.name,
+                        genres: parseWords(values.genres),
+                        description: values.description.toString(),
+                        moderators: mods ? mods : []
+                    }, () => registerNewCommunity(this, this.props.history))
+                }
             }
         });
     };
@@ -85,7 +107,7 @@ class CreateCommunityForm extends React.Component {
                         </span>
                     }
                 >
-                    {getFieldDecorator("community-name", {
+                    {getFieldDecorator("name", {
                         rules: [
                             {required: true, message: "Need a name for a new community!"},
                             {validator: this.checkCommunityName}
@@ -106,7 +128,7 @@ class CreateCommunityForm extends React.Component {
                         </span>
                     }
                 >
-                    {getFieldDecorator("community-genre", {
+                    {getFieldDecorator("genres", {
                         rules: [{required: true, message: "Please enter a genre your community will be interested in"}]
                     })(
                         <Input
@@ -124,7 +146,7 @@ class CreateCommunityForm extends React.Component {
                         </span>
                     }
                 >
-                    {getFieldDecorator("community-description", {
+                    {getFieldDecorator("description", {
                         rules: [{required: true, message: "Explain why you think your community is unique."}]
                     })(
                         <Input.TextArea
@@ -134,6 +156,7 @@ class CreateCommunityForm extends React.Component {
                     )}
                 </Form.Item>
                 <Form.Item
+                    id="control-mention"
                     label={
                         <span>
                             Add moderators to your community&nbsp;
@@ -143,15 +166,16 @@ class CreateCommunityForm extends React.Component {
                         </span>
                     }
                 >
-                    {getFieldDecorator("community-mods", {
+                    {getFieldDecorator("moderators", {
                         rules: [{required: false, message: "Add some mods! You will be added automatically"}]
                     })(
-                        <Mentions
-                            className="community-input"
-                            placeholder="Add moderators! Use @ to reference users on this platform.">
-                            <Option value="sallyk">sallyk</Option>
-                            <Option value="janetw">janetw</Option>
-                            <Option value="connorf">connorf</Option>
+                        <Mentions className="community-input" loading={this.state.loading} onSearch={this.onSearch}>
+                            {this.state.users.map(({ username, avatar }) => (
+                                <Option key={username} value={username} className="antd-demo-dynamic-option">
+                                    <img src={avatar} alt={username} />
+                                    <span>{username}</span>
+                                </Option>
+                            ))}
                         </Mentions>
                     )}
                 </Form.Item>
