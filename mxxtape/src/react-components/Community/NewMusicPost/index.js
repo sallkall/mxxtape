@@ -124,7 +124,7 @@ class NewMusicPost extends React.Component {
                 community_id: 0, // get from community
                 content: null,
                 tags: form.getFieldValue('tags'),
-                post_type: 'text',
+                post_type: 'music',
                 rating: form.getFieldValue('rating'),
                 musicUrl: form.getFieldValue('content'),
                 likes: 0,

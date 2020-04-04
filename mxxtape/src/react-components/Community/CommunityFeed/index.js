@@ -48,11 +48,11 @@ class CommunityFeed extends React.Component {
         this.state = {
             posts: []
         }
-        getFeed(this);
     }
 
     render() {
         // console.log(this.state.posts)
+        getFeed(this);
         return (
             <div>
                 {
