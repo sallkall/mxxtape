@@ -152,6 +152,7 @@ const CommmunitySchema = new mongoose.Schema({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
         required: true
     },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
     members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 

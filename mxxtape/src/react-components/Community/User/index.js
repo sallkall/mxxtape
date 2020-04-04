@@ -42,19 +42,13 @@ class Community extends React.Component {
 
         this.communityName = this.props.name;
         console.log("state set", this.communityName, this);
-        this.communityInfo = {
-            name: "Something went wrong...",
-            genres: [],
-            description: "Something went wrong...",
-            moderators: [],
-            members: []
-        };
         getCommunity(this.communityName, this, (json) => {
-            this.communityInfo.name = json.name;
-            this.communityInfo.genres = json.genres;
-            this.communityInfo.description = json.description;
-            this.communityInfo.moderators = json.moderators;
-            this.communityInfo.members = json.members
+            communityjson.name = json.name;
+            communityjson.genres = json.genres;
+            communityjson.description = json.description;
+            communityjson.moderators = json.moderators;
+            communityjson.members = json.members;
+            this.setState({loadingCommunity: false, posts: json.posts}, () => console.log(communityjson))
         })
         // console.log("Community constructor", this.state);
     }
@@ -91,7 +85,7 @@ class Community extends React.Component {
                         <div className="header">
                             <div id="header_container">
                                 <div id="group_avatar"/>
-                                <h1 className="header_h1"> {this.communityInfo.name} </h1>
+                                <h1 className="header_h1"> {communityjson.name} </h1>
                             </div>
                             <Button
                                 className="header_join_button"
