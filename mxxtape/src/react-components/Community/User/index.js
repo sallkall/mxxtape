@@ -34,7 +34,6 @@ let communityjson = {
 class Community extends React.Component {
     constructor(props) {
         super(props);
-        getFeed(this);
         getUserProfile(props.username, userjson, this);
         //get community info
 
@@ -53,7 +52,7 @@ class Community extends React.Component {
                 // loadingFeed: false,
                 // posts: json.posts ? json.posts : []
                 },
-                () => console.log(communityjson)
+                () => {getFeed(this); console.log(communityjson)}
             )
         })
         // console.log("Community constructor", this.state);

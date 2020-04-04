@@ -11,6 +11,9 @@ import FeedTags from "../FeedTags";
 import MembersList from "../MembersList";
 
 import {Layout, Breadcrumb, Icon, Button, Upload, message} from 'antd';
+import {getFeed} from "../../../actions/post";
+import {getUserProfile} from "../../../actions/user";
+import {getCommunity} from "../../../actions/community";
 
 const {Content, Sider} = Layout;
 
@@ -32,9 +35,48 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
+// store the current user's data
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: []
+};
+
+let communityjson = {
+    name: "jazzitup"
+};
+
 // This is a sample community for 'jazz it up' in admin's view
 class CommunityAdmin extends React.Component {
+    constructor(props) {
+        super(props);
+        getUserProfile(props.username, userjson, this);
+
+        // console.log("Community constructor", this.state);
+
+        //get community info
+        // console.log("state set", this.communityName, this);
+        getCommunity(this.props.name, this, (json) => {
+            communityjson.name = json.name;
+            communityjson.genres = json.genres;
+            communityjson.description = json.description;
+            communityjson.moderators = json.moderators;
+            communityjson.members = json.members;
+            this.setState({
+                    loadingCommunity: false,
+                    // loadingFeed: false,
+                    // posts: json.posts ? json.posts : []
+                },
+                () => {getFeed(this); console.log(communityjson)}
+            )
+        })
+        // console.log("Community constructor", this.state);
+    }
+
     state = {
+        loadingFeed: true,
+        loadingCommunity: true,
         // admin have total access, cannot leave the group
         isMember: true,
         newPost: true,
@@ -133,7 +175,8 @@ class CommunityAdmin extends React.Component {
                                 </div>
                             </div>
                             <div className="posts">
-                                <CommunityFeed/>
+                                {/*<CommunityFeed/>*/}
+                                {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed app={this.props.app} posts={this.state.posts}/>}
                             </div>
                         </Content>
                         <Sider className="sidebar" width={240}>

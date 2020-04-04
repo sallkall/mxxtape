@@ -93,7 +93,7 @@ class App extends React.Component {
                                 if (this.state.loggedIn === 1) {
                                     return <Community app={this} name={params.match.params.community}/>
                                 } else if (this.state.loggedIn === 2) {
-                                    return <CommunityAdmin app={this}/>
+                                    return <CommunityAdmin app={this} name={params.match.params.community}/>
                                 } else {
                                     return <Redirect path='/'/>
                                 }
