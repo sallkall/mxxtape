@@ -26,24 +26,23 @@ function onFocus() {
 //     }
 // }
 
-function onSearch(val) {
-    // Sorts posts for now, should be making server calls to directly manipulate the posts for phase 2
-    // if (val === 'oldest') {
-    //     // posts.reverse();
-    // }
-    // console.log('search:', val);
+let swap = false;
 
-    return val == 'newest';
+function onSearch(val) {
+    if (val == 'oldest') {
+        swap = true;
+    } else {
+        swap = false;
+    }
+    // console.log(val == 'oldest')
+    // return val == 'oldest';
 
 }
 
 class FeedFilter extends React.Component {
     render() {
         const {state} = this.props;
-        console.log(state)
-        console.log(state.state)
-        console.log(state.state.posts)
-        console.log(state.state.posts.reverse())
+        // console.log(state.state.posts.reverse())
 
         return (
             <Select
@@ -53,16 +52,13 @@ class FeedFilter extends React.Component {
                 optionFilterProp="children"
                 onChange={() => {
                     onChange();
+                    state.state.posts.reverse()
+
                     // state.updateFeed()
                 }}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                onSearch={ (val) => {
-                    if (onSearch(val)) {
-                        this.props.state.state.posts.reverse();
-                    }
-                }
-                }
+                onSearch={onSearch}
                 filterOption={(input, option) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }

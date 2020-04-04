@@ -14,7 +14,7 @@ export const addPost = (formComp, feedComp, callback) => {
             "Content-Type": "application/json"
         }
     });
-    console.log(request.body);
+    // console.log(request.body);
 
     // Send the request
     fetch(request)
