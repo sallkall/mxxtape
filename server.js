@@ -552,7 +552,41 @@ app.post("/register-new-community", (req, res) => {
                     res.status(404).send(error);
                 })
         });
+    if (!name || !genres || !description || !moderators || genres.length < 1 || moderators.length < 1)
+        {res.status(400).send('Sorry bad inputs');
+        return;
     }
+    const mods = [];
+    log("pre find user", mods);
+    moderators.forEach((user, i) => {
+        User.findUserByUsername(user)
+            .then(foundUser => {log(foundUser.username, foundUser._id); return foundUser})
+            .then(foundUser => {mods.push(foundUser._id)})
+            .then(() => log("post find user", i , mods))
+            .then(() => {
+                if (i === (moderators.length - 1)){
+                    const community = new Community({
+                        name: name,
+                        genres: genres,
+                        description: description,
+                        moderators: mods
+                    });
+                    log("post create new community", mods);
+                    community.save().then(
+                        community => {
+                            res.send(community);
+                        },
+                        error => {
+                            //bad request!
+                            res.status(500).send(error);
+                        }
+                    )
+                }
+            })
+            .catch(error => {
+                res.status(404).send(error);
+            })
+    });
 });
 
 app.get("/featuredsong", (req, res) => {
