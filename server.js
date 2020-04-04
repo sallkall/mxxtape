@@ -216,7 +216,8 @@ app.post("/users", (req, res) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        type: req.body.type
+        type: req.body.type,
+        avatar: "/avatar.png"
     });
 
     // Save the user
@@ -228,7 +229,7 @@ app.post("/users", (req, res) => {
             res.status(400).send(error); // 400 for bad request
         }
     );
-})
+});
 
 /*********************************************************/
 /*************    POST API      *************/
@@ -480,7 +481,8 @@ app.get("/users/:username/profiledata", (req, res) => {
                         "exists": true,
                         "starsong": user.starsong,
                         "history": user.history,
-                        "subscriptions": user.subscriptions
+                        "subscriptions": user.subscriptions,
+                        "avatar": user.avatar
                     });
             } else {
                 res.status(404).send(
@@ -488,10 +490,23 @@ app.get("/users/:username/profiledata", (req, res) => {
                         "exists": false,
                         "starsong": "",
                         "history": [],
-                        "subscriptions": []
+                        "subscriptions": [],
+                        "avatar": ""
                     }
                 );
             }
+        }, error => {
+            res.status(400).send(error);
+        }
+    )
+});
+app.post("/users/:username/avatar", (req, res) => {
+    const username = req.params.username;
+    User.findOne({username: username}).then(
+        user => {
+            user.avatar = req.body.avatar;
+            user.save();
+            res.send(user);
         }, error => {
             res.status(400).send(error);
         }

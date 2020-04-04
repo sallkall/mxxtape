@@ -25,7 +25,8 @@ let userjson = {
     exists: false,
     starsong: "",
     history: [],
-    subscriptions: []
+    subscriptions: [],
+    avatar: ""
 };
 
 class UserProfile extends React.Component {
@@ -58,7 +59,7 @@ class UserProfile extends React.Component {
                     <Layout>
                         <Sider id="ProfileSidebar">
                             <Card id="ProfileSidebarCard" title={username}>
-                                <Avatar id="ProfileSidebarAvatar" shape="square" src={"/"+username+".png"}/>
+                                <Avatar id="ProfileSidebarAvatar" shape="square" src={userjson.avatar}/>
                                 <Divider/>
                                 <p>Starred Song</p>
                                 <ReactPlayer height={200} width={150} controls={false} url={userjson.starsong} onPlay={function() {addToHistory(this.props.app.state.currentUser, userjson.starsong)}}/>

@@ -6,16 +6,22 @@ import 'antd/dist/antd.css';
 import Nav from "../Navigation";
 import ReactPlayer from 'react-player'
 
-import profilePic from "./profile.png"
-
 import {Divider, Layout} from 'antd';
 import { Avatar } from 'antd';
 import { Card } from 'antd';
 import { Button } from 'antd';
 import { Input } from 'antd';
-import {addToHistory} from "../../actions/user";
+import {addToHistory, getUserProfile} from "../../actions/user";
 
 const { Sider, Content } = Layout;
+
+let userjson = {
+    exists: false,
+    starsong: "",
+    history: [],
+    subscriptions: [],
+    avatar: ""
+};
 
 let featuredSong = "";
 
@@ -65,6 +71,7 @@ class AdminDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.props.history.push("/dashboard");
+        getUserProfile(this.props.app.state.currentUser, userjson, this);
         fetch("/featuredsong", {method: 'GET'})
             .then(
                 res => {
@@ -104,8 +111,8 @@ class AdminDashboard extends React.Component {
                 <Router>
                     <Layout>
                         <Sider id="AdminSidebar">
-                            <Card id="AdminSidebarCard" title={this.props.app.state.currentUser}>
-                                <Avatar id="AdminSidebarAvatar" shape="square" src={profilePic}/>
+                            <Card id="AdminSidebarCard" title={userjson.username}>
+                                <Avatar id="AdminSidebarAvatar" shape="square" src={userjson.avatar}/>
                                 <Divider/>
                             </Card>
                         </Sider>
