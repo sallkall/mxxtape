@@ -193,6 +193,66 @@ app.get('/posts/:id', (req, res) => {
     })
 });
 
+
+// get by post likes
+app.post('/posts/:id/likes', (req, res) => {
+    /// req.params has the wildcard parameters in the url, in this case, id.
+    // log(req.params.post_id)
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+
+    // findById
+    Post.findById(id)
+        .then((post) => {
+            if (!post) {
+                res.status(404).send()  // could not find this student
+            } else {
+                /// sometimes we wrap returned object in another object:
+                //res.send({student})
+                post.likes ++;
+                post.save().then(
+                    post => {
+                        res.send({"likes": post.likes})
+                    },
+                    error => {
+                        res.status(400).send(error);
+                    }
+                )
+            }
+        }).catch((error) => {
+        res.status(500).send()  // server error
+    })
+});
+
+
+app.patch('/posts/:id/', (req, res) => {
+    const id = req.params.id;
+    const { author_id, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes } = req.body;
+    const body = { author_id, avatar, community_id, tags, post_type, rating, musicUrl, likes, dislikes };
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+
+    // Update the student by their id.
+    Post.findByIdAndUpdate(id, { $set: body }, { new: true })
+        .then(post => {
+            if (!post) {
+                res.status(404).send();
+            } else {
+                res.send(post);
+            }
+        })
+        .catch(error => {
+            res.status(400).send(); // bad request for changing the student.
+        });
+});
+
 /// a DELETE route to remove a student by their id.
 app.delete('/posts/:id', (req, res) => {
     const id = req.params.id

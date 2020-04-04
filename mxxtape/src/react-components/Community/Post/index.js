@@ -5,13 +5,15 @@ import ReactPlayer from 'react-player'
 
 import {Comment, Icon, Tooltip, Rate, List, Avatar} from 'antd';
 import moment from 'moment';
+import {updateLikes} from "../../../actions/post";
 
 class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            likes: 0,
-            dislikes: 0,
+            postId: this.props.key,
+            likes: this.props.likes,
+            dislikes: this.props.dislikes,
             actions: null,
             musicURL: null,
             datetime: (
@@ -19,14 +21,11 @@ class Post extends React.Component {
                     <span>{moment().fromNow()}</span></Tooltip>
             ),
         }
+        console.log(this.state.postId)
     }
 
     like = () => {
-        this.setState({
-            likes: 1,
-            dislikes: 0,
-            action: 'liked',
-        });
+        updateLikes(this, this.state.postId);
     };
 
     dislike = () => {
@@ -45,6 +44,7 @@ class Post extends React.Component {
     }
 
     render() {
+        // getPostbyId(this, this.props.key);
         const {likes, dislikes, action} = this.state;
         const actions = [
             <span key="comment-basic-like">

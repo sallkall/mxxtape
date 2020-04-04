@@ -1,27 +1,3 @@
-//
-// export const getPosts = (postList) => {
-//     // the URL for the request
-//     const url = "/post";
-//
-//     // Since this is a GET request, simply call fetch on the URL
-//     fetch(url)
-//         .then(res => {
-//             if (res.status === 200) {
-//                 // return a promise that resolves with the JSON body
-//                 return res.json();
-//             } else {
-//                 alert("Could not get posts");
-//             }
-//         })
-//         .then(json => {
-//             // the resolved promise with the JSON body
-//             postList.setState({ studentList: json.students });
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-// };
-
 // A function to send a POST request with a new post
 export const addPost = (formComp, feedComp) => {
     // the URL for the request
@@ -68,22 +44,51 @@ export const addPost = (formComp, feedComp) => {
 };
 
 export const getFeed = (posts) => {
-    // the URL for the request
     const url = "/posts";
-
-    // Since this is a GET request, simply call fetch on the URL
     fetch(url)
         .then(res => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get students");
+                alert("Could not get community posts");
             }
         })
         .then(json => {
             // the resolved promise with the JSON body
-            posts.setState({ posts: json.posts });
+            posts.setState({ posts: json.posts }, () => {
+                console.log(posts.state)
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+export const updateLikes = (post, id) => {
+    // the URL for the request
+    const url = "/posts/" + id + "/likes";
+
+    const request = new Request(url, {
+        method: "post",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get community posts yo");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            post.setState({ likes: json.likes });
         })
         .catch(error => {
             console.log(error);

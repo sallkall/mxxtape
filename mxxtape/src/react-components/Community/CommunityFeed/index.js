@@ -52,14 +52,14 @@ class CommunityFeed extends React.Component {
 
 
     render() {
-        // const {communityFeed} = this.props;
         getFeed(this);
+        // console.log(this.state.posts)
         return (
             <div>
                 {
                     this.state.posts.map(item => (
-                        <Post className="single_post" musicUrl={item.musicUrl} key={item.key} rating={item.rating} author={item.author}
-                                  avatar={item.avatar} content={item.content} tags={item.tags}/>
+                        <Post className="single_post" musicUrl={item.musicUrl} key={item._id} rating={item.rating} author={item.author}
+                                  avatar={item.avatar} content={item.content} tags={item.tags} likes={item.likes} dislikes={item.dislikes}/>
                     ))
                 }
             </div>
