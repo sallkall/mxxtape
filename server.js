@@ -133,13 +133,12 @@ app.post("/posts", (req, res) => {
             author_id: req.body.author_id,
             avatar: req.body.avatar,
             community_id: req.body.community_id,
-            // content: req.body.content,
             tags: req.body.tags,
             post_type: req.body.post_type,
             rating: req.body.rating,
             musicUrl: req.body.musicUrl,
-            likes: req.body.likes,
-            dislikes: req.body.dislikes,
+            likes: 0,
+            dislikes: 0,
         });
     }
 

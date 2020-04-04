@@ -124,24 +124,13 @@ class NewMusicPost extends React.Component {
                 community_id: 0, // get from community
                 content: null,
                 tags: form.getFieldValue('tags'),
-                post_type: 'text',
+                post_type: 'music',
                 rating: form.getFieldValue('rating'),
                 musicUrl: form.getFieldValue('content'),
                 likes: 0,
                 dislikes: 0,
             };
             addPost(formInfo, this);
-            // const post_information = {
-            //     key: 5,     //tempo key hardcoded in for now
-            //     actions: null,
-            //     author: "Jellicle Cat",
-            //     rating: values.rating,
-            //     avatar: "https://tinyurl.com/v43wzfn",
-            //     content: "",
-            //     musicUrl: values.content,
-            //     tags: values.tags,
-            // };
-            // posts.unshift(post_information);
             form.resetFields();
             this.setState({ visible: false });
         });

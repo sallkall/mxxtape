@@ -50,7 +50,6 @@ class CommunityFeed extends React.Component {
         }
     }
 
-
     render() {
         console.log("CommunityFeed", this.state.posts);
         return (
