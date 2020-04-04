@@ -14,6 +14,7 @@ import {Layout, Breadcrumb, Icon, Button} from 'antd';
 import {getFeed} from "../../../actions/post";
 import {getUserProfile, subscribeToCommunity} from "../../../actions/user";
 import {getCommunity} from "../../../actions/community";
+import UserDashboard from "../../UserDashboard";
 
 const {Content, Sider} = Layout;
 
@@ -78,6 +79,38 @@ class Community extends React.Component {
         subscribeToCommunity(username, communityjson.name, this)
     }
 
+    Unsubscribe(username) {
+        fetch("/users/"+username+"/subscriptions",
+            {method: 'DELETE',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify({"community": communityjson.name})
+            })
+            .then(
+                res => {
+                    return res.json();
+                }
+            )
+            .then(
+                json => {
+                    userjson.subscriptions = json.subscriptions;
+                    this.setState({isMember: userjson.subscriptions.includes(communityjson.name)})
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
+    handleJoin(username) {
+        if (this.state.isMember) {
+            this.Unsubscribe(username)
+        } else if (!this.state.isMember) {
+            this.joinCommunity(username)
+        }
+    }
+
     render() {
         // console.log("userinfooooooo", userjson)
         let join_button = this.state.isMember ? "minus-square" : "plus-square";
@@ -112,7 +145,8 @@ class Community extends React.Component {
                             </div>
                             <Button
                                 className="header_join_button"
-                                onClick={() => this.joinCommunity(username)}
+                                // onClick={() => this.joinCommunity(username)}
+                                onClick={() => this.handleJoin(username)}
                                 size='large'
                             > {this.state.isMember ? 'Leave Community' : 'Join Community'}
                                 <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color}/>
