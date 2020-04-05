@@ -41,7 +41,7 @@ const { Option } = Select;
 
 class FeedFilter extends React.Component {
     render() {
-        const {state} = this.props;
+        // const {state} = this.props;
         // console.log(state.state.posts.reverse())
         // const posts = this.props.state.state.posts;
         // console.log(state.state.posts.reverse());
@@ -53,7 +53,8 @@ class FeedFilter extends React.Component {
                 optionFilterProp="children"
                 onChange={val => {
                     console.log("filter onChange", val);
-                    state.setState({sort: val})
+                    // this.props.state.setState({sort: val})
+                    this.props.onChange(val)
                 }}
                 // onFocus={onFocus}
                 // onBlur={onBlur}
@@ -68,8 +69,8 @@ class FeedFilter extends React.Component {
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
             >
-                <Option value="recent">Most Recent</Option>
-                <Option value="oldest">Oldest to Recent</Option>
+                <Option value="likes">Most Likes</Option>
+                <Option value="dislike">Most Dislikes</Option>
             </Select>
         );
     }

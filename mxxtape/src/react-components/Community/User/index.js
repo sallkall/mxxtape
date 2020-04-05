@@ -35,6 +35,8 @@ let communityjson = {
 class Community extends React.Component {
     constructor(props) {
         super(props);
+        this.handleSort = this.handleSort.bind(this);
+
         getUserProfile(props.username, userjson, this);
         //get community info
 
@@ -61,7 +63,7 @@ class Community extends React.Component {
 
 
     state = {
-        sortPosts: "oldest",
+        sortPosts: "recent",
         posts: [],
         community: {},
         loadingFeed: true,
@@ -77,6 +79,10 @@ class Community extends React.Component {
 
     joinCommunity(username) {
         subscribeToCommunity(username, communityjson.name, this)
+    }
+
+    handleSort(sortOption) {
+        this.setState({ sortPosts: sortOption });
     }
 
     Unsubscribe(username) {
@@ -117,84 +123,93 @@ class Community extends React.Component {
         let join_button_color = this.state.isMember ? "" : "#52c41a";
         const username = this.props.app.state.currentUser;
 
-        // // srt posts
-        // let compare = x => {
-        //     return x;
-        // };
-        if (this.state.sortPosts === "oldest") {
-            // compare = (a, b) => {
-            //     return a.timestamp - b.timestamp;
-            // };
-            this.state.posts.reverse()
-        } else if (this.state.sortPosts === "recent") {
-            // compare = (a, b) => {
-            //     return b.timestamp - a.timestamp;
-            // };
-            this.state.posts.reverse()
-        }
+        // // // srt posts
+        // // let compare = x => {
+        // //     return x;
+        // // };
+        // if (this.state.sortPosts === "oldest") {
+        //     // compare = (a, b) => {
+        //     //     return a.timestamp - b.timestamp;
+        //     // };
+        //     this.state.posts.reverse()
+        // } else if (this.state.sortPosts === "recent") {
+        //     // compare = (a, b) => {
+        //     //     return b.timestamp - a.timestamp;
+        //     // };
+        //     this.state.posts.reverse()
+        // }
 
         return (
             <div>
                 <Nav app={this.props.app}/>
-                <Layout>
-                    <Content className="content">
-                        <div className="header">
-                            <div id="header_container">
-                                <div id="group_avatar"/>
-                                <h1 className="header_h1"> {communityjson.name} </h1>
+                {this.state.loadingCommunity ?
+                    <Content className="content header">
+                        <p>Content Unavailable...</p>
+                    </Content>
+                    :
+                    <Layout>
+                        <Content className="content">
+                            <div className="header">
+                                <div id="header_container">
+                                    <div id="group_avatar"/>
+                                    <h1 className="header_h1"> {communityjson.name} </h1>
+                                </div>
+                                <Button
+                                    className="header_join_button"
+                                    // onClick={() => this.joinCommunity(username)}
+                                    onClick={() => this.handleJoin(username)}
+                                    size='large'
+                                > {this.state.isMember ? 'Leave Community' : 'Join Community'}
+                                    <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color}/>
+                                </Button>
                             </div>
-                            <Button
-                                className="header_join_button"
-                                // onClick={() => this.joinCommunity(username)}
-                                onClick={() => this.handleJoin(username)}
-                                size='large'
-                            > {this.state.isMember ? 'Leave Community' : 'Join Community'}
-                                <Icon type={join_button} theme="twoTone" twoToneColor={join_button_color}/>
-                            </Button>
-                        </div>
-                    </Content>
-                    <Content className="content">
-                        <Breadcrumb className="breadcrumb">
-                            <Breadcrumb.Item>Community</Breadcrumb.Item>
-                            <Breadcrumb.Item>Jazz</Breadcrumb.Item>
-                            <Breadcrumb.Item>Jazz it Up</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Layout className="feed_layout">
-                            <Content className="feed_container">
-                                {/*------ FEED/WALL -----*/}
-                                <div id="feed_buttons">
-                                    <div id="newmusic_button">
-                                        {/*Make new music post*/}
-                                        <NewMusicPost username={username} isMember={this.state.isMember} state={this.state}/>
+                        </Content>
+                        <Content className="content">
+                            <Breadcrumb className="breadcrumb">
+                                <Breadcrumb.Item>Community</Breadcrumb.Item>
+                                <Breadcrumb.Item>Jazz</Breadcrumb.Item>
+                                <Breadcrumb.Item>Jazz it Up</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <Layout className="feed_layout">
+                                <Content className="feed_container">
+                                    {/*------ FEED/WALL -----*/}
+                                    <div id="feed_buttons">
+                                        <div id="newmusic_button">
+                                            {/*Make new music post*/}
+                                            <NewMusicPost username={username} isMember={this.state.isMember}
+                                                          state={this.state}/>
+                                        </div>
+                                        <div id="newtextpost_button">
+                                            {/*Make new text post*/}
+                                            <NewTextPost username={username} isMember={this.state.isMember}
+                                                         state={this.state}/>
+                                        </div>
+                                        <div id="feed_filter">
+                                            {/*Filter by most recent or oldest*/}
+                                            <FeedFilter onChange={this.handleSort}/>
+                                        </div>
                                     </div>
-                                    <div id="newtextpost_button">
-                                        {/*Make new text post*/}
-                                        <NewTextPost username={username} isMember={this.state.isMember} state={this.state}/>
+                                    <div className="posts">
+                                        {/*Render all of community feed/users' posts*/}
+                                        {/*<CommunityFeed/>*/}
+                                        {this.state.loadingFeed ? <p>loading...</p> :
+                                            <CommunityFeed app={this.props.app} posts={this.state.posts} sortPosts={this.state.sortPosts}/>}
                                     </div>
-                                    <div id="feed_filter">
-                                        {/*Filter by most recent or oldest*/}
-                                        <FeedFilter state={this}/>
+                                </Content>
+                                <Sider className="sidebar" width={240}>
+                                    <h3>Popular Tags: </h3>
+                                    <div className="sidebar_item">
+                                        <FeedTags/>
                                     </div>
-                                </div>
-                                <div className="posts">
-                                    {/*Render all of community feed/users' posts*/}
-                                    {/*<CommunityFeed/>*/}
-                                    {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed app={this.props.app} posts={this.state.posts}/>}
-                                </div>
-                            </Content>
-                            <Sider className="sidebar" width={240}>
-                                <h3>Popular Tags: </h3>
-                                <div className="sidebar_item">
-                                    <FeedTags/>
-                                </div>
-                                <h3>Members: </h3>
-                                <div className="sidebar_item">
-                                    <MembersList/>
-                                </div>
-                            </Sider>
-                        </Layout>
-                    </Content>
-                </Layout>
+                                    <h3>Members: </h3>
+                                    <div className="sidebar_item">
+                                        <MembersList/>
+                                    </div>
+                                </Sider>
+                            </Layout>
+                        </Content>
+                    </Layout>
+                }
             </div>
         )
     }

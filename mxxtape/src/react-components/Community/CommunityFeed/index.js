@@ -45,15 +45,18 @@ import Post from "../Post";
 class CommunityFeed extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            // posts: []
-            posts: this.props.posts
-        }
+
+        // srt posts
+
+        // this.state = {
+        //     // posts: []
+        //     posts: this.props.posts
+        // }
     }
 
     renderPost = item => {
-        const newId = item._id.toString();
-        console.log("renderpost", item._id, newId);
+        // const newId = item._id.toString();
+        console.log("renderpost", item.likes, item.dislikes);
         return <Post className="single_post"
                      musicUrl={item.musicUrl}
                      key={item._id.toString()}
@@ -69,11 +72,30 @@ class CommunityFeed extends React.Component {
     };
 
     render() {
-        console.log("CommunityFeed", this.state.posts);
-        // getFeed(this);
-        this.state.posts.forEach(item => {
-            console.log(item._id);
-        });
+        if (this.props.sortPosts === "dislikes") {
+            let compare = (a, b) => {
+                return b.dislikes - a.dislikes;
+            };
+            this.state ={posts: this.props.posts.sort(compare)};
+            console.log("dislikes", this.state.posts,this.props.sortPosts)
+        } else if (this.props.sortPosts === "likes") {
+            let compare = (a, b) => {
+                // return b.timestamp - a.timestamp;
+                return b.likes - a.likes;
+            };
+            this.state={posts: this.props.posts.sort(compare)};
+            console.log("likes", this.state.posts,this.props.sortPosts)
+            // this.state.posts.reverse();
+            // this.state.posts.sort(function(a, b){return a.likes-b.likes})
+        } else {
+            this.state={posts: this.props.posts};
+            console.log("normal", this.state.posts,this.props.sortPosts)
+        }
+        console.log("CommunityFeed", this.state.posts,this.props.sortPosts);
+        // // getFeed(this);
+        // this.state.posts.forEach(item => {
+        //     console.log(item._id);
+        // });
         return (
             <div>
                 {
