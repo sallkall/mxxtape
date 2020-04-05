@@ -1,68 +1,82 @@
 # team64
 
-## Submission
-
-This submission should be regarded as late. The last commit made to master with changes to the project was on Tue Mar 3 
-at 23:20:03. 
-
-However, we make the note that the submission at the last commit before 10PM is also a completely working project. 
-The problems were due to merge conflicts on the master branch that we had to take some time to resolve before merging 
-from our development `dev` branch.
-
-### git logs
-
-Last commit before 10PM: 
-
-````git
-commit babe442028a1a6aaae2570ab13a8f83fd81e4454 (origin/dev, dev)
-Merge: b18955d 6869474
-Author: Janet Wang <38889794+jwangwangj@users.noreply.github.com>
-Date:   Tue Mar 3 21:56:09 2020 -0500
-
-    Merge pull request #25 from csc309-winter-2020/readme
-    
-    Readme
-````
-
-Last commit with changes:
-
-```git
-commit 24e66d874586ffd02ae155bbe54fec1db0d86602 (HEAD -> master, origin/master, origin/HEAD)
-Author: Sally Zi Kang <sallyzi.kang@mail.utoronto.ca>
-Date:   Tue Mar 3 23:20:03 2020 -0500
-
-    updated some community styling thta went away during messed up merge
-```
-## Running the app for the fist time
+## Setup and Development
 
 Follow these steps exactly to build the app for the first time:
-1. clone the rep: `git clone https://github.com/csc309-winter-2020/team64.git`
-2. navigate to the `mxxtape` folder
-3. in the terminal, run:
-    1. `npm i`
-    2. `npm run-script build`
-    3. `npm start`
-4. the web app should start in your browser at `localhost:3000`
+1. clone the repo: `git clone https://github.com/csc309-winter-2020/team64.git`
+2. navigate to the `team64` folder
+3. In the terminal create and run local Mongo database in the root directory of the repo
+   ``` 
+   mkdir mongo-data
+   mongod --dbpath mongo-data
+   ```
+4. In the root directory of the repo (team64):
+    ``` 
+    # install server dependencies in the root directory
+    npm install
 
-## Login credentials: 
+    # install frontend dependencies in the mxxtape directory
+    cd mxxtape
+    npm install
+    ```
+5. To build the React app and start the server `npm run build-run` in the root directory: 
+    ```
+    npm run build-run
+    ```
+The web app should start in your browser at `localhost:5000`
 
-Any other combination will not work
+## Login/Populating the Database
+#### Creating & Logging in as User :
+There are two ways in which you can register and create a user profile: 
+1. Using the frontend from:
+    - In the initial login page navigate and click on `Register now!`
+    - create an account using the input boxes
+    ```
+    # Sample account creation inputs:
+        email: user@user.com
+        username: user
+        new password: user
+        comfirm password: user
+    ```
+    - submit the creation request by clicking on `Register now!`
+ 2. Alternately, you can send a `POST` request to `/users`, for example you can use the following json body: 
+     ```
+     {
+        "username": "user",
+        "email": "user@user.com",
+        "password": "user",
+     }
+     ```
+    
+#### Creating & Logging in as Admin :
 
-### As user
-Username: user
+You can only make an admin account by sending a `POST` request to `/users`. For example, you can use the following json body: 
+   ```
+     {
+        "username": "admin",
+        "email": "admin@admin.com",
+        "password": "admin",
+        "type": 2
+     }
+   ```
+    
+## To view db in MongoDBCompass
+- connect with the url `mongodb://localhost:27017/`
+    
+## Phase 2 updates + overview
+- Replaced mock data with a MongoDB database
+- Built a backend API running an Express server 
 
-Password: user
-
-### As admin
-Username: admin
-
-Password: admin
-
-## GENERAL OPERATION:
-- To log in as User: user, user. To log in as Admin: admin, admin.
-- Do not refresh the page! Without cookies, refreshing the page will immediately log you out.
-- There is no existential check for usernames in URLs, even blank ones will be accepted.
-- There is currently only one community - “Jazz it Up” (/community/jazzitup)
+We have 4 collections in our `mxxtape` database:
+1. communities
+    - Containing each community's information such as community name, genre, descriptions and mostly importantly 
+    a list of posts (the feed) in the community discussion board
+2. posts
+    - a nested collection inside communities storing all posts information made in a community 
+3. featuredsongs
+    - Stores the featured song selected by an admin that is displayed onto all user's dashboard
+4. users
+    - a collection of user info including login info and subscriptions etc.
 
 # Dashboard:
 - The Dashboard is intended as the user’s primary landing page. It contains a user’s ‘starred song’, which they can change, as well as several cards with various other songs. The Featured card is set by the site admin for all users, and contains a song they think is worth sharing. The Recommended card contains various songs from communities the user frequents. The History card contains songs the user has recently listened to, and the Communities card contains the communities the user is subscribed to. The History and Communities cards both contain links to a page with the full list, to save space.
@@ -80,9 +94,9 @@ NB: To access, go to /profile/[Username]. ‘Connor’ currently has a profile p
 ### Community Page - Users's View 
 
 #### How to use all the features
-1. Access by searching `jazz it up` in the search bar. Alternatively, you can scroll down on dashboard and find the `YOUR COMMUNITIES` section and click on `jazz it up` 
-	- this should take you to `http://localhost:3000/community/jazzitup`
-2. Once the community page for jazz it up, you must *Join Community*, upon doing so you will have the ability to create and post to the community feed
+1. Using the nav bar dropdown option `Community Creation`, request and create a new community
+2. Using the search bar, search for the requested community , this should direct you to the community page
+3. Once the community page use *Join Community*, to join, upon doing so you will have the ability to create and post to the community feed
 3. *2 Ways to make post*:
 	a. Text posts: 
 		- You may input upto 140 characters, and content must not be blank (otherwise post cannot be executed)
@@ -91,20 +105,17 @@ NB: To access, go to /profile/[Username]. ‘Connor’ currently has a profile p
 		- has to be a soundcloud url and url cannot be blank 
 		- tags follow the same rule as text posts tags
 		- can give a rating out of 5
-
+		
 #### Other Features:
 - like/dislike a post 
 - can sort the feed by most recent or oldest 
-- popular tags (this should render based on sever data in phase2, hardcoded for now)
-- fake (mocky) member list for now, again will be updated based on server data in phase 2
 - leave community will not let you post
 - play music, look through reviews and comments 
 
-### Community Page - Admin's View 
-(Mostly the same as user's view)
+#### Community Page - Admin's View 
+Similar to how user page works, but cannot leave a community 
 
-Additional features/differences:
-- cannot leave the community
+____________
 
 ## Login Page Features
 

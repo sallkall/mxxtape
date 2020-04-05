@@ -130,7 +130,13 @@ class SettingsForm extends React.Component{
     updateServerInfo = (values) => {
         //make call to server to update user info from values
         console.log("Updated Server Info", values);
-        message.success("Updated Info!")
+        fetch("/users/"+this.props.username+"/avatar", {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(values)})
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+        //message.success("Updated Info!")
     };
 
     // toggle for the buttons
@@ -428,6 +434,7 @@ class SettingsForm extends React.Component{
                     <Upload
                         name="avatar"
                         className="avatar-uploader"
+                        accept=".jpg, .jpeg, .png"
                         showUploadList={false}
                         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         beforeUpload={beforeUpload}

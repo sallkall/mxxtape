@@ -133,6 +133,7 @@ export const getUserProfile = (username, user_json, react) => {
                 user_json.starsong = json.starsong;
                 user_json.history = json.history;
                 user_json.subscriptions = json.subscriptions;
+                user_json.avatar = json.avatar;
                 if(JSON.stringify(original_json.starsong) !== JSON.stringify(user_json.starsong)) {
                     react.forceUpdate();
                 }

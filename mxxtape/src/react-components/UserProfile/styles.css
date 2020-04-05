@@ -1,9 +1,9 @@
 #ProfileSidebar {
     position: absolute;
     height: 650px;
-    margin: 10px;
+    margin: 72px 48px 48px 48px;
     border-radius: 10px;
-    background: inherit;
+    background-color: transparent;
 }
 #ProfileSidebarCard {
     height: 100%;
@@ -18,16 +18,23 @@
 
 #ProfileContents {
     position: absolute;
-    padding-left: 100px;
-    margin-left: 50%;
-    transform: translate(-50%, 0);
-    width: 1300px;
+    width: 75%;
+    margin-top: 24px;
+    margin-left: 300px;
+    margin-right: 100px;
+    text-align: center;
 }
 
+.SongListCard {
+    float: left;
+    margin-top: 24px;
+    width: 45%;
+}
 
 #ProfileCommunityCard {
-    width: 400px;
-    height: 550px;
+    width: 50%;
+    float: right;
+    text-align: center;
 }
 .CommunityDiv {
     height: 50px;

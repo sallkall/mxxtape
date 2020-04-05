@@ -25,7 +25,8 @@ let userjson = {
     exists: false,
     starsong: "",
     history: [],
-    subscriptions: []
+    subscriptions: [],
+    avatar: ""
 };
 
 class UserProfile extends React.Component {
@@ -42,25 +43,23 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        console.log(this.props.app);
         if(!userjson.exists) {
             return (
-                <NoMatch/>
+                <NoMatch app={this.props.app}/>
             )
         }
         userjson.history = userjson.history.slice(0, 4);
         userjson.subscriptions = userjson.subscriptions.slice(0, 4);
         const username = this.props.username;
 
-        console.log(userjson);
         return (
             <div>
-                <Nav app={ this.props.app }/>
+                <Nav app={this.props.app}/>
                 <Router>
                     <Layout>
                         <Sider id="ProfileSidebar">
                             <Card id="ProfileSidebarCard" title={username}>
-                                <Avatar id="ProfileSidebarAvatar" shape="square" src={"/"+username+".png"}/>
+                                <Avatar id="ProfileSidebarAvatar" shape="square" src={userjson.avatar}/>
                                 <Divider/>
                                 <p>Starred Song</p>
                                 <ReactPlayer height={200} width={150} controls={false} url={userjson.starsong} onPlay={function() {addToHistory(this.props.app.state.currentUser, userjson.starsong)}}/>
@@ -74,7 +73,7 @@ class UserProfile extends React.Component {
                                     dataSource = {userjson.history}
                                     renderItem = {item => (
                                         <List.Item>
-                                            <ReactPlayer height={70} width={650} controls={false} url={item} onPlay={function() {addToHistory(this.props.app.state.currentUser, item)}}/>
+                                            <ReactPlayer height={70} controls={false} url={item} onPlay={function() {addToHistory(this.props.app.state.currentUser, item)}}/>
                                         </List.Item>
                                     )}
                                 />

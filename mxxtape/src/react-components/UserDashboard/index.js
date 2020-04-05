@@ -24,7 +24,8 @@ let userjson = {
     exists: false,
     starsong: "",
     history: [],
-    subscriptions: []
+    subscriptions: [],
+    avatar: ""
 };
 
 let featuredSong = "";
@@ -93,7 +94,7 @@ class UserDashboard extends React.Component {
                     <Layout id="layout">
                         <Sider id="DashboardSidebar">
                             <Card title={username}>
-                                <Avatar id="DashboardSidebarAvatar" shape="square" src={"/"+username+".png"}/>
+                                <Avatar id="DashboardSidebarAvatar" shape="square" src={userjson.avatar}/>
                                 <Divider/>
                                 <p>Starred Song</p>
                                 <ReactPlayer height={150} width={150} controls={false} url={userjson.starsong} onPlay={function() {addToHistory(username, userjson.starsong)}}/>
