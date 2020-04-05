@@ -69,8 +69,10 @@ class FeedFilter extends React.Component {
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
             >
-                <Option value="likes">Most Likes</Option>
-                <Option value="dislike">Most Dislikes</Option>
+                <Option value="mostlikes">Most Likes</Option>
+                <Option value="leastlikes">Least Likes</Option>
+                <Option value="mostdislikes">Most Dislikes</Option>
+                <Option value="leastdislikes">Least Dislikes</Option>
             </Select>
         );
     }

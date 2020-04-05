@@ -72,26 +72,44 @@ class CommunityFeed extends React.Component {
     };
 
     render() {
-        if (this.props.sortPosts === "dislikes") {
+        if (this.props.sortPosts === "mostdislikes") {
             let compare = (a, b) => {
                 return b.dislikes - a.dislikes;
             };
             this.state ={posts: this.props.posts.sort(compare)};
-            console.log("dislikes", this.state.posts,this.props.sortPosts)
-        } else if (this.props.sortPosts === "likes") {
+            console.log("mostdislikes", this.state.posts,this.props.sortPosts)
+        } else if (this.props.sortPosts === "mostlikes") {
             let compare = (a, b) => {
                 // return b.timestamp - a.timestamp;
                 return b.likes - a.likes;
             };
             this.state={posts: this.props.posts.sort(compare)};
-            console.log("likes", this.state.posts,this.props.sortPosts)
+            console.log("mostlikes", this.state.posts,this.props.sortPosts)
             // this.state.posts.reverse();
             // this.state.posts.sort(function(a, b){return a.likes-b.likes})
-        } else {
+        } else if (this.props.sortPosts === "leastlikes") {
+            let compare = (a, b) => {
+                // return b.timestamp - a.timestamp;
+                return a.likes - b.likes;
+            };
+            this.state={posts: this.props.posts.sort(compare)};
+            console.log("leastlikes", this.state.posts,this.props.sortPosts)
+            // this.state.posts.reverse();
+            // this.state.posts.sort(function(a, b){return a.likes-b.likes})
+        } else if (this.props.sortPosts === "leastdislikes") {
+            let compare = (a, b) => {
+                // return b.timestamp - a.timestamp;
+                return a.dislikes - b.dislikes;
+            };
+            this.state={posts: this.props.posts.sort(compare)};
+            console.log("leastdislikes", this.state.posts,this.props.sortPosts)
+            // this.state.posts.reverse();
+            // this.state.posts.sort(function(a, b){return a.likes-b.likes})
+        }
+        else {
             this.state={posts: this.props.posts};
             console.log("normal", this.state.posts,this.props.sortPosts)
         }
-        console.log("CommunityFeed", this.state.posts,this.props.sortPosts);
         // // getFeed(this);
         // this.state.posts.forEach(item => {
         //     console.log(item._id);
