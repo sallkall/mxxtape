@@ -12,6 +12,7 @@ class LoginPage extends React.Component {
         super(props);
         // console.log("LoginPage constructor", props);
         this.app = this.props.app;//this.props.app;
+        this.props.history.push("/");
     }
 
     state = {

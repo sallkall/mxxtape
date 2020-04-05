@@ -126,17 +126,9 @@ class App extends React.Component {
                 <div>
                     <BrowserRouter>
                         <Switch>
-                            <Route exact
-                                   path={[
-                                       '/', '/dashboard', '/login', '/settings', '/community/jazzitup',
-                                       '/' + this.state.create_community,'/history','/subscriptions','/profile',
-                                       '/' + this.state.notifications
-                                   ]}
-                                   render={() => <LoginPage app={this}/>}
-                            />
                             <Route exact path='/register' render={() => <RegisterPage app={this}/>}/>
                             <Route exact path='/forgot_password' render={() => <ForgotPassword app={this}/>}/>
-                            <Route path="*" render={()=><NoMatch app={this}/>}/>
+                            <Route path="*" render={() => <LoginPage app={this}/>}/>
                         </Switch>
                     </BrowserRouter>
                 </div>
