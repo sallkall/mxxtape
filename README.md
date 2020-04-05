@@ -1,5 +1,10 @@
 # team64
 
+```
+# heroku deployment
+https://pacific-chamber-74192.herokuapp.com/
+```
+
 ## Setup and Development
 
 Follow these steps exactly to build the app for the first time:
