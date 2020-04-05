@@ -113,14 +113,14 @@ NB: To access, go to /profile/[Username]. ‘Connor’ currently has a profile p
 - play music, look through reviews and comments 
 
 #### Creating a new post by a `POST` request 
-Instead of using the front end form you can also send a `POST` request to `http://localhost:5000/posts/`
-For example: 
+Instead of using the front end form you can also send a `POST` request to `http://localhost:5000/posts/`.
+- For example: 
     ```
     {
-    	"author": "sally",
+        "author": "sally",
         "avatar":"https://tinyurl.com/qw9rxdj",
-    	"community_id": 0,
-        "content": "Welcome to the Jazz it Up community. Use this space to talk, share, and spread love for jazz music! ",
+        "community_id": 0,
+        "content": "Welcome to the Jazz it Up community. A space to talk, share, and spread love for jazz music! ",
         "tags": ["welcome"],
         "post_type": "text"
     }
