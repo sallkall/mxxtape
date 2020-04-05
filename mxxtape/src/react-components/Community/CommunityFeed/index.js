@@ -56,7 +56,7 @@ class CommunityFeed extends React.Component {
 
     renderPost = item => {
         // const newId = item._id.toString();
-        console.log("renderpost", item.likes, item.dislikes);
+        // console.log("renderpost", item.likes, item.dislikes);
         return <Post className="single_post"
                      musicUrl={item.musicUrl}
                      key={item._id.toString()}

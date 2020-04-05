@@ -51,6 +51,7 @@ let communityjson = {
 class CommunityAdmin extends React.Component {
     constructor(props) {
         super(props);
+        this.handleSort = this.handleSort.bind(this);
         getUserProfile(props.username, userjson, this);
 
         // console.log("Community constructor", this.state);
@@ -85,6 +86,10 @@ class CommunityAdmin extends React.Component {
         },
         loading: false,
     };
+
+    handleSort(sortOption) {
+        this.setState({ sortPosts: sortOption });
+    }
 
     handleChange = info => {
         if (info.file.status === 'uploading') {
@@ -134,64 +139,72 @@ class CommunityAdmin extends React.Component {
         return (
             <div>
                 <Nav app={this.props.app}/>
-            <Layout>
-                <Content className="content">
-                    <div className="header">
-                        <div id="header_container">
-                                <Upload
-                                    name="avatar"
-                                    listType="picture-card"
-                                    className="group_avatar"
-                                    showUploadList={false}
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                    beforeUpload={beforeUpload}
-                                    onChange={this.handleChange}
-                                >
-                                    {imageUrl ?
-                                        <img className='avatar_image' src={imageUrl} alt="avatar"/> : uploadButton}
-                                </Upload>
-                            <h1 className="header_h1"> Jazz it Up </h1>
-                        </div>
-                    </div>
-                </Content>
-                <Content className="content">
-                    <Breadcrumb className="breadcrumb">
-                        <Breadcrumb.Item>Community</Breadcrumb.Item>
-                        <Breadcrumb.Item>Jazz</Breadcrumb.Item>
-                        <Breadcrumb.Item>Jazz it Up</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <Layout className="feed_layout">
-                        <Content className="feed_container">
-                            {/*------ FEED/WALL -----*/}
-                            <div id="feed_buttons">
-                                <div id="newmusic_button">
-                                    <NewMusicPost isMember={this.state.isMember} state={this.state}/>
+                {this.state.loadingCommunity ?
+                    <Content className="content header">
+                        <p>Content Unavailable...Are you sure you're in the right place?</p>
+                    </Content>
+                    :
+                    <Layout>
+                        <Content className="content">
+                            <div className="header">
+                                <div id="header_container">
+                                    <Upload
+                                        name="avatar"
+                                        listType="picture-card"
+                                        className="group_avatar"
+                                        showUploadList={false}
+                                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                        beforeUpload={beforeUpload}
+                                        onChange={this.handleChange}
+                                    >
+                                        {imageUrl ?
+                                            <img className='avatar_image' src={imageUrl} alt="avatar"/> : uploadButton}
+                                    </Upload>
+                                    <h1 className="header_h1"> Jazz it Up </h1>
                                 </div>
-                                <div id="newtextpost_button">
-                                    <NewTextPost isMember={this.state.isMember} state={this.state}/>
-                                </div>
-                                <div id="feed_filter">
-                                    <FeedFilter state={this.state}/>
-                                </div>
-                            </div>
-                            <div className="posts">
-                                {/*<CommunityFeed/>*/}
-                                {this.state.loadingFeed ? <p>loading...</p> : <CommunityFeed app={this.props.app} posts={this.state.posts}/>}
                             </div>
                         </Content>
-                        <Sider className="sidebar" width={240}>
-                            <h3>Popular Tags: </h3>
-                            <div className="sidebar_item">
-                                <FeedTags/>
-                            </div>
-                            <h3>Members: </h3>
-                            <div className="sidebar_item">
-                                <MembersList/>
-                            </div>
-                        </Sider>
+                        <Content className="content">
+                            <Breadcrumb className="breadcrumb">
+                                <Breadcrumb.Item>Community</Breadcrumb.Item>
+                                <Breadcrumb.Item>Jazz</Breadcrumb.Item>
+                                <Breadcrumb.Item>Jazz it Up</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <Layout className="feed_layout">
+                                <Content className="feed_container">
+                                    {/*------ FEED/WALL -----*/}
+                                    <div id="feed_buttons">
+                                        <div id="newmusic_button">
+                                            <NewMusicPost isMember={this.state.isMember} state={this.state}/>
+                                        </div>
+                                        <div id="newtextpost_button">
+                                            <NewTextPost isMember={this.state.isMember} state={this.state}/>
+                                        </div>
+                                        <div id="feed_filter">
+                                            <FeedFilter state={this.state} onChange={this.handleSort}/>
+                                        </div>
+                                    </div>
+                                    <div className="posts">
+                                        {/*<CommunityFeed/>*/}
+                                        {this.state.loadingFeed ? <p>loading...</p> :
+                                            <CommunityFeed app={this.props.app} posts={this.state.posts}
+                                                           sortPosts={this.state.sortPosts}/>}
+                                    </div>
+                                </Content>
+                                <Sider className="sidebar" width={240}>
+                                    <h3>Popular Tags: </h3>
+                                    <div className="sidebar_item">
+                                        <FeedTags/>
+                                    </div>
+                                    <h3>Members: </h3>
+                                    <div className="sidebar_item">
+                                        <MembersList/>
+                                    </div>
+                                </Sider>
+                            </Layout>
+                        </Content>
                     </Layout>
-                </Content>
-            </Layout>
+                }
             </div>
         )
     }
