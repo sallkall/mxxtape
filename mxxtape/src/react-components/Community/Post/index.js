@@ -22,7 +22,7 @@ class Post extends React.Component {
             ),
         };
         // console.log(this.props.item)
-        console.log(this.state.postId)
+        // console.log(this.state.postId)
     }
 
     like = () => {
